@@ -98,6 +98,11 @@ public:
     return (l != T(0)) ? a/l : Vec2t{T(0),T(0)};
   }
 		
+  static Vec2t<float> clamp(const Vec2t& val, float minVal, float maxVal) {
+    return { std::clamp(val.x, minVal, maxVal),
+             std::clamp(val.y, minVal, maxVal)
+    };
+  }
 };
 
 template <typename T>

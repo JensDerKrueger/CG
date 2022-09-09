@@ -181,6 +181,13 @@ public:
     const float r = sqrt(1.0f - z*z);
     return {r*cosf(a), r*sinf(a), z};
   }
+    
+  static Vec3t<float> clamp(const Vec3t& val, float minVal, float maxVal) {
+    return { std::clamp(val.x, minVal, maxVal),
+             std::clamp(val.y, minVal, maxVal),
+             std::clamp(val.z, minVal, maxVal)
+    };
+  }
 };
 
 template <typename T>

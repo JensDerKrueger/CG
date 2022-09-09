@@ -141,6 +141,14 @@ public:
   static Vec4t<float> random() {
     return {staticRand.rand01(),staticRand.rand01(),staticRand.rand01(),staticRand.rand01()};
   }
+  
+  static Vec4t<float> clamp(const Vec4t& val, float minVal, float maxVal) {
+    return { std::clamp(val.x, minVal, maxVal),
+             std::clamp(val.y, minVal, maxVal),
+             std::clamp(val.z, minVal, maxVal),
+             std::clamp(val.w, minVal, maxVal)
+    };
+  }
 };
 
 template <typename T>
