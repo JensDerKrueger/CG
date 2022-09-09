@@ -30,3 +30,12 @@
 *.exe
 *.out
 *.app
+
+# Solutions and Latex
+Solution
+Assignment
+LatexUtils
+
+# macOS Files
+.DS_Store
+xcuserdata
