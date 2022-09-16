@@ -54,7 +54,7 @@ int main(int argc, char** argv)
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	window = glfwCreateWindow(800, 600, "Assignment 01 - Hello OpenGL", NULL, NULL);
+	window = glfwCreateWindow(800, 600, "Assignment 10 - Hello OpenGL", NULL, NULL);
 	if (window == NULL)
 	{
 		std::cout << "Failed to create GLFW window!" << std::endl;
