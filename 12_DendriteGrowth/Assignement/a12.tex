@@ -1,0 +1,27 @@
+\documentclass[12pt, a4paper, oneside, ngerman]{article}
+
+\input{../../LatexUtils/epackages.tex}
+
+\newcommand{\hpcSheetNumber}{12}
+\newcommand{\hpcDeadline}{January 30, 2022 at 11:55pm}
+
+%%% define class and exam details in header file!
+
+%\hpcSolutiontrue
+
+\begin{document}
+
+\input{../../LatexUtils/header.tex}
+
+\section{Growth Simulation}
+The provided code in this assignment simulates a growing dendrite-like shape using particles. This simulation process takes place in the \texttt{simulate} function of the \texttt{main.cpp} file. The first particle is placed in the origin. In each subsequent step, a random position between (-1, -1, -1) and (1, 1, 1) of a new particle is first calculated and then it is moved in random directions until it collides with an existing particle. If the particle moves too far from the origin a new random position is calculated. Without an acceleration data structure each existing particle needs to be checked for a collision. To speed up this process the provided code uses an octree for space space partitioning. The program also shows a visualization of the current octree. You can switch between a 2D and 3D view by commenting out line 2 of the \texttt{main.cpp} file.
+
+\ex{Octree as acceleration data structure}{20}
+\label{ex:octree}
+
+The provided \texttt{Octree} class consists of a hierarchical structure of \texttt{OctreeNode} objects. The member variable \texttt{root} points to the root node. The octree further defines two parameters \texttt{maxElemCount} and \texttt{maxDepth} which represent the maximum number of elements that one node can hold until it splits into new nodes and the maximum depth of the octree. The provided example program already implements a nearest neighbour search of the octree to figure out the minimum distance to the new particle position in \texttt{Octree::minDist}. Your task is to implement the addition of new elements to the octree and splitting nodes into new children if necessary. Complete the member functions \texttt{OctreeNode::add} and \texttt{OctreeNode::split}. They are annotated with TODO comments and provide further information for the implementation.
+
+You can compare your solution with the clip of the growth simulation on Moodle. Keep in mind that the simulation is based on random positions.
+
+
+\end{document}
