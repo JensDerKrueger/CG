@@ -113,10 +113,10 @@
       <AdditionalDependencies>utils.lib;opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>XCOPY "$(ProjectDir)..\*.bmp" "$(OutDir)*.*" /Y
-XCOPY "$(ProjectDir)..\*.pos" "$(OutDir)*.*" /Y
-XCOPY "$(ProjectDir)..\*.bmp" "$(ProjectDir)*.*" /Y
-XCOPY "$(ProjectDir)..\*.pos" "$(ProjectDir)*.*" /Y</Command>
+      <Command>XCOPY "$(ProjectDir)..\..\Utils\*.bmp" "$(OutDir)*.*" /Y
+XCOPY "$(ProjectDir)..\..\Utils\*.pos" "$(OutDir)*.*" /Y
+XCOPY "$(ProjectDir)..\..\Utils\*.bmp" "$(ProjectDir)*.*" /Y
+XCOPY "$(ProjectDir)..\..\Utils\*.pos" "$(ProjectDir)*.*" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -138,10 +138,10 @@ XCOPY "$(ProjectDir)..\*.pos" "$(ProjectDir)*.*" /Y</Command>
       <AdditionalDependencies>utils.lib;opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>XCOPY "$(ProjectDir)..\*.bmp" "$(OutDir)*.*" /Y
-XCOPY "$(ProjectDir)..\*.pos" "$(OutDir)*.*" /Y
-XCOPY "$(ProjectDir)..\*.bmp" "$(ProjectDir)*.*" /Y
-XCOPY "$(ProjectDir)..\*.pos" "$(ProjectDir)*.*" /Y</Command>
+      <Command>XCOPY "$(ProjectDir)..\..\Utils\*.bmp" "$(OutDir)*.*" /Y
+XCOPY "$(ProjectDir)..\..\Utils\*.pos" "$(OutDir)*.*" /Y
+XCOPY "$(ProjectDir)..\..\Utils\*.bmp" "$(ProjectDir)*.*" /Y
+XCOPY "$(ProjectDir)..\..\Utils\*.pos" "$(ProjectDir)*.*" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -159,10 +159,10 @@ XCOPY "$(ProjectDir)..\*.pos" "$(ProjectDir)*.*" /Y</Command>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\VS\lib\$(Platform);$(SolutionDir)$(PlatformTarget)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>XCOPY "$(ProjectDir)..\*.bmp" "$(OutDir)*.*" /Y
-XCOPY "$(ProjectDir)..\*.pos" "$(OutDir)*.*" /Y
-XCOPY "$(ProjectDir)..\*.bmp" "$(ProjectDir)*.*" /Y
-XCOPY "$(ProjectDir)..\*.pos" "$(ProjectDir)*.*" /Y</Command>
+      <Command>XCOPY "$(ProjectDir)..\..\Utils\*.bmp" "$(OutDir)*.*" /Y
+XCOPY "$(ProjectDir)..\..\Utils\*.pos" "$(OutDir)*.*" /Y
+XCOPY "$(ProjectDir)..\..\Utils\*.bmp" "$(ProjectDir)*.*" /Y
+XCOPY "$(ProjectDir)..\..\Utils\*.pos" "$(ProjectDir)*.*" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -184,10 +184,10 @@ XCOPY "$(ProjectDir)..\*.pos" "$(ProjectDir)*.*" /Y</Command>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\VS\lib\$(Platform);$(SolutionDir)$(PlatformTarget)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>XCOPY "$(ProjectDir)..\*.bmp" "$(OutDir)*.*" /Y
-XCOPY "$(ProjectDir)..\*.pos" "$(OutDir)*.*" /Y
-XCOPY "$(ProjectDir)..\*.bmp" "$(ProjectDir)*.*" /Y
-XCOPY "$(ProjectDir)..\*.pos" "$(ProjectDir)*.*" /Y</Command>
+      <Command>XCOPY "$(ProjectDir)..\..\Utils\*.bmp" "$(OutDir)*.*" /Y
+XCOPY "$(ProjectDir)..\..\Utils\*.pos" "$(OutDir)*.*" /Y
+XCOPY "$(ProjectDir)..\..\Utils\*.bmp" "$(ProjectDir)*.*" /Y
+XCOPY "$(ProjectDir)..\..\Utils\*.pos" "$(ProjectDir)*.*" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
