@@ -197,31 +197,31 @@ Scene Scene::genTexturedScene()
 
 	// create the redish material for the right sphere
 	// vec3 are treated as color values in the range [0, 1]
-	Material m(Vec3(0.9f, 0.0f, 0.0f), Vec3(1.0f, 0.0f, 0.0f), Vec3(1.0f, 1.0f, 1.0f), 20, 0.2, 1.52, hpcDark);
+	Material m(Vec3(0.9f, 0.0f, 0.0f), Vec3(1.0f, 0.0f, 0.0f), Vec3(1.0f, 1.0f, 1.0f), 20, 0.2f, 1.52f, hpcDark);
 
 	// create a sphere, apply the material above to it and attach it to the scene
 	float i = 6;
 	TextureCoordinates scale{ 2.0f * i, i };
 	TextureCoordinates bias{ (1 - scale.u) / 2, (1 - scale.v) / 2 };
-	s.addObject(std::make_shared<Sphere>(Vec3{ 0.7f, -0.4f, -2.0f }, 0.9, m, Vec3{-75, -25, -60}, scale, bias));
+	s.addObject(std::make_shared<Sphere>(Vec3{ 0.7f, -0.4f, -2.0f }, 0.9f, m, Vec3{-75, -25, -60}, scale, bias));
 
 	// create the earth material and apply it to the left sphere
 	m = Material(Vec3{ 1.0f, 1.0f, 1.0f }, Vec3{ 1.0f, 1.0f, 1.0f }, Vec3{ 0.2f, 0.2f, 0.2f }, 8, 1, {}, earth);
 	scale = TextureCoordinates{ 1.0f, 1.0f };
 	bias = TextureCoordinates{ 0.0f, 0.0f };
-	s.addObject(std::make_shared<Sphere>(Vec3{ -0.9f, -0.1f, -2.2f }, 0.6, m, Vec3{ -90, 0, -90 }, scale, bias));
+	s.addObject(std::make_shared<Sphere>(Vec3{ -0.9f, -0.1f, -2.2f }, 0.6f, m, Vec3{ -90, 0, -90 }, scale, bias));
 
 	// create the yellowish material and apply it to the big sphere in the back
-	m = Material(Vec3{ 0.3f, 0.3f, 0.0f }, Vec3{ 0.7f, 0.7f, 0.0f }, Vec3{ 1.0f, 1.0f, 0.0f }, 8, 0.3, {}, hpcLight);
+	m = Material(Vec3{ 0.3f, 0.3f, 0.0f }, Vec3{ 0.7f, 0.7f, 0.0f }, Vec3{ 1.0f, 1.0f, 0.0f }, 8, 0.3f, {}, hpcLight);
 
 	i = 4;
 	scale = TextureCoordinates{ 2.0f * i, i };
 	bias = TextureCoordinates{ (1 - scale.u) / 2, (1 - scale.v) / 2 };
-	s.addObject(std::make_shared<Sphere>(Vec3{ 0.0f, 4.0f, -8.0f }, 3.9, m, Vec3{-60, 0, -90}, scale, bias));
+	s.addObject(std::make_shared<Sphere>(Vec3{ 0.0f, 4.0f, -8.0f }, 3.9f, m, Vec3{-60, 0, -90}, scale, bias));
 
 	// create the ground plane with the checkerboard texture
-	m = Material(Vec3{ 0.3f, 0.3f, 0.3f }, Vec3{ 0.5f, 0.5f, 0.5f }, Vec3{ 1.0f, 1.0f, 1.0f }, 32, 0.5, {}, checkerboard);
-	s.addObject(std::make_shared<Plane>(Vec3{ 0.0f, 1.0f, 0.0f }, 1.5, m));
+	m = Material(Vec3{ 0.3f, 0.3f, 0.3f }, Vec3{ 0.5f, 0.5f, 0.5f }, Vec3{ 1.0f, 1.0f, 1.0f }, 32, 0.5f, {}, checkerboard);
+	s.addObject(std::make_shared<Plane>(Vec3{ 0.0f, 1.0f, 0.0f }, 1.5f, m));
 
 	return s;
 }

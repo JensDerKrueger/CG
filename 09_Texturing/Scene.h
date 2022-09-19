@@ -19,7 +19,7 @@ public:
 	{}
 
 	Scene(const Vec3& backgroundColor)
-		: backgroundColor(backgroundColor)
+		: backgroundColor(backgroundColor), debug(false)
 	{ }
 
 	void addObject(std::shared_ptr<const IntersectableObject> object);

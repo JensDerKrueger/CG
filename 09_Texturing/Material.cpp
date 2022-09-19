@@ -57,12 +57,12 @@ float Material::getReflectivity(float cosI) const
 
     if (IOR.has_value())
     {
-        float n = (sign == 1) ? IOR.value() : 1.0 / IOR.value();
+        float n = (sign == 1) ? IOR.value() : 1.0f / IOR.value();
         float R0sqrt = (n - 1) / (n + 1);
         R0 = R0sqrt * R0sqrt;
     }
 
-    return R0 + (1.0 - R0) * pow(1.0f - sign * cosI, 5);
+    return R0 + (1.0f - R0) * powf(1.0f - sign * cosI, 5);
 }
 
 std::optional<Texture> Material::getTexture() const

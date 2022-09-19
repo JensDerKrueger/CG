@@ -31,7 +31,7 @@ Texture::Texture(const std::string& filename, FilterMode filterMode)
 }
 
 Texture::Texture(const std::string& filename, FilterMode filterMode, BorderMode borderMode)
-	: filterMode(filterMode), borderModeU(borderMode), borderModeV(borderMode), borderColor(Vec3{0,0,0})
+	: width(0), height(0), filterMode(filterMode), borderModeU(borderMode), borderModeV(borderMode), borderColor(Vec3{0,0,0})
 {
 	stbi_set_flip_vertically_on_load(false);
 	
