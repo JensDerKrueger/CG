@@ -1,6 +1,6 @@
 #include "Sphere.h"
 
-Sphere::Sphere(const Vec3& center, double radius, const Material& material)
+Sphere::Sphere(const Vec3& center, float radius, const Material& material)
 {
 	// TODO: implement this constructor and the rest of this class necessary for the assignment
 }

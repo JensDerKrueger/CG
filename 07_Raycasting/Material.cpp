@@ -15,7 +15,7 @@ Vec3 Material::getSpecular() const
 	return specular;
 }
 
-double Material::getExp() const
+float Material::getExp() const
 {
 	return exponent;
 }

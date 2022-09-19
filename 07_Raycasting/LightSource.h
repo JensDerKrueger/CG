@@ -20,7 +20,7 @@ public:
 	Vec3 getSpecular() const { return specular; }
 
 	virtual Vec3 getDirection(const Vec3& position) const = 0;
-	virtual double getDistance(const Vec3& position) const = 0;
+	virtual float getDistance(const Vec3& position) const = 0;
 
 };
 

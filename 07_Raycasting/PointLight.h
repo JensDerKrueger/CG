@@ -18,6 +18,6 @@ public:
 	virtual Vec3 getDirection(const Vec3& position) const override;
 
 	// Returns distance from position to this PointLight
-	virtual double getDistance(const Vec3& position) const override;
+	virtual float getDistance(const Vec3& position) const override;
 };
 

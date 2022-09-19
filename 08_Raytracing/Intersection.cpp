@@ -10,7 +10,7 @@ Vec3 Intersection::getNormal() const
     return normal;
 }
 
-double Intersection::getT() const
+float Intersection::getT() const
 {
     return t;
 }

@@ -15,7 +15,7 @@ Vec3 Material::getSpecular() const
     return specular;
 }
 
-double Material::getExp() const
+float Material::getExp() const
 {
     return exponent;
 }
@@ -40,7 +40,7 @@ std::optional<float> Material::getIndexOfRefraction() const
     return IOR;
 }
 
-double Material::getLocalRefectivity() const
+float Material::getLocalRefectivity() const
 {
     return local;
 }

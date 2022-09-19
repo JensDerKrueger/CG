@@ -5,11 +5,11 @@ class Sphere : public IntersectableObject
 {
 private:
 	const Vec3 center;
-	const double sqradius;
+	const float sqradius;
 	const Material material;
 
 public:
-	Sphere(const Vec3& center, double radius, const Material& material);
+	Sphere(const Vec3& center, float radius, const Material& material);
     virtual ~Sphere() {}
 
 	Material getMaterial() const override;

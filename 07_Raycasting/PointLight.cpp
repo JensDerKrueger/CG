@@ -7,7 +7,7 @@ Vec3 PointLight::getDirection(const Vec3& position) const
 }
 
 
-double PointLight::getDistance(const Vec3& position) const
+float PointLight::getDistance(const Vec3& position) const
 {
     return (this->position - position).length();
 }

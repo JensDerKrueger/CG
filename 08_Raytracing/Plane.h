@@ -4,11 +4,11 @@ class Plane : public IntersectableObject
 {
 private:
 	const Vec3 normal;
-	const double d;
+	const float d;
 	const Material material;
 
 public:
-	Plane(const Vec3& normal, double d, const Material& material)
+	Plane(const Vec3& normal, float d, const Material& material)
 		: normal(normal), d(d), material(material)
 	{ }
 
