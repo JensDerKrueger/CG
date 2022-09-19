@@ -7,7 +7,7 @@ private:
 	Vec3 eyePoint;
 	Vec3 viewDir;
 	Vec3 upDir;
-	double foV;
+	float foV;
 
 public:
 	Camera()
@@ -29,7 +29,7 @@ public:
 	{
 	}
 
-	Camera(const Vec3& eyePoint, const Vec3& viewDir, const Vec3& upDir, double fovDeg)
+	Camera(const Vec3& eyePoint, const Vec3& viewDir, const Vec3& upDir, float fovDeg)
 		: eyePoint(eyePoint), viewDir(Vec3::normalize(viewDir)), upDir(Vec3::normalize(upDir)), foV(fovDeg)
 	{
 	}
@@ -37,12 +37,12 @@ public:
 	void setEyePoint(const Vec3& eyePoint);
 	void setViewDir(const Vec3& viewDir);
 	void setUpDir(const Vec3& upDir);
-	void setFoV(double fovDeg);
+	void setFoV(float fovDeg);
 	void setLookAt(const Vec3& lookAt);
 	Vec3 getEyePoint() const;
 	Vec3 getViewDir() const;
 	Vec3 getUpDir() const;
-	double getFoV() const;
+	float getFoV() const;
 
 };
 

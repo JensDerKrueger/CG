@@ -15,7 +15,7 @@ void Camera::setUpDir(const Vec3& upDir)
     this->upDir = upDir;
 }
 
-void Camera::setFoV(double fovDeg)
+void Camera::setFoV(float fovDeg)
 {
     this->foV = fovDeg;
 }
@@ -40,7 +40,7 @@ Vec3 Camera::getUpDir() const
     return upDir;
 }
 
-double Camera::getFoV() const
+float Camera::getFoV() const
 {
     return foV;
 }

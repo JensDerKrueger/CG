@@ -3,14 +3,14 @@
 class Plane : public IntersectableObject
 {
 	const Vec3 normal;
-	const double d;
+	const float d;
 	const Material material;
 	Vec3 frame1;
 	Vec3 frame2;
 	Vec3 center;
 
 public:
-	Plane(const Vec3& normal, double d, const Material& material)
+	Plane(const Vec3& normal, float d, const Material& material)
 		: normal(normal), d(d), material(material)
 	{ 
 		buildLocalFrame();

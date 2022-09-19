@@ -48,7 +48,7 @@ std::optional<Intersection> Scene::intersect(const Ray& ray, bool shadowRay) con
 /// <param name="IOR">optical density of the material we are currently travelling in</param>
 /// <param name="recDepth">recursion depth</param>
 /// <returns>final color value computed for this ray</returns>
-Vec3 Scene::traceRay(const Ray& ray, double IOR, int recDepth) const
+Vec3 Scene::traceRay(const Ray& ray, float IOR, int recDepth) const
 {
 	if (recDepth == 0)
 		return backgroundColor;

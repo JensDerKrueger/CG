@@ -11,18 +11,18 @@ private:
 	Vec3 diffuse;
 	Vec3 specular;
 
-	double exponent;
-	double local;
+	float exponent;
+	float local;
 	std::optional<float> IOR;
 	bool m_isShadowCaster;
 	std::optional<Texture> texture;
 
 public:
-	Material(const Vec3& ambient, const Vec3& diffuse, const Vec3& specular, double exponent)
+	Material(const Vec3& ambient, const Vec3& diffuse, const Vec3& specular, float exponent)
 		: Material(ambient, diffuse, specular, exponent, 1.0)
 	{ }
 
-	Material(const Vec3& ambient, const Vec3& diffuse, const Vec3& specular, double exponent, double local)
+	Material(const Vec3& ambient, const Vec3& diffuse, const Vec3& specular, float exponent, float local)
 		: Material(ambient, diffuse, specular, exponent, local, std::nullopt)
 	{ }
 	
@@ -34,16 +34,16 @@ public:
 	///						that gets reflected or reflected and refracted according to Schlick's approximation of the
 	///						Fresnel equations</param>
 	/// <param name="IOR">Index Of Refraction</param>
-	Material(const Vec3& ambient, const Vec3& diffuse, const Vec3& specular, double exponent, double local, const std::optional<float>& IOR)
+	Material(const Vec3& ambient, const Vec3& diffuse, const Vec3& specular, float exponent, float local, const std::optional<float>& IOR)
 		: Material(ambient, diffuse, specular, exponent, local, IOR, std::nullopt)
 	{ }
 
-	Material(const Vec3& ambient, const Vec3& diffuse, const Vec3& specular, double exponent, double local, const std::optional<float>& IOR, const std::optional<Texture>& texture)
+	Material(const Vec3& ambient, const Vec3& diffuse, const Vec3& specular, float exponent, float local, const std::optional<float>& IOR, const std::optional<Texture>& texture)
 		: Material(ambient, diffuse, specular, exponent, local, IOR, texture, true)
 	{
 	}
 
-	Material(const Vec3& ambient, const Vec3& diffuse, const Vec3& specular, double exponent, double local, const std::optional<float>& IOR, const std::optional<Texture>& texture, bool isShadowCaster)
+	Material(const Vec3& ambient, const Vec3& diffuse, const Vec3& specular, float exponent, float local, const std::optional<float>& IOR, const std::optional<Texture>& texture, bool isShadowCaster)
 		: ambient(ambient), diffuse(diffuse), specular(specular), exponent(exponent), local(local), IOR(IOR), m_isShadowCaster(isShadowCaster), texture(texture)
 	{ }
 	
@@ -53,7 +53,7 @@ public:
 
 	Vec3 getSpecular() const;
 
-	double getExp() const;
+	float getExp() const;
 
 	bool isShadowCaster() const;
 
@@ -65,9 +65,9 @@ public:
 
 	std::optional<float> getIndexOfRefraction() const;
 
-	double getLocalRefectivity() const;
+	float getLocalRefectivity() const;
 
-	double getReflectivity(float cosI) const;
+	float getReflectivity(float cosI) const;
 
 	std::optional<Texture> getTexture() const;
 };

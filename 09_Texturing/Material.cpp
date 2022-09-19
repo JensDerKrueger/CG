@@ -15,7 +15,7 @@ Vec3 Material::getSpecular() const
     return specular;
 }
 
-double Material::getExp() const
+float Material::getExp() const
 {
     return exponent;
 }
@@ -45,20 +45,20 @@ std::optional<float> Material::getIndexOfRefraction() const
     return IOR;
 }
 
-double Material::getLocalRefectivity() const
+float Material::getLocalRefectivity() const
 {
     return local;
 }
 
-double Material::getReflectivity(float cosI) const
+float Material::getReflectivity(float cosI) const
 {
-    double R0 = 1 - local;
+    float R0 = 1 - local;
     int sign = (cosI < 0) ? -1 : 1;
 
     if (IOR.has_value())
     {
-        double n = (sign == 1) ? IOR.value() : 1.0 / IOR.value();
-        double R0sqrt = (n - 1) / (n + 1);
+        float n = (sign == 1) ? IOR.value() : 1.0 / IOR.value();
+        float R0sqrt = (n - 1) / (n + 1);
         R0 = R0sqrt * R0sqrt;
     }
 

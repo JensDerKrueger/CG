@@ -26,7 +26,7 @@ public:
 	void addLight(std::shared_ptr<const LightSource> ls);
 	Vec3 getBackgroundcolor() const;
 	std::optional<Intersection> intersect(const Ray& ray, bool shadowRay) const;
-	Vec3 traceRay(const Ray& ray, double IOR, int recDepth) const;
+	Vec3 traceRay(const Ray& ray, float IOR, int recDepth) const;
 
 	static Scene genTexturedScene();
 
