@@ -1,2 +1,0 @@
-C:\Users\Jens Krüger\Documents\GitHub\CG\02_Intersect\VS\bin\x64-Debug\Utils.pdb
-C:\Users\Jens Krüger\Documents\GitHub\CG\02_Intersect\VS\tmp\Utils\x64-Debug\Utils.pdb
