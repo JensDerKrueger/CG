@@ -46,12 +46,12 @@ public:
     const Vec3 rayOrigin{0.0f, 0.0f, 4.0f};
     const Vec3 topLeftCorner{-2.0f, 2.0f, 0.0f}, topRightCorner{2.0f, 2.0f, 0.0f};
     const Vec3 bottomLeftCorner{-2.0f, -2.0f, 0.0f}, bottomRightCorner{2.0f, -2.0f, 0.0f};
-    const Vec3 deltaX = (topRightCorner-topLeftCorner)/image.width;
-    const Vec3 deltaY = (topRightCorner-bottomRightCorner)/image.height;
+    const Vec3 deltaX = (topRightCorner-topLeftCorner)/ float(image.width);
+    const Vec3 deltaY = (topRightCorner-bottomRightCorner)/ float(image.height);
     
-    for (uint32_t y = 0;y<image.height;++y) {
-      for (uint32_t x = 0;x<image.width;++x) {
-        const Vec3 pixelPos = bottomLeftCorner + deltaX*x + deltaY*y;
+    for (uint32_t y = 0;y< uint32_t(image.height);++y) {
+      for (uint32_t x = 0;x< uint32_t(image.width);++x) {
+        const Vec3 pixelPos = bottomLeftCorner + deltaX*float(x) + deltaY*float(y);
         const std::optional<Vec3> intersection = raySphereIntersect(sphereCenter, radius, rayOrigin, pixelPos);
         Vec3 color;
         if (intersection) {

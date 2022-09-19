@@ -7,7 +7,12 @@
 class GLDepthTexture {
 public:
   GLDepthTexture(GLint magFilter=GL_LINEAR, GLint minFilter=GL_LINEAR,
-                 GLint wrapX=GL_CLAMP_TO_EDGE, GLint wrapY=GL_CLAMP_TO_EDGE) {
+                 GLint wrapX=GL_CLAMP_TO_EDGE, GLint wrapY=GL_CLAMP_TO_EDGE) :
+    id{ 0 },
+  width{ 0 },
+  height{ 0 },
+  dataType{ GLDepthDataType::DEPTH24 }
+  {
     GL(glGenTextures(1, &id));
     GL(glBindTexture(GL_TEXTURE_2D, id));
     GL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapX));
