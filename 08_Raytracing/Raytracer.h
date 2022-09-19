@@ -28,7 +28,7 @@ public:
 	Raytracer(int recDepth, int numSamples)
 		: recDepth(recDepth)
 	{
-		numSamplesX = (int)sqrtf(numSamples);
+		numSamplesX = (int)sqrtf(float(numSamples));
 		numSamplesY = numSamples / numSamplesX;
 	}
 

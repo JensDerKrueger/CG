@@ -104,22 +104,22 @@ Scene Scene::genSimpleScene()
 
 	// create the bluish material for the right sphere
 	// vec3 are treated as color values in the range [0, 1]
-	Material m(Vec3(0.0f, 0.0f, 0.3f), Vec3(0.0f, 0.0f, 0.5f), Vec3(1.0f, 1.0f, 1.0f), 8, 0.2, 1.52);
+	Material m(Vec3(0.0f, 0.0f, 0.3f), Vec3(0.0f, 0.0f, 0.5f), Vec3(1.0f, 1.0f, 1.0f), 8, 0.2f, 1.52f);
 
 	// create a sphere, apply the material above to it and attach it to the scene
-	s.addObject(std::make_shared<Sphere>(Vec3{ 0.7f, -0.4f, -2.0f }, 0.9, m));
+	s.addObject(std::make_shared<Sphere>(Vec3{ 0.7f, -0.4f, -2.0f }, 0.9f, m));
 
 	// create the red material and apply it to the left sphere
 	m = Material(Vec3{ 0.3f, 0.0f, 0.0f }, Vec3{ 0.5f, 0.0f, 0.0f }, Vec3{ 1.0f, 1.0f, 1.0f }, 8, 1);
-	s.addObject(std::make_shared<Sphere>(Vec3{ -0.9f, -0.1f, -2.2f }, 0.6, m));
+	s.addObject(std::make_shared<Sphere>(Vec3{ -0.9f, -0.1f, -2.2f }, 0.6f, m));
 
 	// create the yellowish material and apply it to the big sphere in the back
-	m = Material(Vec3{ 0.3f, 0.3f, 0.0f }, Vec3{ 0.7f, 0.7f, 0.0f }, Vec3{ 1.0f, 1.0f, 0.0f }, 8, 0.3);
-	s.addObject(std::make_shared<Sphere>(Vec3{ 0.0f, 4.0f, -8.0f }, 3.9, m));
+	m = Material(Vec3{ 0.3f, 0.3f, 0.0f }, Vec3{ 0.7f, 0.7f, 0.0f }, Vec3{ 1.0f, 1.0f, 0.0f }, 8, 0.3f);
+	s.addObject(std::make_shared<Sphere>(Vec3{ 0.0f, 4.0f, -8.0f }, 3.9f, m));
 
 	// create the white ground plane
-	m = Material(Vec3{ 0.3f, 0.3f, 0.3f }, Vec3{ 0.5f, 0.5f, 0.5f }, Vec3{ 1.0f, 1.0f, 1.0f }, 32, 0.5);
-	s.addObject(std::make_shared<Plane>(Vec3{ 0.0f, 1.0f, 0.0f }, 1.5, m));
+	m = Material(Vec3{ 0.3f, 0.3f, 0.3f }, Vec3{ 0.5f, 0.5f, 0.5f }, Vec3{ 1.0f, 1.0f, 1.0f }, 32, 0.5f);
+	s.addObject(std::make_shared<Plane>(Vec3{ 0.0f, 1.0f, 0.0f }, 1.5f, m));
 
 	return s;
 }
