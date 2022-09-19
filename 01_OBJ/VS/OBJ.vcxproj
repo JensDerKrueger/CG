@@ -201,9 +201,6 @@ XCOPY "$(ProjectDir)..\*.obj" "$(ProjectDir)*.*" /Y</Command>
   <ItemGroup>
     <ClCompile Include="..\main.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <Object Include="..\bunny.obj" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

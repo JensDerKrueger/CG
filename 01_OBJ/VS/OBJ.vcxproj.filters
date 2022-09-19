@@ -19,9 +19,4 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <Object Include="..\bunny.obj">
-      <Filter>Ressourcendateien</Filter>
-    </Object>
-  </ItemGroup>
 </Project>
