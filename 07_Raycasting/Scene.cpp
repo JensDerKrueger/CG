@@ -67,7 +67,7 @@ Vec3 Scene::traceRay(const Ray& ray, float IOR, int recDepth) const
 		diffuse = Vec3::clamp(diffuse, 0.0f, 1.0f);
 
 		Vec3 Rv = Vec3::reflect(ray.getDirection(), inter.getNormal());
-		float s = powf(std::max(0.0f, Vec3::dot(Rv, ls->getDirection(interPos))), inter.getMaterial().getExp());
+		float s = powf(std::max(0.0f, Vec3::dot(Rv, ls->getDirection(interPos))), float(inter.getMaterial().getExp()));
 		Vec3 specular = inter.getMaterial().getSpecular() * ls->getSpecular() * s;
 		specular = Vec3::clamp(specular, 0.0f, 1.0f);
 
@@ -105,7 +105,7 @@ Scene Scene::genSimpleScene()
 
 	// create the white ground plane
 	m = Material(Vec3{ 0.3f, 0.3f, 0.3f }, Vec3{ 0.5f, 0.5f, 0.5f }, Vec3{ 1.0f, 1.0f, 1.0f }, 32, 0.5);
-	s.addObject(std::make_shared<Plane>(Vec3{ 0.0f, 1.0f, 0.0f }, 1.5, m));
+	s.addObject(std::make_shared<Plane>(Vec3{ 0.0f, 1.0f, 0.0f }, 1.5f, m));
 
 	return s;
 }

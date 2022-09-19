@@ -38,7 +38,7 @@ RaySetup Raytracer::computeRaySetup(const Image& img)
 
     Vec3 forwardDir = camera.getViewDir();
     Vec3 upDir = camera.getUpDir();
-    float openingAngle = camera.getFoV() * M_PI/180.0f;
+    float openingAngle = float(camera.getFoV() * M_PI/180.0);
     rs.rayOrigin = camera.getEyePoint();
 
     float aspectRatio = ((float)img.width) / ((float)img.height);

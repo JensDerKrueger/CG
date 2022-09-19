@@ -10,7 +10,7 @@ Vec3 Ray::getDirection() const
     return direction;
 }
 
-Vec3 Ray::getPosOnRay(double t) const
+Vec3 Ray::getPosOnRay(float t) const
 {
     return origin + direction * t;
 }

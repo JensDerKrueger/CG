@@ -14,6 +14,6 @@ public:
 
 	Vec3 getOrigin() const;
 	Vec3 getDirection() const;
-	Vec3 getPosOnRay(double t) const;
+	Vec3 getPosOnRay(float t) const;
 };
 
