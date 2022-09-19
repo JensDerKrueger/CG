@@ -18,16 +18,10 @@
     <ClCompile Include="..\AbstractParticleSystem.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\ArcBall.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\bmp.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="..\FontRenderer.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="..\FresnelVisualizer.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="..\GLApp.cpp">
@@ -42,13 +36,7 @@
     <ClCompile Include="..\GLDebug.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\GLDepthBuffer.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\GLEnv.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="..\GLFramebuffer.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="..\GLProgram.cpp">
@@ -69,39 +57,15 @@
     <ClCompile Include="..\OBJFile.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\ParticleSystem.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="..\PlanarMirror.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="..\PrecomputedParticleSystem.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\Rand.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Tesselation.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="..\Image.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\MD5.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SHA2.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SHA1.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\AbstractParticleSystem.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ArcBall.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\bmp.h">
@@ -111,9 +75,6 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\FontRenderer.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\FresnelVisualizer.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\GLApp.h">
@@ -128,13 +89,7 @@
     <ClInclude Include="..\GLDebug.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\GLDepthBuffer.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="..\GLEnv.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\GLFramebuffer.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\GLProgram.h">
@@ -158,22 +113,7 @@
     <ClInclude Include="..\OBJFile.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\ParticleSystem.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\PlanarMirror.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\PrecomputedParticleSystem.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Quaternion.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="..\Rand.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Tesselation.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\Vec2.h">
@@ -209,16 +149,7 @@
     <ClInclude Include="..\..\VS\include\GL\wglew.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\MD5.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="..\ColorConversion.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SHA1.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SHA2.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
