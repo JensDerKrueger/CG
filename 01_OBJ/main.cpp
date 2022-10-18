@@ -48,6 +48,11 @@ public:
     setDrawTransform(Mat4::lookAt({0,0,2},{0,0,0},{0,1,0}) * Mat4::rotationY(float(angle)));
     drawTriangles(data, TrisDrawType::LIST, false, true);
   }
+  
+  virtual void keyboardChar(unsigned int key) override {
+    // TODO check for keystrokes here
+  }
+
 
 } myApp;
 
