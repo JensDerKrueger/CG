@@ -101,7 +101,7 @@ public:
   
   virtual void resize(int width, int height);
   virtual void keyboard(int key, int scancode, int action, int mods) {}
-  virtual void keyboardChar(unsigned int codepoint) {}
+  virtual void keyboardChar(unsigned int key) {}
   virtual void mouseMove(double xPosition, double yPosition) {}
   virtual void mouseButton(int button, int state, int mods, double xPosition, double yPosition) {}
   virtual void mouseWheel(double x_offset, double y_offset, double xPosition, double yPosition) {}
