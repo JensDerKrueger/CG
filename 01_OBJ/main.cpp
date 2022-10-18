@@ -4,10 +4,10 @@
 
 class MyGLApp : public GLApp {
 public:
-  double angle = 0;
+  double angle{0.0};
   std::vector<float> data;
   
-  virtual void init() {
+  virtual void init() override {
     glEnv.setTitle("Shared vertices to explicit representation demo");
     GL(glDisable(GL_CULL_FACE));
     GL(glEnable(GL_DEPTH_TEST));
@@ -38,11 +38,11 @@ public:
     // example block end
   }
   
-  virtual void animate(double animationTime) {
+  virtual void animate(double animationTime) override {
     angle = animationTime*30;
   }
   
-  virtual void draw() {
+  virtual void draw() override {
     GL(glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT));
     setDrawProjection(Mat4::perspective(45, glEnv.getFramebufferSize().aspect(), 0.0001f, 100.0f));
     setDrawTransform(Mat4::lookAt({0,0,2},{0,0,0},{0,1,0}) * Mat4::rotationY(float(angle)));
