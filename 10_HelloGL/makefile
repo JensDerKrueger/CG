@@ -13,7 +13,7 @@ else
 	INCLUDES=-I. -I../Utils -I /opt/homebrew/include
 endif
 
-SRC = main.cpp GLDebug.cpp
+SRC = main.cpp
 OBJ = $(SRC:.cpp=.o)
 TARGET = hello_opengl
 

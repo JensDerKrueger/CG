@@ -1,5 +1,6 @@
+#include <fstream>
+
 #include <GLApp.h>
-#include "GLHelper.h"
 
 #ifdef __APPLE__
 #include <mach-o/dyld.h>
@@ -72,6 +73,31 @@ public:
     glViewport(0, 0, width, height);
   }
   
+  
+  std::string loadFile(const std::string& filename) {
+    std::ifstream shaderFile{ filename };
+    if (!shaderFile)
+    {
+      throw GLException{ std::string("Unable to open file ") + filename };
+    }
+    std::string str;
+    std::string fileContents;
+    while (std::getline(shaderFile, str))
+    {
+      fileContents += str + "\n";
+    }
+    return fileContents;
+  }
+  
+  GLuint createShaderFromFile(GLenum type, const std::string& sourcePath) {
+    const std::string shaderCode = loadFile(sourcePath);
+    const GLchar* c_shaderCode = shaderCode.c_str();
+    GLuint s = glCreateShader(type);
+    GL(glShaderSource(s, 1, &c_shaderCode, NULL));
+    glCompileShader(s); checkAndThrowShader(s);
+    return s;
+  }
+  
   void setupShaders()
   {
     std::string pathToExe = "";
@@ -84,14 +110,14 @@ public:
 #endif
     std::string vertexSrcPath = pathToExe + "res/shaders/vertexShader.vert";
     std::string fragmentSrcPath = pathToExe + "res/shaders/fragmentShader.frag";
-    GLuint vertexShader = Shader::createShaderFromFile(GL_VERTEX_SHADER, vertexSrcPath);
-    GLuint fragmentShader = Shader::createShaderFromFile(GL_FRAGMENT_SHADER, fragmentSrcPath);
+    GLuint vertexShader = createShaderFromFile(GL_VERTEX_SHADER, vertexSrcPath);
+    GLuint fragmentShader = createShaderFromFile(GL_FRAGMENT_SHADER, fragmentSrcPath);
     
     program = glCreateProgram();
     GL(glAttachShader(program, vertexShader));
     GL(glAttachShader(program, fragmentShader));
     glLinkProgram(program);
-    Shader::checkAndThrowProgram(program);
+    checkAndThrowProgram(program);
     
     glUseProgram(program);
     modelViewMatrixUniform = glGetUniformLocation(program, "modelViewMatrix");
