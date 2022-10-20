@@ -102,9 +102,6 @@ private:
 	static std::string loadFile(const std::string& filename);
 	
 	static GLuint createShader(GLenum type, const GLchar** src, GLsizei count);
-	static void checkAndThrow();
-	static void checkAndThrowShader(GLuint shader);
-	static void checkAndThrowProgram(GLuint program);
 
   GLProgram(std::vector<std::string> vertexShaderStrings, std::vector<std::string> fragmentShaderStrings, std::vector<std::string> geometryShaderStrings);
 

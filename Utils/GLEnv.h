@@ -1,6 +1,5 @@
 #pragma once
 
-#include <exception>
 #include <string>
 #include <chrono>
 
@@ -12,23 +11,6 @@
 enum class GLDataType {BYTE, HALF, FLOAT};
 enum class GLDepthDataType {DEPTH16, DEPTH24, DEPTH32};
 enum class CursorMode {NORMAL, HIDDEN, FIXED};
-
-class GLException : public std::exception {
-	public:
-		GLException(const std::string& whatStr) : whatStr(whatStr) {}
-		virtual const char* what() const throw() {
-			return whatStr.c_str();
-		}
-	private:
-		std::string whatStr;
-};
-
-struct Dimensions {
-	uint32_t width;
-	uint32_t height;
-	
-	float aspect() const {return float(width)/float(height);}
-};
 
 class GLEnv {
 public:

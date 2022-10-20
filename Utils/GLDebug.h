@@ -1,6 +1,25 @@
 #pragma once
 
 #include <iostream>
+#include <exception>
+
+class GLException : public std::exception {
+public:
+  GLException(const std::string& whatStr) : whatStr(whatStr) {}
+  virtual const char* what() const throw() {
+    return whatStr.c_str();
+  }
+private:
+  std::string whatStr;
+};
+
+struct Dimensions {
+  uint32_t width;
+  uint32_t height;
+  
+  float aspect() const {return float(width)/float(height);}
+};
+
 
 std::string errorString(GLenum glerr);
 
@@ -37,3 +56,7 @@ void errorOut(const std::string& statement, const std::string& location,
 #else
 # define GL(stmt) do { stmt; } while(0)
 #endif
+
+void checkAndThrow();
+void checkAndThrowShader(GLuint shader);
+void checkAndThrowProgram(GLuint program);
