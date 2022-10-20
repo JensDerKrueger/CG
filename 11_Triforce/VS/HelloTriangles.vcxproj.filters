@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\GLHelper.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\main.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -25,10 +22,5 @@
   <ItemGroup>
     <None Include="..\res\shaders\fragmentShader.frag" />
     <None Include="..\res\shaders\vertexShader.vert" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\GLHelper.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
