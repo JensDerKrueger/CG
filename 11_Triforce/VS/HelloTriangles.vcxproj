@@ -104,6 +104,12 @@
       <IgnoreAllDefaultLibraries>
       </IgnoreAllDefaultLibraries>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y /i "$(ProjectDir)..\res\shaders\*.frag" "$(OutDir)\res\shaders\"
+xcopy /y /i "$(ProjectDir)..\res\shaders\*.vert" "$(OutDir)\res\shaders\"
+xcopy /y /i "$(ProjectDir)..\res\shaders\*.frag" "$(ProjectDir)\res\shaders\"
+xcopy /y /i "$(ProjectDir)..\res\shaders\*.vert" "$(ProjectDir)\res\shaders\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -124,6 +130,12 @@
       <AdditionalDependencies>utils.lib;opengl32.lib;glew32s.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../../VS/lib/Win32;$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y /i "$(ProjectDir)..\res\shaders\*.frag" "$(OutDir)\res\shaders\"
+xcopy /y /i "$(ProjectDir)..\res\shaders\*.vert" "$(OutDir)\res\shaders\"
+xcopy /y /i "$(ProjectDir)..\res\shaders\*.frag" "$(ProjectDir)\res\shaders\"
+xcopy /y /i "$(ProjectDir)..\res\shaders\*.vert" "$(ProjectDir)\res\shaders\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -142,6 +154,12 @@
       <IgnoreAllDefaultLibraries>
       </IgnoreAllDefaultLibraries>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y /i "$(ProjectDir)..\res\shaders\*.frag" "$(OutDir)\res\shaders\"
+xcopy /y /i "$(ProjectDir)..\res\shaders\*.vert" "$(OutDir)\res\shaders\"
+xcopy /y /i "$(ProjectDir)..\res\shaders\*.frag" "$(ProjectDir)\res\shaders\"
+xcopy /y /i "$(ProjectDir)..\res\shaders\*.vert" "$(ProjectDir)\res\shaders\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -162,6 +180,12 @@
       <AdditionalLibraryDirectories>..\..\VS\lib\x64;$(PlatformTarget)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>utils.lib;opengl32.lib;glew32s.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y /i "$(ProjectDir)..\res\shaders\*.frag" "$(OutDir)\res\shaders\"
+xcopy /y /i "$(ProjectDir)..\res\shaders\*.vert" "$(OutDir)\res\shaders\"
+xcopy /y /i "$(ProjectDir)..\res\shaders\*.frag" "$(ProjectDir)\res\shaders\"
+xcopy /y /i "$(ProjectDir)..\res\shaders\*.vert" "$(ProjectDir)\res\shaders\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\main.cpp" />
