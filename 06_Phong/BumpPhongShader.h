@@ -7,11 +7,11 @@
  * f(x, y) = sin^2(pi * x) * sin^2(pi * y)
  *
  */
-class BumpPhongShader : public PhongShader
-{
+class BumpPhongShader : public PhongShader {
 public:
 
 	BumpPhongShader(const PhongShader& phong, float cellSize, float bumpHeight);
+  virtual ~BumpPhongShader() {}
 
 	// Inherited via Shader
 	virtual Vec3 shade(Vertex surface) const override;
