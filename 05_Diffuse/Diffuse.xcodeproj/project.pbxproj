@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		5677395325FB7BF000AB2341 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5677394C25FB7BF000AB2341 /* main.cpp */; };
+		56A338472915AC6F00327B6C /* DiffuseShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56A3383E2915AC6F00327B6C /* DiffuseShader.cpp */; };
+		56A338482915AC6F00327B6C /* AmbientShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56A3383F2915AC6F00327B6C /* AmbientShader.cpp */; };
+		56A338492915AC6F00327B6C /* Triangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56A338442915AC6F00327B6C /* Triangle.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +27,16 @@
 
 /* Begin PBXFileReference section */
 		5677394C25FB7BF000AB2341 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
-		A231F0FF25EAF61A00CBFC23 /* OBJ-Demo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "OBJ-Demo"; sourceTree = BUILT_PRODUCTS_DIR; };
+		56A3383E2915AC6F00327B6C /* DiffuseShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DiffuseShader.cpp; sourceTree = "<group>"; };
+		56A3383F2915AC6F00327B6C /* AmbientShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AmbientShader.cpp; sourceTree = "<group>"; };
+		56A338402915AC6F00327B6C /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shader.h; sourceTree = "<group>"; };
+		56A338412915AC6F00327B6C /* AmbientShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmbientShader.h; sourceTree = "<group>"; };
+		56A338422915AC6F00327B6C /* Triangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Triangle.h; sourceTree = "<group>"; };
+		56A338432915AC6F00327B6C /* Vertex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vertex.h; sourceTree = "<group>"; };
+		56A338442915AC6F00327B6C /* Triangle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Triangle.cpp; sourceTree = "<group>"; };
+		56A338452915AC6F00327B6C /* Material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Material.h; sourceTree = "<group>"; };
+		56A338462915AC6F00327B6C /* DiffuseShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiffuseShader.h; sourceTree = "<group>"; };
+		A231F0FF25EAF61A00CBFC23 /* Diffuse-Demo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Diffuse-Demo"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +54,15 @@
 			isa = PBXGroup;
 			children = (
 				5677394C25FB7BF000AB2341 /* main.cpp */,
+				56A3383F2915AC6F00327B6C /* AmbientShader.cpp */,
+				56A338412915AC6F00327B6C /* AmbientShader.h */,
+				56A3383E2915AC6F00327B6C /* DiffuseShader.cpp */,
+				56A338462915AC6F00327B6C /* DiffuseShader.h */,
+				56A338452915AC6F00327B6C /* Material.h */,
+				56A338402915AC6F00327B6C /* Shader.h */,
+				56A338442915AC6F00327B6C /* Triangle.cpp */,
+				56A338422915AC6F00327B6C /* Triangle.h */,
+				56A338432915AC6F00327B6C /* Vertex.h */,
 				A231F10025EAF61A00CBFC23 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -49,7 +70,7 @@
 		A231F10025EAF61A00CBFC23 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A231F0FF25EAF61A00CBFC23 /* OBJ-Demo */,
+				A231F0FF25EAF61A00CBFC23 /* Diffuse-Demo */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -57,9 +78,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A231F0FE25EAF61A00CBFC23 /* OBJ-Demo */ = {
+		A231F0FE25EAF61A00CBFC23 /* Diffuse-Demo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A231F10625EAF61A00CBFC23 /* Build configuration list for PBXNativeTarget "OBJ-Demo" */;
+			buildConfigurationList = A231F10625EAF61A00CBFC23 /* Build configuration list for PBXNativeTarget "Diffuse-Demo" */;
 			buildPhases = (
 				A231F0FB25EAF61A00CBFC23 /* Sources */,
 				A231F0FC25EAF61A00CBFC23 /* Frameworks */,
@@ -69,9 +90,9 @@
 			);
 			dependencies = (
 			);
-			name = "OBJ-Demo";
-			productName = "OBJ-Demo";
-			productReference = A231F0FF25EAF61A00CBFC23 /* OBJ-Demo */;
+			name = "Diffuse-Demo";
+			productName = "Diffuse-Demo";
+			productReference = A231F0FF25EAF61A00CBFC23 /* Diffuse-Demo */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -87,7 +108,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A231F0FA25EAF61A00CBFC23 /* Build configuration list for PBXProject "OBJ" */;
+			buildConfigurationList = A231F0FA25EAF61A00CBFC23 /* Build configuration list for PBXProject "Diffuse" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -100,7 +121,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A231F0FE25EAF61A00CBFC23 /* OBJ-Demo */,
+				A231F0FE25EAF61A00CBFC23 /* Diffuse-Demo */,
 			);
 		};
 /* End PBXProject section */
@@ -110,7 +131,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56A338482915AC6F00327B6C /* AmbientShader.cpp in Sources */,
 				5677395325FB7BF000AB2341 /* main.cpp in Sources */,
+				56A338472915AC6F00327B6C /* DiffuseShader.cpp in Sources */,
+				56A338492915AC6F00327B6C /* Triangle.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,7 +396,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A231F0FA25EAF61A00CBFC23 /* Build configuration list for PBXProject "OBJ" */ = {
+		A231F0FA25EAF61A00CBFC23 /* Build configuration list for PBXProject "Diffuse" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A231F10425EAF61A00CBFC23 /* Debug */,
@@ -381,7 +405,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A231F10625EAF61A00CBFC23 /* Build configuration list for PBXNativeTarget "OBJ-Demo" */ = {
+		A231F10625EAF61A00CBFC23 /* Build configuration list for PBXNativeTarget "Diffuse-Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A231F10725EAF61A00CBFC23 /* Debug */,

@@ -9,11 +9,9 @@ class MyGLApp : public GLApp
 public:
 	Image image{ 600, 600 };
 
-	MyGLApp() : GLApp{ 600, 600 } {}
+  MyGLApp() : GLApp{ 600, 600, 1, "Diffuse Lighting"} {}
 
-	virtual void init()
-	{
-		glEnv.setTitle("Diffuse Lighting");
+	virtual void init() override {
 		GL(glDisable(GL_CULL_FACE));
 		GL(glClearColor(0, 0, 0, 0));
 
@@ -50,16 +48,14 @@ public:
 		triangle2.draw(image);
 	}
 
-	virtual void draw()
-	{
+	virtual void draw() override {
 		GL(glClear(GL_COLOR_BUFFER_BIT));
 		drawImage(image);
 	}
 
 } myApp;
 
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv) {
 	myApp.run();
 	return EXIT_SUCCESS;
 }

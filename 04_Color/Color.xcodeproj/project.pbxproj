@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		564FB15126283C55004F5F08 /* helvetica_neue.pos in CopyFiles */ = {isa = PBXBuildFile; fileRef = 564FB14F26283C55004F5F08 /* helvetica_neue.pos */; };
-		564FB15226283C55004F5F08 /* helvetica_neue.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 564FB15026283C55004F5F08 /* helvetica_neue.bmp */; };
 		5677395325FB7BF000AB2341 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5677394C25FB7BF000AB2341 /* main.cpp */; };
+		56A3384C2915ADE500327B6C /* helvetica_neue.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 56A3384A2915ADB700327B6C /* helvetica_neue.bmp */; };
+		56A3384D2915ADE500327B6C /* helvetica_neue.pos in CopyFiles */ = {isa = PBXBuildFile; fileRef = 56A3384B2915ADB800327B6C /* helvetica_neue.pos */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -19,18 +19,18 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
-				564FB15126283C55004F5F08 /* helvetica_neue.pos in CopyFiles */,
-				564FB15226283C55004F5F08 /* helvetica_neue.bmp in CopyFiles */,
+				56A3384C2915ADE500327B6C /* helvetica_neue.bmp in CopyFiles */,
+				56A3384D2915ADE500327B6C /* helvetica_neue.pos in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		564FB14F26283C55004F5F08 /* helvetica_neue.pos */ = {isa = PBXFileReference; lastKnownFileType = text; path = helvetica_neue.pos; sourceTree = "<group>"; };
-		564FB15026283C55004F5F08 /* helvetica_neue.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = helvetica_neue.bmp; sourceTree = "<group>"; };
-		5677394C25FB7BF000AB2341 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		A231F0FF25EAF61A00CBFC23 /* Color */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Color; sourceTree = BUILT_PRODUCTS_DIR; };
+		5677394C25FB7BF000AB2341 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		56A3384A2915ADB700327B6C /* helvetica_neue.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = helvetica_neue.bmp; path = ../Utils/helvetica_neue.bmp; sourceTree = "<group>"; };
+		56A3384B2915ADB800327B6C /* helvetica_neue.pos */ = {isa = PBXFileReference; lastKnownFileType = text; name = helvetica_neue.pos; path = ../Utils/helvetica_neue.pos; sourceTree = "<group>"; };
+		A231F0FF25EAF61A00CBFC23 /* Color-Demo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Color-Demo"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,9 +47,9 @@
 		A231F0F625EAF61A00CBFC23 = {
 			isa = PBXGroup;
 			children = (
-				564FB15026283C55004F5F08 /* helvetica_neue.bmp */,
-				564FB14F26283C55004F5F08 /* helvetica_neue.pos */,
 				5677394C25FB7BF000AB2341 /* main.cpp */,
+				56A3384A2915ADB700327B6C /* helvetica_neue.bmp */,
+				56A3384B2915ADB800327B6C /* helvetica_neue.pos */,
 				A231F10025EAF61A00CBFC23 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -57,7 +57,7 @@
 		A231F10025EAF61A00CBFC23 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A231F0FF25EAF61A00CBFC23 /* Color */,
+				A231F0FF25EAF61A00CBFC23 /* Color-Demo */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -65,9 +65,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A231F0FE25EAF61A00CBFC23 /* Color */ = {
+		A231F0FE25EAF61A00CBFC23 /* Color-Demo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A231F10625EAF61A00CBFC23 /* Build configuration list for PBXNativeTarget "Color" */;
+			buildConfigurationList = A231F10625EAF61A00CBFC23 /* Build configuration list for PBXNativeTarget "Color-Demo" */;
 			buildPhases = (
 				A231F0FB25EAF61A00CBFC23 /* Sources */,
 				A231F0FC25EAF61A00CBFC23 /* Frameworks */,
@@ -77,9 +77,9 @@
 			);
 			dependencies = (
 			);
-			name = Color;
-			productName = Color;
-			productReference = A231F0FF25EAF61A00CBFC23 /* Color */;
+			name = "Color-Demo";
+			productName = "Color-Demo";
+			productReference = A231F0FF25EAF61A00CBFC23 /* Color-Demo */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -108,7 +108,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A231F0FE25EAF61A00CBFC23 /* Color */,
+				A231F0FE25EAF61A00CBFC23 /* Color-Demo */,
 			);
 		};
 /* End PBXProject section */
@@ -197,14 +197,12 @@
 					../Utils,
 					/usr/local/Cellar/glew/2.1.0_1/include,
 					/usr/local/Cellar/glfw/3.3.2/include,
-					/usr/local/include/,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					../Network,
 					../Utils,
 					/usr/local/Cellar/glfw/3.3.2/lib/,
 					/usr/local/Cellar/glew/2.1.0_1/lib/,
-					/usr/local/lib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -290,18 +288,17 @@
 					../Utils,
 					/usr/local/Cellar/glew/2.1.0_1/include,
 					/usr/local/Cellar/glfw/3.3.2/include,
-					/usr/local/include/,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					../Network,
 					../Utils,
 					/usr/local/Cellar/glfw/3.3.2/lib/,
 					/usr/local/Cellar/glew/2.1.0_1/lib/,
-					/usr/local/lib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-lglfw",
 					"-lGLEW",
@@ -322,6 +319,28 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				GCC_WARN_SHADOW = NO;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/,
+					../Utils,
+					/usr/local/Cellar/glew/2.1.0_1/include,
+					/usr/local/Cellar/glfw/3.3.2/include,
+					/opt/homebrew/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
+					../Utils,
+					/usr/local/Cellar/glfw/3.3.2/lib/,
+					/usr/local/Cellar/glew/2.1.0_1/lib/,
+					/opt/homebrew/lib,
+				);
+				OTHER_LDFLAGS = (
+					"-lglfw",
+					"-lGLEW",
+					"-framework",
+					OpenGL,
+					"-L../Utils",
+					"-lutils",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -332,6 +351,28 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				GCC_WARN_SHADOW = NO;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/,
+					../Utils,
+					/usr/local/Cellar/glew/2.1.0_1/include,
+					/usr/local/Cellar/glfw/3.3.2/include,
+					/opt/homebrew/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
+					../Utils,
+					/usr/local/Cellar/glfw/3.3.2/lib/,
+					/usr/local/Cellar/glew/2.1.0_1/lib/,
+					/opt/homebrew/lib,
+				);
+				OTHER_LDFLAGS = (
+					"-lglfw",
+					"-lGLEW",
+					"-framework",
+					OpenGL,
+					"-L../Utils",
+					"-lutils",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -348,7 +389,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A231F10625EAF61A00CBFC23 /* Build configuration list for PBXNativeTarget "Color" */ = {
+		A231F10625EAF61A00CBFC23 /* Build configuration list for PBXNativeTarget "Color-Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A231F10725EAF61A00CBFC23 /* Debug */,
