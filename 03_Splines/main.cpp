@@ -61,7 +61,7 @@ public:
       curve[i*7+3] = 0.0f;  // red
       curve[i*7+4] = 0.0f;  // green
       curve[i*7+5] = 0.0f;  // blue
-      curve[i*7+6] = 0.0f;  // alpha  (no need to change)
+      curve[i*7+6] = 0.0f;  // alpha
     }
     drawLines(curve, LineDrawType::STRIP, 3);
   }
@@ -118,7 +118,7 @@ public:
 
     {
       setDrawTransform(Mat4::translation(0.0f,0.7f,0.0f));
-      const Vec2 p0{-0.5,0.0f};
+      const Vec2 p0{-0.5f,0.0f};
       const Vec2 m0{float(sa)*0.2f,float(ca)*0.2f};
       const Vec2 m1{0.0f,-0.2f};
       const Vec2 p1{0.5f,0.0f};
@@ -128,7 +128,7 @@ public:
 
     {
       setDrawTransform(Mat4::translation(0.0f,0.0f,0.0f));
-      const Vec2 p0{-0.5,0.0f};
+      const Vec2 p0{-0.5f,0.0f};
       const Vec2 p1{float(sa)*0.2f-0.5f,float(ca)*0.2f};
       const Vec2 p2{0.5f,0.2f};
       const Vec2 p3{0.5f,0.0f};
@@ -137,7 +137,7 @@ public:
    
     {
       setDrawTransform(Mat4::translation(0.0f,-0.2f,0.0f));
-      const Vec2 p0{-0.5,0.0f};
+      const Vec2 p0{-0.5f,0.0f};
       const Vec2 p1{float(sa)*0.2f-0.5f,float(ca)*0.2f};
       const Vec2 p2{0.5f,0.2f};
       const Vec2 p3{0.5f,0.0f};
@@ -146,7 +146,7 @@ public:
 
     {
       setDrawTransform(Mat4::translation(0.0f,-0.7f,0.0f));
-      const Vec2 p0{-0.5,0.0f};
+      const Vec2 p0{-0.5f,0.0f};
       const Vec2 p1{float(sa)*0.2f-0.5f,float(ca)*0.2f};
       const Vec2 p2{0.5f,0.2f};
       const Vec2 p3{0.5f,0.0f};
