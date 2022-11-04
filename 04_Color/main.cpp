@@ -8,6 +8,8 @@ public:
   std::shared_ptr<FontEngine> fe{nullptr};
   std::string text;
 
+  MyGLApp() : GLApp{800,800,1,"Color Picker"} {}
+  
   Vec3 convertPosToHSV(float x, float y) {
     // TODO:
     // enter code here that interprets the mouse's
@@ -16,18 +18,13 @@ public:
     return Vec3{x,y,1.0f};
   }
   
-  
-  virtual void init() {
-    glEnv.setTitle("Color Picker");
+  virtual void init() override {
     fe = fr.generateFontEngine();
-
     for (uint32_t y = 0;y<image.height;++y) {
       for (uint32_t x = 0;x<image.width;++x) {
         const Vec3 rgb = convertPosToHSV(float(x)/image.width, float(y)/image.height);
-        image.setNormalizedValue(x,y,0,rgb.r);
-        image.setNormalizedValue(x,y,1,rgb.g);
-        image.setNormalizedValue(x,y,2,rgb.g);
-        image.setValue(x,y,3,255);
+        image.setNormalizedValue(x,y,0,rgb.r); image.setNormalizedValue(x,y,1,rgb.g);
+        image.setNormalizedValue(x,y,2,rgb.g); image.setValue(x,y,3,255);
       }
     }
     GL(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
@@ -35,18 +32,15 @@ public:
     GL(glEnable(GL_BLEND));
   }
   
-  virtual void mouseMove(double xPosition, double yPosition) {
+  virtual void mouseMove(double xPosition, double yPosition) override {
     Dimensions s = glEnv.getWindowSize();
     if (xPosition < 0 || xPosition > s.width || yPosition < 0 || yPosition > s.height) return;
-
     const Vec3 hsv{float(360*xPosition/s.width),float(1.0-yPosition/s.height),1.0f};
     const Vec3 rgb = convertPosToHSV(float(xPosition/s.width), float(1.0-yPosition/s.height));
-    std::stringstream ss;
-    ss << "HSV: " << hsv << "  RGB: " << rgb;
-    text = ss.str();
+    std::stringstream ss; ss << "HSV: " << hsv << "  RGB: " << rgb; text = ss.str();
   }
     
-  virtual void draw() {
+  virtual void draw() override {
     drawImage(image);
 
     const Dimensions dim{ glEnv.getFramebufferSize() };

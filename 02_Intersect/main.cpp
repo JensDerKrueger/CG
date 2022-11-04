@@ -6,7 +6,7 @@ class MyGLApp : public GLApp {
 public:
   Image image{1024,1024};
   
-  MyGLApp() : GLApp{1024,1024} {}
+  MyGLApp() : GLApp{1024,1024,1,"Intersection Demo"} {}
     
   std::optional<Vec3> raySphereIntersect(const Vec3& sphereCenter, const float& radius, const Vec3& rayOrigin, const Vec3& pixelPos) {
     // TODO:
@@ -35,8 +35,7 @@ public:
     return specular + diffuse + ambient;
   }
     
-  virtual void init() {
-    glEnv.setTitle("Intersection Demo");
+  virtual void init() override {
     GL(glDisable(GL_CULL_FACE));
     GL(glClearColor(0,0,0,0));
     
@@ -69,7 +68,7 @@ public:
     }
   }
     
-  virtual void draw() {
+  virtual void draw() override {
     GL(glClear(GL_COLOR_BUFFER_BIT));
     drawImage(image);
   }

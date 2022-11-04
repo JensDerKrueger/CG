@@ -7,8 +7,9 @@ public:
   double angle{0.0};
   std::vector<float> data;
   
+  MyGLApp() : GLApp{640,480,1,"Shared vertices to explicit representation demo"} {}
+  
   virtual void init() override {
-    glEnv.setTitle("Shared vertices to explicit representation demo");
     GL(glDisable(GL_CULL_FACE));
     GL(glEnable(GL_DEPTH_TEST));
     GL(glClearColor(0,0,0,0));

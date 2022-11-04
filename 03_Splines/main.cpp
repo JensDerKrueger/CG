@@ -6,13 +6,13 @@
 
 class MyGLApp : public GLApp {
 public:
-  
   double sa = 0;
   double ca = 0;
   const size_t maxLineSegments = 100;
 
-  virtual void init() {
-    glEnv.setTitle("Spline Demo");
+  MyGLApp() : GLApp{1024,1024,1,"Spline Demo"} {}
+  
+  virtual void init() override {
     GL(glDisable(GL_CULL_FACE));
     GL(glDisable(GL_DEPTH_TEST));
     GL(glClearColor(1,1,1,1));
@@ -21,7 +21,7 @@ public:
     GL(glBlendEquation(GL_FUNC_ADD));
   }
   
-  virtual void animate(double animationTime) {
+  virtual void animate(double animationTime) override {
     sa = sin(animationTime);
     ca = cos(animationTime);
   }
@@ -112,8 +112,7 @@ public:
                p3.x,p3.y,0,1,0,0,1}, 20, true);
   }
   
-  
-  virtual void draw() {
+  virtual void draw() override {
     GL(glClear(GL_COLOR_BUFFER_BIT));
 
     {
@@ -156,10 +155,7 @@ public:
       drawBSplineSegment(p1,p2,p3,p3,{0.0f,1.0f,1.0f,1.0f});
       drawBSplineSegment(p2,p3,p3,p3,{1.0f,0.0f,1.0f,1.0f});
     }
-
-
   }
-
 } myApp;
 
 int main(int argc, char ** argv) {
