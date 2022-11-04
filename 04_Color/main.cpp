@@ -24,7 +24,7 @@ public:
       for (uint32_t x = 0;x<image.width;++x) {
         const Vec3 rgb = convertPosToHSV(float(x)/image.width, float(y)/image.height);
         image.setNormalizedValue(x,y,0,rgb.r); image.setNormalizedValue(x,y,1,rgb.g);
-        image.setNormalizedValue(x,y,2,rgb.g); image.setValue(x,y,3,255);
+        image.setNormalizedValue(x,y,2,rgb.b); image.setValue(x,y,3,255);
       }
     }
     GL(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
