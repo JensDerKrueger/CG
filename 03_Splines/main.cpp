@@ -66,7 +66,8 @@ public:
     drawLines(curve, LineDrawType::STRIP, 3);
   }
  
-  void drawHermiteSegment(const Vec2& p0, const Vec2& p1, const Vec2& m0, const Vec2& m1, const Vec4& color) {
+  void drawHermiteSegment(const Vec2& p0, const Vec2& p1, const Vec2& m0,
+                          const Vec2& m1, const Vec4& color) {
     Mat4 g{
       1, 0, 0, 0,
       0, 0, 1, 0,
@@ -80,11 +81,14 @@ public:
                p1.x,p1.y,0,1,0,0,1}, 20, true);
   }
   
-  void drawBezierSegmentDeCasteljau(const Vec2& p0, const Vec2& p1, const Vec2& p2, const Vec2& p3, const Vec4& color) {
+  void drawBezierSegmentDeCasteljau(const Vec2& p0, const Vec2& p1,
+                                    const Vec2& p2, const Vec2& p3,
+                                    const Vec4& color) {
     // TODO SOLUTION 2:
   }
 
-  void drawBezierSegment(const Vec2& p0, const Vec2& p1, const Vec2& p2, const Vec2& p3, const Vec4& color) {
+  void drawBezierSegment(const Vec2& p0, const Vec2& p1, const Vec2& p2,
+                         const Vec2& p3, const Vec4& color) {
     Mat4 g{
       1, 0, 0, 0,
      -3, 3, 0, 0,
@@ -98,7 +102,8 @@ public:
                p3.x,p3.y,0,1,0,0,1}, 20, true);
   }
   
-  void drawBSplineSegment(const Vec2& p0, const Vec2& p1, const Vec2& p2, const Vec2& p3, const Vec4& color) {
+  void drawBSplineSegment(const Vec2& p0, const Vec2& p1, const Vec2& p2,
+                          const Vec2& p3, const Vec4& color) {
     Mat4 g{
       1/6.0f, 4/6.0f, 1/6.0f, 0/6.0f,
      -3/6.0f, 0/6.0f, 3/6.0f, 0/6.0f,
