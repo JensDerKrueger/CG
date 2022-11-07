@@ -10,7 +10,7 @@ public:
 
   MyGLApp() : GLApp{800,800,1,"Color Picker"} {}
   
-  Vec3 convertPosToHSV(float x, float y) {
+  Vec3 convertPosToRGB(float x, float y) {
     // TODO:
     // enter code here that interprets the mouse's
     // x, y position as H ans S (I suggest to set
@@ -22,7 +22,7 @@ public:
     fe = fr.generateFontEngine();
     for (uint32_t y = 0;y<image.height;++y) {
       for (uint32_t x = 0;x<image.width;++x) {
-        const Vec3 rgb = convertPosToHSV(float(x)/image.width, float(y)/image.height);
+        const Vec3 rgb = convertPosToRGB(float(x)/image.width, float(y)/image.height);
         image.setNormalizedValue(x,y,0,rgb.r); image.setNormalizedValue(x,y,1,rgb.g);
         image.setNormalizedValue(x,y,2,rgb.b); image.setValue(x,y,3,255);
       }
