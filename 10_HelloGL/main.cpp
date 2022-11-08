@@ -11,29 +11,29 @@ GLuint vao;
 GLuint program;
 
 // triangle vertex position data
-const float triangle[] = {
+constexpr float triangle[] = {
 	 0.0f,  0.5f, 0.0f, // top
 	-0.5f, -0.5f, 0.0f,	// bottom left
 	 0.5f, -0.5f, 0.0f  // bottom right
 };
 
 // vertex shader code
-const char* vertexShaderSource =
-"#version 410 core\n"
-"layout(location = 0) in vec3 vPos;\n"
-"void main()\n"
-"{\n"
-"  gl_Position = vec4(vPos, 1.0);\n"
-"}\0";
+const GLchar* vertexShaderSource{
+  "#version 410 core\n"
+  "layout(location = 0) in vec3 vPos;\n"
+  "void main()\n"
+  "{\n"
+  "  gl_Position = vec4(vPos, 1.0);\n"
+  "}\0"};
 
 // fragment shader code
-const char* fragmentShaderSource =
-"#version 410 core\n"
-"out vec4 fragColor;\n"
-"void main()\n"
-"{\n"
-"  fragColor = vec4(1.0f, 1.0f, 1.0f, 1.0);\n"
-"}\0";
+const GLchar* fragmentShaderSource{
+  "#version 410 core\n"
+  "out vec4 fragColor;\n"
+  "void main()\n"
+  "{\n"
+  "  fragColor = vec4(1.0f, 1.0f, 1.0f, 1.0);\n"
+  "}\0"};
 
 void init() {
   const GLubyte* glVersion = glGetString(GL_VERSION);
@@ -43,7 +43,7 @@ void init() {
 }
 
 void draw() {
-  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+  GL( glClearColor(0.0f, 0.0f, 0.0f, 1.0f) );
   GL( glClear(GL_COLOR_BUFFER_BIT) );
   
   GL( glBindVertexArray(vao) );
@@ -97,8 +97,7 @@ void setupGeometry() {
 void checkProgramLinkStatus(GLuint programId) {
   GLint success;
   glGetProgramiv(programId, GL_LINK_STATUS, &success);
-  if (!success)
-  {
+  if (!success) {
     char infoLog[512];
     glGetProgramInfoLog(programId, 512, NULL, infoLog);
     std::cout << "Error: Program link failed.\n" << infoLog << std::endl;
@@ -108,8 +107,7 @@ void checkProgramLinkStatus(GLuint programId) {
 void checkShaderCompileStatus(GLuint shaderId) {
   GLint success;
   glGetShaderiv(shaderId, GL_COMPILE_STATUS, &success);
-  if (!success)
-  {
+  if (!success) {
     char infoLog[512];
     glGetShaderInfoLog(shaderId, 512, NULL, infoLog);
     std::cout << "Error: Shader compilation failed.\n" << infoLog << std::endl;
@@ -136,8 +134,7 @@ int main(int argc, char** argv) {
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	window = glfwCreateWindow(800, 600, "Assignment 10 - Hello OpenGL", NULL, NULL);
-	if (window == NULL)
-	{
+	if (window == NULL) {
 		std::cout << "Failed to create GLFW window!" << std::endl;
 		glfwTerminate();
 		return -1;
@@ -145,9 +142,8 @@ int main(int argc, char** argv) {
 
 	glfwMakeContextCurrent(window);
 
-	GLenum err(glewInit());
-	if (err != GLEW_OK)
-	{
+	const GLenum err(glewInit());
+	if (err != GLEW_OK) {
 		std::stringstream s;
 		s << "Failed to init GLEW " << glewGetErrorString(err) << std::endl;
 		glfwTerminate();
@@ -165,17 +161,13 @@ int main(int argc, char** argv) {
 	setupGeometry();
 
 	// main loop
-	while (!glfwWindowShouldClose(window))
-	{
+	while (!glfwWindowShouldClose(window)) {
 		processInput(window);
-
 		draw();
-
 		glfwPollEvents();
 	}
 
-
-	glfwTerminate();
+  glfwTerminate();
 	return EXIT_SUCCESS;
 }
 
