@@ -36,7 +36,7 @@ public:
     Dimensions s = glEnv.getWindowSize();
     if (xPosition < 0 || xPosition > s.width || yPosition < 0 || yPosition > s.height) return;
     const Vec3 hsv{float(360*xPosition/s.width),float(1.0-yPosition/s.height),1.0f};
-    const Vec3 rgb = convertPosToHSV(float(xPosition/s.width), float(1.0-yPosition/s.height));
+    const Vec3 rgb = convertPosFromHSVToRGB(float(xPosition/s.width), float(1.0-yPosition/s.height));
     std::stringstream ss; ss << "HSV: " << hsv << "  RGB: " << rgb; text = ss.str();
   }
     
