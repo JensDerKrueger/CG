@@ -1,8 +1,7 @@
 #pragma once
 #include "Vec3.h"
 
-class Material
-{
+class Material {
 public:
 	Vec3 color_ambient;
 	Vec3 color_diffuse;
@@ -13,7 +12,7 @@ public:
 	{ }
 
 	Material(const Vec3& diffuse)
-		: Material(diffuse, diffuse, Vec3{ 1,1,1 })
+		: Material(diffuse, diffuse, { 1,1,1 })
 	{ }
 };
 

@@ -9,5 +9,8 @@ public:
 
 	// Inherited via Shader
 	virtual Vec3 shade(Vertex surface) const override;
-};
 
+private:
+  // TODO: add the appropriate member variables here
+
+};

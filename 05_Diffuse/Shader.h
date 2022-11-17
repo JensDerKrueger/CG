@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Vec3.h"
 #include "Vertex.h"
 
