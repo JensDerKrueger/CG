@@ -11,6 +11,7 @@ Vec3 DiffuseShader::shade(Vertex surface) const {
    This method should compute and return color of the given vertex using
    diffuse illumination.
    */
-  return Vec3(0, 0, 0); // just a dummy return value, needs to be replaced with the right one
-}
 
+  // just a dummy return value, needs to be replaced with the right one
+  return {0,0,0};
+}

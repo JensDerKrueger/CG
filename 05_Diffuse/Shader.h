@@ -5,6 +5,6 @@
 
 class Shader {
 public:
-	virtual Vec3 shade(Vertex surface) const = 0 ;
+  virtual Vec3 shade(Vertex surface) const = 0;
   virtual ~Shader() {}
 };
