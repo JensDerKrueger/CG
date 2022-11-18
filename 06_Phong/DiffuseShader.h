@@ -3,14 +3,15 @@
 
 class DiffuseShader : public Shader {
 private:
-	Vec3 light;
-	Vec3 ld;
+  Vec3 light;
+  Vec3 ld;
 
 public:
-	DiffuseShader(const Vec3& light, const Vec3& light_diffuse_color);
+  DiffuseShader(const Vec3& light, const Vec3& light_diffuse_color);
   virtual ~DiffuseShader() {}
 
-	// Inherited via Shader
-	virtual Vec3 shade(Vertex surface) const override;
+  // Inherited via Shader
+  virtual Vec3 shade(Vertex surface) const override;
 };
+
 

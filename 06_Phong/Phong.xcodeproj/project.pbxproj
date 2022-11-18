@@ -11,7 +11,6 @@
 		56A3385C2915AEA000327B6C /* BumpPhongShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56A338512915AEA000327B6C /* BumpPhongShader.cpp */; };
 		56A3385D2915AEA000327B6C /* PhongShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56A338552915AEA000327B6C /* PhongShader.cpp */; };
 		56A3385E2915AEA000327B6C /* AmbientShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56A338562915AEA000327B6C /* AmbientShader.cpp */; };
-		56A3385F2915AEA000327B6C /* Vertex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56A338572915AEA000327B6C /* Vertex.cpp */; };
 		56A338602915AEA000327B6C /* DiffuseShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56A338582915AEA000327B6C /* DiffuseShader.cpp */; };
 		56A338612915AEA000327B6C /* Triangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56A3385A2915AEA000327B6C /* Triangle.cpp */; };
 /* End PBXBuildFile section */
@@ -29,7 +28,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		5677394C25FB7BF000AB2341 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		5677394C25FB7BF000AB2341 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		56A3384E2915AEA000327B6C /* Triangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Triangle.h; sourceTree = "<group>"; };
 		56A3384F2915AEA000327B6C /* PhongShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhongShader.h; sourceTree = "<group>"; };
 		56A338502915AEA000327B6C /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shader.h; sourceTree = "<group>"; };
@@ -39,7 +38,6 @@
 		56A338542915AEA000327B6C /* BumpPhongShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BumpPhongShader.h; sourceTree = "<group>"; };
 		56A338552915AEA000327B6C /* PhongShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhongShader.cpp; sourceTree = "<group>"; };
 		56A338562915AEA000327B6C /* AmbientShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AmbientShader.cpp; sourceTree = "<group>"; };
-		56A338572915AEA000327B6C /* Vertex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vertex.cpp; sourceTree = "<group>"; };
 		56A338582915AEA000327B6C /* DiffuseShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DiffuseShader.cpp; sourceTree = "<group>"; };
 		56A338592915AEA000327B6C /* Material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Material.h; sourceTree = "<group>"; };
 		56A3385A2915AEA000327B6C /* Triangle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Triangle.cpp; sourceTree = "<group>"; };
@@ -74,7 +72,6 @@
 				56A338502915AEA000327B6C /* Shader.h */,
 				56A3385A2915AEA000327B6C /* Triangle.cpp */,
 				56A3384E2915AEA000327B6C /* Triangle.h */,
-				56A338572915AEA000327B6C /* Vertex.cpp */,
 				56A3385B2915AEA000327B6C /* Vertex.h */,
 				A231F10025EAF61A00CBFC23 /* Products */,
 			);
@@ -145,7 +142,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				56A3385D2915AEA000327B6C /* PhongShader.cpp in Sources */,
-				56A3385F2915AEA000327B6C /* Vertex.cpp in Sources */,
 				56A3385E2915AEA000327B6C /* AmbientShader.cpp in Sources */,
 				56A338612915AEA000327B6C /* Triangle.cpp in Sources */,
 				5677395325FB7BF000AB2341 /* main.cpp in Sources */,

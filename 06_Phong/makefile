@@ -13,7 +13,7 @@ else
 	INCLUDES=-I. -I../Utils -I /opt/homebrew/include
 endif
 
-SRC = main.cpp AmbientShader.cpp DiffuseShader.cpp Triangle.cpp Vertex.cpp PhongShader.cpp BumpPhongShader.cpp 
+SRC = main.cpp AmbientShader.cpp DiffuseShader.cpp Triangle.cpp PhongShader.cpp BumpPhongShader.cpp 
 OBJ = $(SRC:.cpp=.o)
 TARGET = more_triangles
 

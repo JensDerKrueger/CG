@@ -5,7 +5,9 @@
 * @param cellSize size of the bumps in the x-y-plane measured in pixels
 * @param bumpHeight amplitude of the bumps in positive z-direction (out of the image plane)
 */
-BumpPhongShader::BumpPhongShader(const PhongShader& phong, float cellSize, float bumpHeight)
+BumpPhongShader::BumpPhongShader(const PhongShader& phong,
+                                 float cellSize,
+                                 float bumpHeight)
 	: PhongShader(phong)
 {
 	// TODO: implement this method and the rest of this class necessary for the assignment
