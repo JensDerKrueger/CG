@@ -1,5 +1,7 @@
 #include "Triangle.h"
 
+constexpr float epsilon = 0.000001f;
+
 Triangle::Triangle(const Vertex& v0, const Vertex& v1, const Vertex& v2,
                    const Shader& s) : v0(v0), v1(v1), v2(v2), shader(s) {
 }
@@ -16,8 +18,8 @@ void Triangle::draw(Image& image) {
                         (v0.position.x - v2.position.x) * (y - v2.position.y)) / det;
 			const float a2 = 1 - a0 - a1;
 
-      if (0 <= a0 && 0 <= a1 && 0 <= a2 &&
-          1 >= a0 && 1 >= a1 && 1 >= a2) {
+      if (0-epsilon <= a0 && 0-epsilon <= a1 && 0-epsilon <= a2 &&
+          1+epsilon >= a0 && 1+epsilon >= a1 && 1+epsilon >= a2) {
         Vertex v;
         v.position = interpolate(v0.position, a0, v1.position, a1, v2.position, a2);
         v.normal = interpolate(v0.normal, a0, v1.normal, a1, v2.normal, a2);
@@ -33,7 +35,7 @@ void Triangle::draw(Image& image) {
         image.setNormalizedValue(x, y, 0, color.r);
         image.setNormalizedValue(x, y, 1, color.g);
         image.setNormalizedValue(x, y, 2, color.b);
-        image.setValue(x, y, 3, 255);
+        image.setNormalizedValue(x, y, 3, 1);
       }			
 		}
 	}
