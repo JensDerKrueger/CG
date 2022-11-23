@@ -33,12 +33,14 @@
     <ClCompile Include="..\GLTexture2D.cpp" />
     <ClCompile Include="..\GLTexture3D.cpp" />
     <ClCompile Include="..\Grid2D.cpp" />
+    <ClCompile Include="..\ImageLoader.cpp" />
     <ClCompile Include="..\OBJFile.cpp" />
     <ClCompile Include="..\Rand.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ColorConversion.h" />
     <ClInclude Include="..\Image.h" />
+    <ClInclude Include="..\ImageLoader.h" />
     <ClInclude Include="..\Mat3.h" />
     <ClInclude Include="..\AbstractParticleSystem.h" />
     <ClInclude Include="..\bmp.h" />
@@ -57,6 +59,7 @@
     <ClInclude Include="..\Mat4.h" />
     <ClInclude Include="..\OBJFile.h" />
     <ClInclude Include="..\Rand.h" />
+    <ClInclude Include="..\stb_image.h" />
     <ClInclude Include="..\Vec2.h" />
     <ClInclude Include="..\Vec3.h" />
     <ClInclude Include="..\Vec4.h" />

@@ -2,6 +2,9 @@
 
 #include <string>
 
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
 #include "GLEnv.h"
 #include "GLProgram.h"
 #include "GLArray.h"
@@ -39,6 +42,11 @@ public:
   }
   bool getAnimation() const {
     return animationActive;
+  }
+  void resetAnimation() {
+    resumeTime = 0;
+    glfwSetTime(0);
+    animate(0);
   }
 
   float getAspect() const {
