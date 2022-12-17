@@ -5,6 +5,7 @@
 #include <string>
 #include <array>
 #include <cmath>
+#include <optional>
 
 #include "Rand.h"
 #include "Vec2.h"
@@ -131,12 +132,26 @@ public:
     return a-n*dot(a,n)*T(2);
   }
   
-  static Vec3t refract(const Vec3t& a, const Vec3t& n,
-                          const T index) {
-    const T cosTheta = T(std::min(-dot(a, n), T(1)));
-    const Vec3t rOutParallel{(a + n*cosTheta) * index};
-    const Vec3t rOutPerpendicular{n * -sqrt(T(1) - std::min(rOutParallel.sqlength(), T(1)))};
-    return rOutParallel + rOutPerpendicular;
+  static std::optional<Vec3t> refract(const Vec3t& a, const Vec3t& normal, const T IOR) {
+    const T cosI = Vec3t::dot(a, normal);
+    int sign = (cosI < 0) ? -1 : 1;
+
+    // we assume that if we look from the back side we are exiting the material
+    // back side means that the sign/cosI is positive because the incoming ray
+    // is assumed to point
+    // towards the surface and the normal away
+    const T n = (sign == 1) ? IOR : 1.0f / IOR;
+    const T sinThetaSq = n * n * (1.0f - cosI * cosI);
+
+    if (sinThetaSq > 1.0f) {
+      // Total internal reflection
+      return {};
+    } else {
+      const Vec3t d = a * n;
+      const T c = n * cosI -sign * sqrt(1.0f - sinThetaSq);
+      const Vec3t b = normal * c;
+      return d - b;
+    }
   }
       
   static Vec3t minV(const Vec3t& a, const Vec3t& b) {
