@@ -13,7 +13,7 @@ else
 	INCLUDES=-I. -I../Utils -I /opt/homebrew/include
 endif
 
-SRC = Camera.cpp IntersectableObject.cpp Intersection.cpp LightSource.cpp main.cpp Material.cpp Plane.cpp PointLight.cpp Ray.cpp Raytracer.cpp Scene.cpp Sphere.cpp
+SRC = Camera.cpp Intersection.cpp LightSource.cpp main.cpp Material.cpp Plane.cpp PointLight.cpp Ray.cpp Raytracer.cpp Scene.cpp Sphere.cpp
 OBJ = $(SRC:.cpp=.o)
 TARGET = raytracer
 
