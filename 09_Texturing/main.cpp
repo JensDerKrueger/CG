@@ -13,11 +13,9 @@ public:
 
 	bool drawDebug = false;
 
-	MyGLApp() : GLApp{ 600,600 } {}
+	MyGLApp() : GLApp{ 600,600,1,"Texturing" } {}
 
-	virtual void init() override
-	{
-		glEnv.setTitle("Texturing");
+	virtual void init() override {
 		GL(glDisable(GL_CULL_FACE));
 		GL(glClearColor(0, 0, 0, 0));
 
@@ -26,26 +24,23 @@ public:
 		render(texturedScene, 5, debugImage, true);
 	}
 
-	void render(Scene& scene, int depth, Image& image, bool debug = false)
-	{
+	void render(Scene& scene, int depth, Image& image, bool debug = false) {
 		scene.setDebug(debug);
 
 		Camera camera;
 		camera.setEyePoint(Vec3{ 0.0, 0.0, 2.0 });
 		camera.setLookAt(Vec3{ 0.0, 0.0, 0.0 });
 
-		// instantiate the actual renderer with recursion depth "depth" and 9x super sampling
-		// NOTE: you might want to reduce the super sampling to 1 for testing and debugging
+		// instantiate the actual renderer with recursion depth "depth" and
+    // 9x super sampling NOTE: you might want to reduce the super sampling
+    // to 1 for testing and debugging
 		Raytracer renderer(depth, 9);
 		renderer.setCamera(camera);
 		renderer.setScene(scene);
 		renderer.render(image);
 	}
 
-
-
-	virtual void draw() override
-	{
+	virtual void draw() override {
 		GL(glClear(GL_COLOR_BUFFER_BIT));
 
 		if (drawDebug)
@@ -54,8 +49,7 @@ public:
 			drawImage(image);
 	}
 
-	void keyboard(int key, int scancode, int action, int mods) override
-	{
+	void keyboard(int key, int scancode, int action, int mods) override {
 		if (key == GLFW_KEY_SPACE && action == GLFW_PRESS) {
 			drawDebug = !drawDebug;
 		}
@@ -63,8 +57,7 @@ public:
 
 } myApp;
 
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv) {
 	myApp.run();
 	return EXIT_SUCCESS;
 }
