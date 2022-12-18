@@ -9,13 +9,11 @@ class MyGLApp : public GLApp {
 public:
   Image image{600,600};
   
-  MyGLApp() : GLApp{600,600} {}
+  MyGLApp() : GLApp{600,600,1,"Raycast Demo"} {}
     
   virtual void init() {
-    glEnv.setTitle("Raytrace");
     GL(glDisable(GL_CULL_FACE));
     GL(glClearColor(0,0,0,0));
-
     render(Scene::genSimpleScene(), 9);
   }
 
