@@ -9,18 +9,15 @@ class MyGLApp : public GLApp {
 public:
   Image image{600,600};
   
-  MyGLApp() : GLApp{600,600} {}
+  MyGLApp() : GLApp{600,600,1,"Raytrace Demo"} {}
     
   virtual void init() {
-    glEnv.setTitle("Raytrace");
     GL(glDisable(GL_CULL_FACE));
     GL(glClearColor(0,0,0,0));
-
     render(Scene::genSimpleScene(), 9);
   }
 
-  void render(Scene scene, int depth)
-  {
+  void render(Scene scene, int depth) {
       Camera camera;
       camera.setEyePoint(Vec3{ 0.0, 0.0, 2.0 });
       camera.setLookAt(Vec3{ 0.0, 0.0, 0.0 });
@@ -33,8 +30,6 @@ public:
       renderer.render(image);
   }
 
-
-    
   virtual void draw() {
     GL(glClear(GL_COLOR_BUFFER_BIT));
     drawImage(image);
