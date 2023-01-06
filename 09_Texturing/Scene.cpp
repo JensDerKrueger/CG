@@ -8,23 +8,20 @@
 
 #include "Texture.h"
 
-void Scene::addObject(std::shared_ptr<const IntersectableObject> object)
-{
+void Scene::addObject(std::shared_ptr<const IntersectableObject> object) {
 	sceneObjects.push_back(object);
 }
 
-void Scene::addLight(std::shared_ptr<const LightSource> ls)
-{
+void Scene::addLight(std::shared_ptr<const LightSource> ls) {
 	lightSources.push_back(ls);
 }
 
-Vec3 Scene::getBackgroundcolor() const
-{
+Vec3 Scene::getBackgroundcolor() const {
 	return backgroundColor;
 }
 
-std::optional<Intersection> Scene::intersect(const Ray& ray, bool shadowRay) const
-{
+std::optional<Intersection> Scene::intersect(const Ray& ray,
+                                             bool shadowRay) const {
 	std::optional<Intersection> result{};
 	for (std::shared_ptr<const IntersectableObject> object : sceneObjects)
 	{
@@ -48,25 +45,20 @@ std::optional<Intersection> Scene::intersect(const Ray& ray, bool shadowRay) con
 /// <param name="IOR">optical density of the material we are currently travelling in</param>
 /// <param name="recDepth">recursion depth</param>
 /// <returns>final color value computed for this ray</returns>
-Vec3 Scene::traceRay(const Ray& ray, float IOR, int recDepth) const
-{
-	if (recDepth == 0)
-		return backgroundColor;
+Vec3 Scene::traceRay(const Ray& ray, float IOR, int recDepth) const {
+	if (recDepth == 0) return backgroundColor;
 
 	// no intersection found
 	std::optional<Intersection> opt_intersection = intersect(ray, false);
-	if (!opt_intersection.has_value())
-		return backgroundColor;
+	if (!opt_intersection.has_value()) return backgroundColor;
 
 	// else intersection found, do recursive ray tracing
 	Intersection inter = opt_intersection.value();
 	Vec3 interPos = ray.getPosOnRay(inter.getT());
 
-	if (debug)
-	{
+	if (debug) {
 		std::optional<TextureCoordinates> tc = inter.getTexCoords();
-		if (tc.has_value())
-		{
+		if (tc.has_value()) {
 			return Vec3::clamp({ tc->u, tc->v, 0 }, 0, 1);
 		}
 	}
@@ -74,65 +66,48 @@ Vec3 Scene::traceRay(const Ray& ray, float IOR, int recDepth) const
 	Vec3 offSurfacePos = interPos + inter.getNormal() * OFFSET_EPSILON;
 
 	Vec3 reflColor{ 0.0f, 0.0f, 0.0f };
-	if (inter.getMaterial().reflects())
-	{
+	if (inter.getMaterial().reflects()) {
 		Ray reflRay{ offSurfacePos, Vec3::reflect(ray.getDirection(), inter.getNormal()) };
 		reflColor = traceRay(reflRay, IOR, recDepth - 1);
 	}
 
 	Vec3 refractionColor{ 0.0f, 0.0f, 0.0f };
-	if (inter.getMaterial().refracts())
-	{
+	if (inter.getMaterial().refracts()) {
 		std::optional<Vec3> refrDirection = Vec3::refract(ray.getDirection(), inter.getNormal(), inter.getMaterial().getIndexOfRefraction().value());
-		if (refrDirection.has_value())
-		{
-			if (IOR == 1.0)
-			{
+		if (refrDirection.has_value()) {
+			if (IOR == 1.0) {
 				// Ray --> from air into material
 				Vec3 inSurfacePos = interPos + inter.getNormal() * -OFFSET_EPSILON;
 				Ray refrRay{ inSurfacePos, refrDirection.value() };
 				refractionColor = traceRay(refrRay, inter.getMaterial().getIndexOfRefraction().value(), recDepth - 1);
-			}
-			else
-			{
+			} else {
 				// Ray --> from material into air
 				Ray refrRay{ offSurfacePos, refrDirection.value() };
 				refractionColor = traceRay(refrRay, 1.0, recDepth - 1);
 			}
 		}
-		else
-		{
-			// Total internal reflection
-			std::cout << "TIR" << std::endl;
-		}
 	}
-
 
 	Vec3 localColor{ 0.0f, 0.0f, 0.0f };
 	Vec3 textureColor{1.0f, 1.0f, 1.0f}; // multiplication with this color results in same color value
-	if(inter.getMaterial().hasTexture() && inter.getTexCoords().has_value())
-	{
+	if(inter.getMaterial().hasTexture() && inter.getTexCoords().has_value()) {
 		textureColor = inter.getMaterial().getTexture().value().sample(inter.getTexCoords().value());
 	}
 
-	for (const std::shared_ptr<const LightSource>& ls : lightSources)
-	{
+	for (const std::shared_ptr<const LightSource>& ls : lightSources) {
 		Ray shadowRay{ offSurfacePos, ls->getDirection(offSurfacePos) };
 		std::optional<Intersection> shadowInter = intersect(shadowRay, true);
 
 		Vec3 ambient = inter.getMaterial().getAmbient() * ls->getAmbient();
-		if (inter.getMaterial().hasTexture())
-		{
+		if (inter.getMaterial().hasTexture()) {
 			ambient = ambient * textureColor;
 		}
 
-		if (!shadowInter.has_value() || shadowInter->getT() > ls->getDistance(offSurfacePos))
-		{
+		if (!shadowInter.has_value() || shadowInter->getT() > ls->getDistance(offSurfacePos)) {
 			float d = Vec3::dot(ls->getDirection(offSurfacePos), inter.getNormal());
 			Vec3 diffuse = inter.getMaterial().getDiffuse() * ls->getDiffuse() * d;
 			diffuse = Vec3::clamp(diffuse, 0.0f, 1.0f);
-			if (inter.getMaterial().hasTexture())
-			{
+			if (inter.getMaterial().hasTexture()) {
 				diffuse = diffuse * textureColor;
 			}
 
@@ -142,9 +117,7 @@ Vec3 Scene::traceRay(const Ray& ray, float IOR, int recDepth) const
 			specular = Vec3::clamp(specular, 0.0f, 1.0f);
 
 			localColor = localColor + ambient + diffuse + specular;
-		}
-		else
-		{
+		} else {
 			localColor = localColor + ambient;
 		}
 	}
@@ -152,29 +125,22 @@ Vec3 Scene::traceRay(const Ray& ray, float IOR, int recDepth) const
 	// compose final color
 	float cosI = Vec3::dot(ray.getDirection(), inter.getNormal());
 	float l = 0, r = 0, t = 0;
-	if (inter.getMaterial().refracts())
-	{
+	if (inter.getMaterial().refracts()) {
 		l = inter.getMaterial().getLocalRefectivity();
 		r = inter.getMaterial().getReflectivity(cosI);
 		t = 1 - r;
 		r = (1 - l) * r;
 		t = (1 - l) * t;
-	}
-	else if (inter.getMaterial().reflects())
-	{
+	} else if (inter.getMaterial().reflects()) {
 		r = inter.getMaterial().getReflectivity(cosI);
 		l = 1 - r;
-	}
-	else
-	{
+	} else {
 		l = 1;
 	}
-
 	return localColor * l + reflColor * r + refractionColor * t;
 }
 
-Scene Scene::genTexturedScene()
-{
+Scene Scene::genTexturedScene() {
 	// create an empty scene
 	Scene s;
 
@@ -226,7 +192,6 @@ Scene Scene::genTexturedScene()
 	return s;
 }
 
-void Scene::setDebug(bool debug)
-{
+void Scene::setDebug(bool debug) {
 	this->debug = debug;
 }

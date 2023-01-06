@@ -1,22 +1,20 @@
 #pragma once
+
 #include "Image.h"
 #include "Vec3.h"
 #include "TextureCoordinates.h"
 
-enum class FilterMode
-{
+enum class FilterMode {
 	NEAREST, BILINEAR
 };
 
-enum class BorderMode
-{
+enum class BorderMode {
 	CLAMP_TO_EDGE, CLAMP_TO_BORDER, REPEAT, MIRRORED_REPEAT
 };
 
-class Texture
-{
-	int width;
-	int height;
+class Texture {
+  uint32_t width;
+  uint32_t height;
 	FilterMode filterMode;
 	BorderMode borderModeU;
 	BorderMode borderModeV;
@@ -25,19 +23,19 @@ class Texture
 
 public:
 
-	Texture(int width, int height);
-	Texture(int width, int height, FilterMode filterMode);
-	Texture(int width, int height, FilterMode filterMode, BorderMode borderMode);
+	Texture(uint32_t width, uint32_t height);
+	Texture(uint32_t width, uint32_t height, FilterMode filterMode);
+	Texture(uint32_t width, uint32_t height, FilterMode filterMode, BorderMode borderMode);
 	Texture(const std::string& filename);
 	Texture(const std::string& filename, FilterMode filterMode);
 	Texture(const std::string& filename, FilterMode filterMode, BorderMode borderMode);
 
-	static Texture genCheckerboardTexture(int width, int height);
+	static Texture genCheckerboardTexture(uint32_t width, uint32_t height);
 
 	Vec3 sample(const TextureCoordinates& texCoords) const;
 	
-	int getWidth() const { return width; }
-	int getHeight() const { return height; }
+  uint32_t getWidth() const { return width; }
+  uint32_t getHeight() const { return height; }
 	void setBorderMode(BorderMode borderMode);
 	void setBorderModeU(BorderMode borderMode);
 	void setBorderModeV(BorderMode borderMode);
