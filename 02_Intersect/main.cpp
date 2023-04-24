@@ -8,7 +8,10 @@ public:
   
   MyGLApp() : GLApp{1024,1024,1,"Intersection Demo"} {}
     
-  std::optional<Vec3> raySphereIntersect(const Vec3& sphereCenter, const float& radius, const Vec3& rayOrigin, const Vec3& pixelPos) {
+  std::optional<Vec3> raySphereIntersect(const Vec3& sphereCenter,
+                                         const float& radius,
+                                         const Vec3& rayOrigin,
+                                         const Vec3& pixelPos) {
     // TODO:
     // Implement a ray/sphere intersection here
     // the sphere is given as sphereCenter and
