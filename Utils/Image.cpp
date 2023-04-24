@@ -88,6 +88,21 @@ void Image::setValue(uint32_t x, uint32_t y, uint32_t component, uint8_t value) 
   data[computeIndex(x, y, component)] = value;
 }
 
+void Image::setValue(uint32_t x, uint32_t y, uint8_t value) {
+  const size_t index = computeIndex(x, y, 0);
+  data[index+0] = value;
+  data[index+1] = value;
+  data[index+2] = value;
+}
+
+void Image::setNormalizedValue(uint32_t x, uint32_t y, float value) {
+  const size_t index = computeIndex(x, y, 0);
+  const uint8_t iValue{uint8_t(std::max(0.0f, std::min(1.0f, value))*255)};
+  data[index+0] = iValue;
+  data[index+1] = iValue;
+  data[index+2] = iValue;
+}
+
 void Image::setNormalizedValue(uint32_t x, uint32_t y, uint32_t component, float value) {
   const uint8_t iValue{uint8_t(std::max(0.0f, std::min(1.0f, value))*255)};
   data[computeIndex(x, y, component)] = iValue;
@@ -125,7 +140,7 @@ std::string Image::toACIIArt(bool bSmallTable) const {
   std::stringstream ss;
   for (uint32_t y = 0;y<height;y+=4) {
     for (uint32_t x = 0;x<width;x+=4) {
-      const uint8_t v = getLumiValue(x,height-1-y);
+      const uint8_t v = getLumiValue(x,height-y);
       ss << lut[(v*lut.length())/255] << lut[(v*lut.length())/255];
     }
     ss << "\n";
@@ -252,101 +267,6 @@ Image Image::resample(uint32_t newWidth) const {
       }
     }
   }
-  return result;
-}
-
-Image Image::cropToAspectAndResample(uint32_t newWidth, uint32_t newHeight) const {
-  if (newWidth == width && newHeight == height)
-    return Image(width, height, componentCount, data);
-
-  const float aspect    = float(width)/float(height);
-  const float newAspect = float(newWidth)/float(newHeight);
   
-  Image result{newWidth, newHeight, componentCount};
-
-  const uint32_t startX = (aspect > newAspect) ? uint32_t(width*((1.0f-newAspect/(aspect))/2.0))  : 0;
-  const uint32_t startY = (aspect < newAspect) ? uint32_t(height*((1.0f-aspect/(newAspect))/2.0)) : 0;
-
-  const uint32_t reduction = (width-2*startX)/newWidth;
-
-  std::vector<uint64_t> values(componentCount);
-  for (uint32_t y = 0;y<newHeight;++y) {
-    for (uint32_t x = 0;x<newWidth;++x) {
-      std::fill(values.begin(), values.end(), 0);
-      for (uint32_t dy = 0;dy<reduction;++dy) {
-        for (uint32_t dx = 0;dx<reduction;++dx) {
-          const uint32_t sx = uint32_t(startX + x/float(newWidth) * (width-2*startX) + dx);
-          const uint32_t sy = uint32_t(startY + y/float(newHeight)* (height-2*startY) + dy);
-          
-          for (uint32_t c = 0;c<componentCount;++c) {
-            values[c] += getValue(sx,sy,c);
-          }
-        }
-      }
-      for (uint32_t c = 0;c<componentCount;++c) {
-        result.setValue(x,y,c,uint8_t(values[c]/(reduction*reduction)));
-      }
-    }
-  }
-
   return result;
-}
-
-Image Image::crop(uint32_t blX, uint32_t blY, uint32_t trX, uint32_t trY) const {
-  size_t i = 0;
-  Image result{trX-blX, trY-blY, componentCount};
-  for (uint32_t y = blY;y<trY;++y) {
-    for (uint32_t x = blX;x<trX;++x) {
-      for (uint32_t c = 0;c<componentCount;++c) {
-        result.data[i++] = getValue(x,y,c);
-      }
-    }
-  }
-  return result;
-}
-
-
-Image Image::flipHorizontal() const {
-  Image result{width, height, componentCount};
-  for (uint32_t y = 0;y<height;++y) {
-    for (uint32_t x = 0;x<width;++x) {
-      for (uint32_t c = 0;c<componentCount;++c) {
-        result.setValue(x,height-y-1,c,getValue(x,y,c));
-      }
-    }
-  }
-  return result;
-}
-
-Image Image::flipVertical() const {
-  Image result{width, height, componentCount};
-  for (uint32_t y = 0;y<height;++y) {
-    for (uint32_t x = 0;x<width;++x) {
-      for (uint32_t c = 0;c<componentCount;++c) {
-        result.setValue(width-x-1,y,c,getValue(x,y,c));
-      }
-    }
-  }
-  return result;
-}
-
-
-void Image::generateAlpha(uint8_t alpha) {
-  if (componentCount == 4) {
-    for (size_t i = 0; i<data.size()/4;i++) {
-      data[i*4+3] = alpha;
-    }
-  } else if (componentCount == 3) {
-    std::vector<uint8_t> newData((data.size() / 3) * 4);
-    
-    for (size_t i = 0; i<data.size()/3;i++) {
-      newData[i*4+0] = data[i*3+0];
-      newData[i*4+1] = data[i*3+1];
-      newData[i*4+2] = data[i*3+2];
-      newData[i*4+3] = alpha;
-    }
-    
-    data = newData;
-    componentCount = 4;
-  }
 }
