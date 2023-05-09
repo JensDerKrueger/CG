@@ -106,7 +106,7 @@ GLApp::GLApp(uint32_t w, uint32_t h, uint32_t s,
      "}\n")},
   simpleArray{},
   simpleVb{GL_ARRAY_BUFFER},
-  raster{GL_LINEAR, GL_LINEAR,GL_CLAMP_TO_EDGE,GL_CLAMP_TO_EDGE},
+  raster{GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE,GL_CLAMP_TO_EDGE},
   pointSprite{GL_LINEAR, GL_LINEAR,GL_CLAMP_TO_EDGE,GL_CLAMP_TO_EDGE},
   pointSpriteHighlight{GL_LINEAR, GL_LINEAR,GL_CLAMP_TO_EDGE,GL_CLAMP_TO_EDGE},
   resumeTime{0},
@@ -414,17 +414,17 @@ void GLApp::setDrawProjection(const Mat4& mat) {
   p = mat;
 }
 
+void GLApp::setDrawTransform(const Mat4& mat) {
+  mv = mat;
+  mvi = Mat4::inverse(mv);
+}
+
 Mat4 GLApp::getDrawProjection() const {
   return p;
 }
 
 Mat4 GLApp::getDrawTransform() const {
   return mv;
-}
-
-void GLApp::setDrawTransform(const Mat4& mat) {
-  mv = mat;
-  mvi = Mat4::inverse(mv);
 }
 
 void GLApp::shaderUpdate() {
@@ -450,38 +450,48 @@ void GLApp::setImageFilter(GLint magFilter, GLint minFilter) {
   raster.setFilter(magFilter, minFilter);
 }
 
-void GLApp::drawImage(const GLTexture2D& image, const Vec2& bl, const Vec2& tr) {
+void GLApp::drawImage(const GLTexture2D& image, const Vec2& bl, const Vec2& tr,
+                      bool noBoundary) {
   drawImage(image,
             {bl.x,bl.y,0.0f},
             {tr.x,bl.y,0.0f},
             {bl.x,tr.y,0.0f},
-            {tr.x,tr.y,0.0f});
+            {tr.x,tr.y,0.0f},
+            noBoundary);
 }
 
-void GLApp::drawImage(const Image& image, const Vec2& bl, const Vec2& tr) {
+void GLApp::drawImage(const Image& image, const Vec2& bl, const Vec2& tr,
+                      bool noBoundary) {
     drawImage(image,
               {bl.x,bl.y,0.0f},
               {tr.x,bl.y,0.0f},
               {bl.x,tr.y,0.0f},
-              {tr.x,tr.y,0.0f});
+              {tr.x,tr.y,0.0f},
+              noBoundary);
 }
 
 
 void GLApp::drawImage(const GLTexture2D& image, const Vec3& bl,
                       const Vec3& br, const Vec3& tl,
-                      const Vec3& tr) {
+                      const Vec3& tr, bool noBoundary) {
 
   shaderUpdate();
   
   simpleTexProg.enable();
-  
+
+  const float minCoordX = noBoundary ? 0.5f/image.getWidth() : 0.0f;
+  const float minCoordY = noBoundary ? 0.5f/image.getHeight() : 0.0f;
+
+  const float maxCoordX = noBoundary ? 1.0f-0.5f/image.getWidth() : 1.0f;
+  const float maxCoordY = noBoundary ? 1.0f-0.5f/image.getHeight() : 1.0f;
+
   std::vector<float> data = {
-    tr[0], tr[1], tr[2], 1.0f, 1.0f,
-    br[0], br[1], br[2], 1.0f, 0.0f,
-    tl[0], tl[1], tl[2], 0.0f, 1.0f,
-    tl[0], tl[1], tl[2], 0.0f, 1.0f,
-    bl[0], bl[1], bl[2], 0.0f, 0.0f,
-    br[0], br[1], br[2], 1.0f, 0.0f
+    tr[0], tr[1], tr[2], maxCoordX, maxCoordY,
+    br[0], br[1], br[2], maxCoordX, minCoordY,
+    tl[0], tl[1], tl[2], minCoordX, maxCoordY,
+    tl[0], tl[1], tl[2], minCoordX, maxCoordY,
+    bl[0], bl[1], bl[2], minCoordX, minCoordY,
+    br[0], br[1], br[2], maxCoordX, minCoordY
   };
   
   simpleVb.setData(data,5,GL_DYNAMIC_DRAW);
@@ -496,10 +506,10 @@ void GLApp::drawImage(const GLTexture2D& image, const Vec3& bl,
 
 void GLApp::drawImage(const Image& image, const Vec3& bl,
                       const Vec3& br, const Vec3& tl,
-                      const Vec3& tr) {
+                      const Vec3& tr, bool noBoundary) {
 
   raster.setData(image.data, image.width, image.height, image.componentCount);
-  drawImage(raster, bl, br, tl, tr);
+  drawImage(raster, bl, br, tl, tr, noBoundary);
 }
 
 void GLApp::drawRect(const Vec4& color, const Vec2& bl, const Vec2& tr) {
