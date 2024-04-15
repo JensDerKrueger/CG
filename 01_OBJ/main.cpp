@@ -18,7 +18,7 @@ public:
 
     // TODO:
     // Replace this example block of code  by your code to
-    // convert the shared vertex represenation in the object m
+    // convert the shared vertex representation in the object m
     // by an explicit representation, indices are stored in
     // the stl-vector m.indices the vertex positions are stored
     // in m.vertices and the normals are stored in m.normals.
