@@ -76,25 +76,22 @@ public:
   virtual void animate(double animationTime) override{
     setupShaders();
 
-    angle = animationTime*30;
+    angle = animationTime*60;
 
     P = Mat4::perspective(45, glEnv.getFramebufferSize().aspect(), 0.0001f, 100);
-    V = Mat4::lookAt({0,0,2},{0,0,0},{0,1,0}) * Mat4::rotationY(float(angle));
-    M = Mat4{};
+    V = Mat4::lookAt({0,0,2},{0,0,0},{0,1,0});
+    M = Mat4::rotationY(float(angle));
 
-    const Mat4 MVP  = P*V*M;
-    const Mat4 MV   = V*M;
-    const Mat4 MVit = Mat4::transpose(Mat4::inverse(MV));
 
     myProgram.enable();
     try {
-      myProgram.setUniform("MVP", MVP);
+      myProgram.setUniform("M", M);
     } catch (...) {}
     try {
-      myProgram.setUniform("MV", MV);
+      myProgram.setUniform("V", V);
     } catch (...) {}
     try {
-      myProgram.setUniform("MVit", MVit);
+      myProgram.setUniform("P", P);
     } catch (...) {}
   }
   
