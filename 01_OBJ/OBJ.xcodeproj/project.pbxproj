@@ -45,6 +45,8 @@
 		5694F41F2AA9BB9F004CFC38 /* Grid2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 5694F3EE2AA9BB9F004CFC38 /* Grid2D.h */; };
 		5694F4202AA9BB9F004CFC38 /* Mat3.h in Headers */ = {isa = PBXBuildFile; fileRef = 5694F3EF2AA9BB9F004CFC38 /* Mat3.h */; };
 		5694F4212AA9BB9F004CFC38 /* GLApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5694F3F02AA9BB9F004CFC38 /* GLApp.cpp */; };
+		56CA2EBE2BD100E100CFDA64 /* GLTextureCube.h in Headers */ = {isa = PBXBuildFile; fileRef = 56CA2EBC2BD100E100CFDA64 /* GLTextureCube.h */; };
+		56CA2EBF2BD100E100CFDA64 /* GLTextureCube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56CA2EBD2BD100E100CFDA64 /* GLTextureCube.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +112,8 @@
 		5694F3EE2AA9BB9F004CFC38 /* Grid2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Grid2D.h; path = ../Utils/Grid2D.h; sourceTree = "<group>"; };
 		5694F3EF2AA9BB9F004CFC38 /* Mat3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Mat3.h; path = ../Utils/Mat3.h; sourceTree = "<group>"; };
 		5694F3F02AA9BB9F004CFC38 /* GLApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GLApp.cpp; path = ../Utils/GLApp.cpp; sourceTree = "<group>"; };
+		56CA2EBC2BD100E100CFDA64 /* GLTextureCube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLTextureCube.h; path = ../Utils/GLTextureCube.h; sourceTree = "<group>"; };
+		56CA2EBD2BD100E100CFDA64 /* GLTextureCube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GLTextureCube.cpp; path = ../Utils/GLTextureCube.cpp; sourceTree = "<group>"; };
 		A231F0FF25EAF61A00CBFC23 /* OBJ-Demo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "OBJ-Demo"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -166,6 +170,8 @@
 				5694F3CE2AA9BB9F004CFC38 /* GLTexture2D.h */,
 				5694F3D72AA9BB9F004CFC38 /* GLTexture3D.cpp */,
 				5694F3D02AA9BB9F004CFC38 /* GLTexture3D.h */,
+				56CA2EBD2BD100E100CFDA64 /* GLTextureCube.cpp */,
+				56CA2EBC2BD100E100CFDA64 /* GLTextureCube.h */,
 				5694F3D82AA9BB9F004CFC38 /* Grid2D.cpp */,
 				5694F3EE2AA9BB9F004CFC38 /* Grid2D.h */,
 				5694F3CF2AA9BB9F004CFC38 /* Image.cpp */,
@@ -210,6 +216,7 @@
 			files = (
 				5694F40C2AA9BB9F004CFC38 /* Vec2.h in Headers */,
 				5694F4202AA9BB9F004CFC38 /* Mat3.h in Headers */,
+				56CA2EBE2BD100E100CFDA64 /* GLTextureCube.h in Headers */,
 				5694F4022AA9BB9F004CFC38 /* Mat4.h in Headers */,
 				5694F40D2AA9BB9F004CFC38 /* FontRenderer.h in Headers */,
 				5694F41C2AA9BB9F004CFC38 /* Vec3.h in Headers */,
@@ -316,6 +323,7 @@
 				5694F4132AA9BB9F004CFC38 /* FontRenderer.cpp in Sources */,
 				5694F3F42AA9BB9F004CFC38 /* GLDebug.cpp in Sources */,
 				5694F4182AA9BB9F004CFC38 /* OBJFile.cpp in Sources */,
+				56CA2EBF2BD100E100CFDA64 /* GLTextureCube.cpp in Sources */,
 				5694F3FA2AA9BB9F004CFC38 /* GLEnv.cpp in Sources */,
 				5694F4072AA9BB9F004CFC38 /* GLArray.cpp in Sources */,
 				5694F4212AA9BB9F004CFC38 /* GLApp.cpp in Sources */,

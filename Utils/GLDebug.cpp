@@ -38,7 +38,7 @@ void checkAndThrowShader(GLuint shader) {
     GLint log_length{0};
     glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &log_length);
     log_length = std::min(static_cast<GLint>(4096), log_length);
-    std::vector<GLchar> log(log_length);
+    std::vector<GLchar> log((size_t)log_length);
     glGetShaderInfoLog(shader, static_cast<GLsizei>(log.size()), NULL, log.data());
     std::string str{log.data()};
     throw GLException{str};
@@ -52,7 +52,7 @@ void checkAndThrowProgram(GLuint program) {
     GLint log_length{0};
     glGetProgramiv(program, GL_INFO_LOG_LENGTH, &log_length);
     log_length = std::min(static_cast<GLint>(4096), log_length);
-    std::vector<GLchar> log(log_length);
+    std::vector<GLchar> log((size_t)log_length);
     glGetProgramInfoLog(program, static_cast<GLsizei>(log.size()), NULL, log.data());
     std::string str{log.data()};
     throw GLException{str};

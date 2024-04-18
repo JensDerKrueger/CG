@@ -14,7 +14,7 @@ Image::Image(const Vec4& color) :
 
 Image::Image(uint32_t width,
              uint32_t height,
-             uint32_t componentCount) :
+             uint8_t componentCount) :
   width{width},
   height{height},
   componentCount{componentCount},
@@ -23,9 +23,9 @@ Image::Image(uint32_t width,
 }
 
 Image::Image(uint32_t width,
-      uint32_t height,
-      uint32_t componentCount,
-      std::vector<uint8_t> data) :
+             uint32_t height,
+             uint8_t componentCount,
+             std::vector<uint8_t> data) :
   width{width},
   height{height},
   componentCount{componentCount},
@@ -76,15 +76,15 @@ void Image::generateAlphaFromLuminance() {
   }
 }
 
-size_t Image::computeIndex(uint32_t x, uint32_t y, uint32_t component) const {
+size_t Image::computeIndex(uint32_t x, uint32_t y, uint8_t component) const {
   return size_t(component)+(size_t(x)+size_t(y)* size_t(width))* size_t(componentCount);
 }
 
-uint8_t Image::getValue(uint32_t x, uint32_t y, uint32_t component) const {
+uint8_t Image::getValue(uint32_t x, uint32_t y, uint8_t component) const {
   return data[computeIndex(x, y, component)];
 }
 
-void Image::setValue(uint32_t x, uint32_t y, uint32_t component, uint8_t value) {
+void Image::setValue(uint32_t x, uint32_t y, uint8_t component, uint8_t value) {
   data[computeIndex(x, y, component)] = value;
 }
 
@@ -103,7 +103,7 @@ void Image::setNormalizedValue(uint32_t x, uint32_t y, float value) {
   data[index+2] = iValue;
 }
 
-void Image::setNormalizedValue(uint32_t x, uint32_t y, uint32_t component, float value) {
+void Image::setNormalizedValue(uint32_t x, uint32_t y, uint8_t component, float value) {
   const uint8_t iValue{uint8_t(std::max(0.0f, std::min(1.0f, value))*255)};
   data[computeIndex(x, y, component)] = iValue;
 }
@@ -166,7 +166,7 @@ Image Image::filter(const Grid2D& filter) const {
   
   for (uint32_t y = hh;y<height-hh;y+=1) {
     for (uint32_t x = hw;x<width-hw;x+=1) {
-      for (uint32_t c = 0;c<componentCount;c+=1) {
+      for (uint8_t c = 0;c<componentCount;c+=1) {
         float conv = 0.0f;
         for (uint32_t u = 0;u<filter.getHeight();u+=1) {
           for (uint32_t v = 0;v<filter.getWidth();v+=1) {
@@ -234,12 +234,12 @@ uint8_t Image::linear(uint8_t a, uint8_t b, float alpha) const {
   return uint8_t(a * (1.0f - alpha) + b * alpha);
 }
 
-uint8_t Image::sample(float x, float y, uint32_t component) const {
-  const uint32_t fX = size_t(floor(x * (width-1)));
-  const uint32_t fY = size_t(floor(y * (height-1)));
-  
-  const uint32_t cX = size_t(ceil(x * (width-1)));
-  const uint32_t cY = size_t(ceil(y * (height-1)));
+uint8_t Image::sample(float x, float y, uint8_t component) const {
+  const uint32_t fX = uint32_t(floor(x * (width-1)));
+  const uint32_t fY = uint32_t(floor(y * (height-1)));
+
+  const uint32_t cX = uint32_t(ceil(x * (width-1)));
+  const uint32_t cY = uint32_t(ceil(y * (height-1)));
 
   const std::array<uint8_t, 4> values = {
     getValue(fX,fY,component),
@@ -262,7 +262,7 @@ Image Image::resample(uint32_t newWidth) const {
 
   for (uint32_t y = 0;y<newHeight;++y) {
     for (uint32_t x = 0;x<newWidth;++x) {
-      for (uint32_t c = 0;c<componentCount;++c) {
+      for (uint8_t c = 0;c<componentCount;++c) {
         result.setValue(x,y,c,sample(x/float(newWidth), y/float(newHeight), c));
       }
     }
@@ -294,12 +294,12 @@ Image Image::cropToAspectAndResample(uint32_t newWidth, uint32_t newHeight) cons
           const uint32_t sx = uint32_t(startX + x/float(newWidth) * (width-2*startX) + dx);
           const uint32_t sy = uint32_t(startY + y/float(newHeight)* (height-2*startY) + dy);
 
-          for (uint32_t c = 0;c<componentCount;++c) {
+          for (uint8_t c = 0;c<componentCount;++c) {
             values[c] += getValue(sx,sy,c);
           }
         }
       }
-      for (uint32_t c = 0;c<componentCount;++c) {
+      for (uint8_t c = 0;c<componentCount;++c) {
         result.setValue(x,y,c,uint8_t(values[c]/(reduction*reduction)));
       }
     }
@@ -313,7 +313,7 @@ Image Image::crop(uint32_t blX, uint32_t blY, uint32_t trX, uint32_t trY) const 
   Image result{trX-blX, trY-blY, componentCount};
   for (uint32_t y = blY;y<trY;++y) {
     for (uint32_t x = blX;x<trX;++x) {
-      for (uint32_t c = 0;c<componentCount;++c) {
+      for (uint8_t c = 0;c<componentCount;++c) {
         result.data[i++] = getValue(x,y,c);
       }
     }
@@ -326,7 +326,7 @@ Image Image::flipHorizontal() const {
   Image result{width, height, componentCount};
   for (uint32_t y = 0;y<height;++y) {
     for (uint32_t x = 0;x<width;++x) {
-      for (uint32_t c = 0;c<componentCount;++c) {
+      for (uint8_t c = 0;c<componentCount;++c) {
         result.setValue(x,height-y-1,c,getValue(x,y,c));
       }
     }
@@ -338,7 +338,7 @@ Image Image::flipVertical() const {
   Image result{width, height, componentCount};
   for (uint32_t y = 0;y<height;++y) {
     for (uint32_t x = 0;x<width;++x) {
-      for (uint32_t c = 0;c<componentCount;++c) {
+      for (uint8_t c = 0;c<componentCount;++c) {
         result.setValue(width-x-1,y,c,getValue(x,y,c));
       }
     }

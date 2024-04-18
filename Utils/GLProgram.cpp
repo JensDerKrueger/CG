@@ -89,7 +89,7 @@ std::string GLProgram::loadFile(const std::string& filename) {
 }
 
 GLint GLProgram::getAttributeLocation(const std::string& id) const {
-	GLint l = glGetAttribLocation(glProgram, id.c_str());
+  const GLint l = glGetAttribLocation(glProgram, id.c_str());
 	checkAndThrow();	
 	if(l == -1)
 		throw ProgramException{std::string("Can't find attribute ") +  id};	
@@ -97,7 +97,7 @@ GLint GLProgram::getAttributeLocation(const std::string& id) const {
 }
 
 GLint GLProgram::getUniformLocation(const std::string& id) const {
-	GLint l = glGetUniformLocation(glProgram, id.c_str());
+	const GLint l = glGetUniformLocation(glProgram, id.c_str());
 	checkAndThrow();
 	if(l == -1)
 		throw ProgramException{std::string("Can't find uniform ") +  id};	
@@ -190,41 +190,47 @@ void GLProgram::setUniform(GLint id, const std::vector<Mat4>& value, bool transp
   GL(glUniformMatrix4fv(id, GLsizei(value.size()), !transpose, (GLfloat*)value.data()));
 }
 
-void GLProgram::setTexture(GLint id, const GLDepthTexture& texture, GLuint unit) const {
+void GLProgram::setTexture(GLint id, const GLDepthTexture& texture, GLenum unit) const {
   GL(glActiveTexture(GL_TEXTURE0 + unit));
   GL(glBindTexture(GL_TEXTURE_2D, texture.getId()));
-  GL(glUniform1i(id, unit));
+  GL(glUniform1i(id, GLint(unit)));
 }
 
-void GLProgram::setTexture(GLint id, const GLTexture1D& texture, GLuint unit) const {
+void GLProgram::setTexture(GLint id, const GLTexture1D& texture, GLenum unit) const {
   GL(glActiveTexture(GL_TEXTURE0 + unit));
   GL(glBindTexture(GL_TEXTURE_1D, texture.getId()));
-  GL(glUniform1i(id, unit));
+  GL(glUniform1i(id, GLint(unit)));
 }
 
-void GLProgram::setTexture(GLint id, const GLTexture2D& texture, GLuint unit) const {
+void GLProgram::setTexture(GLint id, const GLTexture2D& texture, GLenum unit) const {
 	GL(glActiveTexture(GL_TEXTURE0 + unit));
 	GL(glBindTexture(GL_TEXTURE_2D, texture.getId()));
-	GL(glUniform1i(id, unit));
+	GL(glUniform1i(id, GLint(unit)));
 }
 
-void GLProgram::setTexture(GLint id, const GLTexture3D& texture, GLuint unit) const {
+void GLProgram::setTexture(GLint id, const GLTexture3D& texture, GLenum unit) const {
   GL(glActiveTexture(GL_TEXTURE0 + unit));
   GL(glBindTexture(GL_TEXTURE_3D, texture.getId()));
-  GL(glUniform1i(id, unit));
+  GL(glUniform1i(id, GLint(unit)));
 }
 
-void GLProgram::unsetTexture1D(GLuint unit) const {
+void GLProgram::setTexture(GLint id, const GLTextureCube& texture, GLenum unit) const {
+  GL(glActiveTexture(GL_TEXTURE0 + unit));
+  GL(glBindTexture(GL_TEXTURE_CUBE_MAP, texture.getId()));
+  GL(glUniform1i(id, GLint(unit)));
+}
+
+void GLProgram::unsetTexture1D(GLenum unit) const {
   GL(glActiveTexture(GL_TEXTURE0 + unit));
   GL(glBindTexture(GL_TEXTURE_1D, 0));
 }
 
-void GLProgram::unsetTexture2D(GLuint unit) const {
+void GLProgram::unsetTexture2D(GLenum unit) const {
   GL(glActiveTexture(GL_TEXTURE0 + unit));
   GL(glBindTexture(GL_TEXTURE_2D, 0));
 }
 
-void GLProgram::unsetTexture3D(GLuint unit) const {
+void GLProgram::unsetTexture3D(GLenum unit) const {
   GL(glActiveTexture(GL_TEXTURE0 + unit));
   GL(glBindTexture(GL_TEXTURE_3D, 0));
 }
@@ -287,19 +293,22 @@ void GLProgram::setUniform(const std::string& id, const Mat4& value, bool transp
   setUniform(getUniformLocation(id), value, transpose);
 }
 
-void GLProgram::setTexture(const std::string& id, const GLDepthTexture& texture, GLuint unit) const {
+void GLProgram::setTexture(const std::string& id, const GLDepthTexture& texture, GLenum unit) const {
   setTexture(getUniformLocation(id), texture, unit);
 }
 
-void GLProgram::setTexture(const std::string& id, const GLTexture1D& texture, GLuint unit) const {
+void GLProgram::setTexture(const std::string& id, const GLTexture1D& texture, GLenum unit) const {
   setTexture(getUniformLocation(id), texture, unit);
 }
 
-void GLProgram::setTexture(const std::string& id, const GLTexture2D& texture, GLuint unit) const {
+void GLProgram::setTexture(const std::string& id, const GLTexture2D& texture, GLenum unit) const {
   setTexture(getUniformLocation(id), texture, unit);
 }
 
-void GLProgram::setTexture(const std::string& id, const GLTexture3D& texture, GLuint unit) const {
+void GLProgram::setTexture(const std::string& id, const GLTexture3D& texture, GLenum unit) const {
   setTexture(getUniformLocation(id), texture, unit);
 }
 
+void GLProgram::setTexture(const std::string& id, const GLTextureCube& texture, GLenum unit) const {
+  setTexture(getUniformLocation(id), texture, unit);
+}

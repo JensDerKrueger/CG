@@ -35,7 +35,8 @@ void GLEnv::errorCallback(int error, const char* description) {
   throw GLException{s.str()};
 }
 
-GLEnv::GLEnv(uint32_t w, uint32_t h, uint32_t s, const std::string& title, bool fpsCounter, bool sync, int major, int minor, bool core) :
+GLEnv::GLEnv(uint32_t w, uint32_t h, uint32_t s, const std::string& title, 
+             bool fpsCounter, bool sync, int major, int minor, bool core) :
   window(nullptr),
   title(title),
   fpsCounter(fpsCounter),
@@ -45,7 +46,7 @@ GLEnv::GLEnv(uint32_t w, uint32_t h, uint32_t s, const std::string& title, bool 
   if (!glfwInit())
     throw GLException{"GLFW Init Failed"};
 
-  glfwWindowHint(GLFW_SAMPLES, s);
+  glfwWindowHint(GLFW_SAMPLES, int(s));
 
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, major);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minor);
@@ -55,7 +56,7 @@ GLEnv::GLEnv(uint32_t w, uint32_t h, uint32_t s, const std::string& title, bool 
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   }
 
-  window = glfwCreateWindow(w, h, title.c_str(), nullptr, nullptr);
+  window = glfwCreateWindow(int(w), int(h), title.c_str(), nullptr, nullptr);
   if (window == nullptr) {
     std::stringstream s;
     s << "Failed to open GLFW window.";

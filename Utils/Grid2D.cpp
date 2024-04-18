@@ -454,13 +454,15 @@ Grid2D::Grid2D(std::istream &is) {
   is.read((char*)&height, sizeof (height));
   
   data.resize(width*height);
-  is.read((char*)data.data(), sizeof(float) * width * height);
+  is.read((char*)data.data(), sizeof(float) * uint32_t(width) *
+          uint32_t(height));
 }
 
 void Grid2D::save(std::ostream &os) const {
   os.write((char*)&width, sizeof (width));
   os.write((char*)&height, sizeof (height));
-  os.write((char*)data.data(), sizeof(float) * width * height);
+  os.write((char*)data.data(), sizeof(float) * uint32_t(width) *
+           uint32_t(height));
 }
 
 static const float d1{1.0f};

@@ -46,11 +46,12 @@ GLTexture1D::~GLTexture1D() {
 }
 
 
-const GLint GLTexture1D::getId() const {
+const GLuint GLTexture1D::getId() const {
 	return id;
 }
 
-void GLTexture1D::setData(const std::vector<GLubyte>& data, uint32_t size, uint32_t componentCount) {
+void GLTexture1D::setData(const std::vector<GLubyte>& data, uint32_t size, 
+                          uint8_t componentCount) {
 	if (data.size() != componentCount*size) {
 		throw GLException{"Data size and texure dimensions do not match."};
 	}
@@ -84,5 +85,5 @@ void GLTexture1D::setData(const std::vector<GLubyte>& data, uint32_t size, uint3
 			break;
 	} 
 	
-	GL(glTexImage1D(GL_TEXTURE_1D, 0, internalformat, GLuint(size), 0, format, type, (GLvoid*)data.data()));
+	GL(glTexImage1D(GL_TEXTURE_1D, 0, internalformat, GLsizei(size), 0, format, type, (GLvoid*)data.data()));
 }

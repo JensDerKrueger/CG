@@ -92,7 +92,7 @@ GLTexture2D& GLTexture2D::operator=(const GLTexture2D& other) {
   return *this;
 }
 
-const GLint GLTexture2D::getId() const {
+const GLuint GLTexture2D::getId() const {
   return id;
 }
 
@@ -113,7 +113,7 @@ void GLTexture2D::setData(const std::vector<GLfloat>& data) {
   setData(data,width,height,componentCount);
 }
 
-void GLTexture2D::setEmpty(uint32_t width, uint32_t height, uint32_t componentCount, GLDataType dataType) {
+void GLTexture2D::setEmpty(uint32_t width, uint32_t height, uint8_t componentCount, GLDataType dataType) {
   switch (dataType) {
     case GLDataType::BYTE  : setData(std::vector<GLubyte>(width*height*componentCount), width, height, componentCount); break;
     case GLDataType::HALF  : setData(std::vector<GLhalf>(width*height*componentCount), width, height, componentCount); break;
@@ -121,7 +121,7 @@ void GLTexture2D::setEmpty(uint32_t width, uint32_t height, uint32_t componentCo
   }
 }
 
-void GLTexture2D::setData(const std::vector<GLubyte>& data, uint32_t width, uint32_t height, uint32_t componentCount) {
+void GLTexture2D::setData(const std::vector<GLubyte>& data, uint32_t width, uint32_t height, uint8_t componentCount) {
   if (data.size() != componentCount*width*height) {
     throw GLException{"Data size and texure dimensions do not match."};
   }
@@ -130,7 +130,7 @@ void GLTexture2D::setData(const std::vector<GLubyte>& data, uint32_t width, uint
   setData((GLvoid*)data.data(), width, height, componentCount, GLDataType::BYTE);
 }
 
-void GLTexture2D::setData(const std::vector<GLhalf>& data, uint32_t width, uint32_t height, uint32_t componentCount) {
+void GLTexture2D::setData(const std::vector<GLhalf>& data, uint32_t width, uint32_t height, uint8_t componentCount) {
   if (data.size() != componentCount*width*height) {
     throw GLException{"Data size and texure dimensions do not match."};
   }
@@ -139,7 +139,7 @@ void GLTexture2D::setData(const std::vector<GLhalf>& data, uint32_t width, uint3
   setData((GLvoid*)data.data(), width, height, componentCount, GLDataType::HALF);
 }
 
-void GLTexture2D::setData(const std::vector<GLfloat>& data, uint32_t width, uint32_t height, uint32_t componentCount) {
+void GLTexture2D::setData(const std::vector<GLfloat>& data, uint32_t width, uint32_t height, uint8_t componentCount) {
   if (data.size() != componentCount*width*height) {
     std::stringstream ss;
     ss << "Data size " << data.size() << " and texure dimensions " << componentCount << "*" << width
@@ -151,83 +151,87 @@ void GLTexture2D::setData(const std::vector<GLfloat>& data, uint32_t width, uint
   setData((GLvoid*)this->fdata.data(), width, height, componentCount, GLDataType::FLOAT);
 }
 
-static std::array<GLenum,3> dataTypeToGL(GLDataType dataType, uint32_t componentCount) {
+struct GLTexInfo {
+  GLint internalformat{0};
   GLenum type{0};
-  GLenum internalformat{0};
   GLenum format{0};
-  
+};
+
+static GLTexInfo dataTypeToGL(GLDataType dataType, uint8_t componentCount) {
+  GLTexInfo result;
+
   switch (dataType) {
     case GLDataType::BYTE :
-      type = GL_UNSIGNED_BYTE;
+      result.type = GL_UNSIGNED_BYTE;
       switch (componentCount) {
         case 1 :
-          internalformat = GL_R8;
-          format = GL_RED;
+          result.internalformat = GL_R8;
+          result.format = GL_RED;
           break;
         case 2 :
-          internalformat = GL_RG8;
-          format = GL_RG;
+          result.internalformat = GL_RG8;
+          result.format = GL_RG;
           break;
         case 3 :
-          internalformat = GL_RGB8;
-          format = GL_RGB;
+          result.internalformat = GL_RGB8;
+          result.format = GL_RGB;
           break;
         case 4 :
-          internalformat = GL_RGBA8;
-          format = GL_RGBA;
+          result.internalformat = GL_RGBA8;
+          result.format = GL_RGBA;
           break;
       }
       break;
 
     case GLDataType::HALF :
-      type = GL_HALF_FLOAT;
+      result.type = GL_HALF_FLOAT;
       switch (componentCount) {
         case 1 :
-          internalformat = GL_R16F;
-          format = GL_RED;
+          result.internalformat = GL_R16F;
+          result.format = GL_RED;
           break;
         case 2 :
-          internalformat = GL_RG16F;
-          format = GL_RG;
+          result.internalformat = GL_RG16F;
+          result.format = GL_RG;
           break;
         case 3 :
-          internalformat = GL_RGB16F;
-          format = GL_RGB;
+          result.internalformat = GL_RGB16F;
+          result.format = GL_RGB;
           break;
         case 4 :
-          internalformat = GL_RGBA16F;
-          format = GL_RGBA;
+          result.internalformat = GL_RGBA16F;
+          result.format = GL_RGBA;
           break;
       }
       break;
       
     case GLDataType::FLOAT :
-      type = GL_FLOAT;
+      result.type = GL_FLOAT;
       switch (componentCount) {
         case 1 :
-          internalformat = GL_R32F;
-          format = GL_RED;
+          result.internalformat = GL_R32F;
+          result.format = GL_RED;
           break;
         case 2 :
-          internalformat = GL_RG32F;
-          format = GL_RG;
+          result.internalformat = GL_RG32F;
+          result.format = GL_RG;
           break;
         case 3 :
-          internalformat = GL_RGB32F;
-          format = GL_RGB;
+          result.internalformat = GL_RGB32F;
+          result.format = GL_RGB;
           break;
         case 4 :
-          internalformat = GL_RGBA32F;
-          format = GL_RGBA;
+          result.internalformat = GL_RGBA32F;
+          result.format = GL_RGBA;
           break;
       }
       break;
   }
 
-  return {type, internalformat, format};
+  return result;
 }
 
-void GLTexture2D::setData(GLvoid* data, uint32_t width, uint32_t height, uint32_t componentCount, GLDataType dataType) {
+void GLTexture2D::setData(GLvoid* data, uint32_t width, uint32_t height, uint8_t componentCount, GLDataType dataType) {
   this->dataType = dataType;
   this->width = width;
   this->height = height;
@@ -238,16 +242,17 @@ void GLTexture2D::setData(GLvoid* data, uint32_t width, uint32_t height, uint32_
   GL(glPixelStorei(GL_PACK_ALIGNMENT ,1));
   GL(glPixelStorei(GL_UNPACK_ALIGNMENT ,1));
 
-  std::array<GLenum,3> format = dataTypeToGL(dataType, componentCount);
-  
-  GL(glTexImage2D(GL_TEXTURE_2D, 0, format[1], GLuint(width), GLuint(height), 0, format[2], format[0], data));
+  const GLTexInfo texInfo = dataTypeToGL(dataType, componentCount);
+
+  GL(glTexImage2D(GL_TEXTURE_2D, 0, texInfo.internalformat, GLsizei(width), GLsizei(height), 0, texInfo.format, texInfo.type, data));
 }
 
 
 void GLTexture2D::setPixel(const std::vector<GLubyte>& data, uint32_t x, uint32_t y) {  
-  std::array<GLenum,3> format = dataTypeToGL(dataType, componentCount);
+  const GLTexInfo texInfo = dataTypeToGL(dataType, componentCount);
   GL(glBindTexture(GL_TEXTURE_2D, id));
-  glTexSubImage2D(GL_TEXTURE_2D,0,GLint(x),GLint(y),1,1, format[2], format[0], data.data());
+  glTexSubImage2D(GL_TEXTURE_2D,0,GLint(x),GLint(y),1,1, texInfo.format,
+                  texInfo.type, data.data());
 }
 
 void GLTexture2D::generateMipmap() {
@@ -264,9 +269,9 @@ const std::vector<GLubyte>& GLTexture2D::getDataByte() {
   GL(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
   GL(glBindTexture(GL_TEXTURE_2D, id));
   
-  std::array<GLenum,3> format = dataTypeToGL(GLDataType::BYTE, componentCount);
+  const GLTexInfo texInfo = dataTypeToGL(GLDataType::BYTE, componentCount);
   data.resize(componentCount*width*height);
-  GL(glGetTexImage(GL_TEXTURE_2D, 0, format[2], format[0], data.data()));
+  GL(glGetTexImage(GL_TEXTURE_2D, 0, texInfo.format, texInfo.type, data.data()));
   return data;
 }
 
@@ -275,9 +280,10 @@ const std::vector<GLhalf>& GLTexture2D::getDataHalf() {
   GL(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
   GL(glBindTexture(GL_TEXTURE_2D, id));
 
-  std::array<GLenum,3> format = dataTypeToGL(GLDataType::HALF, componentCount);
+  const GLTexInfo texInfo = dataTypeToGL(GLDataType::HALF, componentCount);
   hdata.resize(componentCount*width*height);
-  GL(glGetTexImage(GL_TEXTURE_2D, 0, format[2], format[0], hdata.data()));
+  GL(glGetTexImage(GL_TEXTURE_2D, 0, texInfo.format, texInfo.type,
+                   hdata.data()));
   return hdata;
 }
 
@@ -286,8 +292,10 @@ const std::vector<GLfloat>& GLTexture2D::getDataFloat() {
   GL(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
   GL(glBindTexture(GL_TEXTURE_2D, id));
 
-  std::array<GLenum,3> format = dataTypeToGL(GLDataType::FLOAT, componentCount);
+  const GLTexInfo texInfo = dataTypeToGL(GLDataType::FLOAT, componentCount);
   hdata.resize(componentCount*width*height);
-  GL(glGetTexImage(GL_TEXTURE_2D, 0, format[2], format[0], fdata.data()));
+  GL(glGetTexImage(GL_TEXTURE_2D, 0, texInfo.format, texInfo.type,
+                   fdata.data()));
   return fdata;
 }
+

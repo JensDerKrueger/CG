@@ -93,12 +93,12 @@ namespace BMP {
     
     // write data (pad if necessary)
     if (rowPad==0) {
-        outStream.write((char*)pData.data(), totalSize);
+        outStream.write((char*)pData.data(), std::streamsize(totalSize));
     }
     else {
       uint8_t zeroes[9]={0,0,0,0,0,0,0,0,0};
       for (size_t i=0; i<h; i++) {
-        outStream.write((char*)&(pData[iComponentCount*i*w]), size_t(iComponentCount)*size_t(w));
+        outStream.write((char*)&(pData[iComponentCount*i*w]), std::streamsize(iComponentCount*w));
         outStream.write((char*)zeroes, rowPad);
       }
     }
@@ -137,8 +137,8 @@ namespace BMP {
     
     int32_t height;
     file.read((char*)&height, sizeof(int32_t));  // get the height of the bitmap
-    texture.height = abs(height);
-    
+    texture.height = uint32_t(height);
+
     int16_t biPlanes;
     file.read((char*)&biPlanes, sizeof(int16_t));   // get the number of planes
       
@@ -148,12 +148,14 @@ namespace BMP {
     int16_t biBitCount;
     if (!file.read((char*)&biBitCount, sizeof(int16_t)))
       throw BMPException("Error Reading file\n");
-      
+
+    uint8_t biByteCount = uint8_t(biBitCount/8);
+
     // calculate the size of the image in bytes
-    int32_t biSizeImage;
+    uint32_t biSizeImage{0};
     if (biBitCount == 8 || biBitCount == 16 || biBitCount == 24 || biBitCount == 32) {
-      biSizeImage = texture.width * texture.height * biBitCount/8;
-      texture.componentCount = biBitCount/8;
+      biSizeImage = texture.width * texture.height * biByteCount;
+      texture.componentCount = biByteCount;
     } else {
       std::stringstream s;
       s << "File is " << biBitCount << " bpp, but this reader only supports 8, 16, 24, or 32 Bpp";
@@ -173,7 +175,7 @@ namespace BMP {
         throw BMPException("Error loading file");
     } else {
       for (uint32_t y = 0;y<texture.height;++y) {
-        file.read((char*)texture.data.data()+y*texture.width*biBitCount/8, texture.width*biBitCount/8);
+        file.read((char*)texture.data.data()+y*texture.width*biByteCount, texture.width*biByteCount);
         file.seekg(rowPad, std::ios_base::cur);
         if (!file)
           throw BMPException("Error loading file");
@@ -184,7 +186,7 @@ namespace BMP {
     
     // swap red and blue (bgr -> rgb)
     if (texture.componentCount > 2) {
-      for (int32_t i = 0; i < biSizeImage; i += texture.componentCount) {
+      for (uint32_t i = 0; i < biSizeImage; i += texture.componentCount) {
         const uint8_t temp = texture.data[i];
         texture.data[i] = texture.data[i + 2];
         texture.data[i + 2] = temp;
@@ -241,7 +243,7 @@ namespace BMP {
         
     for (uint32_t y = sourceStart.y;y < sourceEnd.y;++y) {
       for (uint32_t x = sourceStart.x;x < sourceEnd.x;++x) {
-        for (uint32_t c = 0;c<target.componentCount;++c) {
+        for (uint8_t c = 0;c<target.componentCount;++c) {
             target.setValue(targetStart.x+x-sourceStart.x,targetStart.y+y-sourceStart.y,c,source.getValue(x,y,c));
         }
       }

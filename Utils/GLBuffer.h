@@ -16,7 +16,7 @@ public:
                size_t valuesPerElement,GLenum usage=GL_STATIC_DRAW);
   void setData(const GLuint data[], size_t elemCount);
 
-	void connectVertexAttrib(GLint location, size_t elemCount,
+	void connectVertexAttrib(GLuint location, size_t elemCount,
                            size_t offset=0, GLuint divisor = 0) const;
 	void bind() const;
   

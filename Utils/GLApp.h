@@ -43,7 +43,6 @@ public:
   bool getAnimation() const {
     return animationActive;
   }
-
   void resetAnimation() {
     resumeTime = 0;
     glfwSetTime(0);
@@ -64,22 +63,18 @@ public:
                 const Vec3& tl=Vec3{-1.0f,1.0f,0.0f},
                 const Vec3& tr=Vec3{1.0f,1.0f,0.0f});
 
-  void drawImage(const GLTexture2D& image, const Vec2& bl, const Vec2& tr,
-                 bool noBoundary=false);
-  void drawImage(const Image& image, const Vec2& bl, const Vec2& tr,
-                 bool noBoundary=false);
+  void drawImage(const GLTexture2D& image, const Vec2& bl, const Vec2& tr);
+  void drawImage(const Image& image, const Vec2& bl, const Vec2& tr);
   void drawImage(const GLTexture2D& image,
                  const Vec3& bl=Vec3{-1.0f,-1.0f,0.0f},
                  const Vec3& br=Vec3{1.0f,-1.0f,0.0f},
                  const Vec3& tl=Vec3{-1.0f,1.0f,0.0f},
-                 const Vec3& tr=Vec3{1.0f,1.0f,0.0f},
-                 bool noBoundary=false);
+                 const Vec3& tr=Vec3{1.0f,1.0f,0.0f});
   void drawImage(const Image& image,
                  const Vec3& bl=Vec3{-1.0f,-1.0f,0.0f},
                  const Vec3& br=Vec3{1.0f,-1.0f,0.0f},
                  const Vec3& tl=Vec3{-1.0f,1.0f,0.0f},
-                 const Vec3& tr=Vec3{1.0f,1.0f,0.0f},
-                 bool noBoundary=false);
+                 const Vec3& tr=Vec3{1.0f,1.0f,0.0f});
   void drawTriangles(const std::vector<float>& data, TrisDrawType t, bool wireframe, bool lighting);
   void redrawTriangles(bool wireframe);
 
@@ -95,12 +90,13 @@ public:
   void drawPoints(const std::vector<float>& data, float pointSize=1.0f, bool useTex=false);
   void setDrawProjection(const Mat4& mat);
   void setDrawTransform(const Mat4& mat);
-
+  
   Mat4 getDrawProjection() const;
   Mat4 getDrawTransform() const;
-
+  
   void resetPointTexture(uint32_t resolution=64);
-  void setPointTexture(const std::vector<uint8_t>& shape, uint32_t x, uint32_t y, uint32_t components);
+  void setPointTexture(const std::vector<uint8_t>& shape, uint32_t x,
+                       uint32_t y, uint8_t components);
   void setPointTexture(const Image& shape);
   void setPointHighlightTexture(const Image& shape);
   void resetPointHighlightTexture();
@@ -111,7 +107,7 @@ public:
   
   virtual void resize(int width, int height);
   virtual void keyboard(int key, int scancode, int action, int mods) {}
-  virtual void keyboardChar(unsigned int codepoint) {}
+  virtual void keyboardChar(unsigned int key) {}
   virtual void mouseMove(double xPosition, double yPosition) {}
   virtual void mouseButton(int button, int state, int mods, double xPosition, double yPosition) {}
   virtual void mouseWheel(double x_offset, double y_offset, double xPosition, double yPosition) {}
@@ -132,7 +128,7 @@ protected:
   GLTexture2D pointSprite;
   GLTexture2D pointSpriteHighlight;
   double resumeTime;
-
+  
   void shaderUpdate();
 
   void closeWindow() {
@@ -174,6 +170,7 @@ private:
       staticAppPtr->mouseWheel(x_offset, y_offset, xpos, ypos);
     }
   }
+  
   
   void triangulate(const Vec3& p0,
                    const Vec3& p1, const Vec4& c1,

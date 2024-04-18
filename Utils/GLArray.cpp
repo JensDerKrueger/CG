@@ -20,7 +20,8 @@ void GLArray::connectVertexAttrib(const GLBuffer& buffer,
                                   GLuint divisor) const {
 	bind();
 	const GLint location = program.getAttributeLocation(variable.c_str());
-	buffer.connectVertexAttrib(location, elemCount, offset, divisor);
+  // TODO: consider handling -1 location, maybe throw an exception?
+	buffer.connectVertexAttrib(GLuint(location), elemCount, offset, divisor);
 }
 
 void GLArray::connectIndexBuffer(const GLBuffer& buffer) const {
