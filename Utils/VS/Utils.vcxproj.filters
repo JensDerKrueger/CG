@@ -63,6 +63,12 @@
     <ClCompile Include="..\Image.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\ImageLoader.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GLTextureCube.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\AbstractParticleSystem.h">
@@ -150,6 +156,15 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\ColorConversion.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ImageLoader.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\stb_image.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GLTextureCube.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
