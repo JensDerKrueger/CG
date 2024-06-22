@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		564FB14C262839C2004F5F08 /* helvetica_neue.pos in CopyFiles */ = {isa = PBXBuildFile; fileRef = 564FB14A262839C2004F5F08 /* helvetica_neue.pos */; };
-		564FB14D262839C2004F5F08 /* helvetica_neue.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 564FB14B262839C2004F5F08 /* helvetica_neue.bmp */; };
 		565E225F2BE2DF230011F02E /* GLTextureCube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 565E225D2BE2DF230011F02E /* GLTextureCube.cpp */; };
 		565E22602BE2DF230011F02E /* GLTextureCube.h in Headers */ = {isa = PBXBuildFile; fileRef = 565E225E2BE2DF230011F02E /* GLTextureCube.h */; };
 		56733BA42C24A2C70035B55A /* Spectrometer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56733BA22C24A2C70035B55A /* Spectrometer.cpp */; };
@@ -50,6 +48,8 @@
 		5694F41F2AA9BB9F004CFC38 /* Grid2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 5694F3EE2AA9BB9F004CFC38 /* Grid2D.h */; };
 		5694F4202AA9BB9F004CFC38 /* Mat3.h in Headers */ = {isa = PBXBuildFile; fileRef = 5694F3EF2AA9BB9F004CFC38 /* Mat3.h */; };
 		5694F4212AA9BB9F004CFC38 /* GLApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5694F3F02AA9BB9F004CFC38 /* GLApp.cpp */; };
+		56CFD0122C26E06300A0CF9F /* helvetica_neue.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 56CFD0112C26E04C00A0CF9F /* helvetica_neue.bmp */; };
+		56CFD0132C26E06300A0CF9F /* helvetica_neue.pos in CopyFiles */ = {isa = PBXBuildFile; fileRef = 56CFD0102C26E04C00A0CF9F /* helvetica_neue.pos */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,8 +69,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
-				564FB14C262839C2004F5F08 /* helvetica_neue.pos in CopyFiles */,
-				564FB14D262839C2004F5F08 /* helvetica_neue.bmp in CopyFiles */,
+				56CFD0122C26E06300A0CF9F /* helvetica_neue.bmp in CopyFiles */,
+				56CFD0132C26E06300A0CF9F /* helvetica_neue.pos in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,8 +78,6 @@
 
 /* Begin PBXFileReference section */
 		560A43782AA9A43B00DB0F92 /* libUtils.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libUtils.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		564FB14A262839C2004F5F08 /* helvetica_neue.pos */ = {isa = PBXFileReference; lastKnownFileType = text; path = helvetica_neue.pos; sourceTree = "<group>"; };
-		564FB14B262839C2004F5F08 /* helvetica_neue.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = helvetica_neue.bmp; sourceTree = "<group>"; };
 		565E225C2BE2C5B50011F02E /* ColorConversion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorConversion.h; sourceTree = "<group>"; };
 		565E225D2BE2DF230011F02E /* GLTextureCube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GLTextureCube.cpp; path = ../Utils/GLTextureCube.cpp; sourceTree = "<group>"; };
 		565E225E2BE2DF230011F02E /* GLTextureCube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLTextureCube.h; path = ../Utils/GLTextureCube.h; sourceTree = "<group>"; };
@@ -125,6 +123,8 @@
 		5694F3EE2AA9BB9F004CFC38 /* Grid2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Grid2D.h; path = ../Utils/Grid2D.h; sourceTree = "<group>"; };
 		5694F3EF2AA9BB9F004CFC38 /* Mat3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Mat3.h; path = ../Utils/Mat3.h; sourceTree = "<group>"; };
 		5694F3F02AA9BB9F004CFC38 /* GLApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GLApp.cpp; path = ../Utils/GLApp.cpp; sourceTree = "<group>"; };
+		56CFD0102C26E04C00A0CF9F /* helvetica_neue.pos */ = {isa = PBXFileReference; lastKnownFileType = text; name = helvetica_neue.pos; path = ../Utils/helvetica_neue.pos; sourceTree = "<group>"; };
+		56CFD0112C26E04C00A0CF9F /* helvetica_neue.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = helvetica_neue.bmp; path = ../Utils/helvetica_neue.bmp; sourceTree = "<group>"; };
 		A231F0FF25EAF61A00CBFC23 /* Color */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Color; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -149,10 +149,10 @@
 		560A43732AA9A40400DB0F92 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				56CFD0112C26E04C00A0CF9F /* helvetica_neue.bmp */,
+				56CFD0102C26E04C00A0CF9F /* helvetica_neue.pos */,
 				56733BA52C25697C0035B55A /* ResourceFile.cpp */,
 				56733BA62C25697C0035B55A /* ResourceFile.h */,
-				564FB14B262839C2004F5F08 /* helvetica_neue.bmp */,
-				564FB14A262839C2004F5F08 /* helvetica_neue.pos */,
 				565E225C2BE2C5B50011F02E /* ColorConversion.h */,
 				5677394C25FB7BF000AB2341 /* main.cpp */,
 				56733BA22C24A2C70035B55A /* Spectrometer.cpp */,
@@ -302,7 +302,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					560A43772AA9A43B00DB0F92 = {
 						CreatedOnToolsVersion = 14.3.1;
@@ -472,6 +472,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -570,6 +571,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
