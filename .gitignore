@@ -42,3 +42,4 @@ LatexUtils
 # macOS Files
 .DS_Store
 xcuserdata
+.vs
