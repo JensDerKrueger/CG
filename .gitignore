@@ -43,3 +43,7 @@ LatexUtils
 .DS_Store
 xcuserdata
 .vs
+
+# VS studio build directories
+bin
+tmp
