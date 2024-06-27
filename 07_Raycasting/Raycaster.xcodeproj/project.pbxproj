@@ -3,29 +3,77 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		56ED8857294D408D007DB950 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56ED8840294D408D007DB950 /* Scene.cpp */; };
-		56ED8858294D408D007DB950 /* Sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56ED8841294D408D007DB950 /* Sphere.cpp */; };
-		56ED8859294D408D007DB950 /* PointLight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56ED8844294D408D007DB950 /* PointLight.cpp */; };
-		56ED885A294D408D007DB950 /* Intersection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56ED8847294D408D007DB950 /* Intersection.cpp */; };
-		56ED885B294D408D007DB950 /* LightSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56ED8848294D408D007DB950 /* LightSource.cpp */; };
-		56ED885C294D408D007DB950 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56ED884A294D408D007DB950 /* main.cpp */; };
-		56ED885D294D408D007DB950 /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56ED884B294D408D007DB950 /* Material.cpp */; };
-		56ED885E294D408D007DB950 /* Ray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56ED884C294D408D007DB950 /* Ray.cpp */; };
-		56ED885F294D408D007DB950 /* Raytracer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56ED884E294D408D007DB950 /* Raytracer.cpp */; };
-		56ED8861294D408D007DB950 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56ED8855294D408D007DB950 /* Camera.cpp */; };
-		56ED8862294D408D007DB950 /* Plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56ED8856294D408D007DB950 /* Plane.cpp */; };
+		568697032C2D4BEA00201D4F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568696F82C2D4BE900201D4F /* main.cpp */; };
+		5686971A2C2D4CC400201D4F /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568697062C2D4CC400201D4F /* Camera.cpp */; };
+		5686971B2C2D4CC400201D4F /* Plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568697092C2D4CC400201D4F /* Plane.cpp */; };
+		5686971C2C2D4CC400201D4F /* Ray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5686970B2C2D4CC400201D4F /* Ray.cpp */; };
+		5686971D2C2D4CC400201D4F /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5686970D2C2D4CC400201D4F /* Scene.cpp */; };
+		5686971E2C2D4CC400201D4F /* Raytracer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5686970E2C2D4CC400201D4F /* Raytracer.cpp */; };
+		5686971F2C2D4CC400201D4F /* PointLight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568697102C2D4CC400201D4F /* PointLight.cpp */; };
+		568697202C2D4CC400201D4F /* LightSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568697122C2D4CC400201D4F /* LightSource.cpp */; };
+		568697212C2D4CC400201D4F /* Sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568697152C2D4CC400201D4F /* Sphere.cpp */; };
+		568697222C2D4CC400201D4F /* Intersection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568697162C2D4CC400201D4F /* Intersection.cpp */; };
+		568697232C2D4CC400201D4F /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568697172C2D4CC400201D4F /* Material.cpp */; };
+		5694F3F32AA9BB9F004CFC38 /* GLBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5694F3C22AA9BB9E004CFC38 /* GLBuffer.cpp */; };
+		5694F3F42AA9BB9F004CFC38 /* GLDebug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5694F3C32AA9BB9E004CFC38 /* GLDebug.cpp */; };
+		5694F3F82AA9BB9F004CFC38 /* Camera.h in Headers */ = {isa = PBXBuildFile; fileRef = 5694F3C72AA9BB9F004CFC38 /* Camera.h */; };
+		5694F3FA2AA9BB9F004CFC38 /* GLEnv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5694F3C92AA9BB9F004CFC38 /* GLEnv.cpp */; };
+		5694F3FB2AA9BB9F004CFC38 /* GLProgram.h in Headers */ = {isa = PBXBuildFile; fileRef = 5694F3CA2AA9BB9F004CFC38 /* GLProgram.h */; };
+		5694F3FC2AA9BB9F004CFC38 /* GLEnv.h in Headers */ = {isa = PBXBuildFile; fileRef = 5694F3CB2AA9BB9F004CFC38 /* GLEnv.h */; };
+		5694F3FE2AA9BB9F004CFC38 /* GLDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = 5694F3CD2AA9BB9F004CFC38 /* GLDebug.h */; };
+		5694F3FF2AA9BB9F004CFC38 /* GLTexture2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 5694F3CE2AA9BB9F004CFC38 /* GLTexture2D.h */; };
+		5694F4002AA9BB9F004CFC38 /* Image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5694F3CF2AA9BB9F004CFC38 /* Image.cpp */; };
+		5694F4012AA9BB9F004CFC38 /* GLTexture3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 5694F3D02AA9BB9F004CFC38 /* GLTexture3D.h */; };
+		5694F4022AA9BB9F004CFC38 /* Mat4.h in Headers */ = {isa = PBXBuildFile; fileRef = 5694F3D12AA9BB9F004CFC38 /* Mat4.h */; };
+		5694F4042AA9BB9F004CFC38 /* OBJFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 5694F3D32AA9BB9F004CFC38 /* OBJFile.h */; };
+		5694F4052AA9BB9F004CFC38 /* Rand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5694F3D42AA9BB9F004CFC38 /* Rand.cpp */; };
+		5694F4072AA9BB9F004CFC38 /* GLArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5694F3D62AA9BB9F004CFC38 /* GLArray.cpp */; };
+		5694F4082AA9BB9F004CFC38 /* GLTexture3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5694F3D72AA9BB9F004CFC38 /* GLTexture3D.cpp */; };
+		5694F4092AA9BB9F004CFC38 /* Grid2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5694F3D82AA9BB9F004CFC38 /* Grid2D.cpp */; };
+		5694F40A2AA9BB9F004CFC38 /* GLTexture1D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5694F3D92AA9BB9F004CFC38 /* GLTexture1D.cpp */; };
+		5694F40B2AA9BB9F004CFC38 /* Image.h in Headers */ = {isa = PBXBuildFile; fileRef = 5694F3DA2AA9BB9F004CFC38 /* Image.h */; };
+		5694F40C2AA9BB9F004CFC38 /* Vec2.h in Headers */ = {isa = PBXBuildFile; fileRef = 5694F3DB2AA9BB9F004CFC38 /* Vec2.h */; };
+		5694F40D2AA9BB9F004CFC38 /* FontRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5694F3DC2AA9BB9F004CFC38 /* FontRenderer.h */; };
+		5694F40E2AA9BB9F004CFC38 /* GLTexture1D.h in Headers */ = {isa = PBXBuildFile; fileRef = 5694F3DD2AA9BB9F004CFC38 /* GLTexture1D.h */; };
+		5694F40F2AA9BB9F004CFC38 /* GLApp.h in Headers */ = {isa = PBXBuildFile; fileRef = 5694F3DE2AA9BB9F004CFC38 /* GLApp.h */; };
+		5694F4102AA9BB9F004CFC38 /* Rand.h in Headers */ = {isa = PBXBuildFile; fileRef = 5694F3DF2AA9BB9F004CFC38 /* Rand.h */; };
+		5694F4112AA9BB9F004CFC38 /* Vec4.h in Headers */ = {isa = PBXBuildFile; fileRef = 5694F3E02AA9BB9F004CFC38 /* Vec4.h */; };
+		5694F4122AA9BB9F004CFC38 /* GLProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5694F3E12AA9BB9F004CFC38 /* GLProgram.cpp */; };
+		5694F4132AA9BB9F004CFC38 /* FontRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5694F3E22AA9BB9F004CFC38 /* FontRenderer.cpp */; };
+		5694F4152AA9BB9F004CFC38 /* GLBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5694F3E42AA9BB9F004CFC38 /* GLBuffer.h */; };
+		5694F4162AA9BB9F004CFC38 /* GLTexture2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5694F3E52AA9BB9F004CFC38 /* GLTexture2D.cpp */; };
+		5694F4182AA9BB9F004CFC38 /* OBJFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5694F3E72AA9BB9F004CFC38 /* OBJFile.cpp */; };
+		5694F4192AA9BB9F004CFC38 /* bmp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5694F3E82AA9BB9F004CFC38 /* bmp.cpp */; };
+		5694F41C2AA9BB9F004CFC38 /* Vec3.h in Headers */ = {isa = PBXBuildFile; fileRef = 5694F3EB2AA9BB9F004CFC38 /* Vec3.h */; };
+		5694F41D2AA9BB9F004CFC38 /* bmp.h in Headers */ = {isa = PBXBuildFile; fileRef = 5694F3EC2AA9BB9F004CFC38 /* bmp.h */; };
+		5694F41E2AA9BB9F004CFC38 /* GLArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 5694F3ED2AA9BB9F004CFC38 /* GLArray.h */; };
+		5694F41F2AA9BB9F004CFC38 /* Grid2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 5694F3EE2AA9BB9F004CFC38 /* Grid2D.h */; };
+		5694F4202AA9BB9F004CFC38 /* Mat3.h in Headers */ = {isa = PBXBuildFile; fileRef = 5694F3EF2AA9BB9F004CFC38 /* Mat3.h */; };
+		5694F4212AA9BB9F004CFC38 /* GLApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5694F3F02AA9BB9F004CFC38 /* GLApp.cpp */; };
+		56CA2EBE2BD100E100CFDA64 /* GLTextureCube.h in Headers */ = {isa = PBXBuildFile; fileRef = 56CA2EBC2BD100E100CFDA64 /* GLTextureCube.h */; };
+		56CA2EBF2BD100E100CFDA64 /* GLTextureCube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56CA2EBD2BD100E100CFDA64 /* GLTextureCube.cpp */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		560A43E72AA9A53100DB0F92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A231F0F725EAF61A00CBFC23 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 560A43772AA9A43B00DB0F92;
+			remoteInfo = Utils;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		A231F0FD25EAF61A00CBFC23 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 12;
 			dstPath = "";
-			dstSubfolderSpec = 7;
+			dstSubfolderSpec = 6;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -33,32 +81,78 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		56ED8840294D408D007DB950 /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
-		56ED8841294D408D007DB950 /* Sphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sphere.cpp; sourceTree = "<group>"; };
-		56ED8842294D408D007DB950 /* IntersectableObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntersectableObject.h; sourceTree = "<group>"; };
-		56ED8843294D408D007DB950 /* Plane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plane.h; sourceTree = "<group>"; };
-		56ED8844294D408D007DB950 /* PointLight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointLight.cpp; sourceTree = "<group>"; };
-		56ED8845294D408D007DB950 /* Sphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sphere.h; sourceTree = "<group>"; };
-		56ED8846294D408D007DB950 /* Raytracer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Raytracer.h; sourceTree = "<group>"; };
-		56ED8847294D408D007DB950 /* Intersection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Intersection.cpp; sourceTree = "<group>"; };
-		56ED8848294D408D007DB950 /* LightSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LightSource.cpp; sourceTree = "<group>"; };
-		56ED8849294D408D007DB950 /* Intersection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Intersection.h; sourceTree = "<group>"; };
-		56ED884A294D408D007DB950 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		56ED884B294D408D007DB950 /* Material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Material.cpp; sourceTree = "<group>"; };
-		56ED884C294D408D007DB950 /* Ray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ray.cpp; sourceTree = "<group>"; };
-		56ED884D294D408D007DB950 /* Ray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ray.h; sourceTree = "<group>"; };
-		56ED884E294D408D007DB950 /* Raytracer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Raytracer.cpp; sourceTree = "<group>"; };
-		56ED8850294D408D007DB950 /* LightSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightSource.h; sourceTree = "<group>"; };
-		56ED8851294D408D007DB950 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
-		56ED8852294D408D007DB950 /* Material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Material.h; sourceTree = "<group>"; };
-		56ED8853294D408D007DB950 /* PointLight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointLight.h; sourceTree = "<group>"; };
-		56ED8854294D408D007DB950 /* Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scene.h; sourceTree = "<group>"; };
-		56ED8855294D408D007DB950 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
-		56ED8856294D408D007DB950 /* Plane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Plane.cpp; sourceTree = "<group>"; };
-		A231F0FF25EAF61A00CBFC23 /* Raycast-Demo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Raycast-Demo"; sourceTree = BUILT_PRODUCTS_DIR; };
+		560A43782AA9A43B00DB0F92 /* libUtils.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libUtils.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		568696F72C2D4BE900201D4F /* Material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Material.h; sourceTree = "<group>"; };
+		568696F82C2D4BE900201D4F /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		568697062C2D4CC400201D4F /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
+		568697072C2D4CC400201D4F /* Intersection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Intersection.h; sourceTree = "<group>"; };
+		568697082C2D4CC400201D4F /* Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scene.h; sourceTree = "<group>"; };
+		568697092C2D4CC400201D4F /* Plane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Plane.cpp; sourceTree = "<group>"; };
+		5686970A2C2D4CC400201D4F /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
+		5686970B2C2D4CC400201D4F /* Ray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ray.cpp; sourceTree = "<group>"; };
+		5686970C2C2D4CC400201D4F /* Raytracer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Raytracer.h; sourceTree = "<group>"; };
+		5686970D2C2D4CC400201D4F /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
+		5686970E2C2D4CC400201D4F /* Raytracer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Raytracer.cpp; sourceTree = "<group>"; };
+		5686970F2C2D4CC400201D4F /* Plane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plane.h; sourceTree = "<group>"; };
+		568697102C2D4CC400201D4F /* PointLight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointLight.cpp; sourceTree = "<group>"; };
+		568697112C2D4CC400201D4F /* Ray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ray.h; sourceTree = "<group>"; };
+		568697122C2D4CC400201D4F /* LightSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LightSource.cpp; sourceTree = "<group>"; };
+		568697132C2D4CC400201D4F /* Sphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sphere.h; sourceTree = "<group>"; };
+		568697142C2D4CC400201D4F /* PointLight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointLight.h; sourceTree = "<group>"; };
+		568697152C2D4CC400201D4F /* Sphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sphere.cpp; sourceTree = "<group>"; };
+		568697162C2D4CC400201D4F /* Intersection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Intersection.cpp; sourceTree = "<group>"; };
+		568697172C2D4CC400201D4F /* Material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Material.cpp; sourceTree = "<group>"; };
+		568697182C2D4CC400201D4F /* IntersectableObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntersectableObject.h; sourceTree = "<group>"; };
+		568697192C2D4CC400201D4F /* LightSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightSource.h; sourceTree = "<group>"; };
+		5694F3C22AA9BB9E004CFC38 /* GLBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GLBuffer.cpp; path = ../Utils/GLBuffer.cpp; sourceTree = "<group>"; };
+		5694F3C32AA9BB9E004CFC38 /* GLDebug.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GLDebug.cpp; path = ../Utils/GLDebug.cpp; sourceTree = "<group>"; };
+		5694F3C72AA9BB9F004CFC38 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Camera.h; path = ../Utils/Camera.h; sourceTree = "<group>"; };
+		5694F3C92AA9BB9F004CFC38 /* GLEnv.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GLEnv.cpp; path = ../Utils/GLEnv.cpp; sourceTree = "<group>"; };
+		5694F3CA2AA9BB9F004CFC38 /* GLProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLProgram.h; path = ../Utils/GLProgram.h; sourceTree = "<group>"; };
+		5694F3CB2AA9BB9F004CFC38 /* GLEnv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLEnv.h; path = ../Utils/GLEnv.h; sourceTree = "<group>"; };
+		5694F3CD2AA9BB9F004CFC38 /* GLDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLDebug.h; path = ../Utils/GLDebug.h; sourceTree = "<group>"; };
+		5694F3CE2AA9BB9F004CFC38 /* GLTexture2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLTexture2D.h; path = ../Utils/GLTexture2D.h; sourceTree = "<group>"; };
+		5694F3CF2AA9BB9F004CFC38 /* Image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Image.cpp; path = ../Utils/Image.cpp; sourceTree = "<group>"; };
+		5694F3D02AA9BB9F004CFC38 /* GLTexture3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLTexture3D.h; path = ../Utils/GLTexture3D.h; sourceTree = "<group>"; };
+		5694F3D12AA9BB9F004CFC38 /* Mat4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Mat4.h; path = ../Utils/Mat4.h; sourceTree = "<group>"; };
+		5694F3D32AA9BB9F004CFC38 /* OBJFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OBJFile.h; path = ../Utils/OBJFile.h; sourceTree = "<group>"; };
+		5694F3D42AA9BB9F004CFC38 /* Rand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Rand.cpp; path = ../Utils/Rand.cpp; sourceTree = "<group>"; };
+		5694F3D62AA9BB9F004CFC38 /* GLArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GLArray.cpp; path = ../Utils/GLArray.cpp; sourceTree = "<group>"; };
+		5694F3D72AA9BB9F004CFC38 /* GLTexture3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GLTexture3D.cpp; path = ../Utils/GLTexture3D.cpp; sourceTree = "<group>"; };
+		5694F3D82AA9BB9F004CFC38 /* Grid2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Grid2D.cpp; path = ../Utils/Grid2D.cpp; sourceTree = "<group>"; };
+		5694F3D92AA9BB9F004CFC38 /* GLTexture1D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GLTexture1D.cpp; path = ../Utils/GLTexture1D.cpp; sourceTree = "<group>"; };
+		5694F3DA2AA9BB9F004CFC38 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Image.h; path = ../Utils/Image.h; sourceTree = "<group>"; };
+		5694F3DB2AA9BB9F004CFC38 /* Vec2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vec2.h; path = ../Utils/Vec2.h; sourceTree = "<group>"; };
+		5694F3DC2AA9BB9F004CFC38 /* FontRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FontRenderer.h; path = ../Utils/FontRenderer.h; sourceTree = "<group>"; };
+		5694F3DD2AA9BB9F004CFC38 /* GLTexture1D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLTexture1D.h; path = ../Utils/GLTexture1D.h; sourceTree = "<group>"; };
+		5694F3DE2AA9BB9F004CFC38 /* GLApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLApp.h; path = ../Utils/GLApp.h; sourceTree = "<group>"; };
+		5694F3DF2AA9BB9F004CFC38 /* Rand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Rand.h; path = ../Utils/Rand.h; sourceTree = "<group>"; };
+		5694F3E02AA9BB9F004CFC38 /* Vec4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vec4.h; path = ../Utils/Vec4.h; sourceTree = "<group>"; };
+		5694F3E12AA9BB9F004CFC38 /* GLProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GLProgram.cpp; path = ../Utils/GLProgram.cpp; sourceTree = "<group>"; };
+		5694F3E22AA9BB9F004CFC38 /* FontRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FontRenderer.cpp; path = ../Utils/FontRenderer.cpp; sourceTree = "<group>"; };
+		5694F3E42AA9BB9F004CFC38 /* GLBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLBuffer.h; path = ../Utils/GLBuffer.h; sourceTree = "<group>"; };
+		5694F3E52AA9BB9F004CFC38 /* GLTexture2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GLTexture2D.cpp; path = ../Utils/GLTexture2D.cpp; sourceTree = "<group>"; };
+		5694F3E72AA9BB9F004CFC38 /* OBJFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OBJFile.cpp; path = ../Utils/OBJFile.cpp; sourceTree = "<group>"; };
+		5694F3E82AA9BB9F004CFC38 /* bmp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bmp.cpp; path = ../Utils/bmp.cpp; sourceTree = "<group>"; };
+		5694F3EB2AA9BB9F004CFC38 /* Vec3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vec3.h; path = ../Utils/Vec3.h; sourceTree = "<group>"; };
+		5694F3EC2AA9BB9F004CFC38 /* bmp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bmp.h; path = ../Utils/bmp.h; sourceTree = "<group>"; };
+		5694F3ED2AA9BB9F004CFC38 /* GLArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLArray.h; path = ../Utils/GLArray.h; sourceTree = "<group>"; };
+		5694F3EE2AA9BB9F004CFC38 /* Grid2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Grid2D.h; path = ../Utils/Grid2D.h; sourceTree = "<group>"; };
+		5694F3EF2AA9BB9F004CFC38 /* Mat3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Mat3.h; path = ../Utils/Mat3.h; sourceTree = "<group>"; };
+		5694F3F02AA9BB9F004CFC38 /* GLApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GLApp.cpp; path = ../Utils/GLApp.cpp; sourceTree = "<group>"; };
+		56CA2EBC2BD100E100CFDA64 /* GLTextureCube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLTextureCube.h; path = ../Utils/GLTextureCube.h; sourceTree = "<group>"; };
+		56CA2EBD2BD100E100CFDA64 /* GLTextureCube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GLTextureCube.cpp; path = ../Utils/GLTextureCube.cpp; sourceTree = "<group>"; };
+		A231F0FF25EAF61A00CBFC23 /* Raycaster-Demo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Raycaster-Demo"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		560A43762AA9A43B00DB0F92 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A231F0FC25EAF61A00CBFC23 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -69,31 +163,85 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		560A43732AA9A40400DB0F92 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				568696F82C2D4BE900201D4F /* main.cpp */,
+				568696F72C2D4BE900201D4F /* Material.h */,
+				568697062C2D4CC400201D4F /* Camera.cpp */,
+				5686970A2C2D4CC400201D4F /* Camera.h */,
+				568697182C2D4CC400201D4F /* IntersectableObject.h */,
+				568697162C2D4CC400201D4F /* Intersection.cpp */,
+				568697072C2D4CC400201D4F /* Intersection.h */,
+				568697122C2D4CC400201D4F /* LightSource.cpp */,
+				568697192C2D4CC400201D4F /* LightSource.h */,
+				568697172C2D4CC400201D4F /* Material.cpp */,
+				568697092C2D4CC400201D4F /* Plane.cpp */,
+				5686970F2C2D4CC400201D4F /* Plane.h */,
+				568697102C2D4CC400201D4F /* PointLight.cpp */,
+				568697142C2D4CC400201D4F /* PointLight.h */,
+				5686970B2C2D4CC400201D4F /* Ray.cpp */,
+				568697112C2D4CC400201D4F /* Ray.h */,
+				5686970E2C2D4CC400201D4F /* Raytracer.cpp */,
+				5686970C2C2D4CC400201D4F /* Raytracer.h */,
+				5686970D2C2D4CC400201D4F /* Scene.cpp */,
+				568697082C2D4CC400201D4F /* Scene.h */,
+				568697152C2D4CC400201D4F /* Sphere.cpp */,
+				568697132C2D4CC400201D4F /* Sphere.h */,
+			);
+			name = Application;
+			sourceTree = "<group>";
+		};
+		5678930E2AA9BB6700A633CA /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				5694F3E82AA9BB9F004CFC38 /* bmp.cpp */,
+				5694F3EC2AA9BB9F004CFC38 /* bmp.h */,
+				5694F3C72AA9BB9F004CFC38 /* Camera.h */,
+				5694F3E22AA9BB9F004CFC38 /* FontRenderer.cpp */,
+				5694F3DC2AA9BB9F004CFC38 /* FontRenderer.h */,
+				5694F3F02AA9BB9F004CFC38 /* GLApp.cpp */,
+				5694F3DE2AA9BB9F004CFC38 /* GLApp.h */,
+				5694F3D62AA9BB9F004CFC38 /* GLArray.cpp */,
+				5694F3ED2AA9BB9F004CFC38 /* GLArray.h */,
+				5694F3C22AA9BB9E004CFC38 /* GLBuffer.cpp */,
+				5694F3E42AA9BB9F004CFC38 /* GLBuffer.h */,
+				5694F3C32AA9BB9E004CFC38 /* GLDebug.cpp */,
+				5694F3CD2AA9BB9F004CFC38 /* GLDebug.h */,
+				5694F3C92AA9BB9F004CFC38 /* GLEnv.cpp */,
+				5694F3CB2AA9BB9F004CFC38 /* GLEnv.h */,
+				5694F3E12AA9BB9F004CFC38 /* GLProgram.cpp */,
+				5694F3CA2AA9BB9F004CFC38 /* GLProgram.h */,
+				5694F3D92AA9BB9F004CFC38 /* GLTexture1D.cpp */,
+				5694F3DD2AA9BB9F004CFC38 /* GLTexture1D.h */,
+				5694F3E52AA9BB9F004CFC38 /* GLTexture2D.cpp */,
+				5694F3CE2AA9BB9F004CFC38 /* GLTexture2D.h */,
+				5694F3D72AA9BB9F004CFC38 /* GLTexture3D.cpp */,
+				5694F3D02AA9BB9F004CFC38 /* GLTexture3D.h */,
+				56CA2EBD2BD100E100CFDA64 /* GLTextureCube.cpp */,
+				56CA2EBC2BD100E100CFDA64 /* GLTextureCube.h */,
+				5694F3D82AA9BB9F004CFC38 /* Grid2D.cpp */,
+				5694F3EE2AA9BB9F004CFC38 /* Grid2D.h */,
+				5694F3CF2AA9BB9F004CFC38 /* Image.cpp */,
+				5694F3DA2AA9BB9F004CFC38 /* Image.h */,
+				5694F3EF2AA9BB9F004CFC38 /* Mat3.h */,
+				5694F3D12AA9BB9F004CFC38 /* Mat4.h */,
+				5694F3E72AA9BB9F004CFC38 /* OBJFile.cpp */,
+				5694F3D32AA9BB9F004CFC38 /* OBJFile.h */,
+				5694F3D42AA9BB9F004CFC38 /* Rand.cpp */,
+				5694F3DF2AA9BB9F004CFC38 /* Rand.h */,
+				5694F3DB2AA9BB9F004CFC38 /* Vec2.h */,
+				5694F3EB2AA9BB9F004CFC38 /* Vec3.h */,
+				5694F3E02AA9BB9F004CFC38 /* Vec4.h */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
 		A231F0F625EAF61A00CBFC23 = {
 			isa = PBXGroup;
 			children = (
-				56ED8850294D408D007DB950 /* LightSource.h */,
-				56ED8855294D408D007DB950 /* Camera.cpp */,
-				56ED8851294D408D007DB950 /* Camera.h */,
-				56ED8842294D408D007DB950 /* IntersectableObject.h */,
-				56ED8847294D408D007DB950 /* Intersection.cpp */,
-				56ED8849294D408D007DB950 /* Intersection.h */,
-				56ED8848294D408D007DB950 /* LightSource.cpp */,
-				56ED884A294D408D007DB950 /* main.cpp */,
-				56ED884B294D408D007DB950 /* Material.cpp */,
-				56ED8852294D408D007DB950 /* Material.h */,
-				56ED8856294D408D007DB950 /* Plane.cpp */,
-				56ED8843294D408D007DB950 /* Plane.h */,
-				56ED8844294D408D007DB950 /* PointLight.cpp */,
-				56ED8853294D408D007DB950 /* PointLight.h */,
-				56ED884C294D408D007DB950 /* Ray.cpp */,
-				56ED884D294D408D007DB950 /* Ray.h */,
-				56ED884E294D408D007DB950 /* Raytracer.cpp */,
-				56ED8846294D408D007DB950 /* Raytracer.h */,
-				56ED8840294D408D007DB950 /* Scene.cpp */,
-				56ED8854294D408D007DB950 /* Scene.h */,
-				56ED8841294D408D007DB950 /* Sphere.cpp */,
-				56ED8845294D408D007DB950 /* Sphere.h */,
+				560A43732AA9A40400DB0F92 /* Application */,
+				5678930E2AA9BB6700A633CA /* Utils */,
 				A231F10025EAF61A00CBFC23 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -101,17 +249,67 @@
 		A231F10025EAF61A00CBFC23 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A231F0FF25EAF61A00CBFC23 /* Raycast-Demo */,
+				A231F0FF25EAF61A00CBFC23 /* Raycaster-Demo */,
+				560A43782AA9A43B00DB0F92 /* libUtils.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		560A43742AA9A43B00DB0F92 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5694F40C2AA9BB9F004CFC38 /* Vec2.h in Headers */,
+				5694F4202AA9BB9F004CFC38 /* Mat3.h in Headers */,
+				56CA2EBE2BD100E100CFDA64 /* GLTextureCube.h in Headers */,
+				5694F4022AA9BB9F004CFC38 /* Mat4.h in Headers */,
+				5694F40D2AA9BB9F004CFC38 /* FontRenderer.h in Headers */,
+				5694F41C2AA9BB9F004CFC38 /* Vec3.h in Headers */,
+				5694F3F82AA9BB9F004CFC38 /* Camera.h in Headers */,
+				5694F3FE2AA9BB9F004CFC38 /* GLDebug.h in Headers */,
+				5694F40F2AA9BB9F004CFC38 /* GLApp.h in Headers */,
+				5694F41E2AA9BB9F004CFC38 /* GLArray.h in Headers */,
+				5694F3FB2AA9BB9F004CFC38 /* GLProgram.h in Headers */,
+				5694F3FC2AA9BB9F004CFC38 /* GLEnv.h in Headers */,
+				5694F4102AA9BB9F004CFC38 /* Rand.h in Headers */,
+				5694F3FF2AA9BB9F004CFC38 /* GLTexture2D.h in Headers */,
+				5694F41F2AA9BB9F004CFC38 /* Grid2D.h in Headers */,
+				5694F4012AA9BB9F004CFC38 /* GLTexture3D.h in Headers */,
+				5694F40E2AA9BB9F004CFC38 /* GLTexture1D.h in Headers */,
+				5694F41D2AA9BB9F004CFC38 /* bmp.h in Headers */,
+				5694F40B2AA9BB9F004CFC38 /* Image.h in Headers */,
+				5694F4152AA9BB9F004CFC38 /* GLBuffer.h in Headers */,
+				5694F4042AA9BB9F004CFC38 /* OBJFile.h in Headers */,
+				5694F4112AA9BB9F004CFC38 /* Vec4.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
-		A231F0FE25EAF61A00CBFC23 /* Raycast-Demo */ = {
+		560A43772AA9A43B00DB0F92 /* Utils */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A231F10625EAF61A00CBFC23 /* Build configuration list for PBXNativeTarget "Raycast-Demo" */;
+			buildConfigurationList = 560A43802AA9A43B00DB0F92 /* Build configuration list for PBXNativeTarget "Utils" */;
+			buildPhases = (
+				560A43742AA9A43B00DB0F92 /* Headers */,
+				560A43752AA9A43B00DB0F92 /* Sources */,
+				560A43762AA9A43B00DB0F92 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Utils;
+			productName = Utils;
+			productReference = 560A43782AA9A43B00DB0F92 /* libUtils.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		A231F0FE25EAF61A00CBFC23 /* Raycaster-Demo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A231F10625EAF61A00CBFC23 /* Build configuration list for PBXNativeTarget "Raycaster-Demo" */;
 			buildPhases = (
 				A231F0FB25EAF61A00CBFC23 /* Sources */,
 				A231F0FC25EAF61A00CBFC23 /* Frameworks */,
@@ -120,10 +318,11 @@
 			buildRules = (
 			);
 			dependencies = (
+				560A43E82AA9A53100DB0F92 /* PBXTargetDependency */,
 			);
-			name = "Raycast-Demo";
-			productName = "Raycast-Demo";
-			productReference = A231F0FF25EAF61A00CBFC23 /* Raycast-Demo */;
+			name = "Raycaster-Demo";
+			productName = "Raycaster-Demo";
+			productReference = A231F0FF25EAF61A00CBFC23 /* Raycaster-Demo */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -132,14 +331,18 @@
 		A231F0F725EAF61A00CBFC23 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1410;
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1540;
 				TargetAttributes = {
+					560A43772AA9A43B00DB0F92 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
 					A231F0FE25EAF61A00CBFC23 = {
 						CreatedOnToolsVersion = 12.4;
 					};
 				};
 			};
-			buildConfigurationList = A231F0FA25EAF61A00CBFC23 /* Build configuration list for PBXProject "Raytracer" */;
+			buildConfigurationList = A231F0FA25EAF61A00CBFC23 /* Build configuration list for PBXProject "Raycaster" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -152,37 +355,120 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A231F0FE25EAF61A00CBFC23 /* Raycast-Demo */,
+				A231F0FE25EAF61A00CBFC23 /* Raycaster-Demo */,
+				560A43772AA9A43B00DB0F92 /* Utils */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		560A43752AA9A43B00DB0F92 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5694F4092AA9BB9F004CFC38 /* Grid2D.cpp in Sources */,
+				5694F4122AA9BB9F004CFC38 /* GLProgram.cpp in Sources */,
+				5694F4132AA9BB9F004CFC38 /* FontRenderer.cpp in Sources */,
+				5694F3F42AA9BB9F004CFC38 /* GLDebug.cpp in Sources */,
+				5694F4182AA9BB9F004CFC38 /* OBJFile.cpp in Sources */,
+				56CA2EBF2BD100E100CFDA64 /* GLTextureCube.cpp in Sources */,
+				5694F3FA2AA9BB9F004CFC38 /* GLEnv.cpp in Sources */,
+				5694F4072AA9BB9F004CFC38 /* GLArray.cpp in Sources */,
+				5694F4212AA9BB9F004CFC38 /* GLApp.cpp in Sources */,
+				5694F4002AA9BB9F004CFC38 /* Image.cpp in Sources */,
+				5694F3F32AA9BB9F004CFC38 /* GLBuffer.cpp in Sources */,
+				5694F4162AA9BB9F004CFC38 /* GLTexture2D.cpp in Sources */,
+				5694F4052AA9BB9F004CFC38 /* Rand.cpp in Sources */,
+				5694F40A2AA9BB9F004CFC38 /* GLTexture1D.cpp in Sources */,
+				5694F4082AA9BB9F004CFC38 /* GLTexture3D.cpp in Sources */,
+				5694F4192AA9BB9F004CFC38 /* bmp.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A231F0FB25EAF61A00CBFC23 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				56ED885E294D408D007DB950 /* Ray.cpp in Sources */,
-				56ED8857294D408D007DB950 /* Scene.cpp in Sources */,
-				56ED8862294D408D007DB950 /* Plane.cpp in Sources */,
-				56ED885B294D408D007DB950 /* LightSource.cpp in Sources */,
-				56ED885F294D408D007DB950 /* Raytracer.cpp in Sources */,
-				56ED8861294D408D007DB950 /* Camera.cpp in Sources */,
-				56ED8859294D408D007DB950 /* PointLight.cpp in Sources */,
-				56ED8858294D408D007DB950 /* Sphere.cpp in Sources */,
-				56ED885D294D408D007DB950 /* Material.cpp in Sources */,
-				56ED885C294D408D007DB950 /* main.cpp in Sources */,
-				56ED885A294D408D007DB950 /* Intersection.cpp in Sources */,
+				5686971C2C2D4CC400201D4F /* Ray.cpp in Sources */,
+				568697212C2D4CC400201D4F /* Sphere.cpp in Sources */,
+				568697202C2D4CC400201D4F /* LightSource.cpp in Sources */,
+				5686971B2C2D4CC400201D4F /* Plane.cpp in Sources */,
+				568697232C2D4CC400201D4F /* Material.cpp in Sources */,
+				5686971A2C2D4CC400201D4F /* Camera.cpp in Sources */,
+				5686971E2C2D4CC400201D4F /* Raytracer.cpp in Sources */,
+				5686971F2C2D4CC400201D4F /* PointLight.cpp in Sources */,
+				5686971D2C2D4CC400201D4F /* Scene.cpp in Sources */,
+				568697222C2D4CC400201D4F /* Intersection.cpp in Sources */,
+				568697032C2D4BEA00201D4F /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		560A43E82AA9A53100DB0F92 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 560A43772AA9A43B00DB0F92 /* Utils */;
+			targetProxy = 560A43E72AA9A53100DB0F92 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		560A43812AA9A43B00DB0F92 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_WARN_SHADOW = NO;
+				HEADER_SEARCH_PATHS = (
+					../Network,
+					../Utils,
+					/usr/local/Cellar/glew/2.1.0_1/include,
+					/usr/local/Cellar/glfw/3.3.2/include,
+					/opt/homebrew/include,
+					/usr/local/include,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		560A43822AA9A43B00DB0F92 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_WARN_SHADOW = NO;
+				HEADER_SEARCH_PATHS = (
+					../Network,
+					../Utils,
+					/usr/local/Cellar/glew/2.1.0_1/include,
+					/usr/local/Cellar/glfw/3.3.2/include,
+					/opt/homebrew/include,
+					/usr/local/include,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		A231F10425EAF61A00CBFC23 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -223,6 +509,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -247,8 +534,18 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = ../Utils;
-				LIBRARY_SEARCH_PATHS = ../Utils;
+				HEADER_SEARCH_PATHS = (
+					../Network,
+					../Utils,
+					/usr/local/Cellar/glew/2.1.0_1/include,
+					/usr/local/Cellar/glfw/3.3.2/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					../Network,
+					../Utils,
+					/usr/local/Cellar/glfw/3.3.2/lib/,
+					/usr/local/Cellar/glew/2.1.0_1/lib/,
+				);
 				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -260,6 +557,8 @@
 					OpenGL,
 					"-L../Utils",
 					"-lutils",
+					"-L../Network",
+					"-lnetwork",
 				);
 				SDKROOT = macosx;
 			};
@@ -269,6 +568,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -309,6 +609,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -327,12 +628,21 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = ../Utils;
-				LIBRARY_SEARCH_PATHS = ../Utils;
+				HEADER_SEARCH_PATHS = (
+					../Network,
+					../Utils,
+					/usr/local/Cellar/glew/2.1.0_1/include,
+					/usr/local/Cellar/glfw/3.3.2/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					../Network,
+					../Utils,
+					/usr/local/Cellar/glfw/3.3.2/lib/,
+					/usr/local/Cellar/glew/2.1.0_1/lib/,
+				);
 				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-lglfw",
 					"-lGLEW",
@@ -340,6 +650,8 @@
 					OpenGL,
 					"-L../Utils",
 					"-lutils",
+					"-L../Network",
+					"-lnetwork",
 				);
 				SDKROOT = macosx;
 			};
@@ -348,19 +660,18 @@
 		A231F10725EAF61A00CBFC23 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
 				GCC_WARN_SHADOW = NO;
 				HEADER_SEARCH_PATHS = (
-					/usr/local/include/,
 					../Utils,
 					/opt/homebrew/include,
+					/usr/local/include/,
 				);
 				LIBRARY_SEARCH_PATHS = (
-					/usr/local/lib,
 					../Utils,
 					/opt/homebrew/lib,
+					/usr/local/lib/,
 				);
 				OTHER_LDFLAGS = (
 					"-lglfw",
@@ -377,19 +688,18 @@
 		A231F10825EAF61A00CBFC23 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
 				GCC_WARN_SHADOW = NO;
 				HEADER_SEARCH_PATHS = (
-					/usr/local/include/,
 					../Utils,
 					/opt/homebrew/include,
+					/usr/local/include/,
 				);
 				LIBRARY_SEARCH_PATHS = (
-					/usr/local/lib,
 					../Utils,
 					/opt/homebrew/lib,
+					/usr/local/lib/,
 				);
 				OTHER_LDFLAGS = (
 					"-lglfw",
@@ -406,7 +716,16 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A231F0FA25EAF61A00CBFC23 /* Build configuration list for PBXProject "Raytracer" */ = {
+		560A43802AA9A43B00DB0F92 /* Build configuration list for PBXNativeTarget "Utils" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				560A43812AA9A43B00DB0F92 /* Debug */,
+				560A43822AA9A43B00DB0F92 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A231F0FA25EAF61A00CBFC23 /* Build configuration list for PBXProject "Raycaster" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A231F10425EAF61A00CBFC23 /* Debug */,
@@ -415,7 +734,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A231F10625EAF61A00CBFC23 /* Build configuration list for PBXNativeTarget "Raycast-Demo" */ = {
+		A231F10625EAF61A00CBFC23 /* Build configuration list for PBXNativeTarget "Raycaster-Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A231F10725EAF61A00CBFC23 /* Debug */,
