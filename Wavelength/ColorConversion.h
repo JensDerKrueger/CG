@@ -108,7 +108,7 @@ namespace ColorConversion {
     c = c > 1 ? 1 : (c < 0 ? 0 : c);
 
     // apply the color component transfer function
-    c = c <= 0.0031308 ? c * 12.92 : 1.055 * pow(c, 1. / 2.4) - 0.055;
+    c = T(c <= 0.0031308 ? c * 12.92 : 1.055 * pow(c, 1. / 2.4) - 0.055);
 
     return c;
   }
@@ -118,9 +118,9 @@ namespace ColorConversion {
     const T y = xyz[1];
     const T z = xyz[2];
 
-    const T rl =  3.2406255 * x + -1.537208  * y + -0.4986286 * z;
-    const T gl = -0.9689307 * x +  1.8757561 * y +  0.0415175 * z;
-    const T bl =  0.0557101 * x + -0.2040211 * y +  1.0569959 * z;
+    const T rl =  T(3.2406255 * x + -1.537208  * y + -0.4986286 * z);
+    const T gl =  T(-0.9689307 * x +  1.8757561 * y +  0.0415175 * z);
+    const T bl =  T(0.0557101 * x + -0.2040211 * y +  1.0569959 * z);
 
     return Vec3t<T>{srgbXYZ2RGBPostprocess(rl),
                     srgbXYZ2RGBPostprocess(gl),
@@ -130,27 +130,27 @@ namespace ColorConversion {
   template <typename T> Vec3t<T> cie1931WavelengthToXYZFit(T wavelength) {
     T x;
     {
-      const T t1 = (wavelength - 442.0) * ((wavelength < 442.0) ? 0.0624 : 0.0374);
-      const T t2 = (wavelength - 599.8) * ((wavelength < 599.8) ? 0.0264 : 0.0323);
-      const T t3 = (wavelength - 501.1) * ((wavelength < 501.1) ? 0.0490 : 0.0382);
+      const T t1 = T((wavelength - 442.0) * ((wavelength < 442.0) ? 0.0624 : 0.0374));
+      const T t2 = T((wavelength - 599.8) * ((wavelength < 599.8) ? 0.0264 : 0.0323));
+      const T t3 = T((wavelength - 501.1) * ((wavelength < 501.1) ? 0.0490 : 0.0382));
 
-      x =   0.362 * exp(-0.5 * t1 * t1) + 1.056 * exp(-0.5 * t2 * t2) - 0.065 * exp(-0.5 * t3 * t3);
+      x = T(0.362 * exp(-0.5 * t1 * t1) + 1.056 * exp(-0.5 * t2 * t2) - 0.065 * exp(-0.5 * t3 * t3));
     }
 
     T y;
     {
-      const T t1 = (wavelength - 568.8) * ((wavelength < 568.8) ? 0.0213 : 0.0247);
-      const T t2 = (wavelength - 530.9) * ((wavelength < 530.9) ? 0.0613 : 0.0322);
+      const T t1 = T((wavelength - 568.8) * ((wavelength < 568.8) ? 0.0213 : 0.0247));
+      const T t2 = T((wavelength - 530.9) * ((wavelength < 530.9) ? 0.0613 : 0.0322));
 
-      y =   0.821 * exp(-0.5 * t1 * t1) + 0.286 * exp(-0.5 * t2 * t2);
+      y =   T(0.821 * exp(-0.5 * t1 * t1) + 0.286 * exp(-0.5 * t2 * t2));
     }
 
     T z;
     {
-      const T t1 = (wavelength - 437.0) * ((wavelength < 437.0) ? 0.0845 : 0.0278);
-      const T t2 = (wavelength - 459.0) * ((wavelength < 459.0) ? 0.0385 : 0.0725);
+      const T t1 = T((wavelength - 437.0) * ((wavelength < 437.0) ? 0.0845 : 0.0278));
+      const T t2 = T((wavelength - 459.0) * ((wavelength < 459.0) ? 0.0385 : 0.0725));
 
-      z =   1.217 * exp(-0.5 * t1 * t1) + 0.681 * exp(-0.5 * t2 * t2);
+      z =   T(1.217 * exp(-0.5 * t1 * t1) + 0.681 * exp(-0.5 * t2 * t2));
     }
 
     return Vec3t<T>{ x, y, z };
