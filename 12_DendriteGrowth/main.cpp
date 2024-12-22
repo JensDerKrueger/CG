@@ -14,6 +14,8 @@ typedef std::chrono::high_resolution_clock Clock;
 #include <GLFW/glfw3.h>
 #include <GLEnv.h>
 
+#include <GLAppKeyTranslation.h>
+
 #include <ColorConversion.h>
 #include <Vec3.h>
 #include <Mat4.h>
@@ -97,10 +99,10 @@ static void keyCallback(GLFWwindow* window, int key, int scancode, int action, i
 {
 	if (action == GLFW_REPEAT || action == GLFW_PRESS) {
 		switch (key) {
-		case GLFW_KEY_ESCAPE:
+		case GLENV_KEY_ESCAPE:
 			glfwSetWindowShouldClose(window, GL_TRUE);
 			break;
-		case GLFW_KEY_R:
+		case GLENV_KEY_R:
 			rotation = !rotation;
 			break;
 		}
