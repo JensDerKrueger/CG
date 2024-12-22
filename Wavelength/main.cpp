@@ -188,50 +188,50 @@ public:
     if (action == GLFW_PRESS) {
       switch (key) {
 # ifdef SPECTRO
-        case GLFW_KEY_L:
+        case GLENV_KEY_L:
           light = !light;
           spectrometer.light(light);
           break;
-        case GLFW_KEY_S:
+        case GLENV_KEY_S:
           showSpectroReadings = !showSpectroReadings;
       //    if (showSpectroReadings && !spectrometer.isConnected()) {
       //      spectrometer.reconnect();
       //    }
           break;
 #endif
-        case GLFW_KEY_ESCAPE :
+        case GLENV_KEY_ESCAPE :
           closeWindow();
           break;
-        case GLFW_KEY_R :
+        case GLENV_KEY_R :
           std::fill(spectralPowerDistribution.begin(), spectralPowerDistribution.end(), 0);
           spectralPowerDistributionStored.clear();
           break;
-        case GLFW_KEY_3 :
+        case GLENV_KEY_3 :
           bRenderSensitivityCurve = !bRenderSensitivityCurve;
           break;
-        case GLFW_KEY_2 :
+        case GLENV_KEY_2 :
           bRenderFinalColor = !bRenderFinalColor;
           break;
-        case GLFW_KEY_1 :
+        case GLENV_KEY_1 :
           bRenderRainbow = !bRenderRainbow;
           break;
-        case GLFW_KEY_4 :
+        case GLENV_KEY_4 :
           bRenderExcitement = !bRenderExcitement;
           break;
-        case GLFW_KEY_5 :
+        case GLENV_KEY_5 :
           bRenderCursorWavelength = !bRenderCursorWavelength;
           break;
-        case GLFW_KEY_6:
+        case GLENV_KEY_6:
           bPerceptuallyWeighted = !bPerceptuallyWeighted;
           gaussiansToCurves();
           break;
-        case GLFW_KEY_UP :
+        case GLENV_KEY_UP :
           spectralPowerDistributionScale += 1;
           break;
-        case GLFW_KEY_DOWN :
+        case GLENV_KEY_DOWN :
           spectralPowerDistributionScale -= 1;
           break;
-        case GLFW_KEY_SPACE :
+        case GLENV_KEY_SPACE :
           spectralPowerDistributionStored = spectralPowerDistribution;
           std::fill(spectralPowerDistribution.begin(), spectralPowerDistribution.end(), 0);
           break;
