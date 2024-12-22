@@ -67,6 +67,32 @@ std::vector<uint8_t> spritePixel{
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,2,2,2,4,4,4,5,5,5,6,6,6,6,6,6,5,5,5,5,5,5,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,3,3,3,3,3,3,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 };
 
+#ifdef __EMSCRIPTEN__
+static std::string vsString{
+  "#version 300 es\n"
+  "uniform mat4 MVP;\n"
+  "uniform vec2 pointParam;"
+  "in vec3 vPos;\n"
+  "in vec4 vColor;\n"
+  "out vec4 color;\n"
+  "void main() {\n"
+  "   gl_Position = MVP * vec4(vPos, 1.0);\n"
+  "   float dist = gl_Position.z;"
+  "   gl_PointSize = pointParam.x*pointParam.y / dist;\n"
+  "   color = vColor;\n"
+  "}\n"};
+
+static std::string fsString{
+  "#version 300 es\n"
+  "uniform sampler2D sprite;\n"
+  "precision mediump float;\n"
+  "in vec4 color;\n"
+  "out vec4 FragColor;\n"
+  "void main() {\n"
+  "    vec4 texValue = texture(sprite, gl_PointCoord).rgbr;\n"
+  "    FragColor = vec4(color*texValue)*color.a;\n"
+  "}\n"};
+#else
 static std::string vsString{
 "#version 410\n"
 "uniform mat4 MVP;\n"
@@ -90,13 +116,14 @@ static std::string fsString{
 "    vec4 texValue = texture(sprite, gl_PointCoord).rgbr;\n"
 "    FragColor = vec4(color*texValue)*color.a;\n"
 "}\n"};
+#endif
 
 AbstractParticleSystem::AbstractParticleSystem(float pointSize, float refDepth) :
 	pointSize(pointSize),
-    refDepth(refDepth),
+  refDepth(refDepth),
 	prog{GLProgram::createFromString(vsString, fsString)},
 	mvpLocation{prog.getUniformLocation("MVP")},
-    ppLocation{prog.getUniformLocation("pointParam")},
+  ppLocation{prog.getUniformLocation("pointParam")},
 	texLocation{prog.getUniformLocation("sprite")},
 	sprite{GL_LINEAR, GL_LINEAR},
 	particleArray{},

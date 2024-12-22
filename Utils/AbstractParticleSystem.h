@@ -33,11 +33,11 @@ public:
     
 private:
 	float pointSize;
-    float refDepth;
+  float refDepth;
 	
 	GLProgram prog;
 	GLint mvpLocation;
-    GLint ppLocation;
+  GLint ppLocation;
 	GLint texLocation;	
 	GLTexture2D sprite;	
 	
