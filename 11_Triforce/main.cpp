@@ -4,7 +4,6 @@
 
 class MyGLApp : public GLApp {
 public:
-  double time{0.0};
   Mat4 modelView{};
   Mat4 projection{};
   GLuint program{0};
@@ -24,17 +23,15 @@ public:
   {}
   
   virtual void init() override {
-    time = glfwGetTime();
     setupShaders();
     setupGeometry();
     GL(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
   }
-  
+
+  virtual void animate(double animationTime) override {    
+  }
+
   virtual void draw() override {
-    double t = glfwGetTime();
-    double d = t - time;
-    time = t;
-    
     GL(glClear(GL_COLOR_BUFFER_BIT));
     
     GL(glUseProgram(program));
