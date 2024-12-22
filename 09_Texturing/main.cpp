@@ -50,7 +50,7 @@ public:
 	}
 
 	void keyboard(int key, int scancode, int action, int mods) override {
-		if (key == GLFW_KEY_SPACE && action == GLFW_PRESS) {
+		if (key == GLENV_KEY_SPACE && action == GLENV_PRESS) {
 			drawDebug = !drawDebug;
 		}
 	}
