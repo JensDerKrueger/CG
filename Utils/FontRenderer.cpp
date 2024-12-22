@@ -134,6 +134,46 @@ std::shared_ptr<FontEngine> FontRenderer::generateFontEngine() const {
 
 
 FontEngine::FontEngine() :
+#ifdef __EMSCRIPTEN__
+simpleProg{GLProgram::createFromString(R"(#version 300 es
+uniform mat4 MVP;
+in vec3 vPos;
+in vec2 vTexCoords;
+out vec4 color;
+out vec2 texCoords;
+void main() {
+    gl_Position = MVP * vec4(vPos, 1.0);
+    texCoords = vTexCoords;
+})",R"(#version 300 es
+precision mediump float;
+uniform sampler2D raster;
+uniform vec4 globalColor;
+in vec2 texCoords;
+out vec4 FragColor;
+void main() {
+    FragColor = globalColor*texture(raster, texCoords);
+})")},
+simpleDistProg{GLProgram::createFromString(R"(#version 300 es
+uniform mat4 MVP;
+in vec3 vPos;
+in vec2 vTexCoords;
+out vec4 color;
+out vec2 texCoords;
+void main() {
+    gl_Position = MVP * vec4(vPos, 1.0);
+    texCoords = vTexCoords;
+})",R"(#version 300 es
+precision mediump float;
+uniform sampler2D raster;
+uniform vec4 globalColor;
+in vec2 texCoords;
+out vec4 FragColor;
+void main() {
+    float dist = texture(raster, texCoords).r;
+    float val  = smoothstep(-3.0,1.0,dist);
+    FragColor  = globalColor*val;
+})")},
+#else
   simpleProg{GLProgram::createFromString(
    "#version 410\n"
    "uniform mat4 MVP;\n"
@@ -174,6 +214,7 @@ FontEngine::FontEngine() :
    "    float val  = smoothstep(-3.0,1.0,dist);\n"
    "    FragColor  = globalColor*val;\n"
    "}\n")},
+#endif
   simpleArray{},
   simpleVb{GL_ARRAY_BUFFER},
   renderAsSignedDistanceField{false}
@@ -193,7 +234,11 @@ FontEngine::FontEngine() :
 
 void FontEngine::render(const std::string& text, float winAspect,
                         float height, const Vec2& pos, Alignment a, const Vec4& color) {
-  
+
+  GL(glEnable(GL_BLEND));
+  GL(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+  GL(glBlendEquation(GL_FUNC_ADD));
+
   GLProgram& activeShader = (renderAsSignedDistanceField) ? simpleDistProg : simpleProg;
   std::map<char,CharTex>& activeFontMap = (renderAsSignedDistanceField) ? sdChars : chars;
   

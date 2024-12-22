@@ -196,11 +196,13 @@ void GLProgram::setTexture(GLint id, const GLDepthTexture& texture, GLenum unit)
   GL(glUniform1i(id, GLint(unit)));
 }
 
+#ifndef __EMSCRIPTEN__
 void GLProgram::setTexture(GLint id, const GLTexture1D& texture, GLenum unit) const {
   GL(glActiveTexture(GL_TEXTURE0 + unit));
   GL(glBindTexture(GL_TEXTURE_1D, texture.getId()));
   GL(glUniform1i(id, GLint(unit)));
 }
+#endif
 
 void GLProgram::setTexture(GLint id, const GLTexture2D& texture, GLenum unit) const {
 	GL(glActiveTexture(GL_TEXTURE0 + unit));
@@ -220,10 +222,12 @@ void GLProgram::setTexture(GLint id, const GLTextureCube& texture, GLenum unit) 
   GL(glUniform1i(id, GLint(unit)));
 }
 
+#ifndef __EMSCRIPTEN__
 void GLProgram::unsetTexture1D(GLenum unit) const {
   GL(glActiveTexture(GL_TEXTURE0 + unit));
   GL(glBindTexture(GL_TEXTURE_1D, 0));
 }
+#endif
 
 void GLProgram::unsetTexture2D(GLenum unit) const {
   GL(glActiveTexture(GL_TEXTURE0 + unit));
@@ -297,9 +301,11 @@ void GLProgram::setTexture(const std::string& id, const GLDepthTexture& texture,
   setTexture(getUniformLocation(id), texture, unit);
 }
 
+#ifndef __EMSCRIPTEN__
 void GLProgram::setTexture(const std::string& id, const GLTexture1D& texture, GLenum unit) const {
   setTexture(getUniformLocation(id), texture, unit);
 }
+#endif
 
 void GLProgram::setTexture(const std::string& id, const GLTexture2D& texture, GLenum unit) const {
   setTexture(getUniformLocation(id), texture, unit);

@@ -135,6 +135,7 @@ void GLTexture3D::setData(GLvoid* data, uint32_t width, uint32_t height,
   GL(glTexImage3D(GL_TEXTURE_3D, 0, internalformat, GLsizei(width), GLsizei(height), GLsizei(depth), 0, format, type, data));
 }
 
+#ifndef __EMSCRIPTEN__
 const std::vector<GLubyte>& GLTexture3D::getDataByte() {
   GL(glPixelStorei(GL_PACK_ALIGNMENT, 1));
   GL(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
@@ -150,3 +151,4 @@ const std::vector<GLfloat>& GLTexture3D::getDataFloat() {
   GL(glGetTexImage(GL_TEXTURE_3D, 0, format, type, fdata.data()));
   return fdata;
 }
+#endif

@@ -54,7 +54,9 @@ public:
   void setUniform(const std::string& id, const Mat4& value, bool transpose=false) const;
   
   void setTexture(const std::string& id, const GLDepthTexture& texture, GLenum unit=0) const;
+#ifndef __EMSCRIPTEN__
   void setTexture(const std::string& id, const GLTexture1D& texture, GLenum unit=0) const;
+#endif
   void setTexture(const std::string& id, const GLTexture2D& texture, GLenum unit=0) const;
   void setTexture(const std::string& id, const GLTexture3D& texture, GLenum unit=0) const;
   void setTexture(const std::string& id, const GLTextureCube& texture, GLenum unit=0) const;
@@ -80,12 +82,16 @@ public:
   void setUniform(GLint id, const std::vector<Mat4>& value, bool transpose=false) const;
   
   void setTexture(GLint id, const GLDepthTexture& texture, GLenum unit=0) const;
+#ifndef __EMSCRIPTEN__
   void setTexture(GLint id, const GLTexture1D& texture, GLenum unit=0) const;
+#endif
   void setTexture(GLint id, const GLTexture2D& texture, GLenum unit=0) const;
 	void setTexture(GLint id, const GLTexture3D& texture, GLenum unit=0) const;
   void setTexture(GLint id, const GLTextureCube& texture, GLenum unit=0) const;
 
+#ifndef __EMSCRIPTEN__
   void unsetTexture1D(GLenum unit) const;
+#endif
   void unsetTexture2D(GLenum unit) const;
   void unsetTexture3D(GLenum unit) const;
 

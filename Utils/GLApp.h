@@ -128,7 +128,11 @@ protected:
   GLTexture2D pointSprite;
   GLTexture2D pointSpriteHighlight;
   double resumeTime;
-  
+#ifdef __EMSCRIPTEN__
+  float xMousePos;
+  float yMousePos;
+#endif
+
   void shaderUpdate();
 
   void closeWindow() {
@@ -140,7 +144,64 @@ private:
   TrisDrawType lastTrisType;
   GLsizei lastTrisCount;
   bool lastLighting;
+  double startTime;
 
+  void mainLoop();
+
+#ifdef __EMSCRIPTEN__
+  static void mainLoopWrapper(void* arg) {
+    GLApp* app = static_cast<GLApp*>(arg);
+    app->mainLoop();
+  }
+
+  static bool sizeCallback(int eventType, const EmscriptenUiEvent *uiEvent, void *userData) {
+    GLApp* glApp = static_cast<GLApp*>(userData);
+    if (!glApp) return EM_FALSE;
+
+    //TODO
+    return EM_TRUE;
+  }
+  static bool keyCallback(int eventType, const EmscriptenKeyboardEvent* keyEvent, void* userData) {
+
+    GLApp* glApp = static_cast<GLApp*>(userData);
+    if (!glApp) return EM_FALSE;
+
+    if (eventType == EMSCRIPTEN_EVENT_KEYDOWN) glApp->keyboardChar(keyEvent->key[0]);
+
+
+    //TODO
+    return EM_TRUE;
+  }
+
+  static bool cursorPositionCallback(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData) {
+    GLApp* glApp = static_cast<GLApp*>(userData);
+    if (!glApp) return EM_FALSE;
+
+    glApp->xMousePos = mouseEvent->targetX;
+    glApp->yMousePos = mouseEvent->targetY;
+
+    std::cout << mouseEvent->targetX << "  " << mouseEvent->targetY << std::endl;
+
+    glApp->mouseMove(glApp->xMousePos, glApp->yMousePos);
+    return EM_TRUE;
+  }
+  static bool mouseButtonCallback(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData) {
+    GLApp* glApp = static_cast<GLApp*>(userData);
+    if (!glApp) return EM_FALSE;
+
+    //TODO: check this
+    glApp->mouseButton(mouseEvent->button, 0, 0, glApp->xMousePos, glApp->yMousePos);
+    return EM_TRUE;
+  }
+  static bool scrollCallback(int eventType, const EmscriptenWheelEvent *wheelEvent, void *userData) {
+    GLApp* glApp = static_cast<GLApp*>(userData);
+    if (!glApp) return EM_FALSE;
+
+    // TODO
+
+    return EM_TRUE;
+  }
+#else
   static GLApp* staticAppPtr;
   static void sizeCallback(GLFWwindow* window, int width, int height) {
     if (staticAppPtr) staticAppPtr->resize(width, height);
@@ -155,8 +216,6 @@ private:
     if (staticAppPtr) staticAppPtr->mouseMove(xPosition, yPosition);
   }
   static void mouseButtonCallback(GLFWwindow* window, int button, int state, int mods) {
-    double xpos, ypos;
-    glfwGetCursorPos(window, &xpos, &ypos);
     if (staticAppPtr) {
       double xpos, ypos;
       glfwGetCursorPos(window, &xpos, &ypos);
@@ -170,8 +229,8 @@ private:
       staticAppPtr->mouseWheel(x_offset, y_offset, xpos, ypos);
     }
   }
-  
-  
+#endif
+
   void triangulate(const Vec3& p0,
                    const Vec3& p1, const Vec4& c1,
                    const Vec3& p2, const Vec4& c2,

@@ -38,12 +38,14 @@ public:
   uint32_t getComponentCount() const {return componentCount;}
   uint32_t getSize() const {return height*width*componentCount;}
   GLDataType getType() const {return dataType;}
-  
+
+#ifndef __EMSCRIPTEN__
   Image getImage();
   const std::vector<GLubyte>& getDataByte();
   const std::vector<GLhalf>& getDataHalf();
   const std::vector<GLfloat>& getDataFloat();
-  
+#endif
+
 private:
 	GLuint id;
   GLint internalformat;

@@ -116,7 +116,9 @@ void GLTexture2D::setData(const std::vector<GLfloat>& data) {
 void GLTexture2D::setEmpty(uint32_t width, uint32_t height, uint8_t componentCount, GLDataType dataType) {
   switch (dataType) {
     case GLDataType::BYTE  : setData(std::vector<GLubyte>(width*height*componentCount), width, height, componentCount); break;
-    case GLDataType::HALF  : setData(std::vector<GLhalf>(width*height*componentCount), width, height, componentCount); break;
+    case GLDataType::HALF  :
+      setData(std::vector<GLhalf>(width*height*componentCount), width, height, componentCount);
+      break;
     case GLDataType::FLOAT : setData(std::vector<GLfloat>(width*height*componentCount), width, height, componentCount); break;
   }
 }
@@ -182,7 +184,6 @@ static GLTexInfo dataTypeToGL(GLDataType dataType, uint8_t componentCount) {
           break;
       }
       break;
-
     case GLDataType::HALF :
       result.type = GL_HALF_FLOAT;
       switch (componentCount) {
@@ -204,7 +205,6 @@ static GLTexInfo dataTypeToGL(GLDataType dataType, uint8_t componentCount) {
           break;
       }
       break;
-      
     case GLDataType::FLOAT :
       result.type = GL_FLOAT;
       switch (componentCount) {
@@ -260,6 +260,8 @@ void GLTexture2D::generateMipmap() {
   GL(glGenerateMipmap(GL_TEXTURE_2D));
 }
 
+#ifndef __EMSCRIPTEN__
+
 Image GLTexture2D::getImage() {
   return {width, height, componentCount, getDataByte()};
 }
@@ -272,6 +274,7 @@ const std::vector<GLubyte>& GLTexture2D::getDataByte() {
   const GLTexInfo texInfo = dataTypeToGL(GLDataType::BYTE, componentCount);
   data.resize(componentCount*width*height);
   GL(glGetTexImage(GL_TEXTURE_2D, 0, texInfo.format, texInfo.type, data.data()));
+  
   return data;
 }
 
@@ -293,9 +296,10 @@ const std::vector<GLfloat>& GLTexture2D::getDataFloat() {
   GL(glBindTexture(GL_TEXTURE_2D, id));
 
   const GLTexInfo texInfo = dataTypeToGL(GLDataType::FLOAT, componentCount);
-  hdata.resize(componentCount*width*height);
+  fdata.resize(componentCount*width*height);
   GL(glGetTexImage(GL_TEXTURE_2D, 0, texInfo.format, texInfo.type,
                    fdata.data()));
   return fdata;
 }
 
+#endif

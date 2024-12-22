@@ -1,3 +1,5 @@
+#ifndef __EMSCRIPTEN__
+
 #include <iostream>
 
 #include "GLTexture1D.h"
@@ -87,3 +89,4 @@ void GLTexture1D::setData(const std::vector<GLubyte>& data, uint32_t size,
 	
 	GL(glTexImage1D(GL_TEXTURE_1D, 0, internalformat, GLsizei(size), 0, format, type, (GLvoid*)data.data()));
 }
+#endif
