@@ -114,8 +114,8 @@ static std::optional<std::pair<uint32_t, uint32_t>> parseLine(const std::string&
 
   // Convert the parts to unsigned integers
   try {
-    uint32_t firstNumber = std::stoul(firstPart);
-    uint32_t secondNumber = std::stoul(secondPart);
+    uint32_t firstNumber = uint32_t(std::stoul(firstPart));
+    uint32_t secondNumber = uint32_t(std::stoul(secondPart));
     return std::make_pair(firstNumber, secondNumber);
   } catch (const std::exception&) {
     // Conversion failed
@@ -130,7 +130,7 @@ void Spectrometer::parseLines(const std::vector<std::string>& lines) {
     const auto r = parseLine(line);
     if (r && r->first < data.size()) {
       data[r->first] = r->second;
-      newData = newData | (1 << r->first);
+      newData = newData | uint16_t(1 << r->first);
     }
   }
 }
