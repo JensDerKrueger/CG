@@ -2,15 +2,13 @@
 
 #include <string>
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
 #include "GLEnv.h"
 #include "GLProgram.h"
 #include "GLArray.h"
 #include "GLBuffer.h"
 #include "GLTexture2D.h"
 #include "Image.h"
+#include "GLAppKeyTranslation.h"
 
 enum class LineDrawType {
   LIST,
@@ -32,20 +30,42 @@ public:
   virtual ~GLApp();
   void run();
   void setAnimation(bool animationActive) {
-    if (this->animationActive && !animationActive)
+    if (this->animationActive && !animationActive) {
+#ifdef __EMSCRIPTEN__
+      resumeTime = emscripten_performance_now()/1000.0;
+#else
       resumeTime = glfwGetTime();
-    
-    if (!this->animationActive && animationActive)
-      glfwSetTime(resumeTime);
-      
+#endif
+    }
+
+    if (!this->animationActive && animationActive) {
+      if (resumeTime == 0) {
+#ifdef __EMSCRIPTEN__
+        startTime = emscripten_performance_now()/1000.0;
+#else
+        startTime = glfwGetTime();
+#endif
+      } else {
+#ifdef __EMSCRIPTEN__
+        startTime += emscripten_performance_now()/1000.0-resumeTime;
+#else
+        startTime += glfwGetTime()-resumeTime;
+#endif
+      }
+    }
+
     this->animationActive = animationActive;
   }
   bool getAnimation() const {
     return animationActive;
   }
   void resetAnimation() {
+#ifdef __EMSCRIPTEN__
+    startTime = emscripten_performance_now()/1000.0;
+#else
+    startTime = glfwGetTime();
+#endif
     resumeTime = 0;
-    glfwSetTime(0);
     animate(0);
   }
 
@@ -163,13 +183,13 @@ private:
   }
   static bool keyCallback(int eventType, const EmscriptenKeyboardEvent* keyEvent, void* userData) {
 
+    // TODO: handle modifiers properly
     GLApp* glApp = static_cast<GLApp*>(userData);
     if (!glApp) return EM_FALSE;
+    if (eventType == EMSCRIPTEN_EVENT_KEYDOWN)
+      glApp->keyboardChar(keyEvent->key[0]);
+    glApp->keyboard(keyEvent->key[0], keyEvent->key[0], eventType, 0);
 
-    if (eventType == EMSCRIPTEN_EVENT_KEYDOWN) glApp->keyboardChar(keyEvent->key[0]);
-
-
-    //TODO
     return EM_TRUE;
   }
 
@@ -180,8 +200,6 @@ private:
     glApp->xMousePos = mouseEvent->targetX;
     glApp->yMousePos = mouseEvent->targetY;
 
-    std::cout << mouseEvent->targetX << "  " << mouseEvent->targetY << std::endl;
-
     glApp->mouseMove(glApp->xMousePos, glApp->yMousePos);
     return EM_TRUE;
   }
@@ -189,7 +207,6 @@ private:
     GLApp* glApp = static_cast<GLApp*>(userData);
     if (!glApp) return EM_FALSE;
 
-    //TODO: check this
     glApp->mouseButton(mouseEvent->button, 0, 0, glApp->xMousePos, glApp->yMousePos);
     return EM_TRUE;
   }
