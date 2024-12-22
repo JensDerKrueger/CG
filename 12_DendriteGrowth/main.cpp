@@ -281,7 +281,7 @@ int main(int argc, char** argv)
 #endif
 		const Mat4 v{ Mat4::lookAt(lookFromVec,lookAtVec,upVec) };
 
-		simplePS.render(m * v, p);
+		simplePS.render(v * m, p);
 
 #ifdef showOctree
 		if (fixedParticles.size() < particleCount) {
@@ -293,7 +293,7 @@ int main(int argc, char** argv)
 
 			octreeFaceArray.bind();
 			prog.enable();
-			prog.setUniform(mvpLocation, m * v * p);
+			prog.setUniform(mvpLocation, p * v * m);
 			glDrawArrays(GL_TRIANGLES, 0, GLsizei(trisVertexCount));
 
 			octreeLineArray.bind();
