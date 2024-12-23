@@ -4,6 +4,12 @@
 #include <cmath>
 #include <iostream>
 
+#ifndef SET_ENS_CANVAS
+#define ENS_CANVAS "#canvas"
+#else
+#define ENS_CANVAS SET_ENS_CANVAS
+#endif
+
 typedef std::chrono::high_resolution_clock Clock;
 
 #include "GLEnv.h"
@@ -46,7 +52,7 @@ GLEnv::GLEnv(uint32_t w, uint32_t h, uint32_t s, const std::string& title,
   last(Clock::now())
 {
 #ifdef __EMSCRIPTEN__
-  emscripten_set_canvas_element_size("#canvas", w, h);
+  emscripten_set_canvas_element_size(ENS_CANVAS, w, h);
 
   EmscriptenWebGLContextAttributes attr;
   emscripten_webgl_init_context_attributes(&attr);
@@ -59,7 +65,7 @@ GLEnv::GLEnv(uint32_t w, uint32_t h, uint32_t s, const std::string& title,
   attr.minorVersion = minor;
   attr.enableExtensionsByDefault = true;
 
-  EMSCRIPTEN_WEBGL_CONTEXT_HANDLE context = emscripten_webgl_create_context("#canvas", &attr);
+  EMSCRIPTEN_WEBGL_CONTEXT_HANDLE context = emscripten_webgl_create_context(ENS_CANVAS, &attr);
   emscripten_webgl_make_context_current(context);
 
 #else
@@ -165,13 +171,13 @@ void GLEnv::setMouseCallbacks(em_mouse_callback_func p,
                               em_mouse_callback_func b,
                               em_wheel_callback_func s,
                               void *userData) {
-  emscripten_set_click_callback("#canvas", userData, EM_TRUE, b);
-  emscripten_set_mousedown_callback("#canvas", userData, EM_TRUE, b);
-  emscripten_set_mouseup_callback("#canvas", userData, EM_TRUE, b);
-  emscripten_set_dblclick_callback("#canvas", userData, EM_TRUE, b);
-  emscripten_set_mousemove_callback("#canvas", userData, EM_TRUE, p);
-  emscripten_set_mouseenter_callback("#canvas", userData, EM_TRUE, p);
-  emscripten_set_mouseleave_callback("#canvas", userData, EM_TRUE, p);
+  emscripten_set_click_callback(ENS_CANVAS, userData, EM_TRUE, b);
+  emscripten_set_mousedown_callback(ENS_CANVAS, userData, EM_TRUE, b);
+  emscripten_set_mouseup_callback(ENS_CANVAS, userData, EM_TRUE, b);
+  emscripten_set_dblclick_callback(ENS_CANVAS, userData, EM_TRUE, b);
+  emscripten_set_mousemove_callback(ENS_CANVAS, userData, EM_TRUE, p);
+  emscripten_set_mouseenter_callback(ENS_CANVAS, userData, EM_TRUE, p);
+  emscripten_set_mouseleave_callback(ENS_CANVAS, userData, EM_TRUE, p);
 }
 
 void GLEnv::setResizeCallback(em_ui_callback_func f, void *userData) {
@@ -202,7 +208,7 @@ void GLEnv::setMouseCallbacks(GLFWcursorposfun p, GLFWmousebuttonfun b, GLFWscro
 Dimensions GLEnv::getFramebufferSize() const {
   int width, height;
 #ifdef __EMSCRIPTEN__
-  emscripten_get_canvas_element_size("#canvas", &width, &height);
+  emscripten_get_canvas_element_size(ENS_CANVAS, &width, &height);
 #else
   glfwGetFramebufferSize(window, &width, &height);
 #endif
@@ -213,7 +219,7 @@ Dimensions GLEnv::getFramebufferSize() const {
 Dimensions GLEnv::getWindowSize() const {
   int width, height;
 #ifdef __EMSCRIPTEN__
-  emscripten_get_canvas_element_size("#canvas", &width, &height);
+  emscripten_get_canvas_element_size(ENS_CANVAS, &width, &height);
 #else
   glfwGetWindowSize(window, &width, &height);
 #endif
@@ -242,17 +248,17 @@ void GLEnv::setCursorMode(CursorMode mode) {
 #ifdef __EMSCRIPTEN__
   switch (mode) {
     case CursorMode::NORMAL :
-//      emscripten_set_element_css_property("#canvas", "cursor", "pointer");
-      emscripten_request_pointerlock("#canvas", EM_FALSE);
+//      emscripten_set_element_css_property(ENS_CANVAS, "cursor", "pointer");
+      emscripten_request_pointerlock(ENS_CANVAS, EM_FALSE);
       break;
     case CursorMode::HIDDEN :
-  //    emscripten_set_element_css_property("#canvas", "cursor", "none");
+  //    emscripten_set_element_css_property(ENS_CANVAS, "cursor", "none");
       emscripten_hide_mouse();
-      emscripten_request_pointerlock("#canvas", EM_FALSE);
+      emscripten_request_pointerlock(ENS_CANVAS, EM_FALSE);
       break;
     case CursorMode::FIXED :
-   //   emscripten_set_element_css_property("#canvas", "cursor", "none");
-      emscripten_request_pointerlock("#canvas", EM_TRUE);
+   //   emscripten_set_element_css_property(ENS_CANVAS, "cursor", "none");
+      emscripten_request_pointerlock(ENS_CANVAS, EM_TRUE);
       emscripten_hide_mouse();
       break;
   }
