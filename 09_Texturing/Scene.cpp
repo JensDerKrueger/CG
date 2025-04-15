@@ -147,8 +147,8 @@ Scene Scene::genTexturedScene() {
 	Texture checkerboard = Texture::genCheckerboardTexture(2, 2);
 
 	Texture earth("Textures/Earth.png");
-	Texture hpcLight("Textures/HPC-Light.png");
-	Texture hpcDark("Textures/HPC-Dark.png");
+	Texture hpcLight("Textures/logo-light.png");
+	Texture hpcDark("Textures/logo-dark.png");
 
 	hpcLight.setBorderMode(BorderMode::CLAMP_TO_EDGE);
 	hpcDark.setBorderModeU(BorderMode::MIRRORED_REPEAT);
