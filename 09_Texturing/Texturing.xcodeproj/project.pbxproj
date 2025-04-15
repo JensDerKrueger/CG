@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		56505B112D196DD7005B0AAB /* logo-dark.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 56505B0F2D196DCE005B0AAB /* logo-dark.png */; };
+		56505B122D196DD7005B0AAB /* logo-light.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 56505B102D196DCE005B0AAB /* logo-light.png */; };
 		56C9B49A294FD1CC0042EFE3 /* stb_image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56C9B47D294FD1CC0042EFE3 /* stb_image.cpp */; };
 		56C9B49B294FD1CC0042EFE3 /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56C9B47E294FD1CC0042EFE3 /* Material.cpp */; };
 		56C9B49C294FD1CC0042EFE3 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56C9B47F294FD1CC0042EFE3 /* Scene.cpp */; };
@@ -23,8 +25,6 @@
 		56C9B4A7294FD1CC0042EFE3 /* LightSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56C9B494294FD1CC0042EFE3 /* LightSource.cpp */; };
 		56C9B4A8294FD1CC0042EFE3 /* Raytracer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56C9B498294FD1CC0042EFE3 /* Raytracer.cpp */; };
 		56C9B4AC294FD2490042EFE3 /* Earth.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 56C9B4A9294FD1D30042EFE3 /* Earth.png */; };
-		56C9B4AD294FD2490042EFE3 /* HPC-Dark.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 56C9B4AA294FD1D30042EFE3 /* HPC-Dark.png */; };
-		56C9B4AE294FD2490042EFE3 /* HPC-Light.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 56C9B4AB294FD1D30042EFE3 /* HPC-Light.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,15 +34,17 @@
 			dstPath = Textures;
 			dstSubfolderSpec = 6;
 			files = (
+				56505B112D196DD7005B0AAB /* logo-dark.png in CopyFiles */,
+				56505B122D196DD7005B0AAB /* logo-light.png in CopyFiles */,
 				56C9B4AC294FD2490042EFE3 /* Earth.png in CopyFiles */,
-				56C9B4AD294FD2490042EFE3 /* HPC-Dark.png in CopyFiles */,
-				56C9B4AE294FD2490042EFE3 /* HPC-Light.png in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		56505B0F2D196DCE005B0AAB /* logo-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "logo-dark.png"; path = "Textures/logo-dark.png"; sourceTree = "<group>"; };
+		56505B102D196DCE005B0AAB /* logo-light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "logo-light.png"; path = "Textures/logo-light.png"; sourceTree = "<group>"; };
 		56C9B47D294FD1CC0042EFE3 /* stb_image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stb_image.cpp; sourceTree = "<group>"; };
 		56C9B47E294FD1CC0042EFE3 /* Material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Material.cpp; sourceTree = "<group>"; };
 		56C9B47F294FD1CC0042EFE3 /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
@@ -73,8 +75,6 @@
 		56C9B498294FD1CC0042EFE3 /* Raytracer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Raytracer.cpp; sourceTree = "<group>"; };
 		56C9B499294FD1CC0042EFE3 /* Plane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plane.h; sourceTree = "<group>"; };
 		56C9B4A9294FD1D30042EFE3 /* Earth.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Earth.png; path = Textures/Earth.png; sourceTree = "<group>"; };
-		56C9B4AA294FD1D30042EFE3 /* HPC-Dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "HPC-Dark.png"; path = "Textures/HPC-Dark.png"; sourceTree = "<group>"; };
-		56C9B4AB294FD1D30042EFE3 /* HPC-Light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "HPC-Light.png"; path = "Textures/HPC-Light.png"; sourceTree = "<group>"; };
 		A231F0FF25EAF61A00CBFC23 /* Texture-Demo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Texture-Demo"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -122,8 +122,8 @@
 				56C9B48E294FD1CC0042EFE3 /* Texture.h */,
 				56C9B48C294FD1CC0042EFE3 /* TextureCoordinates.h */,
 				56C9B4A9294FD1D30042EFE3 /* Earth.png */,
-				56C9B4AA294FD1D30042EFE3 /* HPC-Dark.png */,
-				56C9B4AB294FD1D30042EFE3 /* HPC-Light.png */,
+				56505B0F2D196DCE005B0AAB /* logo-dark.png */,
+				56505B102D196DCE005B0AAB /* logo-light.png */,
 				A231F10025EAF61A00CBFC23 /* Products */,
 			);
 			sourceTree = "<group>";
