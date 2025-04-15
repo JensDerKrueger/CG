@@ -130,7 +130,7 @@ void checkShaderCompileStatus(GLuint shaderId) {
 #ifndef __EMSCRIPTEN__
 void keyCallback(GLFWwindow* window, int key, int scancode, int action,
                  int mods) {
-  if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+  if (glfwGetKey(window, GLENV_KEY_ESCAPE) == GLENV_PRESS)
     glfwSetWindowShouldClose(window, true);
 }
 

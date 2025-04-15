@@ -32,6 +32,25 @@ GLApp::GLApp(uint32_t w, uint32_t h, uint32_t s,
       FragColor = color;
     }
   )")},
+  simplePointProg{GLProgram::createFromString(R"(#version 300 es
+    uniform mat4 MVP;
+    uniform float pointSize;
+    in vec3 vPos;
+    in vec4 vColor;
+    out vec4 color;
+    void main() {
+      gl_Position = MVP * vec4(vPos, 1.0);
+      gl_PointSize = pointSize;
+      color = vColor;
+    }
+  )",R"(#version 300 es
+    precision mediump float;
+    in vec4 color;
+    out vec4 FragColor;
+    void main() {
+      FragColor = color;
+    }
+  )")},
   simpleSpriteProg{GLProgram::createFromString(R"(#version 300 es
     uniform mat4 MVP;
     uniform float pointSize;
@@ -137,6 +156,22 @@ GLApp::GLApp(uint32_t w, uint32_t h, uint32_t s,
      "void main() {\n"
      "    FragColor = color;\n"
      "}\n")},
+  simplePointProg{GLProgram::createFromString(
+     "#version 410\n"
+     "uniform mat4 MVP;\n"
+     "layout (location = 0) in vec3 vPos;\n"
+     "layout (location = 1) in vec4 vColor;\n"
+     "out vec4 color;\n"
+     "void main() {\n"
+     "    gl_Position = MVP * vec4(vPos, 1.0);\n"
+     "    color = vColor;\n"
+     "}\n",
+     "#version 410\n"
+     "in vec4 color;\n"
+     "out vec4 FragColor;\n"
+     "void main() {\n"
+     "    FragColor = color;\n"
+     "}\n")},
   simpleSpriteProg{GLProgram::createFromString(
      "#version 410\n"
      "uniform mat4 MVP;\n"
@@ -227,7 +262,9 @@ GLApp::GLApp(uint32_t w, uint32_t h, uint32_t s,
   animationActive{true}
 {
 #ifdef __EMSCRIPTEN__
-  glEnv.setMouseCallbacks(cursorPositionCallback, mouseButtonCallback, scrollCallback, this);
+  glEnv.setMouseCallbacks(cursorPositionCallback, mouseButtonCallback,
+                          mouseButtonUpCallback, mouseButtonDownCallback,
+                          scrollCallback, this);
   glEnv.setKeyCallback(keyCallback, this);
   glEnv.setResizeCallback(sizeCallback, this);
 #else
@@ -499,16 +536,18 @@ void GLApp::drawPoints(const std::vector<float>& data, float pointSize, bool use
     }
     
   } else {
-    simpleProg.enable();
+    simplePointProg.enable();
+#ifdef __EMSCRIPTEN__
+    simpleSpriteProg.setUniform("pointSize", pointSize);
+#else
+    GL(glPointSize(pointSize));
+#endif
     simpleVb.setData(data,7,GL_DYNAMIC_DRAW);
     simpleArray.bind();
-    simpleArray.connectVertexAttrib(simpleVb, simpleProg, "vPos", 3);
-    simpleArray.connectVertexAttrib(simpleVb, simpleProg, "vColor", 4, 3);
+    simpleArray.connectVertexAttrib(simpleVb, simplePointProg, "vPos", 3);
+    simpleArray.connectVertexAttrib(simpleVb, simplePointProg, "vColor", 4, 3);
   }
 
-#ifndef __EMSCRIPTEN__
-  GL(glPointSize(pointSize));
-#endif
   GL(glDrawArrays(GL_POINTS, 0, GLsizei(data.size()/7)));
 }
 
@@ -528,16 +567,14 @@ void GLApp::redrawTriangles(bool wireframe) {
     simpleArray.connectVertexAttrib(simpleVb, simpleProg, "vColor", 4, 3);
   }
 
-#ifndef __EMSCRIPTEN__
-  if (wireframe)
-    GL(glPolygonMode( GL_FRONT_AND_BACK, GL_LINE ));
-  else
-    GL(glPolygonMode( GL_FRONT_AND_BACK, GL_FILL ));
-#endif
 
   switch (lastTrisType) {
     case TrisDrawType::LIST :
-      GL(glDrawArrays(GL_TRIANGLES, 0, lastTrisCount));
+      if (wireframe) {
+        GL(glDrawArrays(GL_LINES, 0, lastTrisCount));
+      } else {
+        GL(glDrawArrays(GL_TRIANGLES, 0, lastTrisCount));
+      }
       break;
     case TrisDrawType::STRIP :
       GL(glDrawArrays(GL_TRIANGLE_STRIP, 0, lastTrisCount));
@@ -548,16 +585,141 @@ void GLApp::redrawTriangles(bool wireframe) {
   }
 }
 
+static std::vector<float> convertTriangleFanToLines(
+                                                    const std::vector<float>& fanVertices,
+                                                    std::size_t compCount // floats per vertex
+) {
+  std::vector<float> lineVertices;
+
+  const std::size_t totalVertices = fanVertices.size() / compCount;
+  if (totalVertices < 3) return lineVertices; // Not enough for a triangle
+
+  const float* v0 = &fanVertices[0]; // shared center vertex
+
+  for (std::size_t i = 1; i < totalVertices - 1; ++i) {
+    const float* v1 = &fanVertices[i * compCount];
+    const float* v2 = &fanVertices[(i + 1) * compCount];
+
+    // Line v0 -> v1
+    lineVertices.insert(lineVertices.end(), v0, v0 + compCount);
+    lineVertices.insert(lineVertices.end(), v1, v1 + compCount);
+
+    // Line v1 -> v2
+    lineVertices.insert(lineVertices.end(), v1, v1 + compCount);
+    lineVertices.insert(lineVertices.end(), v2, v2 + compCount);
+
+    // Line v2 -> v0
+    lineVertices.insert(lineVertices.end(), v2, v2 + compCount);
+    lineVertices.insert(lineVertices.end(), v0, v0 + compCount);
+  }
+
+  return lineVertices;
+}
+
+static std::vector<float> convertTriangleStripToLines(
+                                               const std::vector<float>& stripVertices,
+                                               std::size_t compCount // floats per vertex
+) {
+  std::vector<float> lineVertices;
+
+  const std::size_t totalVertices = stripVertices.size() / compCount;
+  if (totalVertices < 3) return lineVertices; // Not enough to form a triangle
+
+  for (std::size_t i = 2; i < totalVertices; ++i) {
+    const float* v0;
+    const float* v1;
+    const float* v2;
+
+    // Determine winding order based on parity
+    if ((i % 2) == 0) {
+      // Even triangle: v0, v1, v2 = i-2, i-1, i
+      v0 = &stripVertices[(i - 2) * compCount];
+      v1 = &stripVertices[(i - 1) * compCount];
+      v2 = &stripVertices[i * compCount];
+    } else {
+      // Odd triangle: v0, v1, v2 = i-1, i-2, i
+      v0 = &stripVertices[(i - 1) * compCount];
+      v1 = &stripVertices[(i - 2) * compCount];
+      v2 = &stripVertices[i * compCount];
+    }
+
+    // Line v0 -> v1
+    lineVertices.insert(lineVertices.end(), v0, v0 + compCount);
+    lineVertices.insert(lineVertices.end(), v1, v1 + compCount);
+
+    // Line v1 -> v2
+    lineVertices.insert(lineVertices.end(), v1, v1 + compCount);
+    lineVertices.insert(lineVertices.end(), v2, v2 + compCount);
+
+    // Line v2 -> v0
+    lineVertices.insert(lineVertices.end(), v2, v2 + compCount);
+    lineVertices.insert(lineVertices.end(), v0, v0 + compCount);
+  }
+  return lineVertices;
+}
+
+static std::vector<float> convertTrianglesToLines(
+                                           const std::vector<float>& triangleVertices,
+                                           std::size_t compCount // number of floats per vertex
+) {
+  std::vector<float> lineVertices;
+
+  const std::size_t floatsPerTriangle = 3 * compCount;
+
+  if (triangleVertices.size() % floatsPerTriangle != 0) {
+    // Not a clean set of triangles
+    return lineVertices;
+  }
+
+  for (std::size_t i = 0; i < triangleVertices.size(); i += floatsPerTriangle) {
+    // Extract pointers to the three full vertices
+    const float* v0 = &triangleVertices[i];
+    const float* v1 = &triangleVertices[i + compCount];
+    const float* v2 = &triangleVertices[i + 2 * compCount];
+
+    // Line v0 -> v1
+    lineVertices.insert(lineVertices.end(), v0, v0 + compCount);
+    lineVertices.insert(lineVertices.end(), v1, v1 + compCount);
+
+    // Line v1 -> v2
+    lineVertices.insert(lineVertices.end(), v1, v1 + compCount);
+    lineVertices.insert(lineVertices.end(), v2, v2 + compCount);
+
+    // Line v2 -> v0
+    lineVertices.insert(lineVertices.end(), v2, v2 + compCount);
+    lineVertices.insert(lineVertices.end(), v0, v0 + compCount);
+  }
+
+  return lineVertices;
+}
 
 void GLApp::drawTriangles(const std::vector<float>& data, TrisDrawType t, bool wireframe, bool lighting) {
   shaderUpdate();
-  
-  size_t compCount = lighting ? 10 : 7;
-  simpleVb.setData(data,compCount,GL_DYNAMIC_DRAW);
 
+  size_t compCount = lighting ? 10 : 7;
+
+  if (wireframe) {
+    std::vector<float> lineVerts;
+    switch (t) {
+      case TrisDrawType::LIST:
+        lineVerts = convertTrianglesToLines(data,compCount);
+        break;
+      case TrisDrawType::STRIP:
+        lineVerts = convertTriangleStripToLines(data,compCount);
+        break;
+      case TrisDrawType::FAN:
+        lineVerts = convertTriangleFanToLines(data,compCount);
+        break;
+    }
+
+    simpleVb.setData(lineVerts,compCount,GL_DYNAMIC_DRAW);
+    lastTrisCount = GLsizei(lineVerts.size()/compCount);
+  } else {
+    simpleVb.setData(data,compCount,GL_DYNAMIC_DRAW);
+    lastTrisCount = GLsizei(data.size()/compCount);
+  }
   lastLighting = lighting;
   lastTrisType = t;
-  lastTrisCount = GLsizei(data.size()/compCount);
 
   redrawTriangles(wireframe);
 }
@@ -582,6 +744,9 @@ void GLApp::setDrawTransform(const Mat4& mat) {
 void GLApp::shaderUpdate() {
   simpleProg.enable();
   simpleProg.setUniform("MVP", p*mv);
+
+  simplePointProg.enable();
+  simplePointProg.setUniform("MVP", p*mv);
 
   simpleSpriteProg.enable();
   simpleSpriteProg.setUniform("MVP", p*mv);

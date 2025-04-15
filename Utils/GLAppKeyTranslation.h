@@ -5,6 +5,9 @@
 #define GLENV_RELEASE                EMSCRIPTEN_EVENT_KEYUP
 #define GLENV_PRESS                  EMSCRIPTEN_EVENT_KEYDOWN
 
+#define GLENV_MOUSE_RELEASE          0
+#define GLENV_MOUSE_PRESS            1
+
 #define GLENV_KEY_SPACE              32  // Space
 #define GLENV_KEY_APOSTROPHE         39  // Apostrophe
 #define GLENV_KEY_COMMA              44  // Comma
@@ -108,10 +111,21 @@
 #define GLENV_KEY_RIGHT_ALT          18  // Right Alt
 #define GLENV_KEY_MENU               93  // Menu
 
+#define GLENV_MOUSE_BUTTON_LEFT      0
+#define GLENV_MOUSE_BUTTON_RIGHT     2
+#define GLENV_MOUSE_BUTTON_MIDDLE    1
+
+#define GLENV_MOD_SHIFT              1
+#define GLENV_MOD_CONTROL            2
+#define GLENV_MOD_ALT                4
+
 #else
 
 #define GLENV_RELEASE                GLFW_RELEASE
 #define GLENV_PRESS                  GLFW_PRESS
+
+#define GLENV_MOUSE_RELEASE          GLFW_RELEASE
+#define GLENV_MOUSE_PRESS            GLFW_PRESS
 
 #define GLENV_KEY_SPACE              GLFW_KEY_SPACE
 #define GLENV_KEY_APOSTROPHE         GLFW_KEY_APOSTROPHE
@@ -233,5 +247,13 @@
 #define GLENV_KEY_RIGHT_ALT          GLFW_KEY_RIGHT_ALT
 #define GLENV_KEY_RIGHT_SUPER        GLFW_KEY_RIGHT_SUPER
 #define GLENV_KEY_MENU               GLFW_KEY_MENU
+
+#define GLENV_MOUSE_BUTTON_LEFT      GLFW_MOUSE_BUTTON_LEFT
+#define GLENV_MOUSE_BUTTON_RIGHT     GLFW_MOUSE_BUTTON_RIGHT
+#define GLENV_MOUSE_BUTTON_MIDDLE    GLFW_MOUSE_BUTTON_MIDDLE
+
+#define GLENV_MOD_SHIFT              GLFW_MOD_SHIFT
+#define GLENV_MOD_CONTROL            GLFW_MOD_CONTROL
+#define GLENV_MOD_ALT                GLFW_MOD_ALT
 
 #endif

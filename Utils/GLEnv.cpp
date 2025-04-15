@@ -169,11 +169,13 @@ void GLEnv::setKeyCallback(em_key_callback_func f, void *userData) {
 
 void GLEnv::setMouseCallbacks(em_mouse_callback_func p,
                               em_mouse_callback_func b,
+                              em_mouse_callback_func bu,
+                              em_mouse_callback_func bd,
                               em_wheel_callback_func s,
                               void *userData) {
   emscripten_set_click_callback(ENS_CANVAS, userData, EM_TRUE, b);
-  emscripten_set_mousedown_callback(ENS_CANVAS, userData, EM_TRUE, b);
-  emscripten_set_mouseup_callback(ENS_CANVAS, userData, EM_TRUE, b);
+  emscripten_set_mouseup_callback(ENS_CANVAS, userData, EM_TRUE, bu);
+  emscripten_set_mousedown_callback(ENS_CANVAS, userData, EM_TRUE, bd);
   emscripten_set_dblclick_callback(ENS_CANVAS, userData, EM_TRUE, b);
   emscripten_set_mousemove_callback(ENS_CANVAS, userData, EM_TRUE, p);
   emscripten_set_mouseenter_callback(ENS_CANVAS, userData, EM_TRUE, p);

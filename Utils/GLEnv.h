@@ -27,6 +27,8 @@ public:
   void setKeyCallback(em_key_callback_func f, void *userData);
   void setMouseCallbacks(em_mouse_callback_func p,
                          em_mouse_callback_func b,
+                         em_mouse_callback_func bu,
+                         em_mouse_callback_func bd,
                          em_wheel_callback_func s,
                          void *userData);
   void setResizeCallback(em_ui_callback_func f, void *userData);

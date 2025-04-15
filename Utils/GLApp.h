@@ -138,6 +138,7 @@ protected:
   Mat4 mv;
   Mat4 mvi;
   GLProgram simpleProg;
+  GLProgram simplePointProg;
   GLProgram simpleSpriteProg;
   GLProgram simpleHLSpriteProg;
   GLProgram simpleTexProg;
@@ -181,14 +182,85 @@ private:
     //TODO
     return EM_TRUE;
   }
+
+  static int map_modifiers_to_bitfield(const EmscriptenKeyboardEvent* e) {
+    int mods = 0;
+    if (e->shiftKey) mods |= (1 << 0);   // Shift → Bit 0
+    if (e->ctrlKey)  mods |= (1 << 1);   // Ctrl → Bit 1
+    if (e->altKey)   mods |= (1 << 2);   // Alt  → Bit 2
+    return mods;
+  }
+
+  static int map_key_string_to_code(const char* code) {
+    // Alphanumeric (A-Z)
+    if (strncmp(code, "Key", 3) == 0 && strlen(code) == 4) {
+      char c = code[3];
+      if (c >= 'A' && c <= 'Z') {
+        return GLENV_KEY_A + (c - 'A');
+      }
+    }
+
+    // Number row (0–9)
+    if (strncmp(code, "Digit", 5) == 0 && strlen(code) == 6) {
+      char d = code[5];
+      if (d >= '0' && d <= '9') {
+        return GLENV_KEY_0 + (d - '0');
+      }
+    }
+
+    // Numpad
+    if (strncmp(code, "Numpad", 6) == 0) {
+      const char* sub = code + 6;
+      if (strcmp(sub, "0") == 0) return GLENV_KEY_KP_0;
+      if (strcmp(sub, "1") == 0) return GLENV_KEY_KP_1;
+      if (strcmp(sub, "2") == 0) return GLENV_KEY_KP_2;
+      if (strcmp(sub, "3") == 0) return GLENV_KEY_KP_3;
+      if (strcmp(sub, "4") == 0) return GLENV_KEY_KP_4;
+      if (strcmp(sub, "5") == 0) return GLENV_KEY_KP_5;
+      if (strcmp(sub, "6") == 0) return GLENV_KEY_KP_6;
+      if (strcmp(sub, "7") == 0) return GLENV_KEY_KP_7;
+      if (strcmp(sub, "8") == 0) return GLENV_KEY_KP_8;
+      if (strcmp(sub, "9") == 0) return GLENV_KEY_KP_9;
+      if (strcmp(sub, "Decimal") == 0) return GLENV_KEY_KP_DECIMAL;
+      if (strcmp(sub, "Divide") == 0) return GLENV_KEY_KP_DIVIDE;
+      if (strcmp(sub, "Multiply") == 0) return GLENV_KEY_KP_MULTIPLY;
+      if (strcmp(sub, "Subtract") == 0) return GLENV_KEY_KP_SUBTRACT;
+      if (strcmp(sub, "Add") == 0) return GLENV_KEY_KP_ADD;
+      if (strcmp(sub, "Enter") == 0) return GLENV_KEY_KP_ENTER;
+    }
+
+    // Function keys
+    if (strncmp(code, "F", 1) == 0 && strlen(code) <= 3) {
+      int fn = atoi(code + 1);
+      if (fn >= 1 && fn <= 12) return GLENV_KEY_F1 + (fn - 1);
+    }
+
+    // Other named keys
+    if (strcmp(code, "Enter") == 0) return GLENV_KEY_ENTER;
+    if (strcmp(code, "Space") == 0) return GLENV_KEY_SPACE;
+    if (strcmp(code, "Tab") == 0) return GLENV_KEY_TAB;
+    if (strcmp(code, "Backspace") == 0) return GLENV_KEY_BACKSPACE;
+    if (strcmp(code, "Escape") == 0) return GLENV_KEY_ESCAPE;
+
+    if (strcmp(code, "ArrowUp") == 0) return GLENV_KEY_UP;
+    if (strcmp(code, "ArrowDown") == 0) return GLENV_KEY_DOWN;
+    if (strcmp(code, "ArrowLeft") == 0) return GLENV_KEY_LEFT;
+    if (strcmp(code, "ArrowRight") == 0) return GLENV_KEY_RIGHT;
+
+
+    // Default: unknown or unsupported
+    return 0;
+  }
+
   static bool keyCallback(int eventType, const EmscriptenKeyboardEvent* keyEvent, void* userData) {
 
     // TODO: handle modifiers properly
     GLApp* glApp = static_cast<GLApp*>(userData);
     if (!glApp) return EM_FALSE;
+    const int keyCode = map_key_string_to_code(keyEvent->code);
     if (eventType == EMSCRIPTEN_EVENT_KEYDOWN)
-      glApp->keyboardChar(keyEvent->key[0]);
-    glApp->keyboard(keyEvent->key[0], keyEvent->key[0], eventType, 0);
+      glApp->keyboardChar(keyCode);
+    glApp->keyboard(keyCode, keyCode, eventType, map_modifiers_to_bitfield(keyEvent));
 
     return EM_TRUE;
   }
@@ -201,6 +273,20 @@ private:
     glApp->yMousePos = mouseEvent->targetY;
 
     glApp->mouseMove(glApp->xMousePos, glApp->yMousePos);
+    return EM_TRUE;
+  }
+  static bool mouseButtonUpCallback(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData) {
+    GLApp* glApp = static_cast<GLApp*>(userData);
+    if (!glApp) return EM_FALSE;
+
+    glApp->mouseButton(mouseEvent->button, GLFW_RELEASE, 0, glApp->xMousePos, glApp->yMousePos);
+    return EM_TRUE;
+  }
+  static bool mouseButtonDownCallback(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData) {
+    GLApp* glApp = static_cast<GLApp*>(userData);
+    if (!glApp) return EM_FALSE;
+
+    glApp->mouseButton(mouseEvent->button, GLFW_PRESS, 0, glApp->xMousePos, glApp->yMousePos);
     return EM_TRUE;
   }
   static bool mouseButtonCallback(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData) {
