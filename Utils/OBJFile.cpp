@@ -63,14 +63,16 @@ OBJFile::OBJFile(const std::string& filename, bool normalize) {
       v[1] = Vec3{vertices[triangle[1]][0],vertices[triangle[1]][1],vertices[triangle[1]][2]};
       v[2] = Vec3{vertices[triangle[2]][0],vertices[triangle[2]][1],vertices[triangle[2]][2]};
       
-      Vec3 normal = Vec3::normalize(Vec3::cross(v[1]-v[0], v[2]-v[0]));
+      Vec3 normal = Vec3::cross(v[1]-v[0], v[2]-v[0]);
       
-      normals[triangle[0]] = normal;
-      normals[triangle[1]] = normal;
-      normals[triangle[2]] = normal;
+      normals[triangle[0]] = normals[triangle[0]] + normal;
+      normals[triangle[1]] = normals[triangle[1]] + normal;
+      normals[triangle[2]] = normals[triangle[2]] + normal;
     }
   }
-  
+  for (size_t i = 0;i<normals.size();++i) {
+    normals[i] = Vec3::normalize(normals[i]);
+  }
 }
 
 void OBJFile::ltrim(std::string &s) {
