@@ -111,6 +111,11 @@ std::ostream & operator<<(std::ostream & os, const Vec2t<T> & v) {
    return os;
 }
 
+template <typename T>
+Vec2t<T> operator*(float scalar, const Vec2t<T>& vec) {
+  return vec * scalar;
+}
+
 typedef Vec2t<float> Vec2;
 typedef Vec2t<int32_t> Vec2i;
 typedef Vec2t<uint32_t> Vec2ui;
