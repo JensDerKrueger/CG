@@ -156,6 +156,12 @@ std::ostream & operator<<(std::ostream & os, const Vec4t<T> & v) {
    os << v.toString();
    return os;
 }
+
+template <typename T>
+Vec4t<T> operator*(float scalar, const Vec4t<T>& vec) {
+  return vec * scalar;
+}
+
 typedef Vec4t<float> Vec4;
 typedef Vec4t<int32_t> Vec4i;
 typedef Vec4t<uint32_t> Vec4ui;
