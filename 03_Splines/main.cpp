@@ -77,7 +77,7 @@ public:
     drawPolySegment(p0,p1,m0,m1,g,color);
     drawPoints({p0.x,p0.y,0,1,0,0,1,
                p0.x+m0.x,p0.y+m0.y,0,0,0,1,1,
-               p1.x+m1.x,p1.y-m1.y,0,0,0,1,1,
+               p1.x+m1.x,p1.y+m1.y,0,0,0,1,1,
                p1.x,p1.y,0,1,0,0,1}, 20, true);
   }
   
