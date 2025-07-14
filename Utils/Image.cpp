@@ -23,9 +23,9 @@ Image::Image(uint32_t width,
 }
 
 Image::Image(uint32_t width,
-             uint32_t height,
-             uint8_t componentCount,
-             std::vector<uint8_t> data) :
+      uint32_t height,
+      uint8_t componentCount,
+      std::vector<uint8_t> data) :
   width{width},
   height{height},
   componentCount{componentCount},
@@ -173,6 +173,7 @@ Image Image::filter(const Grid2D& filter) const {
             conv += float(getValue((x+u-hw),(y+v-hh),c)) * filter.getValue(u, v);
           }
         }
+        conv = std::clamp(conv, 0.0f, 255.0f);
         filteredImage.setValue(x,y,c,uint8_t(fabs(conv)));
       }
     }
@@ -190,7 +191,6 @@ Image Image::toGrayscale() const {
   }
   return grayScaleImage;
 }
-
 
 Image Image::genTestImage(uint32_t width,
                           uint32_t height) {
@@ -222,11 +222,8 @@ Image Image::genTestImage(uint32_t width,
         result.setValue(x,y,2,l);
       }
       result.setValue(x,y,3,255);
-
-      
     }
   }
-
   return result;
 }
 
@@ -237,7 +234,7 @@ uint8_t Image::linear(uint8_t a, uint8_t b, float alpha) const {
 uint8_t Image::sample(float x, float y, uint8_t component) const {
   const uint32_t fX = uint32_t(floor(x * (width-1)));
   const uint32_t fY = uint32_t(floor(y * (height-1)));
-
+  
   const uint32_t cX = uint32_t(ceil(x * (width-1)));
   const uint32_t cY = uint32_t(ceil(y * (height-1)));
 
