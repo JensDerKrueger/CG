@@ -32,7 +32,16 @@ public:
   const std::vector<GLubyte>& getDataByte();
   const std::vector<GLfloat>& getDataFloat();
 #endif
-  
+
+  static uint32_t getMaxSize() {
+    GLint max3DSize = 0;
+    GL(glGetIntegerv(GL_MAX_3D_TEXTURE_SIZE, &max3DSize));
+    return uint32_t(max3DSize);
+  }
+
+  void setData(GLvoid* data, uint32_t width, uint32_t height, uint32_t depth,
+               uint8_t componentCount, bool isFloat);
+
 private:
 	GLuint id;
 	GLint internalformat;
@@ -52,6 +61,4 @@ private:
   uint8_t componentCount;
   bool isFloat;
   
-  void setData(GLvoid* data, uint32_t width, uint32_t height, uint32_t depth, 
-               uint8_t componentCount, bool isFloat);
 };

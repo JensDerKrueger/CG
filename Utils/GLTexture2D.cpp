@@ -125,7 +125,7 @@ void GLTexture2D::setEmpty(uint32_t width, uint32_t height, uint8_t componentCou
 
 void GLTexture2D::setData(const std::vector<GLubyte>& data, uint32_t width, uint32_t height, uint8_t componentCount) {
   if (data.size() != componentCount*width*height) {
-    throw GLException{"Data size and texure dimensions do not match."};
+    throw GLException{"Data size and texture dimensions do not match."};
   }
   
   this->data = data;
@@ -134,7 +134,7 @@ void GLTexture2D::setData(const std::vector<GLubyte>& data, uint32_t width, uint
 
 void GLTexture2D::setData(const std::vector<GLhalf>& data, uint32_t width, uint32_t height, uint8_t componentCount) {
   if (data.size() != componentCount*width*height) {
-    throw GLException{"Data size and texure dimensions do not match."};
+    throw GLException{"Data size and texture dimensions do not match."};
   }
   
   this->hdata = data;
@@ -144,7 +144,7 @@ void GLTexture2D::setData(const std::vector<GLhalf>& data, uint32_t width, uint3
 void GLTexture2D::setData(const std::vector<GLfloat>& data, uint32_t width, uint32_t height, uint8_t componentCount) {
   if (data.size() != componentCount*width*height) {
     std::stringstream ss;
-    ss << "Data size " << data.size() << " and texure dimensions " << componentCount << "*" << width
+    ss << "Data size " << data.size() << " and texture dimensions " << componentCount << "*" << width
        << "*" << height << "=" << componentCount*width*height << " do not match.";
     throw GLException{ss.str()};
   }

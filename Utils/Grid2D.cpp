@@ -77,7 +77,7 @@ void Grid2D::setValue(size_t x, size_t y, float value) {
 
 
 float Grid2D::getValueNormalized(float x, float y) const {
-  return data[index(size_t(x*width),size_t(y*height))];
+  return data[index(size_t(x*(width-1)),size_t(y*(height-1)))];
 }
 
 float Grid2D::getValue(size_t x, size_t y) const {
@@ -390,7 +390,12 @@ void Grid2D::normalize(const float maxVal) {
     minValue = std::min(minValue, data[i]);
     maxValue = std::max(maxValue, data[i]);
   }
-  
+
+  if (maxValue == minValue) {
+    fill(0.0f);
+    return;
+  }
+
   const float scale = maxVal/(maxValue-minValue);
   for (size_t i = 0;i<data.size();++i) {
     data[i] = (data[i]-minValue) * scale;

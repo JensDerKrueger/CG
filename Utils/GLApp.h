@@ -10,6 +10,19 @@
 #include "Image.h"
 #include "GLAppKeyTranslation.h"
 
+#include "CommandInterpreter.h"
+#include "GLScreenshot.h"
+
+#ifdef __EMSCRIPTEN__
+#define SH(x) "web-" x
+#else
+#define SH(x) "app-" x
+#endif
+
+#ifdef _WIN32
+std::vector<std::string> getArgsWindows();
+#endif
+
 enum class LineDrawType {
   LIST,
   STRIP,
@@ -26,7 +39,8 @@ class GLApp {
 public:
   GLApp(uint32_t w=640, uint32_t h=480, uint32_t s=4,
         const std::string& title = "My OpenGL App",
-        bool fpsCounter=true, bool sync=true);
+        bool fpsCounter=true, bool sync=true, bool exactPixels=false,
+        const std::vector<std::string>& args = {});
   virtual ~GLApp();
   void run();
   void setAnimation(bool animationActive) {
@@ -120,18 +134,27 @@ public:
   void setPointTexture(const Image& shape);
   void setPointHighlightTexture(const Image& shape);
   void resetPointHighlightTexture();
+  void setBackground(float r, float g, float b, float a) { setBackground(Vec4(r,g,b,a));}
+  void setBackground(const Vec4& color) { background = color;}
 
+  virtual void reset() {}
   virtual void init() {}
   virtual void draw() {}
   virtual void animate(double animationTime) {}
   
-  virtual void resize(int width, int height);
+  virtual void resize(const Dimensions winDim, const Dimensions fbDim);
   virtual void keyboard(int key, int scancode, int action, int mods) {}
   virtual void keyboardChar(unsigned int key) {}
   virtual void mouseMove(double xPosition, double yPosition) {}
   virtual void mouseButton(int button, int state, int mods, double xPosition, double yPosition) {}
   virtual void mouseWheel(double x_offset, double y_offset, double xPosition, double yPosition) {}
-    
+
+  void setCallbacks(std::function<void(double)> fpsCallback,
+                    std::function<void(const std::string&)> messageCallback) {
+    glEnv.setFpsCallback(fpsCallback);
+    this->messageCallback = messageCallback;
+  }
+
 protected:
   GLEnv glEnv;
   Mat4 p;
@@ -153,13 +176,21 @@ protected:
   float xMousePos;
   float yMousePos;
 #endif
+  std::string logDir{""};
+  bool interaction{true};
+  Vec4 background{0,0,0,1};
 
   void shaderUpdate();
 
   void closeWindow() {
     glEnv.setClose();
   }
-  
+
+  std::string scriptLogFile{"script.txt"};
+  bool scriptRunning{false};
+  CommandInterpreter interpreter;
+  std::function<void(const std::string&)> messageCallback;
+
 private:
   bool animationActive;
   TrisDrawType lastTrisType;
@@ -275,27 +306,62 @@ private:
     glApp->mouseMove(glApp->xMousePos, glApp->yMousePos);
     return EM_TRUE;
   }
+
   static bool mouseButtonUpCallback(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData) {
     GLApp* glApp = static_cast<GLApp*>(userData);
     if (!glApp) return EM_FALSE;
-
-    glApp->mouseButton(mouseEvent->button, GLFW_RELEASE, 0, glApp->xMousePos, glApp->yMousePos);
+    glApp->mouseButton(mouseEvent->button,
+                       GLENV_MOUSE_RELEASE,
+                       0,
+                       glApp->xMousePos,
+                       glApp->yMousePos);
     return EM_TRUE;
   }
+
+  static bool touchStartCallback(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData) {
+    GLApp* glApp = static_cast<GLApp*>(userData);
+    if (!glApp) return EM_FALSE;
+    glApp->mouseButton(GLENV_MOUSE_BUTTON_LEFT,
+                       GLENV_MOUSE_PRESS,
+                       0,
+                       glApp->xMousePos,
+                       glApp->yMousePos);
+    return EM_TRUE;
+  }
+
+  static bool touchMoveCallback(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData) {
+    GLApp* glApp = static_cast<GLApp*>(userData);
+    if (!glApp) return EM_FALSE;
+
+    glApp->xMousePos = touchEvent->touches[0].clientX;
+    glApp->yMousePos = touchEvent->touches[0].clientY;
+
+    glApp->mouseMove(glApp->xMousePos, glApp->yMousePos);
+    return EM_TRUE;
+  }
+
+  static bool touchEndCallback(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData) {
+    GLApp* glApp = static_cast<GLApp*>(userData);
+    if (!glApp) return EM_FALSE;
+    glApp->mouseButton(GLENV_MOUSE_BUTTON_LEFT,
+                       GLENV_MOUSE_RELEASE,
+                       0,
+                       glApp->xMousePos,
+                       glApp->yMousePos);
+    return EM_TRUE;
+  }
+
   static bool mouseButtonDownCallback(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData) {
     GLApp* glApp = static_cast<GLApp*>(userData);
     if (!glApp) return EM_FALSE;
-
-    glApp->mouseButton(mouseEvent->button, GLFW_PRESS, 0, glApp->xMousePos, glApp->yMousePos);
+    glApp->mouseButton(mouseEvent->button,
+                       GLENV_MOUSE_PRESS,
+                       0,
+                       glApp->xMousePos,
+                       glApp->yMousePos);
     return EM_TRUE;
   }
-  static bool mouseButtonCallback(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData) {
-    GLApp* glApp = static_cast<GLApp*>(userData);
-    if (!glApp) return EM_FALSE;
 
-    glApp->mouseButton(mouseEvent->button, 0, 0, glApp->xMousePos, glApp->yMousePos);
-    return EM_TRUE;
-  }
   static bool scrollCallback(int eventType, const EmscriptenWheelEvent *wheelEvent, void *userData) {
     GLApp* glApp = static_cast<GLApp*>(userData);
     if (!glApp) return EM_FALSE;
@@ -307,7 +373,11 @@ private:
 #else
   static GLApp* staticAppPtr;
   static void sizeCallback(GLFWwindow* window, int width, int height) {
-    if (staticAppPtr) staticAppPtr->resize(width, height);
+    if (staticAppPtr) {
+      const Dimensions winDim = staticAppPtr->glEnv.getWindowSize();
+      const Dimensions fbDim  = staticAppPtr->glEnv.getFramebufferSize();
+      staticAppPtr->resize(winDim, fbDim);
+    }
   }
   static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
     if (staticAppPtr) staticAppPtr->keyboard(key, scancode, action, mods);
@@ -334,6 +404,8 @@ private:
   }
 #endif
 
+  void setInteractionCallbacks();
+
   void triangulate(const Vec3& p0,
                    const Vec3& p1, const Vec4& c1,
                    const Vec3& p2, const Vec4& c2,
@@ -341,4 +413,7 @@ private:
                    float lineThickness,
                    std::vector<float>& trisData);
 
+  void initScript(const std::vector<std::string>& args);
+  bool writeScriptLog(const std::string& text) const;
+  void processScript();
 };

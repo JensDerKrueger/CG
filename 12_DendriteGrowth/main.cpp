@@ -74,7 +74,6 @@ class SimpleStaticParticleSystem : public AbstractParticleSystem {
 
 };
 
-
 class MyGLApp : public GLApp {
   public:
 
@@ -89,7 +88,6 @@ class MyGLApp : public GLApp {
     std::vector<float> empty;
     vbOctreeFacePos.setData(empty, 7, GL_DYNAMIC_DRAW);
     vbOctreeLinePos.setData(empty, 7, GL_DYNAMIC_DRAW);
-
 
     octreeLineArray.bind();
     octreeLineArray.connectVertexAttrib(vbOctreeLinePos, prog, "vPos", 3);

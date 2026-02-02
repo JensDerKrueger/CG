@@ -132,7 +132,7 @@ std::string Image::toCode(const std::string& varName, bool padding) const {
   return ss.str();
 }
 
-std::string Image::toACIIArt(bool bSmallTable) const {
+std::string Image::toASCIIArt(bool bSmallTable) const {
   const std::string lut1{"$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. "};
   const std::string lut2{"@%#*+=-:. "};
   const std::string& lut = bSmallTable ? lut2 : lut1;
@@ -140,7 +140,7 @@ std::string Image::toACIIArt(bool bSmallTable) const {
   std::stringstream ss;
   for (uint32_t y = 0;y<height;y+=4) {
     for (uint32_t x = 0;x<width;x+=4) {
-      const uint8_t v = getLumiValue(x,height-y);
+      const uint8_t v = getLumiValue(x,height-y-1);
       ss << lut[(v*lut.length())/255] << lut[(v*lut.length())/255];
     }
     ss << "\n";
@@ -319,7 +319,7 @@ Image Image::crop(uint32_t blX, uint32_t blY, uint32_t trX, uint32_t trY) const 
 }
 
 
-Image Image::flipHorizontal() const {
+Image Image::flipVertical() const {
   Image result{width, height, componentCount};
   for (uint32_t y = 0;y<height;++y) {
     for (uint32_t x = 0;x<width;++x) {
@@ -331,7 +331,7 @@ Image Image::flipHorizontal() const {
   return result;
 }
 
-Image Image::flipVertical() const {
+Image Image::flipHorizontal() const {
   Image result{width, height, componentCount};
   for (uint32_t y = 0;y<height;++y) {
     for (uint32_t x = 0;x<width;++x) {

@@ -41,6 +41,9 @@ void checkAndThrowShader(GLuint shader) {
     std::vector<GLchar> log((size_t)log_length);
     glGetShaderInfoLog(shader, static_cast<GLsizei>(log.size()), NULL, log.data());
     std::string str{log.data()};
+#ifdef __EMSCRIPTEN__
+    std::cout << str << std::endl;
+#endif
     throw GLException{str};
   }
 }

@@ -11,12 +11,16 @@
 #include "Vec3.h"
 #include "Vec4.h"
 #include "Mat4.h"
+#include "GLTexture1D.h"
 #include "GLTexture2D.h"
 #include "GLTexture3D.h"
+
+#ifndef VERSION_HEADER
 #ifndef __EMSCRIPTEN__
-#include "GLTexture1D.h"
-#include "GLDepthTexture.h"
-#include "GLTextureCube.h"
+#define GLSL_VERSION_HEADER "#version 410\n"
+#else
+#define GLSL_VERSION_HEADER "#version 300 es\nprecision highp float;\nprecision highp sampler3D;\nprecision highp sampler2D;\n#define WEBGL\n"
+#endif
 #endif
 
 class ProgramException : public std::exception {
@@ -32,15 +36,21 @@ class ProgramException : public std::exception {
 class GLProgram {
 public:
 	~GLProgram();
-	
-	static GLProgram createFromFiles(const std::vector<std::string>& vs, const std::vector<std::string>& fs,
-                                   const std::vector<std::string>& gs = std::vector<std::string>());
-	static GLProgram createFromStrings(const std::vector<std::string>& vs, const std::vector<std::string>& fs,
-                                     const std::vector<std::string>& gs = std::vector<std::string>());
 
-	static GLProgram createFromFile(const std::string& vs, const std::string& fs, const std::string& gs="");
-	static GLProgram createFromString(const std::string& vs, const std::string& fs, const std::string& gs="");
-	
+	static GLProgram createFromFiles(const std::vector<std::string>& vs, const std::vector<std::string>& fs,
+                                   const std::vector<std::string>& gs = std::vector<std::string>(),
+                                   bool quietFail=false, bool addVersionHeader = false);
+	static GLProgram createFromStrings(const std::vector<std::string>& vs, const std::vector<std::string>& fs,
+                                     const std::vector<std::string>& gs = std::vector<std::string>(),
+                                     bool quietFail=false, bool addVersionHeader = false);
+
+	static GLProgram createFromFile(const std::string& vs, const std::string& fs,
+                                  const std::string& gs="", bool quietFail=false,
+                                  bool addVersionHeader = false);
+	static GLProgram createFromString(const std::string& vs, const std::string& fs,
+                                    const std::string& gs="", bool quietFail=false,
+                                    bool addVersionHeader = false);
+
   GLProgram(const GLProgram& other);
   GLProgram& operator=(const GLProgram& other);
   
@@ -51,14 +61,18 @@ public:
   void setUniform(const std::string& id, const Vec2& value) const;
   void setUniform(const std::string& id, const Vec3& value) const;
   void setUniform(const std::string& id, const Vec4& value) const;
+  void setUniform(const std::string& id, const std::vector<float>& value) const;
+  void setUniform(const std::string& id, const std::vector<Vec2>& value) const;
+  void setUniform(const std::string& id, const std::vector<Vec3>& value) const;
+  void setUniform(const std::string& id, const std::vector<Vec4>& value) const;
   void setUniform(const std::string& id, int value) const;
   void setUniform(const std::string& id, const Vec2i& value) const;
+  void setUniform(const std::string& id, const Vec3i& value) const;
+  void setUniform(const std::string& id, const Vec4i& value) const;
   void setUniform(const std::string& id, const Mat4& value, bool transpose=false) const;
   
 #ifndef __EMSCRIPTEN__
-  void setTexture(const std::string& id, const GLDepthTexture& texture, GLenum unit=0) const;
   void setTexture(const std::string& id, const GLTexture1D& texture, GLenum unit=0) const;
-  void setTexture(const std::string& id, const GLTextureCube& texture, GLenum unit=0) const;
 #endif
   void setTexture(const std::string& id, const GLTexture2D& texture, GLenum unit=0) const;
   void setTexture(const std::string& id, const GLTexture3D& texture, GLenum unit=0) const;
@@ -67,6 +81,7 @@ public:
   void setUniform(GLint id, const Vec2& value) const;
 	void setUniform(GLint id, const Vec3& value) const;
   void setUniform(GLint id, const Vec4& value) const;
+
   void setUniform(GLint id, int value) const;
   void setUniform(GLint id, const Vec2i& value) const;
   void setUniform(GLint id, const Vec3i& value) const;
@@ -85,8 +100,6 @@ public:
   
 #ifndef __EMSCRIPTEN__
   void setTexture(GLint id, const GLTexture1D& texture, GLenum unit=0) const;
-  void setTexture(GLint id, const GLDepthTexture& texture, GLenum unit=0) const;
-  void setTexture(GLint id, const GLTextureCube& texture, GLenum unit=0) const;
 #endif
   void setTexture(GLint id, const GLTexture2D& texture, GLenum unit=0) const;
 	void setTexture(GLint id, const GLTexture3D& texture, GLenum unit=0) const;
@@ -101,6 +114,8 @@ public:
 	void disable() const;
 
 private:
+  bool quietFail;
+  bool addVersionHeader;
 	GLuint glVertexShader;
 	GLuint glFragmentShader;
 	GLuint glGeometryShader;
@@ -114,7 +129,11 @@ private:
 	
 	static GLuint createShader(GLenum type, const GLchar** src, GLsizei count);
 
-  GLProgram(std::vector<std::string> vertexShaderStrings, std::vector<std::string> fragmentShaderStrings, std::vector<std::string> geometryShaderStrings);
+  GLProgram(std::vector<std::string> vertexShaderStrings,
+            std::vector<std::string> fragmentShaderStrings,
+            std::vector<std::string> geometryShaderStrings,
+            bool quietFail,
+            bool addVersionHeader);
 
   void programFromVectors(std::vector<std::string> vs, std::vector<std::string> fs, std::vector<std::string> gs);
 };

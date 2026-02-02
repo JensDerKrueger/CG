@@ -4,8 +4,8 @@
 #include <array>
 #include <memory>
 
-#include <Vec3.h>
 #include <Vec4.h>
+#include <Vec3.h>
 
 
 class OctreeNode;

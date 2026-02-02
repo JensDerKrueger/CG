@@ -57,7 +57,7 @@ void main()
 };
 
 
-void draw(void* arg=nullptr) {
+static void draw(void* arg=nullptr) {
   GL( glClearColor(0.0f, 0.0f, 0.0f, 1.0f) );
   GL( glClear(GL_COLOR_BUFFER_BIT) );
   
@@ -67,7 +67,7 @@ void draw(void* arg=nullptr) {
   GL( glBindVertexArray(0) );
 }
 
-void setupShaders() {
+static void setupShaders() {
   // create the vertex shader
   GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
   GL( glShaderSource(vertexShader, 1, &vertexShaderSource, NULL) );
@@ -91,7 +91,7 @@ void setupShaders() {
   GL( glDeleteShader(fragmentShader) );
 }
 
-void setupGeometry() {
+static void setupGeometry() {
   // define VAO for triangle
   GL( glGenVertexArrays(1, &vao) );
   GL( glBindVertexArray(vao) );
@@ -107,60 +107,41 @@ void setupGeometry() {
   GL( glBindVertexArray(0) );
 }
 
-void checkProgramLinkStatus(GLuint programId) {
-  GLint success;
-  glGetProgramiv(programId, GL_LINK_STATUS, &success);
-  if (!success) {
-    char infoLog[512];
-    glGetProgramInfoLog(programId, 512, NULL, infoLog);
-    std::cout << "Error: Program link failed.\n" << infoLog << std::endl;
-  }
-}
-
-void checkShaderCompileStatus(GLuint shaderId) {
-  GLint success;
-  glGetShaderiv(shaderId, GL_COMPILE_STATUS, &success);
-  if (!success) {
-    char infoLog[512];
-    glGetShaderInfoLog(shaderId, 512, NULL, infoLog);
-    std::cout << "Error: Shader compilation failed.\n" << infoLog << std::endl;
-  }
-}
-
 #ifndef __EMSCRIPTEN__
-void keyCallback(GLFWwindow* window, int key, int scancode, int action,
+static void keyCallback(GLFWwindow* window, int key, int scancode, int action,
                  int mods) {
-  if (glfwGetKey(window, GLENV_KEY_ESCAPE) == GLENV_PRESS)
+  if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     glfwSetWindowShouldClose(window, true);
 }
 
-void sizeCallback(GLFWwindow* window, int width, int height) {
+static void sizeCallback(GLFWwindow* window, int width, int height) {
   int w, h;
   glfwGetFramebufferSize(window, &w, &h);
   GL( glViewport(0, 0, w, h) );
 }
-#endif
 
 int main(int argc, char** argv) {
-#ifdef __EMSCRIPTEN__
-  GLEnv glEnv{800,600,1,"My First OpenGL Program",true,false,3,0,true};
-#else
-  GLEnv glEnv{800,600,1,"My First OpenGL Program",true,false,4,1,true};
+  GLEnv glEnv{800,600,1,"My First OpenGL Program",true,false};
   glEnv.setKeyCallback(keyCallback);
   glEnv.setResizeCallback(sizeCallback);
-#endif
-
   setupShaders();
   setupGeometry();
-
-#ifdef __EMSCRIPTEN__
-  emscripten_set_main_loop_arg(draw, nullptr, 0, 1);
-#else
   while (!glEnv.shouldClose()) {
     draw();
     glEnv.endOfFrame();
   }
-#endif
-
   return EXIT_SUCCESS;
 }
+#else
+int main(int argc, char** argv) {
+  GLEnv glEnv{800,600,1,"My First OpenGL Program",true,false};
+  setupShaders();
+  setupGeometry();
+  emscripten_set_main_loop_arg(draw, nullptr, 0, 1);
+  while (!glEnv.shouldClose()) {
+    draw();
+    glEnv.endOfFrame();
+  }
+  return EXIT_SUCCESS;
+}
+#endif

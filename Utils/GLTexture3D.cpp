@@ -77,9 +77,11 @@ void GLTexture3D::setEmpty(uint32_t width, uint32_t height, uint32_t depth, uint
     setData(std::vector<GLubyte>(width*height*depth*componentCount), width, height, depth, componentCount);
 }
 
-void GLTexture3D::setData(const std::vector<GLubyte>& data, uint32_t width, uint32_t height, uint32_t depth, uint8_t componentCount) {
+void GLTexture3D::setData(const std::vector<GLubyte>& data,
+                          uint32_t width, uint32_t height,
+                          uint32_t depth, uint8_t componentCount) {
   if (data.size() != componentCount*width*height*depth) {
-    throw GLException{"Data size and texure dimensions do not match."};
+    throw GLException{"Data size and texture dimensions do not match."};
   }
   
   this->data = data;
@@ -92,7 +94,7 @@ void GLTexture3D::setData(const std::vector<GLfloat>& data) {
 
 void GLTexture3D::setData(const std::vector<GLfloat>& data, uint32_t width, uint32_t height, uint32_t depth, uint8_t componentCount) {
   if (data.size() != componentCount*width*height*depth*4) {
-    throw GLException{"Data size and texure dimensions do not match."};
+    throw GLException{"Data size and texture dimensions do not match."};
   }
   this->fdata = data;
   setData((GLvoid*)data.data(), width, height, depth, componentCount, true);

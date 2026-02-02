@@ -51,6 +51,8 @@
 		5694F4212AA9BB9F004CFC38 /* GLApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5694F3F02AA9BB9F004CFC38 /* GLApp.cpp */; };
 		56CA2EBE2BD100E100CFDA64 /* GLTextureCube.h in Headers */ = {isa = PBXBuildFile; fileRef = 56CA2EBC2BD100E100CFDA64 /* GLTextureCube.h */; };
 		56CA2EBF2BD100E100CFDA64 /* GLTextureCube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56CA2EBD2BD100E100CFDA64 /* GLTextureCube.cpp */; };
+		56F086252F315A2000F5AE3E /* CommandInterpreter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56F086242F315A2000F5AE3E /* CommandInterpreter.cpp */; };
+		56F086272F315A2900F5AE3E /* CommandInterpreter.h in Headers */ = {isa = PBXBuildFile; fileRef = 56F086262F315A2900F5AE3E /* CommandInterpreter.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,6 +131,8 @@
 		5694F3F02AA9BB9F004CFC38 /* GLApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GLApp.cpp; path = ../Utils/GLApp.cpp; sourceTree = "<group>"; };
 		56CA2EBC2BD100E100CFDA64 /* GLTextureCube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLTextureCube.h; path = ../Utils/GLTextureCube.h; sourceTree = "<group>"; };
 		56CA2EBD2BD100E100CFDA64 /* GLTextureCube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GLTextureCube.cpp; path = ../Utils/GLTextureCube.cpp; sourceTree = "<group>"; };
+		56F086242F315A2000F5AE3E /* CommandInterpreter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CommandInterpreter.cpp; path = ../Utils/CommandInterpreter.cpp; sourceTree = SOURCE_ROOT; };
+		56F086262F315A2900F5AE3E /* CommandInterpreter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CommandInterpreter.h; path = ../Utils/CommandInterpreter.h; sourceTree = SOURCE_ROOT; };
 		A231F0FF25EAF61A00CBFC23 /* Diffuse-Demo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Diffuse-Demo"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -177,6 +181,8 @@
 				5694F3E82AA9BB9F004CFC38 /* bmp.cpp */,
 				5694F3EC2AA9BB9F004CFC38 /* bmp.h */,
 				5694F3C72AA9BB9F004CFC38 /* Camera.h */,
+				56F086262F315A2900F5AE3E /* CommandInterpreter.h */,
+				56F086242F315A2000F5AE3E /* CommandInterpreter.cpp */,
 				5694F3E22AA9BB9F004CFC38 /* FontRenderer.cpp */,
 				5694F3DC2AA9BB9F004CFC38 /* FontRenderer.h */,
 				5694F3F02AA9BB9F004CFC38 /* GLApp.cpp */,
@@ -256,6 +262,7 @@
 				5694F4102AA9BB9F004CFC38 /* Rand.h in Headers */,
 				5694F3FF2AA9BB9F004CFC38 /* GLTexture2D.h in Headers */,
 				5694F41F2AA9BB9F004CFC38 /* Grid2D.h in Headers */,
+				56F086272F315A2900F5AE3E /* CommandInterpreter.h in Headers */,
 				5694F4012AA9BB9F004CFC38 /* GLTexture3D.h in Headers */,
 				5694F40E2AA9BB9F004CFC38 /* GLTexture1D.h in Headers */,
 				5694F41D2AA9BB9F004CFC38 /* bmp.h in Headers */,
@@ -351,6 +358,7 @@
 				5694F3F42AA9BB9F004CFC38 /* GLDebug.cpp in Sources */,
 				5694F4182AA9BB9F004CFC38 /* OBJFile.cpp in Sources */,
 				56CA2EBF2BD100E100CFDA64 /* GLTextureCube.cpp in Sources */,
+				56F086252F315A2000F5AE3E /* CommandInterpreter.cpp in Sources */,
 				5694F3FA2AA9BB9F004CFC38 /* GLEnv.cpp in Sources */,
 				5694F4072AA9BB9F004CFC38 /* GLArray.cpp in Sources */,
 				5694F4212AA9BB9F004CFC38 /* GLApp.cpp in Sources */,

@@ -67,9 +67,9 @@ namespace ColorConversion {
     return {h,(m > T(0)) ? (v-l)/m : l, l};
   }
 
-    template <typename T> Vec3t<T> rgbToCmy(const Vec3t<T>& other) {
-      return {T(1)-other.x,T(1)-other.y,T(1)-other.z};
-    }
+  template <typename T> Vec3t<T> rgbToCmy(const Vec3t<T>& other) {
+    return {T(1)-other.x,T(1)-other.y,T(1)-other.z};
+  }
 
   template <typename T> Vec4t<T> rgbToCmyk(const Vec3t<T>& other) {
     const Vec3t<T> cmy = rgbToCmy(other);
@@ -77,9 +77,9 @@ namespace ColorConversion {
     return {cmy-minVal,minVal};
   }
 
-    template <typename T> Vec3t<T> cmyToRgb(const Vec3t<T>& other){
-      return {T(1)-other.x,T(1)-other.y,T(1)-other.z};
-    }
+  template <typename T> Vec3t<T> cmyToRgb(const Vec3t<T>& other){
+    return {T(1)-other.x,T(1)-other.y,T(1)-other.z};
+  }
 
   template <typename T> Vec3t<T> cmykToRgb(const Vec4& other) {
     return {T(1)-(other.x+other.w),T(1)-(other.y+other.w),T(1)-(other.z+other.w)};

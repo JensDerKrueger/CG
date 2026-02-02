@@ -194,7 +194,7 @@ namespace BMP {
     }
     
     if (height < 0)
-      return texture.flipHorizontal();
+      return texture.flipVertical();
     else
       return texture;
   }

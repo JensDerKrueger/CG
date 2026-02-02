@@ -43,15 +43,16 @@ public:
     GL(glBindVertexArray(0));
     GL(glUseProgram(0));
   }
-  
-  virtual void resize(int width, int height) override {
-    float ratio = static_cast<float>(width) / static_cast<float>(height);
+
+  virtual void resize(const Dimensions winDim, const Dimensions fbDim) override{
+    GLApp::resize(winDim, fbDim);
+
+    const float ratio = fbDim.aspect();
 
     projection = Mat4::ortho(-ratio * 1.5f, ratio * 1.5f, -1.5f, 1.5f, -10.0f, 10.0f);
     GL(glUseProgram(program));
     GL(glUniformMatrix4fv(projectionMatrixUniform, 1, GL_TRUE, projection));
     GL(glUseProgram(0));
-    glViewport(0, 0, width, height);
   }
 
   std::string loadFile(const std::string& filename) {

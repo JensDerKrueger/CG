@@ -46,6 +46,8 @@
 		5694F4212AA9BB9F004CFC38 /* GLApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5694F3F02AA9BB9F004CFC38 /* GLApp.cpp */; };
 		56CA2EBE2BD100E100CFDA64 /* GLTextureCube.h in Headers */ = {isa = PBXBuildFile; fileRef = 56CA2EBC2BD100E100CFDA64 /* GLTextureCube.h */; };
 		56CA2EBF2BD100E100CFDA64 /* GLTextureCube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56CA2EBD2BD100E100CFDA64 /* GLTextureCube.cpp */; };
+		56E2CB472F30F16F00627B39 /* CommandInterpreter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56E2CB462F30F16F00627B39 /* CommandInterpreter.cpp */; };
+		56E2CB482F30F16F00627B39 /* CommandInterpreter.h in Headers */ = {isa = PBXBuildFile; fileRef = 56E2CB452F30F16F00627B39 /* CommandInterpreter.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +113,8 @@
 		5694F3F02AA9BB9F004CFC38 /* GLApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GLApp.cpp; path = ../Utils/GLApp.cpp; sourceTree = "<group>"; };
 		56CA2EBC2BD100E100CFDA64 /* GLTextureCube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLTextureCube.h; path = ../Utils/GLTextureCube.h; sourceTree = "<group>"; };
 		56CA2EBD2BD100E100CFDA64 /* GLTextureCube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GLTextureCube.cpp; path = ../Utils/GLTextureCube.cpp; sourceTree = "<group>"; };
+		56E2CB452F30F16F00627B39 /* CommandInterpreter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CommandInterpreter.h; path = ../Utils/CommandInterpreter.h; sourceTree = SOURCE_ROOT; };
+		56E2CB462F30F16F00627B39 /* CommandInterpreter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CommandInterpreter.cpp; path = ../Utils/CommandInterpreter.cpp; sourceTree = SOURCE_ROOT; };
 		A231F0FF25EAF61A00CBFC23 /* Splines-Demo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Splines-Demo"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -158,6 +162,8 @@
 				5694F3CD2AA9BB9F004CFC38 /* GLDebug.h */,
 				5694F3C92AA9BB9F004CFC38 /* GLEnv.cpp */,
 				5694F3CB2AA9BB9F004CFC38 /* GLEnv.h */,
+				56E2CB452F30F16F00627B39 /* CommandInterpreter.h */,
+				56E2CB462F30F16F00627B39 /* CommandInterpreter.cpp */,
 				5694F3E12AA9BB9F004CFC38 /* GLProgram.cpp */,
 				5694F3CA2AA9BB9F004CFC38 /* GLProgram.h */,
 				5694F3D92AA9BB9F004CFC38 /* GLTexture1D.cpp */,
@@ -225,6 +231,7 @@
 				5694F4102AA9BB9F004CFC38 /* Rand.h in Headers */,
 				5694F3FF2AA9BB9F004CFC38 /* GLTexture2D.h in Headers */,
 				5694F41F2AA9BB9F004CFC38 /* Grid2D.h in Headers */,
+				56E2CB482F30F16F00627B39 /* CommandInterpreter.h in Headers */,
 				5694F4012AA9BB9F004CFC38 /* GLTexture3D.h in Headers */,
 				5694F40E2AA9BB9F004CFC38 /* GLTexture1D.h in Headers */,
 				5694F41D2AA9BB9F004CFC38 /* bmp.h in Headers */,
@@ -290,7 +297,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A231F0FA25EAF61A00CBFC23 /* Build configuration list for PBXProject "Intersect" */;
+			buildConfigurationList = A231F0FA25EAF61A00CBFC23 /* Build configuration list for PBXProject "Splines" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -320,6 +327,7 @@
 				5694F3F42AA9BB9F004CFC38 /* GLDebug.cpp in Sources */,
 				5694F4182AA9BB9F004CFC38 /* OBJFile.cpp in Sources */,
 				56CA2EBF2BD100E100CFDA64 /* GLTextureCube.cpp in Sources */,
+				56E2CB472F30F16F00627B39 /* CommandInterpreter.cpp in Sources */,
 				5694F3FA2AA9BB9F004CFC38 /* GLEnv.cpp in Sources */,
 				5694F4072AA9BB9F004CFC38 /* GLArray.cpp in Sources */,
 				5694F4212AA9BB9F004CFC38 /* GLApp.cpp in Sources */,
@@ -661,7 +669,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A231F0FA25EAF61A00CBFC23 /* Build configuration list for PBXProject "Intersect" */ = {
+		A231F0FA25EAF61A00CBFC23 /* Build configuration list for PBXProject "Splines" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A231F10425EAF61A00CBFC23 /* Debug */,

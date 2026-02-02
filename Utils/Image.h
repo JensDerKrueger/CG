@@ -38,7 +38,7 @@ public:
   void setNormalizedValue(uint32_t x, uint32_t y, float value);
   void setNormalizedValue(uint32_t x, uint32_t y, uint8_t component, float value);
   std::string toCode(const std::string& varName="myImage", bool padding=false) const;
-  std::string toACIIArt(bool bSmallTable=true) const;
+  std::string toASCIIArt(bool bSmallTable=true) const;
   Image filter(const Grid2D& filter) const;
   Image toGrayscale() const;
 
@@ -48,8 +48,8 @@ public:
   Image crop(uint32_t blX, uint32_t blY, uint32_t trX, uint32_t trY) const;
   Image resample(uint32_t newWidth) const;
   Image cropToAspectAndResample(uint32_t newWidth, uint32_t newHeight) const;
-  Image flipHorizontal() const;
   Image flipVertical() const;
+  Image flipHorizontal() const;
 
 private:
   uint8_t linear(uint8_t a, uint8_t b, float alpha) const;

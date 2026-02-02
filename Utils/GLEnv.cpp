@@ -42,14 +42,14 @@ void GLEnv::errorCallback(int error, const char* description) {
 }
 
 GLEnv::GLEnv(uint32_t w, uint32_t h, uint32_t s, const std::string& title, 
-             bool fpsCounter, bool sync, int major, int minor, bool core) :
+             bool fpsCounter, bool sync, bool exactPixels,
+             int major, int minor, bool core) :
 #ifndef __EMSCRIPTEN__
   window(nullptr),
 #endif
   sync(sync),
   title(title),
-  fpsCounter(fpsCounter),
-  last(Clock::now())
+  fpsCounter(fpsCounter)
 {
 #ifdef __EMSCRIPTEN__
   emscripten_set_canvas_element_size(ENS_CANVAS, w, h);
@@ -68,6 +68,7 @@ GLEnv::GLEnv(uint32_t w, uint32_t h, uint32_t s, const std::string& title,
   EMSCRIPTEN_WEBGL_CONTEXT_HANDLE context = emscripten_webgl_create_context(ENS_CANVAS, &attr);
   emscripten_webgl_make_context_current(context);
 
+  timer = std::make_shared<CPUTimer>();
 #else
   glfwSetErrorCallback(errorCallback);
 
@@ -84,6 +85,30 @@ GLEnv::GLEnv(uint32_t w, uint32_t h, uint32_t s, const std::string& title,
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   }
 
+
+  if (exactPixels) {
+    // Disable high-DPI framebuffer scaling on platforms that support it
+#ifdef GLFW_SCALE_FRAMEBUFFER          // GLFW 3.4+ generic name
+    glfwWindowHint(GLFW_SCALE_FRAMEBUFFER, GLFW_FALSE);
+#endif
+
+#ifdef __APPLE__
+    // For older GLFW versions and explicit macOS control
+    glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GLFW_FALSE);
+#endif
+
+    // On Windows/X11 this hint has no effect because framebuffer == window size anyway
+    // as long as you DON'T enable GLFW_SCALE_TO_MONITOR.
+  } else {
+#ifdef GLFW_SCALE_FRAMEBUFFER
+    glfwWindowHint(GLFW_SCALE_FRAMEBUFFER, GLFW_TRUE);
+#endif
+#ifdef __APPLE__
+    glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GLFW_TRUE);
+#endif
+  }
+
+  // Now create the window; framebuffer will be exactly w×h if exactPixels == true
   window = glfwCreateWindow(int(w), int(h), title.c_str(), nullptr, nullptr);
   if (window == nullptr) {
     std::stringstream s;
@@ -102,6 +127,7 @@ GLEnv::GLEnv(uint32_t w, uint32_t h, uint32_t s, const std::string& title,
     throw GLException{s.str()};
   }
   setSync(sync);
+  timer = std::make_shared<GLTimer>(true);
 #endif
 
 }
@@ -111,13 +137,21 @@ GLEnv::~GLEnv() {
   glfwDestroyWindow(window);
   glfwTerminate();
 #endif
+  timer = nullptr;
+}
+
+void GLEnv::setFPSAccumulationInterval(uint64_t newAccumulationInterval) {
+  accumulationInterval = newAccumulationInterval;
+  accumulatedNanoseconds = 0;
+  accumulatedFrames = 0;
+  integratedFPS = 0;
+  currentFps = 0;
 }
 
 void GLEnv::setSync(bool sync) {
   this->sync = sync;
 
 #ifdef __EMSCRIPTEN__
-  // TODO: check this
   if (sync)
     emscripten_set_main_loop_timing(EM_TIMING_RAF, 1);
   else
@@ -130,9 +164,17 @@ void GLEnv::setSync(bool sync) {
 #endif
 }
 
-
-void GLEnv::setFPSCounter(bool fpsCounter) {
+void GLEnv::setFPSCounterStatus(bool fpsCounter) {
   this->fpsCounter = fpsCounter;
+}
+
+void GLEnv::beginOfFrame() {
+  const Dimensions dim = getFramebufferSize();
+  GL(glViewport(0, 0, GLsizei(dim.width), GLsizei(dim.height)));
+
+  if (fpsCounter && timer) {
+    timer->begin();
+  }
 }
 
 void GLEnv::endOfFrame() {
@@ -141,24 +183,52 @@ void GLEnv::endOfFrame() {
   glfwPollEvents();
 #endif
 
-  if (fpsCounter) {
-    frameCount++;
-    auto now = Clock::now();
-    auto diff = std::chrono::duration_cast<std::chrono::microseconds>(now - last);
-    if(diff.count() > 1e6) {
-        auto fps = static_cast<double>(frameCount)/diff.count()*1.e6;
-      std::stringstream s;
-      s << title << " (" << static_cast<int>(std::ceil(fps)) << " fps)";
+  if (fpsCounter && timer) {
 #ifdef __EMSCRIPTEN__
-      emscripten_set_window_title(s.str().c_str());
-#else
-      glfwSetWindowTitle(window, s.str().c_str());
+    // brute-force sync
+    uint8_t pixel[4];
+    glReadPixels(0, 0, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, pixel);
 #endif
-      frameCount = 0;
-      last = now;
+    timer->end();
+    currentFps = updateIntegratedFPS(timer->elapsedNanoseconds());
+    std::stringstream s;
+    if (currentFps > 0) {
+      s << title << " (" <<static_cast<int>(std::ceil(currentFps)) << " fps)";
+    } else {
+      s << title << " (measuring fps)";
     }
+#ifdef __EMSCRIPTEN__
+    emscripten_set_window_title(s.str().c_str());
+#else
+    glfwSetWindowTitle(window, s.str().c_str());
+#endif
+
+    if (fpsCallback) fpsCallback(currentFps);
   }
 }
+
+void GLEnv::setSize(int width, int height) {
+#ifndef __EMSCRIPTEN__
+  glfwSetWindowSize(window, width, height);
+#endif
+}
+
+double GLEnv::updateIntegratedFPS(std::uint64_t nanoseconds) {
+  const std::uint64_t frameNs = accumulationInterval*1000000000ull;
+  accumulatedNanoseconds += nanoseconds;
+  accumulatedFrames += 1;
+
+  if (accumulatedNanoseconds >= frameNs) {
+    integratedFPS = static_cast<double>(accumulatedFrames) *
+    1.0e9 /
+    static_cast<double>(accumulatedNanoseconds);
+    accumulatedNanoseconds = 0;
+    accumulatedFrames = 0;
+  }
+
+  return integratedFPS;
+}
+
 
 #ifdef __EMSCRIPTEN__
 void GLEnv::setKeyCallback(em_key_callback_func f, void *userData) {
@@ -168,18 +238,22 @@ void GLEnv::setKeyCallback(em_key_callback_func f, void *userData) {
 }
 
 void GLEnv::setMouseCallbacks(em_mouse_callback_func p,
-                              em_mouse_callback_func b,
                               em_mouse_callback_func bu,
                               em_mouse_callback_func bd,
                               em_wheel_callback_func s,
+                              em_touch_callback_func ts,
+                              em_touch_callback_func te,
+                              em_touch_callback_func tm,
                               void *userData) {
-  emscripten_set_click_callback(ENS_CANVAS, userData, EM_TRUE, b);
   emscripten_set_mouseup_callback(ENS_CANVAS, userData, EM_TRUE, bu);
   emscripten_set_mousedown_callback(ENS_CANVAS, userData, EM_TRUE, bd);
-  emscripten_set_dblclick_callback(ENS_CANVAS, userData, EM_TRUE, b);
   emscripten_set_mousemove_callback(ENS_CANVAS, userData, EM_TRUE, p);
   emscripten_set_mouseenter_callback(ENS_CANVAS, userData, EM_TRUE, p);
   emscripten_set_mouseleave_callback(ENS_CANVAS, userData, EM_TRUE, p);
+
+  emscripten_set_touchstart_callback(ENS_CANVAS, userData, EM_TRUE, ts);
+  emscripten_set_touchend_callback(ENS_CANVAS,   userData, EM_TRUE, te);
+  emscripten_set_touchmove_callback(ENS_CANVAS,  userData, EM_TRUE, tm);
 }
 
 void GLEnv::setResizeCallback(em_ui_callback_func f, void *userData) {
@@ -216,7 +290,6 @@ Dimensions GLEnv::getFramebufferSize() const {
 #endif
   return Dimensions{uint32_t(width), uint32_t(height)};
 }
-
 
 Dimensions GLEnv::getWindowSize() const {
   int width, height;
@@ -279,3 +352,102 @@ void GLEnv::setCursorMode(CursorMode mode) {
 #endif
 }
 
+std::string GLEnv::getGPUString() {
+  auto ptrToString = [](const GLubyte* s) -> std::string {
+    return s ? reinterpret_cast<const char*>(s) : std::string("<null>");
+  };
+  return ptrToString(glGetString(GL_RENDERER));
+}
+
+std::string GLEnv::getOpenGlInfoString(bool includeExtensions) {
+  auto ptrToString = [](const GLubyte* s) -> std::string {
+    return s ? reinterpret_cast<const char*>(s) : std::string("<null>");
+  };
+
+  // glGetString requires a current context; if not, calls typically return NULL.
+  std::string vendor = ptrToString(glGetString(GL_VENDOR));
+  std::string renderer = ptrToString(glGetString(GL_RENDERER));
+  std::string version = ptrToString(glGetString(GL_VERSION));
+  std::string glslVersion = ptrToString(glGetString(GL_SHADING_LANGUAGE_VERSION));
+
+  GLint majorVersion = 0;
+  GLint minorVersion = 0;
+  glGetIntegerv(GL_MAJOR_VERSION, &majorVersion);
+  glGetIntegerv(GL_MINOR_VERSION, &minorVersion);
+
+  GLint profileMask = 0;
+#ifdef GL_CONTEXT_PROFILE_MASK
+  glGetIntegerv(GL_CONTEXT_PROFILE_MASK, &profileMask);
+#endif
+
+  GLint contextFlags = 0;
+#ifdef GL_CONTEXT_FLAGS
+  glGetIntegerv(GL_CONTEXT_FLAGS, &contextFlags);
+#endif
+
+  auto profileMaskToString = [&](GLint mask) -> std::string {
+#ifdef GL_CONTEXT_PROFILE_MASK
+    if (mask & GL_CONTEXT_CORE_PROFILE_BIT) return "Core";
+    if (mask & GL_CONTEXT_COMPATIBILITY_PROFILE_BIT) return "Compatibility";
+#endif
+    return "Unknown";
+  };
+
+  std::ostringstream out;
+  out << "OpenGL Info\n"
+  << "-----------\n"
+  << "Vendor:    " << vendor << "\n"
+  << "Renderer:  " << renderer << "\n"
+  << "Version:   " << version << "\n"
+  << "GLSL:      " << glslVersion << "\n"
+  << "Major/Minor (queried): " << majorVersion << "." << minorVersion << "\n";
+
+#ifdef GL_CONTEXT_PROFILE_MASK
+  out << "Profile:   " << profileMaskToString(profileMask) << "\n";
+#endif
+
+#ifdef GL_CONTEXT_FLAGS
+  out << "Context Flags:";
+  bool anyFlag = false;
+#ifdef GL_CONTEXT_FLAG_FORWARD_COMPATIBLE_BIT
+  if (contextFlags & GL_CONTEXT_FLAG_FORWARD_COMPATIBLE_BIT) { out << " ForwardCompatible"; anyFlag = true; }
+#endif
+#ifdef GL_CONTEXT_FLAG_DEBUG_BIT
+  if (contextFlags & GL_CONTEXT_FLAG_DEBUG_BIT) { out << " Debug"; anyFlag = true; }
+#endif
+#ifdef GL_CONTEXT_FLAG_ROBUST_ACCESS_BIT
+  if (contextFlags & GL_CONTEXT_FLAG_ROBUST_ACCESS_BIT) { out << " RobustAccess"; anyFlag = true; }
+#endif
+#ifdef GL_CONTEXT_FLAG_NO_ERROR_BIT
+  if (contextFlags & GL_CONTEXT_FLAG_NO_ERROR_BIT) { out << " NoError"; anyFlag = true; }
+#endif
+  if (!anyFlag) out << " <none/unknown>";
+  out << "\n";
+#endif
+
+  if (includeExtensions) {
+    out << "\nExtensions\n----------\n";
+
+    GLint extensionCount = 0;
+    glGetIntegerv(GL_NUM_EXTENSIONS, &extensionCount);
+
+    if (extensionCount > 0) {
+      // Modern way (GL 3.0+): glGetStringi
+      for (GLint i = 0; i < extensionCount; ++i) {
+#ifdef GL_VERSION_3_0
+        out << ptrToString(glGetStringi(GL_EXTENSIONS, static_cast<GLuint>(i))) << "\n";
+#else
+        break;
+#endif
+      }
+#ifndef GL_VERSION_3_0
+      out << "<glGetStringi not available in this build>\n";
+#endif
+    } else {
+      // Fallback for older contexts: GL_EXTENSIONS as a single space-separated string
+      out << ptrToString(glGetString(GL_EXTENSIONS)) << "\n";
+    }
+  }
+
+  return out.str();
+}

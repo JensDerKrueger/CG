@@ -55,7 +55,7 @@ const GLuint GLTexture1D::getId() const {
 void GLTexture1D::setData(const std::vector<GLubyte>& data, uint32_t size, 
                           uint8_t componentCount) {
 	if (data.size() != componentCount*size) {
-		throw GLException{"Data size and texure dimensions do not match."};
+		throw GLException{"Data size and texture dimensions do not match."};
 	}
 	
     this->data = data;
