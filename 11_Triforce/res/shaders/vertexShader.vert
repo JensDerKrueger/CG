@@ -1,6 +1,4 @@
-#version 410 core
-
-layout(location = 0) in vec3 vertexPosition;
+in vec3 vertexPosition;
 
 uniform mat4 modelViewMatrix;
 uniform mat4 projectionMatrix;

@@ -71,7 +71,8 @@ public:
   
   GLuint createShaderFromFile(GLenum type, const std::string& sourcePath) {
     const std::string shaderCode = loadFile(sourcePath);
-    const GLchar* c_shaderCode = shaderCode.c_str();
+    const std::string fullSource = GLProgram::getShaderPreamble() + shaderCode;
+    const GLchar* c_shaderCode = fullSource.c_str();
     const GLuint s = glCreateShader(type);
     GL(glShaderSource(s, 1, &c_shaderCode, NULL));
     glCompileShader(s); checkAndThrowShader(s);
@@ -123,4 +124,3 @@ int main(int argc, char** argv) {
   myApp.run();
   return EXIT_SUCCESS;
 }
-

@@ -1,20 +1,20 @@
 #include "GLTexture3D.h"
 
 GLTexture3D::GLTexture3D(GLint magFilter, GLint minFilter, GLint wrapX, GLint wrapY, GLint wrapZ) :
-  id(0),
-  internalformat(0),
-  format(0),
-  type(0),
-  magFilter(magFilter),
-  minFilter(minFilter),
-  wrapX(wrapX),
-  wrapY(wrapY),
-  wrapZ(wrapZ),
-  width(0),
-  height(0),
-  depth(0),
-  componentCount(0),
-  isFloat(false)
+id(0),
+internalformat(0),
+format(0),
+type(0),
+magFilter(magFilter),
+minFilter(minFilter),
+wrapX(wrapX),
+wrapY(wrapY),
+wrapZ(wrapZ),
+width(0),
+height(0),
+depth(0),
+componentCount(0),
+isFloat(false)
 {
   GL(glGenTextures(1, &id));
   GL(glBindTexture(GL_TEXTURE_3D, id));
@@ -30,7 +30,7 @@ GLTexture3D::~GLTexture3D() {
 }
 
 GLTexture3D::GLTexture3D(const GLTexture3D& other) :
-  GLTexture3D(other.magFilter, other.minFilter, other.wrapX, other.wrapY, other.wrapZ)
+GLTexture3D(other.magFilter, other.minFilter, other.wrapX, other.wrapY, other.wrapZ)
 {
   if (other.height > 0 && other.width > 0 && other.depth > 0) {
     if (other.isFloat)
@@ -41,21 +41,27 @@ GLTexture3D::GLTexture3D(const GLTexture3D& other) :
 }
 
 GLTexture3D& GLTexture3D::operator=(GLTexture3D other) {
-    magFilter = other.magFilter;
-    minFilter = other.minFilter;
-    wrapX = other.wrapX;
-    wrapY = other.wrapY;
-    wrapZ = other.wrapZ;
+  magFilter = other.magFilter;
+  minFilter = other.minFilter;
+  wrapX = other.wrapX;
+  wrapY = other.wrapY;
+  wrapZ = other.wrapZ;
+  isFloat = other.isFloat;
 
-    GL(glBindTexture(GL_TEXTURE_3D, id));
-    GL(glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_S, wrapX));
-    GL(glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_T, wrapY));
-    GL(glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, magFilter));
-    GL(glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, minFilter));
-    
-    if (other.height > 0 && other.width > 0 && other.depth > 0)
+  GL(glBindTexture(GL_TEXTURE_3D, id));
+  GL(glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_S, wrapX));
+  GL(glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_T, wrapY));
+  GL(glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_R, wrapZ));
+  GL(glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, magFilter));
+  GL(glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, minFilter));
+
+  if (other.height > 0 && other.width > 0 && other.depth > 0) {
+    if (other.isFloat)
+      setData(other.fdata, other.height, other.width, other.depth, other.componentCount);
+    else
       setData(other.data, other.height, other.width, other.depth, other.componentCount);
-    return *this;
+  }
+  return *this;
 }
 
 const GLuint GLTexture3D::getId() const {
@@ -83,7 +89,7 @@ void GLTexture3D::setData(const std::vector<GLubyte>& data,
   if (data.size() != componentCount*width*height*depth) {
     throw GLException{"Data size and texture dimensions do not match."};
   }
-  
+
   this->data = data;
   setData((GLvoid*)data.data(), width, height, depth, componentCount, false);
 }
@@ -93,14 +99,14 @@ void GLTexture3D::setData(const std::vector<GLfloat>& data) {
 }
 
 void GLTexture3D::setData(const std::vector<GLfloat>& data, uint32_t width, uint32_t height, uint32_t depth, uint8_t componentCount) {
-  if (data.size() != componentCount*width*height*depth*4) {
+  if (data.size() != componentCount*width*height*depth) {
     throw GLException{"Data size and texture dimensions do not match."};
   }
   this->fdata = data;
   setData((GLvoid*)data.data(), width, height, depth, componentCount, true);
 }
 
-void GLTexture3D::setData(GLvoid* data, uint32_t width, uint32_t height, 
+void GLTexture3D::setData(GLvoid* data, uint32_t width, uint32_t height,
                           uint32_t depth, uint8_t componentCount,
                           bool isFloat) {
   this->isFloat = isFloat;
@@ -113,7 +119,7 @@ void GLTexture3D::setData(GLvoid* data, uint32_t width, uint32_t height,
 
   GL(glPixelStorei(GL_PACK_ALIGNMENT ,1));
   GL(glPixelStorei(GL_UNPACK_ALIGNMENT ,1));
-  
+
   type = isFloat ? GL_FLOAT : GL_UNSIGNED_BYTE;
   switch (componentCount) {
     case 1 :
@@ -133,7 +139,7 @@ void GLTexture3D::setData(GLvoid* data, uint32_t width, uint32_t height,
       format = GL_RGBA;
       break;
   }
-  
+
   GL(glTexImage3D(GL_TEXTURE_3D, 0, internalformat, GLsizei(width), GLsizei(height), GLsizei(depth), 0, format, type, data));
 }
 
@@ -142,6 +148,7 @@ const std::vector<GLubyte>& GLTexture3D::getDataByte() {
   GL(glPixelStorei(GL_PACK_ALIGNMENT, 1));
   GL(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
   GL(glBindTexture(GL_TEXTURE_3D, id));
+  data.resize(width*height*depth*componentCount);
   GL(glGetTexImage(GL_TEXTURE_3D, 0, format, type, data.data()));
   return data;
 }
@@ -150,7 +157,9 @@ const std::vector<GLfloat>& GLTexture3D::getDataFloat() {
   GL(glPixelStorei(GL_PACK_ALIGNMENT, 1));
   GL(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
   GL(glBindTexture(GL_TEXTURE_3D, id));
+  fdata.resize(width*height*depth*componentCount);
   GL(glGetTexImage(GL_TEXTURE_3D, 0, format, type, fdata.data()));
   return fdata;
 }
 #endif
+

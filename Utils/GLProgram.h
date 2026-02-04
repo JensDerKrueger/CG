@@ -15,13 +15,6 @@
 #include "GLTexture2D.h"
 #include "GLTexture3D.h"
 
-#ifndef VERSION_HEADER
-#ifndef __EMSCRIPTEN__
-#define GLSL_VERSION_HEADER "#version 410\n"
-#else
-#define GLSL_VERSION_HEADER "#version 300 es\nprecision highp float;\nprecision highp sampler3D;\nprecision highp sampler2D;\n#define WEBGL\n"
-#endif
-#endif
 
 class ProgramException : public std::exception {
 	public:
@@ -51,6 +44,9 @@ public:
                                     const std::string& gs="", bool quietFail=false,
                                     bool addVersionHeader = false);
 
+  static const std::string& getShaderPreamble();
+  static void setShaderPreamble(const std::string& preamble);
+
   GLProgram(const GLProgram& other);
   GLProgram& operator=(const GLProgram& other);
   
@@ -71,9 +67,7 @@ public:
   void setUniform(const std::string& id, const Vec4i& value) const;
   void setUniform(const std::string& id, const Mat4& value, bool transpose=false) const;
   
-#ifndef __EMSCRIPTEN__
   void setTexture(const std::string& id, const GLTexture1D& texture, GLenum unit=0) const;
-#endif
   void setTexture(const std::string& id, const GLTexture2D& texture, GLenum unit=0) const;
   void setTexture(const std::string& id, const GLTexture3D& texture, GLenum unit=0) const;
 
@@ -98,15 +92,11 @@ public:
   void setUniform(GLint id, const std::vector<Vec4i>& value) const;
   void setUniform(GLint id, const std::vector<Mat4>& value, bool transpose=false) const;
   
-#ifndef __EMSCRIPTEN__
   void setTexture(GLint id, const GLTexture1D& texture, GLenum unit=0) const;
-#endif
   void setTexture(GLint id, const GLTexture2D& texture, GLenum unit=0) const;
 	void setTexture(GLint id, const GLTexture3D& texture, GLenum unit=0) const;
 
-#ifndef __EMSCRIPTEN__
   void unsetTexture1D(GLenum unit) const;
-#endif
   void unsetTexture2D(GLenum unit) const;
   void unsetTexture3D(GLenum unit) const;
 
@@ -120,7 +110,9 @@ private:
 	GLuint glFragmentShader;
 	GLuint glGeometryShader;
 	GLuint glProgram;
-  
+
+  static std::string shaderPreamble;
+
   std::vector<std::string> vertexShaderStrings;
   std::vector<std::string> fragmentShaderStrings;
   std::vector<std::string> geometryShaderStrings;
@@ -137,3 +129,4 @@ private:
 
   void programFromVectors(std::vector<std::string> vs, std::vector<std::string> fs, std::vector<std::string> gs);
 };
+

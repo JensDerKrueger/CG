@@ -137,7 +137,7 @@ namespace BMP {
     
     int32_t height;
     file.read((char*)&height, sizeof(int32_t));  // get the height of the bitmap
-    texture.height = uint32_t(height);
+    texture.height = uint32_t(abs(height));
 
     int16_t biPlanes;
     file.read((char*)&biPlanes, sizeof(int16_t));   // get the number of planes

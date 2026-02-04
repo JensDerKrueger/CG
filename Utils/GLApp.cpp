@@ -23,134 +23,7 @@ GLApp::GLApp(uint32_t w, uint32_t h, uint32_t s,
 #endif
   p{},
   mv{},
-#ifdef __EMSCRIPTEN__
-  simpleProg{GLProgram::createFromString(R"(#version 300 es
-    uniform mat4 MVP;
-    in vec3 vPos;
-    in vec4 vColor;
-    out vec4 color;
-    void main() {
-      gl_Position = MVP * vec4(vPos, 1.0);
-      color = vColor;
-    }
-  )",R"(#version 300 es
-    precision mediump float;
-    in vec4 color;
-    out vec4 FragColor;
-    void main() {
-      FragColor = color;
-    }
-  )")},
-  simplePointProg{GLProgram::createFromString(R"(#version 300 es
-    uniform mat4 MVP;
-    uniform float pointSize;
-    in vec3 vPos;
-    in vec4 vColor;
-    out vec4 color;
-    void main() {
-      gl_Position = MVP * vec4(vPos, 1.0);
-      gl_PointSize = pointSize;
-      color = vColor;
-    }
-  )",R"(#version 300 es
-    precision mediump float;
-    in vec4 color;
-    out vec4 FragColor;
-    void main() {
-      FragColor = color;
-    }
-  )")},
-  simpleSpriteProg{GLProgram::createFromString(R"(#version 300 es
-    uniform mat4 MVP;
-    uniform float pointSize;
-    in vec3 vPos;
-    in vec4 vColor;
-    out vec4 color;
-    void main() {
-      gl_Position = MVP * vec4(vPos, 1.0);
-      gl_PointSize = pointSize;
-      color = vColor;
-    }
-  )",R"(#version 300 es
-    precision mediump float;
-    uniform sampler2D pointSprite;
-    in vec4 color;
-    out vec4 FragColor;
-    void main() {
-      FragColor = color*texture(pointSprite, gl_PointCoord);
-    }
-  )")},
-  simpleHLSpriteProg{GLProgram::createFromString(R"(#version 300 es
-    uniform mat4 MVP;
-    uniform float pointSize;
-    in vec3 vPos;
-    in vec4 vColor;
-    out vec4 color;
-    void main() {
-      gl_Position = MVP * vec4(vPos, 1.0);
-      gl_PointSize = pointSize;
-      color = vColor;
-    }
-  )",R"(#version 300 es
-    precision mediump float;
-    uniform sampler2D pointSprite;
-    uniform sampler2D pointSpriteHighlight;
-    in vec4 color;
-    out vec4 FragColor;
-    void main() {
-      FragColor = color*texture(pointSprite, gl_PointCoord)+texture(pointSpriteHighlight, gl_PointCoord);
-    }
-  )")},
-  simpleTexProg{GLProgram::createFromString(R"(#version 300 es
-    uniform mat4 MVP;
-    in vec3 vPos;
-    in vec2 vTexCoords;
-    out vec4 color;
-    out vec2 texCoords;
-    void main() {
-      gl_Position = MVP * vec4(vPos, 1.0);
-      texCoords = vTexCoords;
-    }
-  )",R"(#version 300 es
-    precision mediump float;
-    uniform sampler2D raster;
-    in vec2 texCoords;
-    out vec4 FragColor;
-    void main() {
-      FragColor = texture(raster, texCoords);
-    }
-  )")},
-  simpleLightProg{GLProgram::createFromString(R"(#version 300 es
-  uniform mat4 MVP;
-  uniform mat4 MV;
-  uniform mat4 MVit;
-  in vec3 vPos;
-  in vec4 vColor;
-  in vec3 vNormal;
-  out vec4 color;
-  out vec3 normal;
-  out vec3 pos;
-  void main() {
-    gl_Position = MVP * vec4(vPos, 1.0);
-    pos = (MV * vec4(vPos, 1.0)).xyz;
-    color = vColor;
-    normal = (MVit * vec4(vNormal, 0.0)).xyz;
-  }
-  )",R"(#version 300 es
-    precision mediump float;
-    in vec4 color;
-    in vec3 pos;
-  in vec3 normal;
-  out vec4 FragColor;
-  void main() {
-    vec3 nnormal = normalize(normal);
-    vec3 nlightDir = normalize(vec3(0.0,0.0,0.0)-pos);
-    FragColor = vec4(color.rgb*abs(dot(nlightDir,nnormal)),color.a);
-  }
-  )")},
-#else
   simpleProg{GLProgram::createFromString(
-     "#version 410\n"
      "uniform mat4 MVP;\n"
      "layout (location = 0) in vec3 vPos;\n"
      "layout (location = 1) in vec4 vColor;\n"
@@ -159,14 +32,12 @@ GLApp::GLApp(uint32_t w, uint32_t h, uint32_t s,
      "    gl_Position = MVP * vec4(vPos, 1.0);\n"
      "    color = vColor;\n"
      "}\n",
-     "#version 410\n"
      "in vec4 color;\n"
      "out vec4 FragColor;\n"
      "void main() {\n"
      "    FragColor = color;\n"
-     "}\n")},
+     "}\n","",false,true)},
   simplePointProg{GLProgram::createFromString(
-     "#version 410\n"
      "uniform mat4 MVP;\n"
      "layout (location = 0) in vec3 vPos;\n"
      "layout (location = 1) in vec4 vColor;\n"
@@ -175,14 +46,12 @@ GLApp::GLApp(uint32_t w, uint32_t h, uint32_t s,
      "    gl_Position = MVP * vec4(vPos, 1.0);\n"
      "    color = vColor;\n"
      "}\n",
-     "#version 410\n"
      "in vec4 color;\n"
      "out vec4 FragColor;\n"
      "void main() {\n"
      "    FragColor = color;\n"
-     "}\n")},
+     "}\n","",false,true)},
   simpleSpriteProg{GLProgram::createFromString(
-     "#version 410\n"
      "uniform mat4 MVP;\n"
      "layout (location = 0) in vec3 vPos;\n"
      "layout (location = 1) in vec4 vColor;\n"
@@ -191,15 +60,13 @@ GLApp::GLApp(uint32_t w, uint32_t h, uint32_t s,
      "    gl_Position = MVP * vec4(vPos, 1.0);\n"
      "    color = vColor;\n"
      "}\n",
-     "#version 410\n"
      "uniform sampler2D pointSprite;\n"
      "in vec4 color;\n"
      "out vec4 FragColor;\n"
      "void main() {\n"
      "    FragColor = color*texture(pointSprite, gl_PointCoord);\n"
-     "}\n")},
+     "}\n","",false,true)},
   simpleHLSpriteProg{GLProgram::createFromString(
-     "#version 410\n"
      "uniform mat4 MVP;\n"
      "layout (location = 0) in vec3 vPos;\n"
      "layout (location = 1) in vec4 vColor;\n"
@@ -208,16 +75,14 @@ GLApp::GLApp(uint32_t w, uint32_t h, uint32_t s,
      "    gl_Position = MVP * vec4(vPos, 1.0);\n"
      "    color = vColor;\n"
      "}\n",
-     "#version 410\n"
      "uniform sampler2D pointSprite;\n"
      "uniform sampler2D pointSpriteHighlight;\n"
      "in vec4 color;\n"
      "out vec4 FragColor;\n"
      "void main() {\n"
      "    FragColor = color*texture(pointSprite, gl_PointCoord)+texture(pointSpriteHighlight, gl_PointCoord);\n"
-     "}\n")},
+     "}\n","",false,true)},
   simpleTexProg{GLProgram::createFromString(
-     "#version 410\n"
      "uniform mat4 MVP;\n"
      "layout (location = 0) in vec3 vPos;\n"
      "layout (location = 1) in vec2 vTexCoords;\n"
@@ -227,15 +92,13 @@ GLApp::GLApp(uint32_t w, uint32_t h, uint32_t s,
      "    gl_Position = MVP * vec4(vPos, 1.0);\n"
      "    texCoords = vTexCoords;\n"
      "}\n",
-     "#version 410\n"
      "uniform sampler2D raster;\n"
      "in vec2 texCoords;\n"
      "out vec4 FragColor;\n"
      "void main() {\n"
      "    FragColor = texture(raster, texCoords);\n"
-     "}\n")},
+     "}\n","",false,true)},
   simpleLightProg{GLProgram::createFromString(
-     "#version 410\n"
      "uniform mat4 MVP;\n"
      "uniform mat4 MV;\n"
      "uniform mat4 MVit;\n"
@@ -251,7 +114,6 @@ GLApp::GLApp(uint32_t w, uint32_t h, uint32_t s,
      "    color = vColor;\n"
      "    normal = (MVit * vec4(vNormal, 0.0)).xyz;\n"
      "}\n",
-     "#version 410\n"
      "in vec4 color;\n"
      "in vec3 pos;\n"
      "in vec3 normal;\n"
@@ -260,8 +122,7 @@ GLApp::GLApp(uint32_t w, uint32_t h, uint32_t s,
      "    vec3 nnormal = normalize(normal);"
      "    vec3 nlightDir = normalize(vec3(0.0,0.0,0.0)-pos);"
      "    FragColor = color*abs(dot(nlightDir,nnormal));\n"
-     "}\n")},
-#endif
+     "}\n","",false,true)},
   simpleArray{},
   simpleVb{GL_ARRAY_BUFFER},
   raster{GL_LINEAR, GL_LINEAR,GL_CLAMP_TO_EDGE,GL_CLAMP_TO_EDGE},
@@ -362,6 +223,7 @@ void GLApp::processScript() {
     CommandResultCode result = interpreter.runBatch();
 
     if (result == CommandResultCode::success) {
+    } else if (result == CommandResultCode::triggerLoop) {
     } else if (result == CommandResultCode::waitingNoop) {
     } else if (result == CommandResultCode::finished) {
       scriptRunning = false;
@@ -373,10 +235,10 @@ void GLApp::processScript() {
 }
 void GLApp::mainLoop() {
 #ifdef __EMSCRIPTEN__
+  processScript();
   if (animationActive) {
     animate(emscripten_performance_now()/1000.0-startTime);
   }
-  processScript();
   glEnv.beginOfFrame();
   GL(glClearColor(background.x,background.y,background.z,background.w));
   GL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
@@ -384,10 +246,10 @@ void GLApp::mainLoop() {
   glEnv.endOfFrame();
 #else
   do {
+    processScript();
     if (animationActive) {
       animate(glfwGetTime()-startTime);
     }
-    processScript();
     glEnv.beginOfFrame();
     GL(glClearColor(background.x,background.y,background.z,background.w));
     GL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
@@ -960,9 +822,18 @@ void GLApp::initScript(const std::vector<std::string>& args) {
                                 [this]() -> CommandResultCode {
                                   std::filesystem::path base = logDir;
 
+                                  // make sure both front and back buffer
+                                  // are updated
+                                  static int needsUpdate = 2;
+                                  if (needsUpdate) {
+                                    needsUpdate--;
+                                    return CommandResultCode::waitingNoop;
+                                  } else {
+                                    needsUpdate = 2;
+                                  }
                                   static uint32_t imageCounter = 0;
                                   std::stringstream ss;
-                                  ss << "screenshot-" << std::setw(4) << std::setfill('0') << imageCounter++ << ".bmp";
+                                  ss << "screenshot-" << std::setw(6) << std::setfill('0') << imageCounter++ << ".bmp";
 
                                   std::filesystem::path filePath = base / ss.str();
 
@@ -976,6 +847,14 @@ void GLApp::initScript(const std::vector<std::string>& args) {
                                 [this](std::string filename) -> CommandResultCode {
                                   std::filesystem::path base = logDir;
                                   std::filesystem::path filePath = base / filename;
+
+                                  static bool needsUpdate = true;
+                                  if (needsUpdate) {
+                                    needsUpdate = false;
+                                    return CommandResultCode::waitingNoop;
+                                  } else {
+                                    needsUpdate = true;
+                                  }
 
                                   return GLScreenshot::saveBmp(filePath.string())
                                   ? CommandResultCode::success
@@ -1043,7 +922,6 @@ void GLApp::initScript(const std::vector<std::string>& args) {
                                     }
                                     return CommandResultCode::callbackError;
                                   }
-
 
                                   if (glEnv.getFps() == 0) {
                                     return CommandResultCode::waitingNoop;

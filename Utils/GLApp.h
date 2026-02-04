@@ -13,12 +13,6 @@
 #include "CommandInterpreter.h"
 #include "GLScreenshot.h"
 
-#ifdef __EMSCRIPTEN__
-#define SH(x) "web-" x
-#else
-#define SH(x) "app-" x
-#endif
-
 #ifdef _WIN32
 std::vector<std::string> getArgsWindows();
 #endif

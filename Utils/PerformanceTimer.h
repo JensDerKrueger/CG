@@ -237,4 +237,4 @@ private:
   bool hasResult = false;
 };
 
-#endif // __EMSCRIPTEN__
+#endif

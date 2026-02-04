@@ -69,7 +69,6 @@
 		56F086A82F315CA900F5AE3E /* PerformanceTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = 56F086642F315CA900F5AE3E /* PerformanceTimer.h */; };
 		56F086A92F315CA900F5AE3E /* GLTextureCube.h in Headers */ = {isa = PBXBuildFile; fileRef = 56F086522F315CA900F5AE3E /* GLTextureCube.h */; };
 		56F086AA2F315CA900F5AE3E /* GLFramebuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 56F086472F315CA900F5AE3E /* GLFramebuffer.h */; };
-		56F086AB2F315CA900F5AE3E /* ImageLoader.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 56F0865E2F315CA900F5AE3E /* ImageLoader.o */; };
 		56F086AC2F315CA900F5AE3E /* GLTextureCube.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 56F086542F315CA900F5AE3E /* GLTextureCube.o */; };
 		56F086AD2F315CA900F5AE3E /* AbstractParticleSystem.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 56F0862E2F315CA900F5AE3E /* AbstractParticleSystem.o */; };
 /* End PBXBuildFile section */
@@ -149,7 +148,6 @@
 		56F0865B2F315CA900F5AE3E /* Image.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Image.cpp; path = ../Utils/Image.cpp; sourceTree = SOURCE_ROOT; };
 		56F0865C2F315CA900F5AE3E /* ImageLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ImageLoader.h; path = ../Utils/ImageLoader.h; sourceTree = SOURCE_ROOT; };
 		56F0865D2F315CA900F5AE3E /* ImageLoader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ImageLoader.cpp; path = ../Utils/ImageLoader.cpp; sourceTree = SOURCE_ROOT; };
-		56F0865E2F315CA900F5AE3E /* ImageLoader.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ImageLoader.o; path = ../Utils/ImageLoader.o; sourceTree = SOURCE_ROOT; };
 		56F0865F2F315CA900F5AE3E /* makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; name = makefile; path = ../Utils/makefile; sourceTree = SOURCE_ROOT; };
 		56F086602F315CA900F5AE3E /* Mat3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Mat3.h; path = ../Utils/Mat3.h; sourceTree = SOURCE_ROOT; };
 		56F086612F315CA900F5AE3E /* Mat4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Mat4.h; path = ../Utils/Mat4.h; sourceTree = SOURCE_ROOT; };
@@ -173,7 +171,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				56F086AB2F315CA900F5AE3E /* ImageLoader.o in Frameworks */,
 				56F086AC2F315CA900F5AE3E /* GLTextureCube.o in Frameworks */,
 				56F086AD2F315CA900F5AE3E /* AbstractParticleSystem.o in Frameworks */,
 			);
@@ -242,7 +239,6 @@
 				56F0865B2F315CA900F5AE3E /* Image.cpp */,
 				56F0865C2F315CA900F5AE3E /* ImageLoader.h */,
 				56F0865D2F315CA900F5AE3E /* ImageLoader.cpp */,
-				56F0865E2F315CA900F5AE3E /* ImageLoader.o */,
 				56F0865F2F315CA900F5AE3E /* makefile */,
 				56F086602F315CA900F5AE3E /* Mat3.h */,
 				56F086612F315CA900F5AE3E /* Mat4.h */,

@@ -4,6 +4,8 @@
 #include <iostream>
 #include <sstream>
 
+#include <GLProgram.h>
+
 GLuint vbo;
 GLuint vao;
 GLuint program;
@@ -16,44 +18,21 @@ constexpr float triangle[] = {
 };
 
 const GLchar* vertexShaderSource{
-#ifdef __EMSCRIPTEN__
-R"(#version 300 es 
-in vec3 vPos;
+R"(in vec3 vPos;
 void main()
 {
   gl_Position = vec4(vPos, 1.0);
 }
 )"
-#else
-R"(#version 410 core
-layout(location = 0) in vec3 vPos;
-void main()
-{
-  gl_Position = vec4(vPos, 1.0);
-}
-)"
-#endif
 };
 
 const GLchar* fragmentShaderSource{
-#ifdef __EMSCRIPTEN__
-R"(#version 300 es
-precision mediump float;
-out vec4 fragColor;
+R"(out vec4 fragColor;
 void main()
 {
   fragColor = vec4(1.0f, 1.0f, 1.0f, 1.0);
 }
 )"
-#else
-R"(#version 410 core
-out vec4 fragColor;
-void main()
-{
-  fragColor = vec4(1.0f, 1.0f, 1.0f, 1.0);
-}
-)"
-#endif
 };
 
 
@@ -70,13 +49,17 @@ static void draw(void* arg=nullptr) {
 static void setupShaders() {
   // create the vertex shader
   GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-  GL( glShaderSource(vertexShader, 1, &vertexShaderSource, NULL) );
+  const std::string fullSourceV = GLProgram::getShaderPreamble() + vertexShaderSource;
+  const GLchar* c_shaderCodeV = fullSourceV.c_str();
+  GL( glShaderSource(vertexShader, 1, &c_shaderCodeV, NULL) );
   GL( glCompileShader(vertexShader) );
   checkAndThrowShader(vertexShader);
 
   // create the fragment shader
   GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-  GL( glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL) );
+  const std::string fullSourceF = GLProgram::getShaderPreamble() + fragmentShaderSource;
+  const GLchar* c_shaderCodeF = fullSourceF.c_str();
+  GL( glShaderSource(fragmentShader, 1, &c_shaderCodeF, NULL) );
   GL( glCompileShader(fragmentShader) );
   checkAndThrowShader(fragmentShader);
 

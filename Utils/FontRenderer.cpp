@@ -132,50 +132,8 @@ std::shared_ptr<FontEngine> FontRenderer::generateFontEngine() const {
   return fe;
 }
 
-
 FontEngine::FontEngine() :
-#ifdef __EMSCRIPTEN__
-simpleProg{GLProgram::createFromString(R"(#version 300 es
-uniform mat4 MVP;
-in vec3 vPos;
-in vec2 vTexCoords;
-out vec4 color;
-out vec2 texCoords;
-void main() {
-    gl_Position = MVP * vec4(vPos, 1.0);
-    texCoords = vTexCoords;
-})",R"(#version 300 es
-precision mediump float;
-uniform sampler2D raster;
-uniform vec4 globalColor;
-in vec2 texCoords;
-out vec4 FragColor;
-void main() {
-    FragColor = globalColor*texture(raster, texCoords);
-})")},
-simpleDistProg{GLProgram::createFromString(R"(#version 300 es
-uniform mat4 MVP;
-in vec3 vPos;
-in vec2 vTexCoords;
-out vec4 color;
-out vec2 texCoords;
-void main() {
-    gl_Position = MVP * vec4(vPos, 1.0);
-    texCoords = vTexCoords;
-})",R"(#version 300 es
-precision mediump float;
-uniform sampler2D raster;
-uniform vec4 globalColor;
-in vec2 texCoords;
-out vec4 FragColor;
-void main() {
-    float dist = texture(raster, texCoords).r;
-    float val  = smoothstep(-3.0,1.0,dist);
-    FragColor  = globalColor*val;
-})")},
-#else
   simpleProg{GLProgram::createFromString(
-   "#version 410\n"
    "uniform mat4 MVP;\n"
    "layout (location = 0) in vec3 vPos;\n"
    "layout (location = 1) in vec2 vTexCoords;\n"
@@ -185,16 +143,14 @@ void main() {
    "    gl_Position = MVP * vec4(vPos, 1.0);\n"
    "    texCoords = vTexCoords;\n"
    "}\n",
-   "#version 410\n"
    "uniform sampler2D raster;\n"
    "uniform vec4 globalColor;\n"
    "in vec2 texCoords;\n"
    "out vec4 FragColor;\n"
    "void main() {\n"
    "    FragColor = globalColor*texture(raster, texCoords);\n"
-   "}\n")},
+   "}\n","",false,true)},
   simpleDistProg{GLProgram::createFromString(
-   "#version 410\n"
    "uniform mat4 MVP;\n"
    "layout (location = 0) in vec3 vPos;\n"
    "layout (location = 1) in vec2 vTexCoords;\n"
@@ -204,7 +160,6 @@ void main() {
    "    gl_Position = MVP * vec4(vPos, 1.0);\n"
    "    texCoords = vTexCoords;\n"
    "}\n",
-   "#version 410\n"
    "uniform sampler2D raster;\n"
    "uniform vec4 globalColor;\n"
    "in vec2 texCoords;\n"
@@ -213,8 +168,7 @@ void main() {
    "    float dist = texture(raster, texCoords).r;\n"
    "    float val  = smoothstep(-3.0,1.0,dist);\n"
    "    FragColor  = globalColor*val;\n"
-   "}\n")},
-#endif
+   "}\n","",false,true)},
   simpleArray{},
   simpleVb{GL_ARRAY_BUFFER},
   renderAsSignedDistanceField{false}

@@ -1,4 +1,3 @@
-#ifndef __EMSCRIPTEN__
 #pragma once
 
 #include <vector>
@@ -32,4 +31,3 @@ private:
   uint32_t size;
   uint8_t componentCount;
 };
-#endif

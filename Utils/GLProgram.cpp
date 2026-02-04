@@ -5,6 +5,22 @@
 #include "GLProgram.h"
 #include "GLDebug.h"
 
+#ifndef __EMSCRIPTEN__
+std::string GLProgram::shaderPreamble = "#version 410\n";
+#else
+std::string GLProgram::shaderPreamble = "#version 300 es\nprecision highp float;\nprecision highp sampler3D;\nprecision highp sampler2D;\nvec4 texture(sampler2D s, float v) {return texture(s, vec2(v,0));}\n#define sampler1D sampler2D\n#define WEBGL\n";
+#endif
+
+
+const std::string& GLProgram::getShaderPreamble() {
+    return shaderPreamble;
+}
+
+void GLProgram::setShaderPreamble(const std::string& preamble) {
+    shaderPreamble = preamble;
+}
+
+
 GLProgram::GLProgram(const GLProgram& other) :
   GLProgram(other.vertexShaderStrings,
             other.fragmentShaderStrings,
@@ -15,6 +31,9 @@ GLProgram::GLProgram(const GLProgram& other) :
 }
 
 GLProgram& GLProgram::operator=(const GLProgram& other) {
+  quietFail = other.quietFail;
+  addVersionHeader = other.addVersionHeader;
+
   GL(glDeleteShader(glVertexShader));
   GL(glDeleteShader(glFragmentShader));
   GL(glDeleteShader(glGeometryShader));
@@ -218,13 +237,17 @@ void GLProgram::setUniform(GLint id, const std::vector<Mat4>& value, bool transp
   GL(glUniformMatrix4fv(id, GLsizei(value.size()), !transpose, (GLfloat*)value.data()));
 }
 
-#ifndef __EMSCRIPTEN__
 void GLProgram::setTexture(GLint id, const GLTexture1D& texture, GLenum unit) const {
   GL(glActiveTexture(GL_TEXTURE0 + unit));
+
+#ifndef __EMSCRIPTEN__
   GL(glBindTexture(GL_TEXTURE_1D, texture.getId()));
+#else
+  GL(glBindTexture(GL_TEXTURE_2D, texture.getId()));
+#endif
+
   GL(glUniform1i(id, GLint(unit)));
 }
-#endif
 
 void GLProgram::setTexture(GLint id, const GLTexture2D& texture, GLenum unit) const {
 	GL(glActiveTexture(GL_TEXTURE0 + unit));
@@ -238,12 +261,14 @@ void GLProgram::setTexture(GLint id, const GLTexture3D& texture, GLenum unit) co
   GL(glUniform1i(id, GLint(unit)));
 }
 
-#ifndef __EMSCRIPTEN__
 void GLProgram::unsetTexture1D(GLenum unit) const {
   GL(glActiveTexture(GL_TEXTURE0 + unit));
+#ifndef __EMSCRIPTEN__
   GL(glBindTexture(GL_TEXTURE_1D, 0));
-}
+#else
+  GL(glBindTexture(GL_TEXTURE_2D, 0));
 #endif
+}
 
 void GLProgram::unsetTexture2D(GLenum unit) const {
   GL(glActiveTexture(GL_TEXTURE0 + unit));
@@ -277,11 +302,14 @@ void GLProgram::programFromVectors(std::vector<std::string> vs, std::vector<std:
 
   if (addVersionHeader) {
     if (!vertexShaderTexts.empty())
-      vertexShaderTexts.insert(vertexShaderTexts.begin(), GLSL_VERSION_HEADER);
+      vertexShaderTexts
+      .insert(vertexShaderTexts.begin(), shaderPreamble.c_str());
     if (!geometryShaderTexts.empty())
-      geometryShaderTexts.insert(geometryShaderTexts.begin(), GLSL_VERSION_HEADER);
+      geometryShaderTexts
+      .insert(geometryShaderTexts.begin(), shaderPreamble.c_str());
     if (!fragmentShaderTexts.empty())
-      fragmentShaderTexts.insert(fragmentShaderTexts.begin(), GLSL_VERSION_HEADER);
+      fragmentShaderTexts
+      .insert(fragmentShaderTexts.begin(), shaderPreamble.c_str());
   }
 
 
@@ -325,11 +353,9 @@ void GLProgram::setUniform(const std::string& id, const Mat4& value, bool transp
   setUniform(getUniformLocation(id), value, transpose);
 }
 
-#ifndef __EMSCRIPTEN__
 void GLProgram::setTexture(const std::string& id, const GLTexture1D& texture, GLenum unit) const {
   setTexture(getUniformLocation(id), texture, unit);
 }
-#endif
 
 void GLProgram::setTexture(const std::string& id, const GLTexture2D& texture, GLenum unit) const {
   setTexture(getUniformLocation(id), texture, unit);

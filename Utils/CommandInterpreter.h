@@ -20,6 +20,7 @@
 enum class CommandResultCode {
   success = 0,
   finished,
+  triggerLoop,
   waitingNoop,
   fileOpenFailed,
   unknownCommand,
@@ -39,6 +40,7 @@ constexpr std::string_view toString(CommandResultCode v) {
   switch (v) {
     case CommandResultCode::success:            return "success";
     case CommandResultCode::finished:           return "finished";
+    case CommandResultCode::triggerLoop:        return "triggerLoop";
     case CommandResultCode::waitingNoop:        return "waitingNoop";
     case CommandResultCode::fileOpenFailed:     return "fileOpenFailed";
     case CommandResultCode::unknownCommand:     return "unknownCommand";
