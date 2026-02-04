@@ -5,19 +5,33 @@
 #include "GLProgram.h"
 #include "GLDebug.h"
 
-#ifndef __EMSCRIPTEN__
-std::string GLProgram::shaderPreamble = "#version 410\n";
-#else
-std::string GLProgram::shaderPreamble = "#version 300 es\nprecision highp float;\nprecision highp sampler3D;\nprecision highp sampler2D;\nvec4 texture(sampler2D s, float v) {return texture(s, vec2(v,0));}\n#define sampler1D sampler2D\n#define WEBGL\n";
-#endif
+std::string GLProgram::shaderPreamble;
 
+static const std::string& defaultShaderPreamble() {
+#ifndef __EMSCRIPTEN__
+  static const std::string s = "#version 410\n";
+#else
+  static const std::string s =
+  "#version 300 es\n"
+  "precision highp float;\n"
+  "precision highp sampler3D;\n"
+  "precision highp sampler2D;\n"
+  "vec4 texture(sampler2D s, float v) {return texture(s, vec2(v,0));}\n"
+  "#define sampler1D sampler2D\n"
+  "#define WEBGL\n";
+#endif
+  return s;
+}
 
 const std::string& GLProgram::getShaderPreamble() {
-    return shaderPreamble;
+  if (shaderPreamble.empty()) {
+    shaderPreamble = defaultShaderPreamble();
+  }
+  return shaderPreamble;
 }
 
 void GLProgram::setShaderPreamble(const std::string& preamble) {
-    shaderPreamble = preamble;
+  shaderPreamble = preamble;
 }
 
 
@@ -303,13 +317,13 @@ void GLProgram::programFromVectors(std::vector<std::string> vs, std::vector<std:
   if (addVersionHeader) {
     if (!vertexShaderTexts.empty())
       vertexShaderTexts
-      .insert(vertexShaderTexts.begin(), shaderPreamble.c_str());
+      .insert(vertexShaderTexts.begin(), getShaderPreamble().c_str());
     if (!geometryShaderTexts.empty())
       geometryShaderTexts
-      .insert(geometryShaderTexts.begin(), shaderPreamble.c_str());
+      .insert(geometryShaderTexts.begin(), getShaderPreamble().c_str());
     if (!fragmentShaderTexts.empty())
       fragmentShaderTexts
-      .insert(fragmentShaderTexts.begin(), shaderPreamble.c_str());
+      .insert(fragmentShaderTexts.begin(), getShaderPreamble().c_str());
   }
 
 
