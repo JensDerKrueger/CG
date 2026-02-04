@@ -69,6 +69,9 @@
     <ClCompile Include="..\GLTextureCube.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\CommandInterpreter.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\AbstractParticleSystem.h">
@@ -165,6 +168,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\GLTextureCube.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CommandInterpreter.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
