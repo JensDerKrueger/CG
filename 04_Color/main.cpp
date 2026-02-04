@@ -46,7 +46,7 @@ public:
     const Dimensions dim{ glEnv.getFramebufferSize() };
     fe->render(text, dim.aspect(), 0.03f, {0,-0.9f}, Alignment::Center, {0,0,0,1});
   }
-};
+} myApp;
 
 #ifdef _WIN32
 #include <Windows.h>
@@ -55,7 +55,6 @@ INT WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, INT nC
 int main(int argc, char** argv) {
 #endif
   try {
-    MyGLApp myApp;
     myApp.run();
   }
   catch (const GLException& e) {

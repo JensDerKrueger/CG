@@ -103,9 +103,6 @@ static void sizeCallback(GLFWwindow* window, int width, int height) {
   GL( glViewport(0, 0, w, h) );
 }
 
-
-
-
 #ifdef _WIN32
 #include <Windows.h>
 

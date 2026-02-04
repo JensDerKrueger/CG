@@ -276,45 +276,23 @@ class MyGLApp : public GLApp {
   double angle;
 #ifdef showOctree
 
-#ifdef __EMSCRIPTEN__
-  std::string vsString{R"(#version 300 es
-  uniform mat4 MVP;
-  in vec3 vPos;
-  in vec4 vColor;
-  out vec4 color;
-  void main() {
-      gl_Position = MVP * vec4(vPos, 1.0);
-      color = vColor;
-  })"};
 
-  std::string fsString{R"(#version 300 es
-  precision mediump float;
-  in vec4 color;
-  out vec4 FragColor;
-  void main() {
-    FragColor = color;
-  })"};
-#else
-  std::string vsString{R"(#version 410
-  uniform mat4 MVP;
-  layout (location = 0) in vec3 vPos;
-  layout (location = 1) in vec4 vColor;
-  out vec4 color;
-  void main() {
-      gl_Position = MVP * vec4(vPos, 1.0);
-      color = vColor;
-  })"};
+std::string vsString{R"(uniform mat4 MVP;
+in vec3 vPos;
+in vec4 vColor;
+out vec4 color;
+void main() {
+    gl_Position = MVP * vec4(vPos, 1.0);
+    color = vColor;
+})"};
 
-  std::string fsString{R"(#version 410
-  in vec4 color;
-  out vec4 FragColor;
-  void main() {
-    FragColor = color;
-  })"};
+std::string fsString{R"(in vec4 color;
+out vec4 FragColor;
+void main() {
+  FragColor = color;
+})"};
 
-#endif
-
-  GLProgram prog{ GLProgram::createFromString(vsString, fsString) };
+  GLProgram prog{ GLProgram::createFromString(vsString, fsString, "", false, true) };
   GLint mvpLocation{ prog.getUniformLocation("MVP") };
 
   GLArray octreeLineArray{};
