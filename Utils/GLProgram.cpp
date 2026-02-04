@@ -7,11 +7,11 @@
 
 std::string GLProgram::shaderPreamble;
 
-static const std::string& defaultShaderPreamble() {
+static std::string defaultShaderPreamble() {
 #ifndef __EMSCRIPTEN__
-  static const std::string s = "#version 410\n";
+  const std::string s = "#version 410\n";
 #else
-  static const std::string s =
+  const std::string s =
   "#version 300 es\n"
   "precision highp float;\n"
   "precision highp sampler3D;\n"
@@ -85,7 +85,7 @@ GLProgram::GLProgram(std::vector<std::string> vertexShaderStrings,
 GLProgram::~GLProgram() {
 	GL(glDeleteShader(glVertexShader));
 	GL(glDeleteShader(glFragmentShader));
-  GL(glDeleteShader(glGeometryShader));
+	GL(glDeleteShader(glGeometryShader));
 	GL(glDeleteProgram(glProgram));
 }
 

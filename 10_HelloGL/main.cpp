@@ -103,18 +103,45 @@ static void sizeCallback(GLFWwindow* window, int width, int height) {
   GL( glViewport(0, 0, w, h) );
 }
 
+
+
+
+#ifdef _WIN32
+#include <Windows.h>
+
+INT WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, INT nCmdShow) {
+#else
 int main(int argc, char** argv) {
-  GLEnv glEnv{800,600,1,"My First OpenGL Program",true,false};
-  glEnv.setKeyCallback(keyCallback);
-  glEnv.setResizeCallback(sizeCallback);
-  setupShaders();
-  setupGeometry();
-  while (!glEnv.shouldClose()) {
-    draw();
-    glEnv.endOfFrame();
-  }
-  return EXIT_SUCCESS;
+#endif
+    try {
+        GLEnv glEnv{ 800,600,1,"My First OpenGL Program",true,false };
+        glEnv.setKeyCallback(keyCallback);
+        glEnv.setResizeCallback(sizeCallback);
+        setupShaders();
+        setupGeometry();
+        while (!glEnv.shouldClose()) {
+            draw();
+            glEnv.endOfFrame();
+        }
+    }
+    catch (const GLException& e) {
+        std::stringstream ss;
+        ss << "Insufficient OpenGL Support " << e.what();
+#ifndef _WIN32
+        std::cerr << ss.str().c_str() << std::endl;
+#else
+        MessageBoxA(
+            NULL,
+            ss.str().c_str(),
+            "OpenGL Error",
+            MB_ICONERROR | MB_OK
+        );
+#endif
+        return EXIT_FAILURE;
+    }
+    return EXIT_SUCCESS;
 }
+
 #else
 int main(int argc, char** argv) {
   GLEnv glEnv{800,600,1,"My First OpenGL Program",true,false};

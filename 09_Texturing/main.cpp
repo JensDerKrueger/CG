@@ -31,9 +31,9 @@ public:
 		camera.setEyePoint(Vec3{ 0.0, 0.0, 2.0 });
 		camera.setLookAt(Vec3{ 0.0, 0.0, 0.0 });
 
-		// instantiate the actual renderer with recursion depth "depth" and
-    // 9x super sampling NOTE: you might want to reduce the super sampling
-    // to 1 for testing and debugging
+		// instantiates the actual renderer with recursion depth "depth" and
+		// 9x super sampling NOTE: you might want to reduce the super sampling
+		// to 1 for testing and debugging
 		Raytracer renderer(depth, 9);
 		renderer.setCamera(camera);
 		renderer.setScene(scene);
@@ -57,7 +57,32 @@ public:
 
 } myApp;
 
+#ifdef _WIN32
+#include <Windows.h>
+
+INT WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, INT nCmdShow) {
+	std::vector<std::string> args = getArgsWindows();
+#else
 int main(int argc, char** argv) {
-	myApp.run();
+	std::vector<std::string> args{ argv + 1, argv + argc };
+#endif
+	try {
+		myApp.run();
+	}
+	catch (const GLException& e) {
+		std::stringstream ss;
+		ss << "Insufficient OpenGL Support " << e.what();
+#ifndef _WIN32
+		std::cerr << ss.str().c_str() << std::endl;
+#else
+		MessageBoxA(
+			NULL,
+			ss.str().c_str(),
+			"OpenGL Error",
+			MB_ICONERROR | MB_OK
+		);
+#endif
+		return EXIT_FAILURE;
+	}
 	return EXIT_SUCCESS;
 }
