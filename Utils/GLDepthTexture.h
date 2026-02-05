@@ -30,7 +30,7 @@ public:
   const GLuint getId() const {return id;}
   
   void setEmpty(uint32_t width, uint32_t height,
-                GLDepthDataType dataType=GLDepthDataType::DEPTH24) {
+                GLDepthDataType dataType=GLDepthDataType::DEPTH32) {
     this->width = width;
     this->height = height;
 
@@ -48,7 +48,7 @@ public:
                         GLsizei(height), 0,GL_DEPTH_COMPONENT, GL_FLOAT, 0));
         break;
       case GLDepthDataType::DEPTH32:
-        GL(glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, GLsizei(width),
+        GL(glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, GLsizei(width),
                         GLsizei(height), 0,GL_DEPTH_COMPONENT, GL_FLOAT, 0));
         break;
     }
