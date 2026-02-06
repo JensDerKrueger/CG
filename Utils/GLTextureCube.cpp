@@ -40,9 +40,9 @@ GLTextureCube(magFilter, minFilter, wrapX, wrapY)
   setData(image0,Face::POSX);
   setData(image1,Face::NEGX);
   setData(image2,Face::POSY);
-  setData(image3,Face::POSY);
+  setData(image3,Face::NEGY);
   setData(image4,Face::POSZ);
-  setData(image5,Face::POSZ);
+  setData(image5,Face::NEGZ);
 }
 
 
