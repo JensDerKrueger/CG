@@ -445,6 +445,8 @@ void GLApp::drawPoints(const std::vector<float>& data, float pointSize, bool use
       simpleSpriteProg.enable();
 #ifdef __EMSCRIPTEN__
       simpleSpriteProg.setUniform("pointSize", pointSize);
+#else
+      GL(glPointSize(pointSize));
 #endif
       simpleSpriteProg.setTexture("pointSprite", pointSprite, 0);
       simpleVb.setData(data,7,GL_DYNAMIC_DRAW);
