@@ -1,0 +1,29 @@
+# What to scan
+INPUT                  = .
+RECURSIVE              = YES
+
+# Only pick C/C++-ish files
+FILE_PATTERNS          = *.h *.hpp *.hh *.hxx *.inc \
+                         *.c *.cc *.cpp *.cxx
+
+# Output formats
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+GENERATE_XML           = NO
+
+# Project info
+PROJECT_NAME           = "CGVIS Utils"
+OUTPUT_DIRECTORY       = docs
+
+# Optional but handy
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = NO
+EXTRACT_STATIC         = NO
+HAVE_DOT               = YES
+CALL_GRAPH             = YES
+CALLER_GRAPH           = YES
+DOT_IMAGE_FORMAT       = svg
+QUIET                  = NO
+WARN_IF_UNDOCUMENTED   = NO
+# Avoid noise from build folders or externals
+EXCLUDE_PATTERNS       = */build/* */.git/* */third_party/*
