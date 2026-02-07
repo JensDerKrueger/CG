@@ -15,10 +15,10 @@ public:
   virtual void init() override {
     GL(glDisable(GL_CULL_FACE));
     GL(glDisable(GL_DEPTH_TEST));
-    GL(glClearColor(1,1,1,1));
     GL(glEnable(GL_BLEND));
     GL(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
     GL(glBlendEquation(GL_FUNC_ADD));
+    setBackground(1, 1, 1, 1);
   }
   
   virtual void animate(double animationTime) override {
@@ -118,7 +118,6 @@ public:
   }
   
   virtual void draw() override {
-    GL(glClear(GL_COLOR_BUFFER_BIT));
 
     {
       setDrawTransform(Mat4::translation(0.0f,0.7f,0.0f));
