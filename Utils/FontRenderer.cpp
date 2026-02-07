@@ -135,8 +135,8 @@ std::shared_ptr<FontEngine> FontRenderer::generateFontEngine() const {
 FontEngine::FontEngine() :
   simpleProg{GLProgram::createFromString(
    "uniform mat4 MVP;\n"
-   "layout (location = 0) in vec3 vPos;\n"
-   "layout (location = 1) in vec2 vTexCoords;\n"
+   "in vec3 vPos;\n"
+   "in vec2 vTexCoords;\n"
    "out vec4 color;\n"
    "out vec2 texCoords;\n"
    "void main() {\n"
@@ -152,8 +152,8 @@ FontEngine::FontEngine() :
    "}\n","",false,true)},
   simpleDistProg{GLProgram::createFromString(
    "uniform mat4 MVP;\n"
-   "layout (location = 0) in vec3 vPos;\n"
-   "layout (location = 1) in vec2 vTexCoords;\n"
+   "in vec3 vPos;\n"
+   "in vec2 vTexCoords;\n"
    "out vec4 color;\n"
    "out vec2 texCoords;\n"
    "void main() {\n"

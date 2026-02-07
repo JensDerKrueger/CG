@@ -25,8 +25,8 @@ GLApp::GLApp(uint32_t w, uint32_t h, uint32_t s,
   mv{},
   simpleProg{GLProgram::createFromString(
      "uniform mat4 MVP;\n"
-     "layout (location = 0) in vec3 vPos;\n"
-     "layout (location = 1) in vec4 vColor;\n"
+     "in vec3 vPos;\n"
+     "in vec4 vColor;\n"
      "out vec4 color;\n"
      "void main() {\n"
      "    gl_Position = MVP * vec4(vPos, 1.0);\n"
@@ -39,8 +39,8 @@ GLApp::GLApp(uint32_t w, uint32_t h, uint32_t s,
      "}\n","",false,true)},
   simplePointProg{GLProgram::createFromString(
      "uniform mat4 MVP;\n"
-     "layout (location = 0) in vec3 vPos;\n"
-     "layout (location = 1) in vec4 vColor;\n"
+     "in vec3 vPos;\n"
+     "in vec4 vColor;\n"
      "out vec4 color;\n"
      "void main() {\n"
      "    gl_Position = MVP * vec4(vPos, 1.0);\n"
@@ -53,8 +53,8 @@ GLApp::GLApp(uint32_t w, uint32_t h, uint32_t s,
      "}\n","",false,true)},
   simpleSpriteProg{GLProgram::createFromString(
      "uniform mat4 MVP;\n"
-     "layout (location = 0) in vec3 vPos;\n"
-     "layout (location = 1) in vec4 vColor;\n"
+     "in vec3 vPos;\n"
+     "in vec4 vColor;\n"
      "out vec4 color;\n"
      "void main() {\n"
      "    gl_Position = MVP * vec4(vPos, 1.0);\n"
@@ -68,8 +68,8 @@ GLApp::GLApp(uint32_t w, uint32_t h, uint32_t s,
      "}\n","",false,true)},
   simpleHLSpriteProg{GLProgram::createFromString(
      "uniform mat4 MVP;\n"
-     "layout (location = 0) in vec3 vPos;\n"
-     "layout (location = 1) in vec4 vColor;\n"
+     "in vec3 vPos;\n"
+     "in vec4 vColor;\n"
      "out vec4 color;\n"
      "void main() {\n"
      "    gl_Position = MVP * vec4(vPos, 1.0);\n"
@@ -84,8 +84,8 @@ GLApp::GLApp(uint32_t w, uint32_t h, uint32_t s,
      "}\n","",false,true)},
   simpleTexProg{GLProgram::createFromString(
      "uniform mat4 MVP;\n"
-     "layout (location = 0) in vec3 vPos;\n"
-     "layout (location = 1) in vec2 vTexCoords;\n"
+     "in vec3 vPos;\n"
+     "in vec2 vTexCoords;\n"
      "out vec4 color;\n"
      "out vec2 texCoords;\n"
      "void main() {\n"
@@ -102,9 +102,9 @@ GLApp::GLApp(uint32_t w, uint32_t h, uint32_t s,
      "uniform mat4 MVP;\n"
      "uniform mat4 MV;\n"
      "uniform mat4 MVit;\n"
-     "layout (location = 0) in vec3 vPos;\n"
-     "layout (location = 1) in vec4 vColor;\n"
-     "layout (location = 2) in vec3 vNormal;\n"
+     "in vec3 vPos;\n"
+     "in vec4 vColor;\n"
+     "in vec3 vNormal;\n"
      "out vec4 color;\n"
      "out vec3 normal;\n"
      "out vec3 pos;\n"
