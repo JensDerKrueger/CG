@@ -1,0 +1,38 @@
+name: Update Utils subtree
+
+on:
+  repository_dispatch:
+    types: [utils-updated]
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-utils:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (full history required for subtree)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Update subtree
+        run: |
+          git subtree pull --prefix=Utils https://github.com/JensDerKrueger/Utils.git main --squash
+
+      - name: Create PR
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: chore/update-utils-subtree
+          delete-branch: true
+          title: "Update Utils subtree"
+          commit-message: "Update Utils subtree"
+          body: |
+            Automated update of Utils subtree from JensDerKrueger/Utils.
