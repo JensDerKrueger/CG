@@ -19,7 +19,7 @@ endif
 
 SRC = main.cpp
 OBJ = $(addprefix $(OBJDIR)/,$(SRC:.cpp=.o))
-TARGET = splmes
+TARGET = splines
 
 TARGET_PATH = $(OUTDIR)/$(TARGET)
 
