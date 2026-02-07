@@ -25,15 +25,12 @@ public:
   virtual void init() override {
     setupShaders();
     setupGeometry();
-    GL(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
   }
 
   virtual void animate(double animationTime) override {    
   }
 
   virtual void draw() override {
-    GL(glClear(GL_COLOR_BUFFER_BIT));
-    
     GL(glUseProgram(program));
     modelView = Mat4::translation(0.0f, -1.0f, 0.0f);
     GL(glUniformMatrix4fv(modelViewMatrixUniform, 1, GL_TRUE, modelView));

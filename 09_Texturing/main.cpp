@@ -17,8 +17,6 @@ public:
 
 	virtual void init() override {
 		GL(glDisable(GL_CULL_FACE));
-		GL(glClearColor(0, 0, 0, 0));
-
 		Scene texturedScene = Scene::genTexturedScene();
 		render(texturedScene, 5, image);
 		render(texturedScene, 5, debugImage, true);
@@ -41,8 +39,6 @@ public:
 	}
 
 	virtual void draw() override {
-		GL(glClear(GL_COLOR_BUFFER_BIT));
-
 		if (drawDebug)
 			drawImage(debugImage);
 		else

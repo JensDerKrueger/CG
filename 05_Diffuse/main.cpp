@@ -13,7 +13,6 @@ public:
 
   virtual void init() override {
     GL(glDisable(GL_CULL_FACE));
-    GL(glClearColor(0, 0, 0, 0));
 
     // define some materials for our triangles
     const Material red{ Vec3{1, 0, 0} };
@@ -49,7 +48,6 @@ public:
   }
 
   virtual void draw() override {
-    GL(glClear(GL_COLOR_BUFFER_BIT));
     drawImage(image);
   }
 

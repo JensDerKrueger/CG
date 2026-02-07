@@ -105,8 +105,6 @@ class MyGLApp : public GLApp {
     glCullFace(GL_BACK);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
-    glClearDepth(1.0f);
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 #ifdef only2D
     lookFromVec = Vec3{ 0,0,cameraDistance };
@@ -128,8 +126,6 @@ class MyGLApp : public GLApp {
       fixedParticles.push_back(particle);
       octree.add(particle);
     }
-
-
   }
 
   virtual void draw() override {
@@ -151,7 +147,6 @@ class MyGLApp : public GLApp {
     }
 
     const Dimensions dim = glEnv.getWindowSize();
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 #ifdef only2D
     const Mat4 p{ Mat4::perspective(6.0f, dim.aspect(), 0.0001f, 1000.0f) };

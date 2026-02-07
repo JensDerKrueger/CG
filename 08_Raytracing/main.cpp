@@ -13,7 +13,6 @@ public:
     
   virtual void init() {
     GL(glDisable(GL_CULL_FACE));
-    GL(glClearColor(0,0,0,0));
     render(Scene::genSimpleScene(), 9);
   }
 
@@ -31,7 +30,6 @@ public:
   }
 
   virtual void draw() {
-    GL(glClear(GL_COLOR_BUFFER_BIT));
     drawImage(image);
   }
 
