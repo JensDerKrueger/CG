@@ -39,11 +39,17 @@ GLApp::GLApp(uint32_t w, uint32_t h, uint32_t s,
      "}\n","",false,true)},
   simplePointProg{GLProgram::createFromString(
      "uniform mat4 MVP;\n"
+     "#ifdef WEBGL\n"
+     "uniform float pointSize;\n"
+     "#endif"
      "in vec3 vPos;\n"
      "in vec4 vColor;\n"
      "out vec4 color;\n"
      "void main() {\n"
      "    gl_Position = MVP * vec4(vPos, 1.0);\n"
+     "    #ifdef WEBGL\n"
+     "    gl_PointSize = pointSize;\n"
+     "    #endif"
      "    color = vColor;\n"
      "}\n",
      "in vec4 color;\n"
@@ -53,11 +59,17 @@ GLApp::GLApp(uint32_t w, uint32_t h, uint32_t s,
      "}\n","",false,true)},
   simpleSpriteProg{GLProgram::createFromString(
      "uniform mat4 MVP;\n"
+     "#ifdef WEBGL\n"
+     "uniform float pointSize;\n"
+     "#endif"
      "in vec3 vPos;\n"
      "in vec4 vColor;\n"
      "out vec4 color;\n"
      "void main() {\n"
      "    gl_Position = MVP * vec4(vPos, 1.0);\n"
+     "    #ifdef WEBGL\n"
+     "    gl_PointSize = pointSize;\n"
+     "    #endif"
      "    color = vColor;\n"
      "}\n",
      "uniform sampler2D pointSprite;\n"
@@ -68,11 +80,17 @@ GLApp::GLApp(uint32_t w, uint32_t h, uint32_t s,
      "}\n","",false,true)},
   simpleHLSpriteProg{GLProgram::createFromString(
      "uniform mat4 MVP;\n"
+     "#ifdef WEBGL\n"
+     "uniform float pointSize;\n"
+     "#endif"
      "in vec3 vPos;\n"
      "in vec4 vColor;\n"
      "out vec4 color;\n"
      "void main() {\n"
      "    gl_Position = MVP * vec4(vPos, 1.0);\n"
+     "    #ifdef WEBGL\n"
+     "    gl_PointSize = pointSize;\n"
+     "    #endif"
      "    color = vColor;\n"
      "}\n",
      "uniform sampler2D pointSprite;\n"
@@ -434,6 +452,8 @@ void GLApp::drawPoints(const std::vector<float>& data, float pointSize, bool use
       simpleHLSpriteProg.enable();
 #ifdef __EMSCRIPTEN__
       simpleHLSpriteProg.setUniform("pointSize", pointSize);
+#else
+      GL(glPointSize(pointSize));
 #endif
       simpleHLSpriteProg.setTexture("pointSprite", pointSprite, 0);
       simpleHLSpriteProg.setTexture("pointSpriteHighlight", pointSpriteHighlight, 1);
