@@ -1,0 +1,26 @@
+name: Dispatch Utils update
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        repo:
+          - JensDerKrueger/CG
+          - JensDerKrueger/AIS
+          - JensDerKrueger/VIS
+
+    steps:
+      - name: Send repository_dispatch to lecture repo
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.REPO_DISPATCH_TOKEN }}
+          repository: ${{ matrix.repo }}
+          event-type: utils-updated
+          client-payload: '{"utils_sha":"${{ github.sha }}"}'
