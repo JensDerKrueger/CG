@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\ArcBall.cpp" />
+    <ClCompile Include="..\CommandInterpreter.cpp" />
     <ClCompile Include="..\Image.cpp" />
     <ClCompile Include="..\AbstractParticleSystem.cpp" />
     <ClCompile Include="..\bmp.cpp" />
@@ -39,9 +41,15 @@
     <ClCompile Include="..\ImageLoader.cpp" />
     <ClCompile Include="..\OBJFile.cpp" />
     <ClCompile Include="..\Rand.cpp" />
+    <ClCompile Include="..\Tesselation.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\ArcBall.h" />
     <ClInclude Include="..\ColorConversion.h" />
+    <ClInclude Include="..\CommandInterpreter.h" />
+    <ClInclude Include="..\GLAppKeyTranslation.h" />
+    <ClInclude Include="..\GLDepthTexture.h" />
+    <ClInclude Include="..\GLScreenshot.h" />
     <ClInclude Include="..\Image.h" />
     <ClInclude Include="..\ImageLoader.h" />
     <ClInclude Include="..\Mat3.h" />
@@ -64,8 +72,11 @@
     <ClInclude Include="..\Grid2D.h" />
     <ClInclude Include="..\Mat4.h" />
     <ClInclude Include="..\OBJFile.h" />
+    <ClInclude Include="..\PerformanceTimer.h" />
+    <ClInclude Include="..\Quaternion.h" />
     <ClInclude Include="..\Rand.h" />
     <ClInclude Include="..\stb_image.h" />
+    <ClInclude Include="..\Tesselation.h" />
     <ClInclude Include="..\Vec2.h" />
     <ClInclude Include="..\Vec3.h" />
     <ClInclude Include="..\Vec4.h" />
@@ -87,25 +98,25 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
