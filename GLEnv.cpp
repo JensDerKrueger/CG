@@ -375,23 +375,23 @@ std::string GLEnv::getOpenGlInfoString(bool includeExtensions) {
   glGetIntegerv(GL_MAJOR_VERSION, &majorVersion);
   glGetIntegerv(GL_MINOR_VERSION, &minorVersion);
 
-  GLint profileMask = 0;
 #ifdef GL_CONTEXT_PROFILE_MASK
+  GLint profileMask = 0;
   glGetIntegerv(GL_CONTEXT_PROFILE_MASK, &profileMask);
 #endif
 
-  GLint contextFlags = 0;
 #ifdef GL_CONTEXT_FLAGS
+  GLint contextFlags = 0;
   glGetIntegerv(GL_CONTEXT_FLAGS, &contextFlags);
 #endif
 
-  auto profileMaskToString = [&](GLint mask) -> std::string {
 #ifdef GL_CONTEXT_PROFILE_MASK
+  auto profileMaskToString = [&](GLint mask) -> std::string {
     if (mask & GL_CONTEXT_CORE_PROFILE_BIT) return "Core";
     if (mask & GL_CONTEXT_COMPATIBILITY_PROFILE_BIT) return "Compatibility";
-#endif
     return "Unknown";
   };
+#endif
 
   std::ostringstream out;
   out << "OpenGL Info\n"
@@ -432,15 +432,12 @@ std::string GLEnv::getOpenGlInfoString(bool includeExtensions) {
     glGetIntegerv(GL_NUM_EXTENSIONS, &extensionCount);
 
     if (extensionCount > 0) {
+#ifdef GL_VERSION_3_0
       // Modern way (GL 3.0+): glGetStringi
       for (GLint i = 0; i < extensionCount; ++i) {
-#ifdef GL_VERSION_3_0
         out << ptrToString(glGetStringi(GL_EXTENSIONS, static_cast<GLuint>(i))) << "\n";
-#else
-        break;
-#endif
       }
-#ifndef GL_VERSION_3_0
+#else
       out << "<glGetStringi not available in this build>\n";
 #endif
     } else {

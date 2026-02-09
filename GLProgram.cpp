@@ -37,11 +37,11 @@ void GLProgram::setShaderPreamble(const std::string& preamble) {
 
 
 GLProgram::GLProgram(const GLProgram& other) :
-  GLProgram(other.vertexShaderStrings,
-            other.fragmentShaderStrings,
-            other.geometryShaderStrings,
-            other.quietFail,
-            other.addVersionHeader)
+GLProgram(other.vertexShaderStrings,
+          other.fragmentShaderStrings,
+          other.geometryShaderStrings,
+          other.quietFail,
+          other.addVersionHeader)
 {
 }
 
@@ -58,11 +58,11 @@ GLProgram& GLProgram::operator=(const GLProgram& other) {
 }
 
 GLuint GLProgram::createShader(GLenum type, const GLchar** src, GLsizei count) {
-	if (count==0) return 0;
-	GLuint s = glCreateShader(type); checkAndThrow();
-	glShaderSource(s, count, src, NULL); checkAndThrow();
-	glCompileShader(s); checkAndThrowShader(s);
-	return s;
+  if (count==0) return 0;
+  GLuint s = glCreateShader(type); checkAndThrow();
+  glShaderSource(s, count, src, NULL); checkAndThrow();
+  glCompileShader(s); checkAndThrowShader(s);
+  return s;
 }
 
 GLProgram::GLProgram(std::vector<std::string> vertexShaderStrings,
@@ -70,58 +70,58 @@ GLProgram::GLProgram(std::vector<std::string> vertexShaderStrings,
                      std::vector<std::string> geometryShaderStrings,
                      bool quietFail,
                      bool addVersionHeader):
-  quietFail(quietFail),
-  addVersionHeader(addVersionHeader),
-  glVertexShader(0),
-  glFragmentShader(0),
-  glGeometryShader(0),
-  glProgram(0),
-  vertexShaderStrings(vertexShaderStrings),
-  fragmentShaderStrings(fragmentShaderStrings),
-  geometryShaderStrings(geometryShaderStrings)
+quietFail(quietFail),
+addVersionHeader(addVersionHeader),
+glVertexShader(0),
+glFragmentShader(0),
+glGeometryShader(0),
+glProgram(0),
+vertexShaderStrings(vertexShaderStrings),
+fragmentShaderStrings(fragmentShaderStrings),
+geometryShaderStrings(geometryShaderStrings)
 {
   programFromVectors(vertexShaderStrings, fragmentShaderStrings, geometryShaderStrings);
 }
 
 GLProgram::~GLProgram() {
-	GL(glDeleteShader(glVertexShader));
-	GL(glDeleteShader(glFragmentShader));
-	GL(glDeleteShader(glGeometryShader));
-	GL(glDeleteProgram(glProgram));
+  GL(glDeleteShader(glVertexShader));
+  GL(glDeleteShader(glFragmentShader));
+  GL(glDeleteShader(glGeometryShader));
+  GL(glDeleteProgram(glProgram));
 }
 
 GLProgram GLProgram::createFromFiles(const std::vector<std::string>& vs,
                                      const std::vector<std::string>& fs,
                                      const std::vector<std::string>& gs,
                                      bool quietFail, bool addVersionHeader) {
-	std::vector<std::string> vsTexts;
-	for (const std::string& f : vs) {
-		vsTexts.push_back(loadFile(f));
-	}
-	std::vector<std::string> fsTexts;
-	for (const std::string& f : fs) {
-		fsTexts.push_back(loadFile(f));
-	}
-	std::vector<std::string> gsTexts;
-	for (const std::string& f : gs) {
-		if (!f.empty())		
-			gsTexts.push_back(loadFile(f));
-	}
-	return createFromStrings(vsTexts,fsTexts,gsTexts,quietFail,addVersionHeader);
+  std::vector<std::string> vsTexts;
+  for (const std::string& f : vs) {
+    vsTexts.push_back(loadFile(f));
+  }
+  std::vector<std::string> fsTexts;
+  for (const std::string& f : fs) {
+    fsTexts.push_back(loadFile(f));
+  }
+  std::vector<std::string> gsTexts;
+  for (const std::string& f : gs) {
+    if (!f.empty())
+      gsTexts.push_back(loadFile(f));
+  }
+  return createFromStrings(vsTexts,fsTexts,gsTexts,quietFail,addVersionHeader);
 }
 
 GLProgram GLProgram::createFromStrings(const std::vector<std::string>& vs,
                                        const std::vector<std::string>& fs,
                                        const std::vector<std::string>& gs,
                                        bool quietFail, bool addVersionHeader) {
-	return {vs,fs,gs,quietFail,addVersionHeader};
+  return {vs,fs,gs,quietFail,addVersionHeader};
 }
 
 GLProgram GLProgram::createFromFile(const std::string& vs,
                                     const std::string& fs,
                                     const std::string& gs,
                                     bool quietFail, bool addVersionHeader) {
-	return createFromFiles(std::vector<std::string>{vs},
+  return createFromFiles(std::vector<std::string>{vs},
                          std::vector<std::string>{fs},
                          std::vector<std::string>{gs},
                          quietFail,addVersionHeader);
@@ -131,51 +131,51 @@ GLProgram GLProgram::createFromString(const std::string& vs,
                                       const std::string& fs,
                                       const std::string& gs,
                                       bool quietFail, bool addVersionHeader) {
-	return createFromStrings(std::vector<std::string>{vs},
+  return createFromStrings(std::vector<std::string>{vs},
                            std::vector<std::string>{fs},
                            std::vector<std::string> {gs},
                            quietFail,addVersionHeader);
 }
 
 std::string GLProgram::loadFile(const std::string& filename) {
-	std::ifstream shaderFile{filename};
-	if (!shaderFile) {
-		throw ProgramException{std::string("Unable to open file ") +  filename};
-	}
-	std::string str;
-	std::string fileContents;
-	while (std::getline(shaderFile, str)) {
-		fileContents += str + "\n";
-	} 
-	return fileContents;
+  std::ifstream shaderFile{filename};
+  if (!shaderFile) {
+    throw ProgramException{std::string("Unable to open file ") +  filename};
+  }
+  std::string str;
+  std::string fileContents;
+  while (std::getline(shaderFile, str)) {
+    fileContents += str + "\n";
+  }
+  return fileContents;
 }
 
 GLint GLProgram::getAttributeLocation(const std::string& id) const {
   const GLint l = glGetAttribLocation(glProgram, id.c_str());
-	checkAndThrow();	
-	if(!quietFail && l == -1)
-		throw ProgramException{std::string("Can't find attribute ") +  id};
-	return l;
+  checkAndThrow();
+  if(!quietFail && l == -1)
+    throw ProgramException{std::string("Can't find attribute ") +  id};
+  return l;
 }
 
 GLint GLProgram::getUniformLocation(const std::string& id) const {
-	const GLint l = glGetUniformLocation(glProgram, id.c_str());
-	checkAndThrow();
-	if(!quietFail && l == -1)
-		throw ProgramException{std::string("Can't find uniform ") +  id};	
-	return l;
+  const GLint l = glGetUniformLocation(glProgram, id.c_str());
+  checkAndThrow();
+  if(!quietFail && l == -1)
+    throw ProgramException{std::string("Can't find uniform ") +  id};
+  return l;
 }
 
 void GLProgram::enable() const {
-	GL(glUseProgram(glProgram));
+  GL(glUseProgram(glProgram));
 }
 
 void GLProgram::disable() const {
-	GL(glUseProgram(0));
+  GL(glUseProgram(0));
 }
 
 void GLProgram::setUniform(GLint id, float value) const {
-	GL(glUniform1f(id, value));
+  GL(glUniform1f(id, value));
 }
 
 void GLProgram::setUniform(GLint id, const Vec2& value) const {
@@ -183,7 +183,7 @@ void GLProgram::setUniform(GLint id, const Vec2& value) const {
 }
 
 void GLProgram::setUniform(GLint id, const Vec3& value) const {
-	GL(glUniform3fv(id, 1, value));
+  GL(glUniform3fv(id, 1, value));
 }
 
 void GLProgram::setUniform(GLint id, const Vec4& value) const {
@@ -207,7 +207,7 @@ void GLProgram::setUniform(GLint id, const Vec4i& value) const {
 }
 
 void GLProgram::setUniform(GLint id, const Mat4& value, bool transpose) const {
-	// since OpenGL matrices are usuall expected
+  // since OpenGL matrices are usuall expected
   // column major but our matrices are row major
   // hence, we invert the transposition flag
   GL(glUniformMatrix4fv(id, 1, !transpose, value));
@@ -265,9 +265,9 @@ void GLProgram::setTexture(GLint id, const GLTexture1D& texture, GLenum unit) co
 }
 
 void GLProgram::setTexture(GLint id, const GLTexture2D& texture, GLenum unit) const {
-	GL(glActiveTexture(GL_TEXTURE0 + unit));
-	GL(glBindTexture(GL_TEXTURE_2D, texture.getId()));
-	GL(glUniform1i(id, GLint(unit)));
+  GL(glActiveTexture(GL_TEXTURE0 + unit));
+  GL(glBindTexture(GL_TEXTURE_2D, texture.getId()));
+  GL(glUniform1i(id, GLint(unit)));
 }
 
 void GLProgram::setTexture(GLint id, const GLTexture3D& texture, GLenum unit) const {
@@ -318,14 +318,14 @@ void GLProgram::programFromVectors(std::vector<std::string> vs, std::vector<std:
 
 
   for (const std::string& s : vertexShaderStrings)
-   vertexShaderTexts.push_back(s.c_str());
+    vertexShaderTexts.push_back(s.c_str());
 
   for (const std::string& s : geometryShaderStrings)
     if (!s.empty())
       geometryShaderTexts.push_back(s.c_str());
 
   for (const std::string& s : fragmentShaderStrings)
-   fragmentShaderTexts.push_back(s.c_str());
+    fragmentShaderTexts.push_back(s.c_str());
 
   if (addVersionHeader) {
     if (!vertexShaderTexts.empty())
@@ -448,3 +448,4 @@ void GLProgram::setUniform(const std::string& id,
  CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
