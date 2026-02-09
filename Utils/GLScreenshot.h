@@ -119,6 +119,7 @@ public:
     return static_cast<bool>(out);
   }
 };
+
 /*
  Copyright (c) 2026 Computer Graphics and Visualization Group, University of
  Duisburg-Essen
