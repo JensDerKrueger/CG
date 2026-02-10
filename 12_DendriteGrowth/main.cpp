@@ -260,8 +260,6 @@ class MyGLApp : public GLApp {
   size_t particleCount = 0;
   Octree octree{ 0.04f, Vec3{0.0f,0.0f,0.0f}, 5, 8 };
   float cameraDistance = 0.42f;
-  bool bTerminateSimulation{ false };
-  float simulationSpeed = 100.0f;
   std::mutex simulationMutex;
   Random randomGen;
   Vec3 lookFromVec;
