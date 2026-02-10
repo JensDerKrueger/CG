@@ -113,17 +113,8 @@
       <AdditionalDependencies>utils.lib;opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>XCOPY "$(ProjectDir)..\*.bmp" "$(OutDir)*.*" /Y
-
-XCOPY "$(ProjectDir)..\*.glsl" "$(OutDir)*.*" /Y
-
-XCOPY "$(ProjectDir)..\*.obj" "$(OutDir)*.*" /Y
-
-XCOPY "$(ProjectDir)..\*.bmp" "$(ProjectDir)*.*" /Y
-
-XCOPY "$(ProjectDir)..\*.glsl" "$(ProjectDir)*.*" /Y
-
-XCOPY "$(ProjectDir)..\*.obj" "$(ProjectDir)*.*" /Y</Command>
+      <Command>XCOPY "$(ProjectDir)..\Datasets\*.*" "$(OutDir)*.*" /Y
+XCOPY "$(ProjectDir)..\Datasets\*.*" "$(ProjectDir)*.*" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -145,17 +136,8 @@ XCOPY "$(ProjectDir)..\*.obj" "$(ProjectDir)*.*" /Y</Command>
       <AdditionalDependencies>utils.lib;opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>XCOPY "$(ProjectDir)..\*.bmp" "$(OutDir)*.*" /Y
-
-XCOPY "$(ProjectDir)..\*.glsl" "$(OutDir)*.*" /Y
-
-XCOPY "$(ProjectDir)..\*.obj" "$(OutDir)*.*" /Y
-
-XCOPY "$(ProjectDir)..\*.bmp" "$(ProjectDir)*.*" /Y
-
-XCOPY "$(ProjectDir)..\*.glsl" "$(ProjectDir)*.*" /Y
-
-XCOPY "$(ProjectDir)..\*.obj" "$(ProjectDir)*.*" /Y</Command>
+      <Command>XCOPY "$(ProjectDir)..\Datasets\*.*" "$(OutDir)*.*" /Y
+XCOPY "$(ProjectDir)..\Datasets\*.*" "$(ProjectDir)*.*" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -173,17 +155,8 @@ XCOPY "$(ProjectDir)..\*.obj" "$(ProjectDir)*.*" /Y</Command>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\VS\lib\$(Platform);$(SolutionDir)$(PlatformTarget)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>XCOPY "$(ProjectDir)..\*.bmp" "$(OutDir)*.*" /Y
-
-XCOPY "$(ProjectDir)..\*.glsl" "$(OutDir)*.*" /Y
-
-XCOPY "$(ProjectDir)..\*.obj" "$(OutDir)*.*" /Y
-
-XCOPY "$(ProjectDir)..\*.bmp" "$(ProjectDir)*.*" /Y
-
-XCOPY "$(ProjectDir)..\*.glsl" "$(ProjectDir)*.*" /Y
-
-XCOPY "$(ProjectDir)..\*.obj" "$(ProjectDir)*.*" /Y</Command>
+      <Command>XCOPY "$(ProjectDir)..\Datasets\*.*" "$(OutDir)*.*" /Y
+XCOPY "$(ProjectDir)..\Datasets\*.*" "$(ProjectDir)*.*" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -205,17 +178,8 @@ XCOPY "$(ProjectDir)..\*.obj" "$(ProjectDir)*.*" /Y</Command>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\VS\lib\$(Platform);$(SolutionDir)$(PlatformTarget)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>XCOPY "$(ProjectDir)..\*.bmp" "$(OutDir)*.*" /Y
-
-XCOPY "$(ProjectDir)..\*.glsl" "$(OutDir)*.*" /Y
-
-XCOPY "$(ProjectDir)..\*.obj" "$(OutDir)*.*" /Y
-
-XCOPY "$(ProjectDir)..\*.bmp" "$(ProjectDir)*.*" /Y
-
-XCOPY "$(ProjectDir)..\*.glsl" "$(ProjectDir)*.*" /Y
-
-XCOPY "$(ProjectDir)..\*.obj" "$(ProjectDir)*.*" /Y</Command>
+      <Command>XCOPY "$(ProjectDir)..\Datasets\*.*" "$(OutDir)*.*" /Y
+XCOPY "$(ProjectDir)..\Datasets\*.*" "$(ProjectDir)*.*" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

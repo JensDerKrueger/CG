@@ -69,8 +69,6 @@
 		56F086A82F315CA900F5AE3E /* PerformanceTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = 56F086642F315CA900F5AE3E /* PerformanceTimer.h */; };
 		56F086A92F315CA900F5AE3E /* GLTextureCube.h in Headers */ = {isa = PBXBuildFile; fileRef = 56F086522F315CA900F5AE3E /* GLTextureCube.h */; };
 		56F086AA2F315CA900F5AE3E /* GLFramebuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 56F086472F315CA900F5AE3E /* GLFramebuffer.h */; };
-		56F086AC2F315CA900F5AE3E /* GLTextureCube.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 56F086542F315CA900F5AE3E /* GLTextureCube.o */; };
-		56F086AD2F315CA900F5AE3E /* AbstractParticleSystem.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 56F0862E2F315CA900F5AE3E /* AbstractParticleSystem.o */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,7 +98,6 @@
 		56C308672ADFE5EE001E10D2 /* libUtils.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libUtils.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56F0862C2F315CA900F5AE3E /* AbstractParticleSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AbstractParticleSystem.h; path = ../Utils/AbstractParticleSystem.h; sourceTree = SOURCE_ROOT; };
 		56F0862D2F315CA900F5AE3E /* AbstractParticleSystem.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = AbstractParticleSystem.cpp; path = ../Utils/AbstractParticleSystem.cpp; sourceTree = SOURCE_ROOT; };
-		56F0862E2F315CA900F5AE3E /* AbstractParticleSystem.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = AbstractParticleSystem.o; path = ../Utils/AbstractParticleSystem.o; sourceTree = SOURCE_ROOT; };
 		56F0862F2F315CA900F5AE3E /* ArcBall.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ArcBall.h; path = ../Utils/ArcBall.h; sourceTree = SOURCE_ROOT; };
 		56F086302F315CA900F5AE3E /* ArcBall.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ArcBall.cpp; path = ../Utils/ArcBall.cpp; sourceTree = SOURCE_ROOT; };
 		56F086312F315CA900F5AE3E /* bmp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = bmp.h; path = ../Utils/bmp.h; sourceTree = SOURCE_ROOT; };
@@ -138,7 +135,6 @@
 		56F086512F315CA900F5AE3E /* GLTexture3D.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = GLTexture3D.cpp; path = ../Utils/GLTexture3D.cpp; sourceTree = SOURCE_ROOT; };
 		56F086522F315CA900F5AE3E /* GLTextureCube.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GLTextureCube.h; path = ../Utils/GLTextureCube.h; sourceTree = SOURCE_ROOT; };
 		56F086532F315CA900F5AE3E /* GLTextureCube.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = GLTextureCube.cpp; path = ../Utils/GLTextureCube.cpp; sourceTree = SOURCE_ROOT; };
-		56F086542F315CA900F5AE3E /* GLTextureCube.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = GLTextureCube.o; path = ../Utils/GLTextureCube.o; sourceTree = SOURCE_ROOT; };
 		56F086552F315CA900F5AE3E /* Grid2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Grid2D.h; path = ../Utils/Grid2D.h; sourceTree = SOURCE_ROOT; };
 		56F086562F315CA900F5AE3E /* Grid2D.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Grid2D.cpp; path = ../Utils/Grid2D.cpp; sourceTree = SOURCE_ROOT; };
 		56F086572F315CA900F5AE3E /* helvetica_neue.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = helvetica_neue.bmp; path = ../Utils/helvetica_neue.bmp; sourceTree = SOURCE_ROOT; };
@@ -171,8 +167,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				56F086AC2F315CA900F5AE3E /* GLTextureCube.o in Frameworks */,
-				56F086AD2F315CA900F5AE3E /* AbstractParticleSystem.o in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,7 +185,6 @@
 			children = (
 				56F0862C2F315CA900F5AE3E /* AbstractParticleSystem.h */,
 				56F0862D2F315CA900F5AE3E /* AbstractParticleSystem.cpp */,
-				56F0862E2F315CA900F5AE3E /* AbstractParticleSystem.o */,
 				56F0862F2F315CA900F5AE3E /* ArcBall.h */,
 				56F086302F315CA900F5AE3E /* ArcBall.cpp */,
 				56F086312F315CA900F5AE3E /* bmp.h */,
@@ -229,7 +222,6 @@
 				56F086512F315CA900F5AE3E /* GLTexture3D.cpp */,
 				56F086522F315CA900F5AE3E /* GLTextureCube.h */,
 				56F086532F315CA900F5AE3E /* GLTextureCube.cpp */,
-				56F086542F315CA900F5AE3E /* GLTextureCube.o */,
 				56F086552F315CA900F5AE3E /* Grid2D.h */,
 				56F086562F315CA900F5AE3E /* Grid2D.cpp */,
 				56F086572F315CA900F5AE3E /* helvetica_neue.bmp */,

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		561A75FA2BCFA8EC00ED821F /* bunny.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 561A75F92BCFA8D800ED821F /* bunny.obj */; };
 		5677395325FB7BF000AB2341 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5677394C25FB7BF000AB2341 /* main.cpp */; };
 		5694F3F32AA9BB9F004CFC38 /* GLBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5694F3C22AA9BB9E004CFC38 /* GLBuffer.cpp */; };
 		5694F3F42AA9BB9F004CFC38 /* GLDebug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5694F3C32AA9BB9E004CFC38 /* GLDebug.cpp */; };
@@ -49,6 +48,7 @@
 		56CA2EBF2BD100E100CFDA64 /* GLTextureCube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56CA2EBD2BD100E100CFDA64 /* GLTextureCube.cpp */; };
 		56E2CB3C2F30ECDA00627B39 /* CommandInterpreter.h in Headers */ = {isa = PBXBuildFile; fileRef = 56E2CB3A2F30ECDA00627B39 /* CommandInterpreter.h */; };
 		56E2CB3D2F30ECDA00627B39 /* CommandInterpreter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56E2CB3B2F30ECDA00627B39 /* CommandInterpreter.cpp */; };
+		56F619B82F3AAAFC00FAD236 /* bunny.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 56F619B72F3AAAF600FAD236 /* bunny.obj */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,7 +68,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
-				561A75FA2BCFA8EC00ED821F /* bunny.obj in CopyFiles */,
+				56F619B82F3AAAFC00FAD236 /* bunny.obj in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,7 +76,6 @@
 
 /* Begin PBXFileReference section */
 		560A43782AA9A43B00DB0F92 /* libUtils.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libUtils.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		561A75F92BCFA8D800ED821F /* bunny.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = bunny.obj; sourceTree = "<group>"; };
 		5677394C25FB7BF000AB2341 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		5694F3C22AA9BB9E004CFC38 /* GLBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GLBuffer.cpp; path = ../Utils/GLBuffer.cpp; sourceTree = "<group>"; };
 		5694F3C32AA9BB9E004CFC38 /* GLDebug.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GLDebug.cpp; path = ../Utils/GLDebug.cpp; sourceTree = "<group>"; };
@@ -118,6 +117,7 @@
 		56CA2EBD2BD100E100CFDA64 /* GLTextureCube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GLTextureCube.cpp; path = ../Utils/GLTextureCube.cpp; sourceTree = "<group>"; };
 		56E2CB3A2F30ECDA00627B39 /* CommandInterpreter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CommandInterpreter.h; path = ../Utils/CommandInterpreter.h; sourceTree = SOURCE_ROOT; };
 		56E2CB3B2F30ECDA00627B39 /* CommandInterpreter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CommandInterpreter.cpp; path = ../Utils/CommandInterpreter.cpp; sourceTree = SOURCE_ROOT; };
+		56F619B72F3AAAF600FAD236 /* bunny.obj */ = {isa = PBXFileReference; lastKnownFileType = text; name = bunny.obj; path = Datasets/bunny.obj; sourceTree = "<group>"; };
 		A231F0FF25EAF61A00CBFC23 /* OBJ-Demo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "OBJ-Demo"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -142,8 +142,8 @@
 		560A43732AA9A40400DB0F92 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				561A75F92BCFA8D800ED821F /* bunny.obj */,
 				5677394C25FB7BF000AB2341 /* main.cpp */,
+				56F619B72F3AAAF600FAD236 /* bunny.obj */,
 			);
 			name = Application;
 			sourceTree = "<group>";

@@ -56,6 +56,8 @@
 		5694F4212AA9BB9F004CFC38 /* GLApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5694F3F02AA9BB9F004CFC38 /* GLApp.cpp */; };
 		56CA2EBE2BD100E100CFDA64 /* GLTextureCube.h in Headers */ = {isa = PBXBuildFile; fileRef = 56CA2EBC2BD100E100CFDA64 /* GLTextureCube.h */; };
 		56CA2EBF2BD100E100CFDA64 /* GLTextureCube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56CA2EBD2BD100E100CFDA64 /* GLTextureCube.cpp */; };
+		56F619C72F3AB15900FAD236 /* CommandInterpreter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56F619C62F3AB15900FAD236 /* CommandInterpreter.cpp */; };
+		56F619C82F3AB15900FAD236 /* CommandInterpreter.h in Headers */ = {isa = PBXBuildFile; fileRef = 56F619C52F3AB15900FAD236 /* CommandInterpreter.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -142,7 +144,9 @@
 		5694F3F02AA9BB9F004CFC38 /* GLApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GLApp.cpp; path = ../Utils/GLApp.cpp; sourceTree = "<group>"; };
 		56CA2EBC2BD100E100CFDA64 /* GLTextureCube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLTextureCube.h; path = ../Utils/GLTextureCube.h; sourceTree = "<group>"; };
 		56CA2EBD2BD100E100CFDA64 /* GLTextureCube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GLTextureCube.cpp; path = ../Utils/GLTextureCube.cpp; sourceTree = "<group>"; };
-		A231F0FF25EAF61A00CBFC23 /* Raycaster-Demo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Raycaster-Demo"; sourceTree = BUILT_PRODUCTS_DIR; };
+		56F619C52F3AB15900FAD236 /* CommandInterpreter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CommandInterpreter.h; path = ../Utils/CommandInterpreter.h; sourceTree = SOURCE_ROOT; };
+		56F619C62F3AB15900FAD236 /* CommandInterpreter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CommandInterpreter.cpp; path = ../Utils/CommandInterpreter.cpp; sourceTree = SOURCE_ROOT; };
+		A231F0FF25EAF61A00CBFC23 /* Raytracer-Demo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Raytracer-Demo"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +214,8 @@
 				5694F3CD2AA9BB9F004CFC38 /* GLDebug.h */,
 				5694F3C92AA9BB9F004CFC38 /* GLEnv.cpp */,
 				5694F3CB2AA9BB9F004CFC38 /* GLEnv.h */,
+				56F619C52F3AB15900FAD236 /* CommandInterpreter.h */,
+				56F619C62F3AB15900FAD236 /* CommandInterpreter.cpp */,
 				5694F3E12AA9BB9F004CFC38 /* GLProgram.cpp */,
 				5694F3CA2AA9BB9F004CFC38 /* GLProgram.h */,
 				5694F3D92AA9BB9F004CFC38 /* GLTexture1D.cpp */,
@@ -249,7 +255,7 @@
 		A231F10025EAF61A00CBFC23 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A231F0FF25EAF61A00CBFC23 /* Raycaster-Demo */,
+				A231F0FF25EAF61A00CBFC23 /* Raytracer-Demo */,
 				560A43782AA9A43B00DB0F92 /* libUtils.a */,
 			);
 			name = Products;
@@ -277,6 +283,7 @@
 				5694F4102AA9BB9F004CFC38 /* Rand.h in Headers */,
 				5694F3FF2AA9BB9F004CFC38 /* GLTexture2D.h in Headers */,
 				5694F41F2AA9BB9F004CFC38 /* Grid2D.h in Headers */,
+				56F619C82F3AB15900FAD236 /* CommandInterpreter.h in Headers */,
 				5694F4012AA9BB9F004CFC38 /* GLTexture3D.h in Headers */,
 				5694F40E2AA9BB9F004CFC38 /* GLTexture1D.h in Headers */,
 				5694F41D2AA9BB9F004CFC38 /* bmp.h in Headers */,
@@ -307,9 +314,9 @@
 			productReference = 560A43782AA9A43B00DB0F92 /* libUtils.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		A231F0FE25EAF61A00CBFC23 /* Raycaster-Demo */ = {
+		A231F0FE25EAF61A00CBFC23 /* Raytracer-Demo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A231F10625EAF61A00CBFC23 /* Build configuration list for PBXNativeTarget "Raycaster-Demo" */;
+			buildConfigurationList = A231F10625EAF61A00CBFC23 /* Build configuration list for PBXNativeTarget "Raytracer-Demo" */;
 			buildPhases = (
 				A231F0FB25EAF61A00CBFC23 /* Sources */,
 				A231F0FC25EAF61A00CBFC23 /* Frameworks */,
@@ -320,9 +327,9 @@
 			dependencies = (
 				560A43E82AA9A53100DB0F92 /* PBXTargetDependency */,
 			);
-			name = "Raycaster-Demo";
-			productName = "Raycaster-Demo";
-			productReference = A231F0FF25EAF61A00CBFC23 /* Raycaster-Demo */;
+			name = "Raytracer-Demo";
+			productName = "Raytracer-Demo";
+			productReference = A231F0FF25EAF61A00CBFC23 /* Raytracer-Demo */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -342,7 +349,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A231F0FA25EAF61A00CBFC23 /* Build configuration list for PBXProject "Raycaster" */;
+			buildConfigurationList = A231F0FA25EAF61A00CBFC23 /* Build configuration list for PBXProject "Raytracer" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -355,7 +362,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A231F0FE25EAF61A00CBFC23 /* Raycaster-Demo */,
+				A231F0FE25EAF61A00CBFC23 /* Raytracer-Demo */,
 				560A43772AA9A43B00DB0F92 /* Utils */,
 			);
 		};
@@ -372,6 +379,7 @@
 				5694F3F42AA9BB9F004CFC38 /* GLDebug.cpp in Sources */,
 				5694F4182AA9BB9F004CFC38 /* OBJFile.cpp in Sources */,
 				56CA2EBF2BD100E100CFDA64 /* GLTextureCube.cpp in Sources */,
+				56F619C72F3AB15900FAD236 /* CommandInterpreter.cpp in Sources */,
 				5694F3FA2AA9BB9F004CFC38 /* GLEnv.cpp in Sources */,
 				5694F4072AA9BB9F004CFC38 /* GLArray.cpp in Sources */,
 				5694F4212AA9BB9F004CFC38 /* GLApp.cpp in Sources */,
@@ -725,7 +733,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A231F0FA25EAF61A00CBFC23 /* Build configuration list for PBXProject "Raycaster" */ = {
+		A231F0FA25EAF61A00CBFC23 /* Build configuration list for PBXProject "Raytracer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A231F10425EAF61A00CBFC23 /* Debug */,
@@ -734,7 +742,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A231F10625EAF61A00CBFC23 /* Build configuration list for PBXNativeTarget "Raycaster-Demo" */ = {
+		A231F10625EAF61A00CBFC23 /* Build configuration list for PBXNativeTarget "Raytracer-Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A231F10725EAF61A00CBFC23 /* Debug */,

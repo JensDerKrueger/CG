@@ -45,7 +45,6 @@ public:
     GLApp::resize(winDim, fbDim);
 
     const float ratio = fbDim.aspect();
-
     projection = Mat4::ortho(-ratio * 1.5f, ratio * 1.5f, -1.5f, 1.5f, -10.0f, 10.0f);
     GL(glUseProgram(program));
     GL(glUniformMatrix4fv(projectionMatrixUniform, 1, GL_TRUE, projection));
@@ -77,8 +76,8 @@ public:
   }
   
   void setupShaders() {
-    const std::string vertexSrcPath = "res/shaders/vertexShader.vert";
-    const std::string fragmentSrcPath = "res/shaders/fragmentShader.frag";
+    const std::string vertexSrcPath = "vertexShader.vert";
+    const std::string fragmentSrcPath = "fragmentShader.frag";
     GLuint vertexShader = createShaderFromFile(GL_VERTEX_SHADER, vertexSrcPath);
     GLuint fragmentShader = createShaderFromFile(GL_FRAGMENT_SHADER, fragmentSrcPath);
     
