@@ -4,13 +4,32 @@
 #include <string>
 #include <fstream>
 #include <cstdint>
+#include <filesystem>
+#include <algorithm>
 
 #include "GLApp.h"
 
+#include "png.h"
+#include "bmp.h"
+
 class GLScreenshot {
 public:
-  static bool savePpm(const std::string &fileName)
-  {
+  static bool save(const std::string &fileName) {
+    std::filesystem::path p(fileName);
+    if (!p.has_extension()) return false;
+
+    std::string ext = p.extension().string(); // includes '.'
+    std::transform(ext.begin(), ext.end(), ext.begin(),
+                   [](unsigned char c){ return char(std::tolower(c)); });
+
+    if (ext == ".png") return savePng(fileName);
+    if (ext == ".ppm") return savePpm(fileName);
+    if (ext == ".bmp" || ext == ".bpm") return saveBmp(fileName);
+
+    return false;
+  }
+
+  static bool savePpm(const std::string &fileName) {
     GLint viewport[4];
     glGetIntegerv(GL_VIEWPORT, viewport);
     int width  = viewport[2];
@@ -38,8 +57,7 @@ public:
     return static_cast<bool>(out);
   }
 
-  static bool saveBmp(const std::string &fileName)
-  {
+  static bool savePng(const std::string &fileName) {
     GLint viewport[4];
     glGetIntegerv(GL_VIEWPORT, viewport);
     int width  = viewport[2];
@@ -47,76 +65,42 @@ public:
 
     if (width <= 0 || height <= 0) return false;
 
-    std::vector<unsigned char> pixels(size_t(width * height * 3));
+    Image image{uint32_t(width),uint32_t(height),3};
 
     glPixelStorei(GL_PACK_ALIGNMENT, 1);
     glReadBuffer(GL_BACK);
-    glReadPixels(0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, pixels.data());
+    glReadPixels(0,
+                 0,
+                 width,
+                 height,
+                 GL_RGB,
+                 GL_UNSIGNED_BYTE,
+                 image.data.data());
 
-    const std::uint32_t headerSize = 54;
-    const std::uint32_t rowStride  = static_cast<std::uint32_t>(width) * 3;
-    const std::uint32_t padding    = (4 - (rowStride % 4)) % 4;
-    const std::uint32_t rowSize    = rowStride + padding;
-    const std::uint32_t dataSize   = rowSize * static_cast<std::uint32_t>(height);
-    const std::uint32_t fileSize   = headerSize + dataSize;
+    return PNG::save(fileName, image);
+  }
 
-    std::ofstream out(fileName, std::ios::binary);
-    if (!out) return false;
+  static bool saveBmp(const std::string &fileName) {
+    GLint viewport[4];
+    glGetIntegerv(GL_VIEWPORT, viewport);
+    int width  = viewport[2];
+    int height = viewport[3];
 
-    auto writeUint16 = [&out](std::uint16_t v) {
-      out.put(static_cast<char>(v & 0xFF));
-      out.put(static_cast<char>((v >> 8) & 0xFF));
-    };
+    if (width <= 0 || height <= 0) return false;
 
-    auto writeUint32 = [&out](std::uint32_t v) {
-      out.put(static_cast<char>(v & 0xFF));
-      out.put(static_cast<char>((v >> 8) & 0xFF));
-      out.put(static_cast<char>((v >> 16) & 0xFF));
-      out.put(static_cast<char>((v >> 24) & 0xFF));
-    };
+    Image image{uint32_t(width),uint32_t(height),3};
 
-    out.put('B');
-    out.put('M');
-    writeUint32(fileSize);
-    writeUint16(0);
-    writeUint16(0);
-    writeUint32(headerSize);
+    glPixelStorei(GL_PACK_ALIGNMENT, 1);
+    glReadBuffer(GL_BACK);
+    glReadPixels(0,
+                 0,
+                 width,
+                 height,
+                 GL_RGB,
+                 GL_UNSIGNED_BYTE,
+                 image.data.data());
 
-    writeUint32(40);
-    writeUint32(static_cast<std::uint32_t>(width));
-    writeUint32(static_cast<std::uint32_t>(height));
-    writeUint16(1);
-    writeUint16(24);
-    writeUint32(0);
-    writeUint32(dataSize);
-    writeUint32(0);
-    writeUint32(0);
-    writeUint32(0);
-    writeUint32(0);
-
-    std::vector<unsigned char> rowBuffer(rowSize);
-
-    for (int y = 0; y < height; ++y) {
-      const unsigned char *srcRow =
-      pixels.data() + static_cast<std::size_t>(y) * size_t(width * 3);
-
-      for (int x = 0; x < width; ++x) {
-        unsigned char r = srcRow[3 * x + 0];
-        unsigned char g = srcRow[3 * x + 1];
-        unsigned char b = srcRow[3 * x + 2];
-        rowBuffer[size_t(3 * x + 0)] = b;
-        rowBuffer[size_t(3 * x + 1)] = g;
-        rowBuffer[size_t(3 * x + 2)] = r;
-      }
-
-      for (std::uint32_t p = 0; p < padding; ++p)
-        rowBuffer[rowStride + p] = 0;
-
-      out.write(reinterpret_cast<const char *>(rowBuffer.data()),
-                static_cast<std::streamsize>(rowSize));
-    }
-
-    return static_cast<bool>(out);
+    return BMP::save(fileName, image);
   }
 };
 

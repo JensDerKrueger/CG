@@ -5,10 +5,11 @@ ARFLAGS  ?= rcs
 OSTYPE   := $(shell uname)
 
 # -------- Project sources --------
-SRC = AbstractParticleSystem.cpp Image.cpp bmp.cpp OBJFile.cpp GLApp.cpp GLBuffer.cpp \
-GLEnv.cpp GLProgram.cpp GLArray.cpp GLTexture2D.cpp GLTexture1D.cpp GLTexture3D.cpp \
-GLDebug.cpp Grid2D.cpp FontRenderer.cpp Rand.cpp ImageLoader.cpp GLFramebuffer.cpp \
-GLDepthBuffer.cpp GLTextureCube.cpp CommandInterpreter.cpp Tesselation.cpp ArcBall.cpp
+SRC = AbstractParticleSystem.cpp Image.cpp bmp.cpp OBJFile.cpp GLApp.cpp \
+GLBuffer.cpp GLEnv.cpp GLProgram.cpp GLArray.cpp GLTexture2D.cpp \
+GLTexture1D.cpp GLTexture3D.cpp GLDebug.cpp Grid2D.cpp FontRenderer.cpp \
+Rand.cpp ImageLoader.cpp GLFramebuffer.cpp GLDepthBuffer.cpp GLTextureCube.cpp \
+CommandInterpreter.cpp Tesselation.cpp ArcBall.cpp
 
 # -------- Native flags --------
 ifeq ($(OSTYPE),Linux)
