@@ -216,8 +216,8 @@ public:
   }
   static Mat4t rotationZ(T degree){
     const T angle{deg2Rad(degree)};
-    const T cosAngle{cos(T(angle))};
-    const T sinAngle{sin(T(angle))};
+    const T cosAngle{T(cos(angle))};
+    const T sinAngle{T(sin(angle))};
 
     return {cosAngle, sinAngle, 0, 0,
       -sinAngle, cosAngle, 0, 0,
