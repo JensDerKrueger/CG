@@ -1,4 +1,4 @@
-TOPTARGETS := all clean release
+TOPTARGETS := all clean release emscripten emscripten_release
 
 UTILSDIR := Utils/.
 FIRSTDIR := 
