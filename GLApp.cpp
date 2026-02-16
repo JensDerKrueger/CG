@@ -17,141 +17,141 @@ GLApp::GLApp(uint32_t w, uint32_t h, uint32_t s,
              bool exactPixels,
              const std::vector<std::string>& args) :
 #ifdef __EMSCRIPTEN__
-  glEnv{w,h,s,title,fpsCounter,sync,exactPixels,3,0,true,},
+glEnv{w,h,s,title,fpsCounter,sync,exactPixels,3,0,true,},
 #else
-  glEnv{w,h,s,title,fpsCounter,sync,exactPixels,4,1,true},
+glEnv{w,h,s,title,fpsCounter,sync,exactPixels,4,1,true},
 #endif
-  p{},
-  mv{},
-  simpleProg{GLProgram::createFromString(
-     "uniform mat4 MVP;\n"
-     "in vec3 vPos;\n"
-     "in vec4 vColor;\n"
-     "out vec4 color;\n"
-     "void main() {\n"
-     "    gl_Position = MVP * vec4(vPos, 1.0);\n"
-     "    color = vColor;\n"
-     "}\n",
-     "in vec4 color;\n"
-     "out vec4 FragColor;\n"
-     "void main() {\n"
-     "    FragColor = color;\n"
-     "}\n","",false,true)},
-  simplePointProg{GLProgram::createFromString(
-     "uniform mat4 MVP;\n"
-     "#ifdef WEBGL\n"
-     "uniform float pointSize;\n"
-     "#endif\n"
-     "in vec3 vPos;\n"
-     "in vec4 vColor;\n"
-     "out vec4 color;\n"
-     "void main() {\n"
-     "    gl_Position = MVP * vec4(vPos, 1.0);\n"
-     "    #ifdef WEBGL\n"
-     "    gl_PointSize = pointSize;\n"
-     "    #endif\n"
-     "    color = vColor;\n"
-     "}\n",
-     "in vec4 color;\n"
-     "out vec4 FragColor;\n"
-     "void main() {\n"
-     "    FragColor = color;\n"
-     "}\n","",false,true)},
-  simpleSpriteProg{GLProgram::createFromString(
-     "uniform mat4 MVP;\n"
-     "#ifdef WEBGL\n"
-     "uniform float pointSize;\n"
-     "#endif\n"
-     "in vec3 vPos;\n"
-     "in vec4 vColor;\n"
-     "out vec4 color;\n"
-     "void main() {\n"
-     "    gl_Position = MVP * vec4(vPos, 1.0);\n"
-     "    #ifdef WEBGL\n"
-     "    gl_PointSize = pointSize;\n"
-     "    #endif\n"
-     "    color = vColor;\n"
-     "}\n",
-     "uniform sampler2D pointSprite;\n"
-     "in vec4 color;\n"
-     "out vec4 FragColor;\n"
-     "void main() {\n"
-     "    FragColor = color*texture(pointSprite, gl_PointCoord);\n"
-     "}\n","",false,true)},
-  simpleHLSpriteProg{GLProgram::createFromString(
-     "uniform mat4 MVP;\n"
-     "#ifdef WEBGL\n"
-     "uniform float pointSize;\n"
-     "#endif\n"
-     "in vec3 vPos;\n"
-     "in vec4 vColor;\n"
-     "out vec4 color;\n"
-     "void main() {\n"
-     "    gl_Position = MVP * vec4(vPos, 1.0);\n"
-     "    #ifdef WEBGL\n"
-     "    gl_PointSize = pointSize;\n"
-     "    #endif\n"
-     "    color = vColor;\n"
-     "}\n",
-     "uniform sampler2D pointSprite;\n"
-     "uniform sampler2D pointSpriteHighlight;\n"
-     "in vec4 color;\n"
-     "out vec4 FragColor;\n"
-     "void main() {\n"
-     "    FragColor = color*texture(pointSprite, gl_PointCoord)+texture(pointSpriteHighlight, gl_PointCoord);\n"
-     "}\n","",false,true)},
-  simpleTexProg{GLProgram::createFromString(
-     "uniform mat4 MVP;\n"
-     "in vec3 vPos;\n"
-     "in vec2 vTexCoords;\n"
-     "out vec4 color;\n"
-     "out vec2 texCoords;\n"
-     "void main() {\n"
-     "    gl_Position = MVP * vec4(vPos, 1.0);\n"
-     "    texCoords = vTexCoords;\n"
-     "}\n",
-     "uniform sampler2D raster;\n"
-     "in vec2 texCoords;\n"
-     "out vec4 FragColor;\n"
-     "void main() {\n"
-     "    FragColor = texture(raster, texCoords);\n"
-     "}\n","",false,true)},
-  simpleLightProg{GLProgram::createFromString(
-     "uniform mat4 MVP;\n"
-     "uniform mat4 MV;\n"
-     "uniform mat4 MVit;\n"
-     "in vec3 vPos;\n"
-     "in vec4 vColor;\n"
-     "in vec3 vNormal;\n"
-     "out vec4 color;\n"
-     "out vec3 normal;\n"
-     "out vec3 pos;\n"
-     "void main() {\n"
-     "    gl_Position = MVP * vec4(vPos, 1.0);\n"
-     "    pos = (MV * vec4(vPos, 1.0)).xyz;\n"
-     "    color = vColor;\n"
-     "    normal = (MVit * vec4(vNormal, 0.0)).xyz;\n"
-     "}\n",
-     "in vec4 color;\n"
-     "in vec3 pos;\n"
-     "in vec3 normal;\n"
-     "out vec4 FragColor;\n"
-     "void main() {\n"
-     "    vec3 nnormal = normalize(normal);"
-     "    vec3 nlightDir = normalize(vec3(0.0,0.0,0.0)-pos);"
-     "    FragColor = color*abs(dot(nlightDir,nnormal));\n"
-     "}\n","",false,true)},
-  simpleArray{},
-  simpleVb{GL_ARRAY_BUFFER},
-  raster{GL_LINEAR, GL_LINEAR,GL_CLAMP_TO_EDGE,GL_CLAMP_TO_EDGE},
-  pointSprite{GL_LINEAR, GL_LINEAR,GL_CLAMP_TO_EDGE,GL_CLAMP_TO_EDGE},
-  pointSpriteHighlight{GL_LINEAR, GL_LINEAR,GL_CLAMP_TO_EDGE,GL_CLAMP_TO_EDGE},
-  resumeTime{0},
-  animationActive{true}
+p{},
+mv{},
+simpleProg{GLProgram::createFromString(
+                                       "uniform mat4 MVP;\n"
+                                       "in vec3 vPos;\n"
+                                       "in vec4 vColor;\n"
+                                       "out vec4 color;\n"
+                                       "void main() {\n"
+                                       "    gl_Position = MVP * vec4(vPos, 1.0);\n"
+                                       "    color = vColor;\n"
+                                       "}\n",
+                                       "in vec4 color;\n"
+                                       "out vec4 FragColor;\n"
+                                       "void main() {\n"
+                                       "    FragColor = color;\n"
+                                       "}\n","",false,true)},
+simplePointProg{GLProgram::createFromString(
+                                            "uniform mat4 MVP;\n"
+                                            "#ifdef WEBGL\n"
+                                            "uniform float pointSize;\n"
+                                            "#endif\n"
+                                            "in vec3 vPos;\n"
+                                            "in vec4 vColor;\n"
+                                            "out vec4 color;\n"
+                                            "void main() {\n"
+                                            "    gl_Position = MVP * vec4(vPos, 1.0);\n"
+                                            "    #ifdef WEBGL\n"
+                                            "    gl_PointSize = pointSize;\n"
+                                            "    #endif\n"
+                                            "    color = vColor;\n"
+                                            "}\n",
+                                            "in vec4 color;\n"
+                                            "out vec4 FragColor;\n"
+                                            "void main() {\n"
+                                            "    FragColor = color;\n"
+                                            "}\n","",false,true)},
+simpleSpriteProg{GLProgram::createFromString(
+                                             "uniform mat4 MVP;\n"
+                                             "#ifdef WEBGL\n"
+                                             "uniform float pointSize;\n"
+                                             "#endif\n"
+                                             "in vec3 vPos;\n"
+                                             "in vec4 vColor;\n"
+                                             "out vec4 color;\n"
+                                             "void main() {\n"
+                                             "    gl_Position = MVP * vec4(vPos, 1.0);\n"
+                                             "    #ifdef WEBGL\n"
+                                             "    gl_PointSize = pointSize;\n"
+                                             "    #endif\n"
+                                             "    color = vColor;\n"
+                                             "}\n",
+                                             "uniform sampler2D pointSprite;\n"
+                                             "in vec4 color;\n"
+                                             "out vec4 FragColor;\n"
+                                             "void main() {\n"
+                                             "    FragColor = color*texture(pointSprite, gl_PointCoord);\n"
+                                             "}\n","",false,true)},
+simpleHLSpriteProg{GLProgram::createFromString(
+                                               "uniform mat4 MVP;\n"
+                                               "#ifdef WEBGL\n"
+                                               "uniform float pointSize;\n"
+                                               "#endif\n"
+                                               "in vec3 vPos;\n"
+                                               "in vec4 vColor;\n"
+                                               "out vec4 color;\n"
+                                               "void main() {\n"
+                                               "    gl_Position = MVP * vec4(vPos, 1.0);\n"
+                                               "    #ifdef WEBGL\n"
+                                               "    gl_PointSize = pointSize;\n"
+                                               "    #endif\n"
+                                               "    color = vColor;\n"
+                                               "}\n",
+                                               "uniform sampler2D pointSprite;\n"
+                                               "uniform sampler2D pointSpriteHighlight;\n"
+                                               "in vec4 color;\n"
+                                               "out vec4 FragColor;\n"
+                                               "void main() {\n"
+                                               "    FragColor = color*texture(pointSprite, gl_PointCoord)+texture(pointSpriteHighlight, gl_PointCoord);\n"
+                                               "}\n","",false,true)},
+simpleTexProg{GLProgram::createFromString(
+                                          "uniform mat4 MVP;\n"
+                                          "in vec3 vPos;\n"
+                                          "in vec2 vTexCoords;\n"
+                                          "out vec4 color;\n"
+                                          "out vec2 texCoords;\n"
+                                          "void main() {\n"
+                                          "    gl_Position = MVP * vec4(vPos, 1.0);\n"
+                                          "    texCoords = vTexCoords;\n"
+                                          "}\n",
+                                          "uniform sampler2D raster;\n"
+                                          "in vec2 texCoords;\n"
+                                          "out vec4 FragColor;\n"
+                                          "void main() {\n"
+                                          "    FragColor = texture(raster, texCoords);\n"
+                                          "}\n","",false,true)},
+simpleLightProg{GLProgram::createFromString(
+                                            "uniform mat4 MVP;\n"
+                                            "uniform mat4 MV;\n"
+                                            "uniform mat4 MVit;\n"
+                                            "in vec3 vPos;\n"
+                                            "in vec4 vColor;\n"
+                                            "in vec3 vNormal;\n"
+                                            "out vec4 color;\n"
+                                            "out vec3 normal;\n"
+                                            "out vec3 pos;\n"
+                                            "void main() {\n"
+                                            "    gl_Position = MVP * vec4(vPos, 1.0);\n"
+                                            "    pos = (MV * vec4(vPos, 1.0)).xyz;\n"
+                                            "    color = vColor;\n"
+                                            "    normal = (MVit * vec4(vNormal, 0.0)).xyz;\n"
+                                            "}\n",
+                                            "in vec4 color;\n"
+                                            "in vec3 pos;\n"
+                                            "in vec3 normal;\n"
+                                            "out vec4 FragColor;\n"
+                                            "void main() {\n"
+                                            "    vec3 nnormal = normalize(normal);"
+                                            "    vec3 nlightDir = normalize(vec3(0.0,0.0,0.0)-pos);"
+                                            "    FragColor = color*abs(dot(nlightDir,nnormal));\n"
+                                            "}\n","",false,true)},
+simpleArray{},
+simpleVb{GL_ARRAY_BUFFER},
+raster{GL_LINEAR, GL_LINEAR,GL_CLAMP_TO_EDGE,GL_CLAMP_TO_EDGE},
+pointSprite{GL_LINEAR, GL_LINEAR,GL_CLAMP_TO_EDGE,GL_CLAMP_TO_EDGE},
+pointSpriteHighlight{GL_LINEAR, GL_LINEAR,GL_CLAMP_TO_EDGE,GL_CLAMP_TO_EDGE},
+resumeTime{0},
+animationActive{true}
 {
   setInteractionCallbacks();
   resetPointTexture();
-  
+
   // setup a minimal shader and buffer
   shaderUpdate();
 
@@ -210,7 +210,7 @@ void GLApp::setPointHighlightTexture(const Image& shape) {
   pointSpriteHighlight.setData(shape.data, shape.width, shape.height, shape.componentCount);
 }
 
-void GLApp::setPointTexture(const std::vector<uint8_t>& shape, uint32_t x, 
+void GLApp::setPointTexture(const std::vector<uint8_t>& shape, uint32_t x,
                             uint32_t y, uint8_t components) {
   pointSprite.setData(shape, x, y, components);
 }
@@ -221,7 +221,7 @@ void GLApp::resetPointTexture(uint32_t resolution) {
   for (size_t y = 0;y<resolution;++y) {
     for (size_t x = 0;x<resolution;++x) {
       const Vec2 normPos{2.0f*x/float(resolution)-1.0f, 2.0f*y/float(resolution)-1.0f};
-      const uint8_t dist = uint8_t(std::max<int16_t>(0, int16_t((1.0f-(center - normPos).length()) * 255))); 
+      const uint8_t dist = uint8_t(std::max<int16_t>(0, int16_t((1.0f-(center - normPos).length()) * 255)));
       disk[4*(x+y*resolution)+0] = 255;
       disk[4*(x+y*resolution)+1] = 255;
       disk[4*(x+y*resolution)+2] = 255;
@@ -339,13 +339,13 @@ void GLApp::run() {
   mainLoop();
 #endif
 }
- 
+
 void GLApp::resize(const Dimensions winDim, const Dimensions fbDim) {
   GL(glViewport(0, 0, GLsizei(fbDim.width), GLsizei(fbDim.height)));
 }
 
 void GLApp::setCallbacks(std::function<void(double)> fpsCallback,
-                  std::function<void(const std::string&)> messageCallback) {
+                         std::function<void(const std::string&)> messageCallback) {
   glEnv.setFpsCallback(fpsCallback);
   this->messageCallback = messageCallback;
 }
@@ -367,16 +367,16 @@ void GLApp::triangulate(const Vec3& p0,
   const Vec3 pDir = Vec3::normalize(p1-p0);
   const Vec3 cDir = Vec3::normalize(p2-p1);
   const Vec3 nDir = Vec3::normalize(p3-p2);
-  
+
   const Vec3 viewDir = Vec3::normalize((mvi * Vec4{0,0,1,0}).xyz);
-  
+
   const Vec3 pPerp = Vec3::cross(pDir, viewDir);
   const Vec3 cPerp = Vec3::cross(cDir, viewDir);
   const Vec3 nPerp = Vec3::cross(nDir, viewDir);
-  
+
   Vec3 pSep = pPerp + cPerp;
   Vec3 nSep = nPerp + cPerp;
-  
+
   pSep = (pSep / std::max(1.0f,Vec3::dot(pSep, cPerp))) * scale;
   nSep = (nSep / std::max(1.0f,Vec3::dot(nSep, cPerp))) * scale;
 
@@ -402,17 +402,17 @@ void GLApp::triangulate(const Vec3& p0,
 
 void GLApp::drawLines(const std::vector<float>& data, LineDrawType t, float lineThickness) {
   shaderUpdate();
-  
+
   simpleProg.enable();
   simpleArray.bind();
 
   if (lineThickness > 1.0f) {
     std::vector<float> trisData;
-    
+
     switch (t) {
       case LineDrawType::LIST :
         for (size_t i = 0;i<data.size()/7;i+=2) {
-                    
+
           const size_t i1 = i;
           const size_t i2 = i+1;
 
@@ -423,7 +423,7 @@ void GLApp::drawLines(const std::vector<float>& data, LineDrawType t, float line
 
           Vec3 p0{p1};
           Vec3 p3{p2};
-          
+
           if (i1 >= 2 && p1[0] == data[(i1-1)*7+0] && p1[1] == data[(i1-1)*7+1] && p1[2] == data[(i1-1)*7+2]) {
             const size_t i0 = i-2;
             p0 = Vec3{data[i0*7+0],data[i0*7+1],data[i0*7+2]};
@@ -439,12 +439,12 @@ void GLApp::drawLines(const std::vector<float>& data, LineDrawType t, float line
         break;
       case LineDrawType::STRIP :
         for (size_t i = 0;i<(data.size()/7)-1;++i) {
-          
+
           const size_t i0 = (i==0) ? 0 : i-1;
           const size_t i1 = i;
           const size_t i2 = i+1;
           const size_t i3 = (i==(data.size()/7)-2) ? i2 : i2+1;
-          
+
           const Vec3 p0{data[i0*7+0],data[i0*7+1],data[i0*7+2]};
           const Vec3 p1{data[i1*7+0],data[i1*7+1],data[i1*7+2]};
           const Vec4 c1{data[i1*7+3],data[i1*7+4],data[i1*7+5],data[i1*7+6]};
@@ -458,11 +458,11 @@ void GLApp::drawLines(const std::vector<float>& data, LineDrawType t, float line
       case LineDrawType::LOOP :
         for (size_t i = 0;i<data.size()/7;++i) {
 
-          const size_t i0 = (i==0) ? 0 : i-1;
-          const size_t i1 = i;
-          const size_t i2 = (i+1)%data.size();
-          const size_t i3 = (i==(data.size()/7)-1) ? i2 : (i2+1)%data.size();
-          
+          const size_t i0 = ((i==0) ? data.size()/7-1 : i-1) % (data.size()/7);
+          const size_t i1 = (i) % (data.size()/7);
+          const size_t i2 = (i+1) % (data.size()/7);
+          const size_t i3 = ((i==(data.size()/7)-2) ? 0 : i2+1) % (data.size()/7);
+
           const Vec3 p0{data[i0*7+0],data[i0*7+1],data[i0*7+2]};
           const Vec3 p1{data[i1*7+0],data[i1*7+1],data[i1*7+2]};
           const Vec4 c1{data[i1*7+3],data[i1*7+4],data[i1*7+5],data[i1*7+6]};
@@ -502,7 +502,7 @@ void GLApp::drawLines(const std::vector<float>& data, LineDrawType t, float line
 
 void GLApp::drawPoints(const std::vector<float>& data, float pointSize, bool useTex) {
   shaderUpdate();
-  
+
   if (useTex) {
     if (pointSpriteHighlight.getHeight() > 0) {
       simpleHLSpriteProg.enable();
@@ -530,7 +530,7 @@ void GLApp::drawPoints(const std::vector<float>& data, float pointSize, bool use
       simpleArray.connectVertexAttrib(simpleVb, simpleSpriteProg, "vPos", 3);
       simpleArray.connectVertexAttrib(simpleVb, simpleSpriteProg, "vColor", 4, 3);
     }
-    
+
   } else {
     simplePointProg.enable();
 #ifdef __EMSCRIPTEN__
@@ -613,8 +613,8 @@ static std::vector<float> convertTriangleFanToLines(
 }
 
 static std::vector<float> convertTriangleStripToLines(
-                                               const std::vector<float>& stripVertices,
-                                               std::size_t compCount // floats per vertex
+                                                      const std::vector<float>& stripVertices,
+                                                      std::size_t compCount // floats per vertex
 ) {
   std::vector<float> lineVertices;
 
@@ -655,8 +655,8 @@ static std::vector<float> convertTriangleStripToLines(
 }
 
 static std::vector<float> convertTrianglesToLines(
-                                           const std::vector<float>& triangleVertices,
-                                           std::size_t compCount // number of floats per vertex
+                                                  const std::vector<float>& triangleVertices,
+                                                  std::size_t compCount // number of floats per vertex
 ) {
   std::vector<float> lineVertices;
 
@@ -772,11 +772,11 @@ void GLApp::drawImage(const GLTexture2D& image, const Vec2& bl, const Vec2& tr) 
 }
 
 void GLApp::drawImage(const Image& image, const Vec2& bl, const Vec2& tr) {
-    drawImage(image,
-              {bl.x,bl.y,0.0f},
-              {tr.x,bl.y,0.0f},
-              {bl.x,tr.y,0.0f},
-              {tr.x,tr.y,0.0f});
+  drawImage(image,
+            {bl.x,bl.y,0.0f},
+            {tr.x,bl.y,0.0f},
+            {bl.x,tr.y,0.0f},
+            {tr.x,tr.y,0.0f});
 }
 
 
@@ -785,9 +785,9 @@ void GLApp::drawImage(const GLTexture2D& image, const Vec3& bl,
                       const Vec3& tr) {
 
   shaderUpdate();
-  
+
   simpleTexProg.enable();
-  
+
   std::vector<float> data = {
     tr[0], tr[1], tr[2], 1.0f, 1.0f,
     tl[0], tl[1], tl[2], 0.0f, 1.0f,
@@ -797,9 +797,9 @@ void GLApp::drawImage(const GLTexture2D& image, const Vec3& bl,
     bl[0], bl[1], bl[2], 0.0f, 0.0f,
     br[0], br[1], br[2], 1.0f, 0.0f,
   };
-  
+
   simpleVb.setData(data,5,GL_DYNAMIC_DRAW);
-  
+
   simpleArray.bind();
   simpleArray.connectVertexAttrib(simpleVb, simpleTexProg, "vPos", 3);
   simpleArray.connectVertexAttrib(simpleVb, simpleTexProg, "vTexCoords", 2, 3);
@@ -818,10 +818,10 @@ void GLApp::drawImage(const Image& image, const Vec3& bl,
 
 void GLApp::drawRect(const Vec4& color, const Vec2& bl, const Vec2& tr) {
   drawRect(color,
-            {bl.x,bl.y,0.0f},
-            {tr.x,bl.y,0.0f},
-            {bl.x,tr.y,0.0f},
-            {tr.x,tr.y,0.0f});
+           {bl.x,bl.y,0.0f},
+           {tr.x,bl.y,0.0f},
+           {bl.x,tr.y,0.0f},
+           {tr.x,tr.y,0.0f});
 }
 
 void GLApp::drawRect(const Vec4& color, const Vec3& bl, const Vec3& br,
@@ -912,8 +912,8 @@ void GLApp::initScript(const std::vector<std::string>& args) {
                                   static uint32_t imageCounter = 0;
                                   std::stringstream ss;
                                   ss << "screenshot-" << std::setw(6)
-                                    << std::setfill('0') << imageCounter++
-                                    << ".png";
+                                  << std::setfill('0') << imageCounter++
+                                  << ".png";
                                   std::filesystem::path filePath = base / ss.str();
 
                                   return GLScreenshot::save(filePath.string())
@@ -1062,10 +1062,10 @@ void GLApp::initScript(const std::vector<std::string>& args) {
                                 );
     interpreter.setUnknownCommandHandler(
                                          [](const std::string &command,
-                                                const std::vector<std::string> &args) {
-                                                  std::cerr << "unknown command: " << command << "\n";
-                                                  return CommandResultCode::unknownCommand;
-                                                });
+                                            const std::vector<std::string> &args) {
+                                              std::cerr << "unknown command: " << command << "\n";
+                                              return CommandResultCode::unknownCommand;
+                                            });
   } else {
     scriptRunning = false;
   }
