@@ -362,7 +362,7 @@ namespace {
         if (l == kMaxLen) break;
       }
 
-      cur = prev[cur];
+      cur = prev[size_t(cur)];
       ++chain;
     }
 
@@ -387,7 +387,7 @@ namespace {
 
     constexpr int kHashSize = 1 << 15;
     std::vector<int> head(kHashSize, -1);
-    std::vector<int> prev(size, -1);
+    std::vector<int> prev(size_t(size), -1);
 
     auto hashAt = [&](int pos) -> int {
       if (pos + 2 >= size) return -1;
@@ -398,8 +398,8 @@ namespace {
     auto insertPos = [&](int pos) {
       int h = hashAt(pos);
       if (h < 0) return;
-      prev[pos] = head[h];
-      head[h] = pos;
+      prev[size_t(pos)] = head[size_t(h)];
+      head[size_t(h)] = pos;
     };
 
     int pos = 0;
@@ -408,7 +408,7 @@ namespace {
 
       int h = hashAt(pos);
       if (h >= 0) {
-        const int headPos = head[h]; // only earlier positions (we insert after encoding)
+        const int headPos = head[size_t(h)];
         if (headPos >= 0) {
           m = findMatch(in, size, pos, headPos, prev);
         }
@@ -444,12 +444,9 @@ namespace {
       }
     }
 
-    // End-of-block (256)
-    {
-      uint32_t code; int nbits;
-      fixedLitLenCode(256, code, nbits);
-      bw.writeBits(code, nbits);
-    }
+    uint32_t code; int nbits;
+    fixedLitLenCode(256, code, nbits);
+    bw.writeBits(code, nbits);
 
     bw.flushToByte();
     out.insert(out.end(), bw.data.begin(), bw.data.end());
@@ -464,7 +461,7 @@ namespace {
     return out;
   }
 
-} // namespace
+}
 
 namespace PNG {
   bool save(const std::string& filePath, const Image& image,
@@ -503,10 +500,7 @@ namespace PNG {
       writeChunk(f, "sRGB", srgbPayload, 1);
     }
 
-    // Filtered scanlines
     std::vector<uint8_t> filtered = buildFilteredScanlines(image);
-
-    // zlib + deflate (fixed Huffman)
     std::vector<uint8_t> z = zlibDeflateFixed(filtered.data(), filtered.size());
 
     if (z.size() > 0xFFFFFFFFu) {
