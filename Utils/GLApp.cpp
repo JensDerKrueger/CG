@@ -790,11 +790,12 @@ void GLApp::drawImage(const GLTexture2D& image, const Vec3& bl,
   
   std::vector<float> data = {
     tr[0], tr[1], tr[2], 1.0f, 1.0f,
-    br[0], br[1], br[2], 1.0f, 0.0f,
     tl[0], tl[1], tl[2], 0.0f, 1.0f,
+    br[0], br[1], br[2], 1.0f, 0.0f,
+
     tl[0], tl[1], tl[2], 0.0f, 1.0f,
     bl[0], bl[1], bl[2], 0.0f, 0.0f,
-    br[0], br[1], br[2], 1.0f, 0.0f
+    br[0], br[1], br[2], 1.0f, 0.0f,
   };
   
   simpleVb.setData(data,5,GL_DYNAMIC_DRAW);
