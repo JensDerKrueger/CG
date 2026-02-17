@@ -172,8 +172,13 @@ namespace {
     std::vector<uint8_t> candNone, candSub, candUp, candAvg, candPaeth;
 
     for (uint32_t y = 0; y < h; ++y) {
-      const uint8_t* cur  = image.data.data() + size_t(y) * rowBytes;
-      const uint8_t* prev = (y > 0) ? (image.data.data() + size_t(y - 1) * rowBytes) : nullptr;
+      const uint32_t sy = (h - 1u - y);
+      const uint8_t* cur  = image.data.data() + size_t(sy) * rowBytes;
+
+      const uint8_t* prev = nullptr;
+      if (sy + 1u < h) {
+        prev = image.data.data() + size_t(sy + 1u) * rowBytes;
+      }
 
       applyFilterNone(candNone, cur, prev, rowBytes, bpp);
       applyFilterSub(candSub, cur, prev, rowBytes, bpp);
