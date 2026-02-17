@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:01_OBJ/01 OBJ.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:02_Intersect/02 Intersect.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:03_Splines/03 Splines.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:04_Color/04 Color.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:05_Diffuse/05 Diffuse.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:06_Phong/06 Phong.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:07_Raycasting/07 Raycaster.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:08_Raytracing/08 Raytracer.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:09_Texturing/09 Texturing.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:10_HelloGL/10 HelloGL.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:11_Triforce/11 Triforce.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:12_DendriteGrowth/12 Octree.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Utils/Utils.xcodeproj">
+   </FileRef>
+</Workspace>
