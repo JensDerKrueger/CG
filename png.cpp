@@ -8,6 +8,8 @@
 #include <vector>
 #include <algorithm>
 
+#include <fstream>
+
 namespace {
 
   constexpr std::array<uint8_t, 8> kPngSignature = {
@@ -21,13 +23,12 @@ namespace {
     ((v & 0xFF000000u) >> 24);
   }
 
-  void writeBytes(std::FILE* f, const void* data, size_t size) {
-    if (size == 0) return;
-    (void)std::fwrite(data, 1, size, f);
+  static void writeBytes(std::ostream& os, const void* data, size_t size) {
+    os.write(reinterpret_cast<const char*>(data), static_cast<std::streamsize>(size));
   }
 
-  void writeU32(std::FILE* f, uint32_t vBigEndian) {
-    writeBytes(f, &vBigEndian, sizeof(vBigEndian));
+  static void writeU32(std::ostream& os, uint32_t vBigEndian) {
+    writeBytes(os, &vBigEndian, sizeof(vBigEndian));
   }
 
   // ---------- CRC32 (PNG chunks) ----------
@@ -54,13 +55,13 @@ namespace {
     return c;
   }
 
-  void writeChunk(std::FILE* f, const char type[4],
-                  const uint8_t* payload, uint32_t payloadSize) {
+  void writeChunk(std::ostream& os, const char type[4],
+                    const uint8_t* payload, uint32_t payloadSize) {
     const uint32_t lengthBE = toBigEndianU32(payloadSize);
-    writeU32(f, lengthBE);
+    writeU32(os, lengthBE);
 
-    writeBytes(f, type, 4);
-    if (payloadSize > 0) writeBytes(f, payload, payloadSize);
+    writeBytes(os, type, 4);
+    if (payloadSize > 0) writeBytes(os, payload, payloadSize);
 
     uint32_t c = 0xFFFFFFFFu;
     c = crc32Update(c, reinterpret_cast<const uint8_t*>(type), 4);
@@ -68,7 +69,7 @@ namespace {
     c ^= 0xFFFFFFFFu;
 
     const uint32_t crcBE = toBigEndianU32(c);
-    writeU32(f, crcBE);
+    writeU32(os, crcBE);
   }
 
   // ---------- Adler32 (zlib trailer) ----------
@@ -475,7 +476,7 @@ namespace PNG {
 
     const uint8_t colorType = (image.componentCount == 4) ? 6 : 2; // RGBA or RGB
 
-    std::FILE* f = std::fopen(filePath.c_str(), "wb");
+    std::ofstream f(filePath, std::ios::binary);
     if (!f) return false;
 
     writeBytes(f, kPngSignature.data(), kPngSignature.size());
@@ -504,13 +505,11 @@ namespace PNG {
     std::vector<uint8_t> z = zlibDeflateFixed(filtered.data(), filtered.size());
 
     if (z.size() > 0xFFFFFFFFu) {
-      std::fclose(f);
       return false;
     }
 
     writeChunk(f, "IDAT", z.data(), uint32_t(z.size()));
     writeChunk(f, "IEND", nullptr, 0);
 
-    std::fclose(f);
     return true;
   }}
