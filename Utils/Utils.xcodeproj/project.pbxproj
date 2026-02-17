@@ -1,0 +1,581 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		56155FCA2F4512460089B78D /* png.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155FC02F4512460089B78D /* png.cpp */; };
+		56155FCB2F4512460089B78D /* GLDepthBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155FA32F4512460089B78D /* GLDepthBuffer.cpp */; };
+		56155FCC2F4512460089B78D /* GLTexture3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155FB12F4512460089B78D /* GLTexture3D.cpp */; };
+		56155FCD2F4512460089B78D /* GLTexture2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155FAF2F4512460089B78D /* GLTexture2D.cpp */; };
+		56155FCE2F4512460089B78D /* ImageLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155FB92F4512460089B78D /* ImageLoader.cpp */; };
+		56155FCF2F4512460089B78D /* Rand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155FC32F4512460089B78D /* Rand.cpp */; };
+		56155FD02F4512460089B78D /* AbstractParticleSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155F8A2F4512460089B78D /* AbstractParticleSystem.cpp */; };
+		56155FD12F4512460089B78D /* Compression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155F962F4512460089B78D /* Compression.cpp */; };
+		56155FD22F4512460089B78D /* Grid2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155FB52F4512460089B78D /* Grid2D.cpp */; };
+		56155FD32F4512460089B78D /* GLEnv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155FA62F4512460089B78D /* GLEnv.cpp */; };
+		56155FD42F4512460089B78D /* FontRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155F982F4512460089B78D /* FontRenderer.cpp */; };
+		56155FD52F4512460089B78D /* GLApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155F9A2F4512460089B78D /* GLApp.cpp */; };
+		56155FD62F4512460089B78D /* GLProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155FAA2F4512460089B78D /* GLProgram.cpp */; };
+		56155FD72F4512460089B78D /* Base64Url.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155F8E2F4512460089B78D /* Base64Url.cpp */; };
+		56155FD82F4512460089B78D /* Image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155FB72F4512460089B78D /* Image.cpp */; };
+		56155FD92F4512460089B78D /* CommandInterpreter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155F942F4512460089B78D /* CommandInterpreter.cpp */; };
+		56155FDA2F4512460089B78D /* GLDebug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155FA12F4512460089B78D /* GLDebug.cpp */; };
+		56155FDB2F4512460089B78D /* OBJFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155FBD2F4512460089B78D /* OBJFile.cpp */; };
+		56155FDC2F4512460089B78D /* Tesselation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155FC62F4512460089B78D /* Tesselation.cpp */; };
+		56155FDD2F4512460089B78D /* GLTextureCube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155FB32F4512460089B78D /* GLTextureCube.cpp */; };
+		56155FDE2F4512460089B78D /* GLBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155F9F2F4512460089B78D /* GLBuffer.cpp */; };
+		56155FDF2F4512460089B78D /* ArcBall.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155F8C2F4512460089B78D /* ArcBall.cpp */; };
+		56155FE02F4512460089B78D /* GLArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155F9D2F4512460089B78D /* GLArray.cpp */; };
+		56155FE12F4512460089B78D /* GLFramebuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155FA82F4512460089B78D /* GLFramebuffer.cpp */; };
+		56155FE22F4512460089B78D /* GLTexture1D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155FAD2F4512460089B78D /* GLTexture1D.cpp */; };
+		56155FE32F4512460089B78D /* bmp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155F902F4512460089B78D /* bmp.cpp */; };
+		56155FE42F4512460089B78D /* Quaternion.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FC12F4512460089B78D /* Quaternion.h */; };
+		56155FE52F4512460089B78D /* AbstractParticleSystem.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155F892F4512460089B78D /* AbstractParticleSystem.h */; };
+		56155FE62F4512460089B78D /* Mat3.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FBA2F4512460089B78D /* Mat3.h */; };
+		56155FE72F4512460089B78D /* GLDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FA02F4512460089B78D /* GLDebug.h */; };
+		56155FE82F4512460089B78D /* GLAppKeyTranslation.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155F9B2F4512460089B78D /* GLAppKeyTranslation.h */; };
+		56155FE92F4512460089B78D /* GLTexture1D.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FAC2F4512460089B78D /* GLTexture1D.h */; };
+		56155FEA2F4512460089B78D /* Image.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FB62F4512460089B78D /* Image.h */; };
+		56155FEB2F4512460089B78D /* GLEnv.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FA52F4512460089B78D /* GLEnv.h */; };
+		56155FEC2F4512460089B78D /* GLScreenshot.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FAB2F4512460089B78D /* GLScreenshot.h */; };
+		56155FED2F4512460089B78D /* GLBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155F9E2F4512460089B78D /* GLBuffer.h */; };
+		56155FEE2F4512460089B78D /* Vec3.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FC82F4512460089B78D /* Vec3.h */; };
+		56155FEF2F4512460089B78D /* Vec4.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FC92F4512460089B78D /* Vec4.h */; };
+		56155FF02F4512460089B78D /* PerformanceTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FBE2F4512460089B78D /* PerformanceTimer.h */; };
+		56155FF12F4512460089B78D /* Rand.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FC22F4512460089B78D /* Rand.h */; };
+		56155FF22F4512460089B78D /* ColorConversion.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155F922F4512460089B78D /* ColorConversion.h */; };
+		56155FF32F4512460089B78D /* GLTexture3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FB02F4512460089B78D /* GLTexture3D.h */; };
+		56155FF42F4512460089B78D /* GLDepthBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FA22F4512460089B78D /* GLDepthBuffer.h */; };
+		56155FF52F4512460089B78D /* GLDepthTexture.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FA42F4512460089B78D /* GLDepthTexture.h */; };
+		56155FF62F4512460089B78D /* ImageLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FB82F4512460089B78D /* ImageLoader.h */; };
+		56155FF72F4512460089B78D /* CommandInterpreter.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155F932F4512460089B78D /* CommandInterpreter.h */; };
+		56155FF82F4512460089B78D /* FontRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155F972F4512460089B78D /* FontRenderer.h */; };
+		56155FF92F4512460089B78D /* Tesselation.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FC52F4512460089B78D /* Tesselation.h */; };
+		56155FFA2F4512460089B78D /* GLTexture2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FAE2F4512460089B78D /* GLTexture2D.h */; };
+		56155FFB2F4512460089B78D /* GLFramebuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FA72F4512460089B78D /* GLFramebuffer.h */; };
+		56155FFC2F4512460089B78D /* GLApp.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155F992F4512460089B78D /* GLApp.h */; };
+		56155FFD2F4512460089B78D /* bmp.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155F8F2F4512460089B78D /* bmp.h */; };
+		56155FFE2F4512460089B78D /* GLTextureCube.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FB22F4512460089B78D /* GLTextureCube.h */; };
+		56155FFF2F4512460089B78D /* ArcBall.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155F8B2F4512460089B78D /* ArcBall.h */; };
+		561560002F4512460089B78D /* Mat4.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FBB2F4512460089B78D /* Mat4.h */; };
+		561560012F4512460089B78D /* png.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FBF2F4512460089B78D /* png.h */; };
+		561560022F4512460089B78D /* OBJFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FBC2F4512460089B78D /* OBJFile.h */; };
+		561560032F4512460089B78D /* stb_image.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FC42F4512460089B78D /* stb_image.h */; };
+		561560042F4512460089B78D /* Vec2.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FC72F4512460089B78D /* Vec2.h */; };
+		561560052F4512460089B78D /* Compression.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155F952F4512460089B78D /* Compression.h */; };
+		561560062F4512460089B78D /* GLProgram.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FA92F4512460089B78D /* GLProgram.h */; };
+		561560072F4512460089B78D /* Grid2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FB42F4512460089B78D /* Grid2D.h */; };
+		561560082F4512460089B78D /* GLArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155F9C2F4512460089B78D /* GLArray.h */; };
+		561560092F4512460089B78D /* Base64Url.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155F8D2F4512460089B78D /* Base64Url.h */; };
+		5615600A2F4512460089B78D /* Camera.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155F912F4512460089B78D /* Camera.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		56155F822F45121A0089B78D /* libUtils.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libUtils.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56155F892F4512460089B78D /* AbstractParticleSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AbstractParticleSystem.h; sourceTree = "<group>"; };
+		56155F8A2F4512460089B78D /* AbstractParticleSystem.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AbstractParticleSystem.cpp; sourceTree = "<group>"; };
+		56155F8B2F4512460089B78D /* ArcBall.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArcBall.h; sourceTree = "<group>"; };
+		56155F8C2F4512460089B78D /* ArcBall.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcBall.cpp; sourceTree = "<group>"; };
+		56155F8D2F4512460089B78D /* Base64Url.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Base64Url.h; sourceTree = "<group>"; };
+		56155F8E2F4512460089B78D /* Base64Url.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Base64Url.cpp; sourceTree = "<group>"; };
+		56155F8F2F4512460089B78D /* bmp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bmp.h; sourceTree = "<group>"; };
+		56155F902F4512460089B78D /* bmp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = bmp.cpp; sourceTree = "<group>"; };
+		56155F912F4512460089B78D /* Camera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
+		56155F922F4512460089B78D /* ColorConversion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorConversion.h; sourceTree = "<group>"; };
+		56155F932F4512460089B78D /* CommandInterpreter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommandInterpreter.h; sourceTree = "<group>"; };
+		56155F942F4512460089B78D /* CommandInterpreter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CommandInterpreter.cpp; sourceTree = "<group>"; };
+		56155F952F4512460089B78D /* Compression.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Compression.h; sourceTree = "<group>"; };
+		56155F962F4512460089B78D /* Compression.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Compression.cpp; sourceTree = "<group>"; };
+		56155F972F4512460089B78D /* FontRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FontRenderer.h; sourceTree = "<group>"; };
+		56155F982F4512460089B78D /* FontRenderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FontRenderer.cpp; sourceTree = "<group>"; };
+		56155F992F4512460089B78D /* GLApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLApp.h; sourceTree = "<group>"; };
+		56155F9A2F4512460089B78D /* GLApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GLApp.cpp; sourceTree = "<group>"; };
+		56155F9B2F4512460089B78D /* GLAppKeyTranslation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLAppKeyTranslation.h; sourceTree = "<group>"; };
+		56155F9C2F4512460089B78D /* GLArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLArray.h; sourceTree = "<group>"; };
+		56155F9D2F4512460089B78D /* GLArray.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GLArray.cpp; sourceTree = "<group>"; };
+		56155F9E2F4512460089B78D /* GLBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLBuffer.h; sourceTree = "<group>"; };
+		56155F9F2F4512460089B78D /* GLBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GLBuffer.cpp; sourceTree = "<group>"; };
+		56155FA02F4512460089B78D /* GLDebug.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLDebug.h; sourceTree = "<group>"; };
+		56155FA12F4512460089B78D /* GLDebug.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GLDebug.cpp; sourceTree = "<group>"; };
+		56155FA22F4512460089B78D /* GLDepthBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLDepthBuffer.h; sourceTree = "<group>"; };
+		56155FA32F4512460089B78D /* GLDepthBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GLDepthBuffer.cpp; sourceTree = "<group>"; };
+		56155FA42F4512460089B78D /* GLDepthTexture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLDepthTexture.h; sourceTree = "<group>"; };
+		56155FA52F4512460089B78D /* GLEnv.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLEnv.h; sourceTree = "<group>"; };
+		56155FA62F4512460089B78D /* GLEnv.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GLEnv.cpp; sourceTree = "<group>"; };
+		56155FA72F4512460089B78D /* GLFramebuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLFramebuffer.h; sourceTree = "<group>"; };
+		56155FA82F4512460089B78D /* GLFramebuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GLFramebuffer.cpp; sourceTree = "<group>"; };
+		56155FA92F4512460089B78D /* GLProgram.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLProgram.h; sourceTree = "<group>"; };
+		56155FAA2F4512460089B78D /* GLProgram.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GLProgram.cpp; sourceTree = "<group>"; };
+		56155FAB2F4512460089B78D /* GLScreenshot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLScreenshot.h; sourceTree = "<group>"; };
+		56155FAC2F4512460089B78D /* GLTexture1D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLTexture1D.h; sourceTree = "<group>"; };
+		56155FAD2F4512460089B78D /* GLTexture1D.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GLTexture1D.cpp; sourceTree = "<group>"; };
+		56155FAE2F4512460089B78D /* GLTexture2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLTexture2D.h; sourceTree = "<group>"; };
+		56155FAF2F4512460089B78D /* GLTexture2D.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GLTexture2D.cpp; sourceTree = "<group>"; };
+		56155FB02F4512460089B78D /* GLTexture3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLTexture3D.h; sourceTree = "<group>"; };
+		56155FB12F4512460089B78D /* GLTexture3D.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GLTexture3D.cpp; sourceTree = "<group>"; };
+		56155FB22F4512460089B78D /* GLTextureCube.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLTextureCube.h; sourceTree = "<group>"; };
+		56155FB32F4512460089B78D /* GLTextureCube.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GLTextureCube.cpp; sourceTree = "<group>"; };
+		56155FB42F4512460089B78D /* Grid2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Grid2D.h; sourceTree = "<group>"; };
+		56155FB52F4512460089B78D /* Grid2D.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Grid2D.cpp; sourceTree = "<group>"; };
+		56155FB62F4512460089B78D /* Image.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
+		56155FB72F4512460089B78D /* Image.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Image.cpp; sourceTree = "<group>"; };
+		56155FB82F4512460089B78D /* ImageLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageLoader.h; sourceTree = "<group>"; };
+		56155FB92F4512460089B78D /* ImageLoader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ImageLoader.cpp; sourceTree = "<group>"; };
+		56155FBA2F4512460089B78D /* Mat3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mat3.h; sourceTree = "<group>"; };
+		56155FBB2F4512460089B78D /* Mat4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mat4.h; sourceTree = "<group>"; };
+		56155FBC2F4512460089B78D /* OBJFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OBJFile.h; sourceTree = "<group>"; };
+		56155FBD2F4512460089B78D /* OBJFile.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OBJFile.cpp; sourceTree = "<group>"; };
+		56155FBE2F4512460089B78D /* PerformanceTimer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PerformanceTimer.h; sourceTree = "<group>"; };
+		56155FBF2F4512460089B78D /* png.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = png.h; sourceTree = "<group>"; };
+		56155FC02F4512460089B78D /* png.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = png.cpp; sourceTree = "<group>"; };
+		56155FC12F4512460089B78D /* Quaternion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Quaternion.h; sourceTree = "<group>"; };
+		56155FC22F4512460089B78D /* Rand.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Rand.h; sourceTree = "<group>"; };
+		56155FC32F4512460089B78D /* Rand.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Rand.cpp; sourceTree = "<group>"; };
+		56155FC42F4512460089B78D /* stb_image.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
+		56155FC52F4512460089B78D /* Tesselation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tesselation.h; sourceTree = "<group>"; };
+		56155FC62F4512460089B78D /* Tesselation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Tesselation.cpp; sourceTree = "<group>"; };
+		56155FC72F4512460089B78D /* Vec2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vec2.h; sourceTree = "<group>"; };
+		56155FC82F4512460089B78D /* Vec3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vec3.h; sourceTree = "<group>"; };
+		56155FC92F4512460089B78D /* Vec4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vec4.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		56155F802F45121A0089B78D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		56155F792F45121A0089B78D = {
+			isa = PBXGroup;
+			children = (
+				56155F892F4512460089B78D /* AbstractParticleSystem.h */,
+				56155F8A2F4512460089B78D /* AbstractParticleSystem.cpp */,
+				56155F8B2F4512460089B78D /* ArcBall.h */,
+				56155F8C2F4512460089B78D /* ArcBall.cpp */,
+				56155F8D2F4512460089B78D /* Base64Url.h */,
+				56155F8E2F4512460089B78D /* Base64Url.cpp */,
+				56155F8F2F4512460089B78D /* bmp.h */,
+				56155F902F4512460089B78D /* bmp.cpp */,
+				56155F912F4512460089B78D /* Camera.h */,
+				56155F922F4512460089B78D /* ColorConversion.h */,
+				56155F932F4512460089B78D /* CommandInterpreter.h */,
+				56155F942F4512460089B78D /* CommandInterpreter.cpp */,
+				56155F952F4512460089B78D /* Compression.h */,
+				56155F962F4512460089B78D /* Compression.cpp */,
+				56155F972F4512460089B78D /* FontRenderer.h */,
+				56155F982F4512460089B78D /* FontRenderer.cpp */,
+				56155F992F4512460089B78D /* GLApp.h */,
+				56155F9A2F4512460089B78D /* GLApp.cpp */,
+				56155F9B2F4512460089B78D /* GLAppKeyTranslation.h */,
+				56155F9C2F4512460089B78D /* GLArray.h */,
+				56155F9D2F4512460089B78D /* GLArray.cpp */,
+				56155F9E2F4512460089B78D /* GLBuffer.h */,
+				56155F9F2F4512460089B78D /* GLBuffer.cpp */,
+				56155FA02F4512460089B78D /* GLDebug.h */,
+				56155FA12F4512460089B78D /* GLDebug.cpp */,
+				56155FA22F4512460089B78D /* GLDepthBuffer.h */,
+				56155FA32F4512460089B78D /* GLDepthBuffer.cpp */,
+				56155FA42F4512460089B78D /* GLDepthTexture.h */,
+				56155FA52F4512460089B78D /* GLEnv.h */,
+				56155FA62F4512460089B78D /* GLEnv.cpp */,
+				56155FA72F4512460089B78D /* GLFramebuffer.h */,
+				56155FA82F4512460089B78D /* GLFramebuffer.cpp */,
+				56155FA92F4512460089B78D /* GLProgram.h */,
+				56155FAA2F4512460089B78D /* GLProgram.cpp */,
+				56155FAB2F4512460089B78D /* GLScreenshot.h */,
+				56155FAC2F4512460089B78D /* GLTexture1D.h */,
+				56155FAD2F4512460089B78D /* GLTexture1D.cpp */,
+				56155FAE2F4512460089B78D /* GLTexture2D.h */,
+				56155FAF2F4512460089B78D /* GLTexture2D.cpp */,
+				56155FB02F4512460089B78D /* GLTexture3D.h */,
+				56155FB12F4512460089B78D /* GLTexture3D.cpp */,
+				56155FB22F4512460089B78D /* GLTextureCube.h */,
+				56155FB32F4512460089B78D /* GLTextureCube.cpp */,
+				56155FB42F4512460089B78D /* Grid2D.h */,
+				56155FB52F4512460089B78D /* Grid2D.cpp */,
+				56155FB62F4512460089B78D /* Image.h */,
+				56155FB72F4512460089B78D /* Image.cpp */,
+				56155FB82F4512460089B78D /* ImageLoader.h */,
+				56155FB92F4512460089B78D /* ImageLoader.cpp */,
+				56155FBA2F4512460089B78D /* Mat3.h */,
+				56155FBB2F4512460089B78D /* Mat4.h */,
+				56155FBC2F4512460089B78D /* OBJFile.h */,
+				56155FBD2F4512460089B78D /* OBJFile.cpp */,
+				56155FBE2F4512460089B78D /* PerformanceTimer.h */,
+				56155FBF2F4512460089B78D /* png.h */,
+				56155FC02F4512460089B78D /* png.cpp */,
+				56155FC12F4512460089B78D /* Quaternion.h */,
+				56155FC22F4512460089B78D /* Rand.h */,
+				56155FC32F4512460089B78D /* Rand.cpp */,
+				56155FC42F4512460089B78D /* stb_image.h */,
+				56155FC52F4512460089B78D /* Tesselation.h */,
+				56155FC62F4512460089B78D /* Tesselation.cpp */,
+				56155FC72F4512460089B78D /* Vec2.h */,
+				56155FC82F4512460089B78D /* Vec3.h */,
+				56155FC92F4512460089B78D /* Vec4.h */,
+				56155F832F45121A0089B78D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		56155F832F45121A0089B78D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				56155F822F45121A0089B78D /* libUtils.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		56155F7E2F45121A0089B78D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				56155FE42F4512460089B78D /* Quaternion.h in Headers */,
+				56155FE52F4512460089B78D /* AbstractParticleSystem.h in Headers */,
+				56155FE62F4512460089B78D /* Mat3.h in Headers */,
+				56155FE72F4512460089B78D /* GLDebug.h in Headers */,
+				56155FE82F4512460089B78D /* GLAppKeyTranslation.h in Headers */,
+				56155FE92F4512460089B78D /* GLTexture1D.h in Headers */,
+				56155FEA2F4512460089B78D /* Image.h in Headers */,
+				56155FEB2F4512460089B78D /* GLEnv.h in Headers */,
+				56155FEC2F4512460089B78D /* GLScreenshot.h in Headers */,
+				56155FED2F4512460089B78D /* GLBuffer.h in Headers */,
+				56155FEE2F4512460089B78D /* Vec3.h in Headers */,
+				56155FEF2F4512460089B78D /* Vec4.h in Headers */,
+				56155FF02F4512460089B78D /* PerformanceTimer.h in Headers */,
+				56155FF12F4512460089B78D /* Rand.h in Headers */,
+				56155FF22F4512460089B78D /* ColorConversion.h in Headers */,
+				56155FF32F4512460089B78D /* GLTexture3D.h in Headers */,
+				56155FF42F4512460089B78D /* GLDepthBuffer.h in Headers */,
+				56155FF52F4512460089B78D /* GLDepthTexture.h in Headers */,
+				56155FF62F4512460089B78D /* ImageLoader.h in Headers */,
+				56155FF72F4512460089B78D /* CommandInterpreter.h in Headers */,
+				56155FF82F4512460089B78D /* FontRenderer.h in Headers */,
+				56155FF92F4512460089B78D /* Tesselation.h in Headers */,
+				56155FFA2F4512460089B78D /* GLTexture2D.h in Headers */,
+				56155FFB2F4512460089B78D /* GLFramebuffer.h in Headers */,
+				56155FFC2F4512460089B78D /* GLApp.h in Headers */,
+				56155FFD2F4512460089B78D /* bmp.h in Headers */,
+				56155FFE2F4512460089B78D /* GLTextureCube.h in Headers */,
+				56155FFF2F4512460089B78D /* ArcBall.h in Headers */,
+				561560002F4512460089B78D /* Mat4.h in Headers */,
+				561560012F4512460089B78D /* png.h in Headers */,
+				561560022F4512460089B78D /* OBJFile.h in Headers */,
+				561560032F4512460089B78D /* stb_image.h in Headers */,
+				561560042F4512460089B78D /* Vec2.h in Headers */,
+				561560052F4512460089B78D /* Compression.h in Headers */,
+				561560062F4512460089B78D /* GLProgram.h in Headers */,
+				561560072F4512460089B78D /* Grid2D.h in Headers */,
+				561560082F4512460089B78D /* GLArray.h in Headers */,
+				561560092F4512460089B78D /* Base64Url.h in Headers */,
+				5615600A2F4512460089B78D /* Camera.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		56155F812F45121A0089B78D /* Utils */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 56155F862F45121A0089B78D /* Build configuration list for PBXNativeTarget "Utils" */;
+			buildPhases = (
+				56155F7E2F45121A0089B78D /* Headers */,
+				56155F7F2F45121A0089B78D /* Sources */,
+				56155F802F45121A0089B78D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Utils;
+			packageProductDependencies = (
+			);
+			productName = Utils;
+			productReference = 56155F822F45121A0089B78D /* libUtils.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		56155F7A2F45121A0089B78D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 2620;
+				TargetAttributes = {
+					56155F812F45121A0089B78D = {
+						CreatedOnToolsVersion = 26.2;
+					};
+				};
+			};
+			buildConfigurationList = 56155F7D2F45121A0089B78D /* Build configuration list for PBXProject "Utils" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 56155F792F45121A0089B78D;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 56155F832F45121A0089B78D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				56155F812F45121A0089B78D /* Utils */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		56155F7F2F45121A0089B78D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				56155FCA2F4512460089B78D /* png.cpp in Sources */,
+				56155FCB2F4512460089B78D /* GLDepthBuffer.cpp in Sources */,
+				56155FCC2F4512460089B78D /* GLTexture3D.cpp in Sources */,
+				56155FCD2F4512460089B78D /* GLTexture2D.cpp in Sources */,
+				56155FCE2F4512460089B78D /* ImageLoader.cpp in Sources */,
+				56155FCF2F4512460089B78D /* Rand.cpp in Sources */,
+				56155FD02F4512460089B78D /* AbstractParticleSystem.cpp in Sources */,
+				56155FD12F4512460089B78D /* Compression.cpp in Sources */,
+				56155FD22F4512460089B78D /* Grid2D.cpp in Sources */,
+				56155FD32F4512460089B78D /* GLEnv.cpp in Sources */,
+				56155FD42F4512460089B78D /* FontRenderer.cpp in Sources */,
+				56155FD52F4512460089B78D /* GLApp.cpp in Sources */,
+				56155FD62F4512460089B78D /* GLProgram.cpp in Sources */,
+				56155FD72F4512460089B78D /* Base64Url.cpp in Sources */,
+				56155FD82F4512460089B78D /* Image.cpp in Sources */,
+				56155FD92F4512460089B78D /* CommandInterpreter.cpp in Sources */,
+				56155FDA2F4512460089B78D /* GLDebug.cpp in Sources */,
+				56155FDB2F4512460089B78D /* OBJFile.cpp in Sources */,
+				56155FDC2F4512460089B78D /* Tesselation.cpp in Sources */,
+				56155FDD2F4512460089B78D /* GLTextureCube.cpp in Sources */,
+				56155FDE2F4512460089B78D /* GLBuffer.cpp in Sources */,
+				56155FDF2F4512460089B78D /* ArcBall.cpp in Sources */,
+				56155FE02F4512460089B78D /* GLArray.cpp in Sources */,
+				56155FE12F4512460089B78D /* GLFramebuffer.cpp in Sources */,
+				56155FE22F4512460089B78D /* GLTexture1D.cpp in Sources */,
+				56155FE32F4512460089B78D /* bmp.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		56155F842F45121A0089B78D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = L8Q6MVX7ZF;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		56155F852F45121A0089B78D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = L8Q6MVX7ZF;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		56155F872F45121A0089B78D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L8Q6MVX7ZF;
+				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/,
+					../Utils,
+					/opt/homebrew/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					../Utils,
+					/usr/local/Cellar/glfw/3.3.2/lib/,
+					/usr/local/Cellar/glew/2.1.0_1/lib/,
+				);
+				OTHER_LDFLAGS = (
+					"-lglfw",
+					"-lGLEW",
+					"-framework",
+					OpenGL,
+					"-L../Utils",
+					"-lutils",
+					"-L../Network",
+					"-lnetwork",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		56155F882F45121A0089B78D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L8Q6MVX7ZF;
+				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/,
+					../Utils,
+					/opt/homebrew/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					../Utils,
+					/usr/local/Cellar/glfw/3.3.2/lib/,
+					/usr/local/Cellar/glew/2.1.0_1/lib/,
+				);
+				OTHER_LDFLAGS = (
+					"-lglfw",
+					"-lGLEW",
+					"-framework",
+					OpenGL,
+					"-L../Utils",
+					"-lutils",
+					"-L../Network",
+					"-lnetwork",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		56155F7D2F45121A0089B78D /* Build configuration list for PBXProject "Utils" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				56155F842F45121A0089B78D /* Debug */,
+				56155F852F45121A0089B78D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		56155F862F45121A0089B78D /* Build configuration list for PBXNativeTarget "Utils" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				56155F872F45121A0089B78D /* Debug */,
+				56155F882F45121A0089B78D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 56155F7A2F45121A0089B78D /* Project object */;
+}
