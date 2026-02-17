@@ -1,3 +1,3 @@
 # Computer Graphics Course - Repository
 
-This is the repository to the course Computer Graphics. For the corresponding exercises, please visit the moodle webpage of the University of Duisburg-Essen.
+This repository contains materials for the course Computer Graphics. For the corresponding exercises, please visit the University of Duisburg-Essen Moodle page.
