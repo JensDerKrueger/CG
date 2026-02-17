@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A231F0FE25EAF61A00CBFC23"
-               BuildableName = "Triforce-Demo"
-               BlueprintName = "Triforce-Demo"
-               ReferencedContainer = "container:Triforce.xcodeproj">
+               BuildableName = "12 Octree-Demo"
+               BlueprintName = "12 Octree-Demo"
+               ReferencedContainer = "container:12 Octree.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A231F0FE25EAF61A00CBFC23"
-            BuildableName = "Triforce-Demo"
-            BlueprintName = "Triforce-Demo"
-            ReferencedContainer = "container:Triforce.xcodeproj">
+            BuildableName = "12 Octree-Demo"
+            BlueprintName = "12 Octree-Demo"
+            ReferencedContainer = "container:12 Octree.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A231F0FE25EAF61A00CBFC23"
-            BuildableName = "Triforce-Demo"
-            BlueprintName = "Triforce-Demo"
-            ReferencedContainer = "container:Triforce.xcodeproj">
+            BuildableName = "12 Octree-Demo"
+            BlueprintName = "12 Octree-Demo"
+            ReferencedContainer = "container:12 Octree.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
