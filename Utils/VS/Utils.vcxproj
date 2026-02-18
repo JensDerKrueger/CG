@@ -20,7 +20,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\ArcBall.cpp" />
+    <ClCompile Include="..\Base64Url.cpp" />
     <ClCompile Include="..\CommandInterpreter.cpp" />
+    <ClCompile Include="..\Compression.cpp" />
     <ClCompile Include="..\Image.cpp" />
     <ClCompile Include="..\AbstractParticleSystem.cpp" />
     <ClCompile Include="..\bmp.cpp" />
@@ -40,13 +42,16 @@
     <ClCompile Include="..\Grid2D.cpp" />
     <ClCompile Include="..\ImageLoader.cpp" />
     <ClCompile Include="..\OBJFile.cpp" />
+    <ClCompile Include="..\png.cpp" />
     <ClCompile Include="..\Rand.cpp" />
     <ClCompile Include="..\Tesselation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ArcBall.h" />
+    <ClInclude Include="..\Base64Url.h" />
     <ClInclude Include="..\ColorConversion.h" />
     <ClInclude Include="..\CommandInterpreter.h" />
+    <ClInclude Include="..\Compression.h" />
     <ClInclude Include="..\GLAppKeyTranslation.h" />
     <ClInclude Include="..\GLDepthTexture.h" />
     <ClInclude Include="..\GLScreenshot.h" />
@@ -73,6 +78,7 @@
     <ClInclude Include="..\Mat4.h" />
     <ClInclude Include="..\OBJFile.h" />
     <ClInclude Include="..\PerformanceTimer.h" />
+    <ClInclude Include="..\png.h" />
     <ClInclude Include="..\Quaternion.h" />
     <ClInclude Include="..\Rand.h" />
     <ClInclude Include="..\stb_image.h" />
