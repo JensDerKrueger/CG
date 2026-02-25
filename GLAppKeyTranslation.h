@@ -75,18 +75,18 @@
 #define GLENV_KEY_NUM_LOCK           144 // Num Lock
 #define GLENV_KEY_PRINT_SCREEN       44  // Print Screen
 #define GLENV_KEY_PAUSE              19  // Pause
-#define GLENV_KEY_F1                 112 // F1
-#define GLENV_KEY_F2                 113 // F2
-#define GLENV_KEY_F3                 114 // F3
-#define GLENV_KEY_F4                 115 // F4
-#define GLENV_KEY_F5                 116 // F5
-#define GLENV_KEY_F6                 117 // F6
-#define GLENV_KEY_F7                 118 // F7
-#define GLENV_KEY_F8                 119 // F8
-#define GLENV_KEY_F9                 120 // F9
-#define GLENV_KEY_F10                121 // F10
-#define GLENV_KEY_F11                122 // F11
-#define GLENV_KEY_F12                123 // F12
+#define GLENV_KEY_F1                 200 // F1
+#define GLENV_KEY_F2                 201 // F2
+#define GLENV_KEY_F3                 202 // F3
+#define GLENV_KEY_F4                 203 // F4
+#define GLENV_KEY_F5                 204 // F5
+#define GLENV_KEY_F6                 205 // F6
+#define GLENV_KEY_F7                 206 // F7
+#define GLENV_KEY_F8                 207 // F8
+#define GLENV_KEY_F9                 208 // F9
+#define GLENV_KEY_F10                209 // F10
+#define GLENV_KEY_F11                210 // F11
+#define GLENV_KEY_F12                211 // F12
 #define GLENV_KEY_KP_0               96  // Keypad 0
 #define GLENV_KEY_KP_1               97  // Keypad 1
 #define GLENV_KEY_KP_2               98  // Keypad 2
