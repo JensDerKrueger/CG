@@ -1,10 +1,20 @@
 TOPTARGETS := all clean release emscripten emscripten_release
 
 UTILSDIR := Utils/.
-FIRSTDIR := 
+FIRSTDIR :=
+
+EXCLUDE_DIRS := CG.xcworkspace
+EXCLUDE_SUBDIRS := $(addsuffix /.,$(EXCLUDE_DIRS))
 
 SUBDIRS := $(wildcard */.)
-SUBDIRS := $(filter-out LatexUtils/. VS141/. VS/. $(UTILSDIR) $(FIRSTDIR),$(SUBDIRS))
+SUBDIRS := $(filter-out \
+    LatexUtils/. \
+    VS141/. \
+    VS/. \
+    $(UTILSDIR) \
+    $(FIRSTDIR) \
+    $(EXCLUDE_SUBDIRS), \
+    $(SUBDIRS))
 
 $(TOPTARGETS): $(SUBDIRS)
 
@@ -17,6 +27,4 @@ $(FIRSTDIR): $(UTILSDIR)
 $(UTILSDIR):
 	$(MAKE) -C $@ $(MAKECMDGOALS)
 
-.PHONY: $(TOPTARGETS) $(SUBDIRS)
-.PHONY: $(TOPTARGETS) $(FIRSTDIR)
-.PHONY: $(TOPTARGETS) $(UTILSDIR)
+.PHONY: $(TOPTARGETS) $(SUBDIRS) $(FIRSTDIR) $(UTILSDIR)
