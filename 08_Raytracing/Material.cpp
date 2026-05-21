@@ -32,7 +32,7 @@ bool Material::reflects() const
 
 bool Material::refracts() const
 {
-    return reflects() && (IOR.has_value());
+    return reflects() && IOR;
 }
 
 std::optional<float> Material::getIndexOfRefraction() const

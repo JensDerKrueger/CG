@@ -32,7 +32,7 @@ bool Material::reflects() const
 
 bool Material::refracts() const
 {
-    return reflects() && (IOR.has_value());
+    return reflects() && IOR;
 }
 
 bool Material::hasTexture() const
@@ -52,17 +52,18 @@ float Material::getLocalRefectivity() const
 
 float Material::getReflectivity(float cosI) const
 {
-    float R0 = 1 - local;
-    int sign = (cosI < 0) ? -1 : 1;
+  const float sign = (cosI < 0) ? -1.0f : 1.0f;
 
-    if (IOR.has_value())
-    {
-        float n = (sign == 1) ? IOR.value() : 1.0f / IOR.value();
-        float R0sqrt = (n - 1) / (n + 1);
-        R0 = R0sqrt * R0sqrt;
-    }
+  float R0;
+  if (IOR) {
+    float n = (sign == 1.0f) ? IOR.value() : 1.0f / IOR.value();
+    float R0sqrt = (n - 1.0f) / (n + 1.0f);
+    R0 = R0sqrt * R0sqrt;
+  } else {
+    R0 = 1 - local;
+  }
 
-    return R0 + (1.0f - R0) * powf(1.0f - sign * cosI, 5);
+  return R0 + (1.0f - R0) * pow(1.0f - sign * cosI, 5.0f);
 }
 
 std::optional<Texture> Material::getTexture() const

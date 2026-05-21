@@ -29,10 +29,10 @@ std::optional<Intersection> Scene::intersect(const Ray& ray,
 			continue;
 
 		std::optional<Intersection> i = object->intersect(ray);
-		if (!i.has_value())
+		if (!i)
 			continue;
 
-		if (!result.has_value() || i.value().getT() < result.value().getT())
+		if (!result || i.value().getT() < result.value().getT())
 			result = i;
 	}
 	return result;
@@ -63,30 +63,34 @@ Vec3 Scene::traceRay(const Ray& ray, float IOR, int recDepth) const {
 		}
 	}
 
-	Vec3 offSurfacePos = interPos + inter.getNormal() * OFFSET_EPSILON;
+  Vec3 reflColor{ 0.0f, 0.0f, 0.0f };
+  if (inter.getMaterial().reflects()) {
+    Vec3 reflDir = Vec3::reflect(ray.getDirection(), inter.getNormal());
+    Vec3 reflOrigin = interPos + inter.getNormal() * (Vec3::dot(reflDir, inter.getNormal()) > 0 ? OFFSET_EPSILON : -OFFSET_EPSILON);
+    Ray reflRay{reflOrigin, reflDir};
+    reflColor = traceRay(reflRay, IOR, recDepth - 1);
+  }
 
-	Vec3 reflColor{ 0.0f, 0.0f, 0.0f };
-	if (inter.getMaterial().reflects()) {
-		Ray reflRay{ offSurfacePos, Vec3::reflect(ray.getDirection(), inter.getNormal()) };
-		reflColor = traceRay(reflRay, IOR, recDepth - 1);
-	}
-
-	Vec3 refractionColor{ 0.0f, 0.0f, 0.0f };
-	if (inter.getMaterial().refracts()) {
-		std::optional<Vec3> refrDirection = Vec3::refract(ray.getDirection(), inter.getNormal(), inter.getMaterial().getIndexOfRefraction().value());
-		if (refrDirection.has_value()) {
-			if (IOR == 1.0) {
-				// Ray --> from air into material
-				Vec3 inSurfacePos = interPos + inter.getNormal() * -OFFSET_EPSILON;
-				Ray refrRay{ inSurfacePos, refrDirection.value() };
-				refractionColor = traceRay(refrRay, inter.getMaterial().getIndexOfRefraction().value(), recDepth - 1);
-			} else {
-				// Ray --> from material into air
-				Ray refrRay{ offSurfacePos, refrDirection.value() };
-				refractionColor = traceRay(refrRay, 1.0, recDepth - 1);
-			}
-		}
-	}
+  Vec3 refractionColor{ 0.0f, 0.0f, 0.0f };
+  if (inter.getMaterial().refracts()) {
+    const float matIOR = *inter.getMaterial().getIndexOfRefraction();
+    std::optional<Vec3> potentialRefDir = Vec3::refract(ray.getDirection(), inter.getNormal(), matIOR);
+    if (potentialRefDir) {
+      const Vec3 refDir = *potentialRefDir;
+      if (Vec3::dot(refDir, inter.getNormal()) > 0) {
+        // Ray --> from material into air
+        Ray refrRay{ interPos + inter.getNormal() * OFFSET_EPSILON, refDir };
+        refractionColor = traceRay(refrRay, 1.0, recDepth - 1);
+      } else {
+        // Ray --> from air into material
+        Vec3 inSurfacePos = interPos + inter.getNormal() * -OFFSET_EPSILON;
+        Ray refrRay{ inSurfacePos, refDir };
+        refractionColor = traceRay(refrRay, matIOR, recDepth - 1);
+      }
+    } else {
+      // Total internal reflection
+    }
+  }
 
 	Vec3 localColor{ 0.0f, 0.0f, 0.0f };
 	Vec3 textureColor{1.0f, 1.0f, 1.0f}; // multiplication with this color results in same color value
@@ -94,6 +98,7 @@ Vec3 Scene::traceRay(const Ray& ray, float IOR, int recDepth) const {
 		textureColor = inter.getMaterial().getTexture().value().sample(inter.getTexCoords().value());
 	}
 
+  const Vec3 offSurfacePos = interPos + inter.getNormal() * OFFSET_EPSILON;
 	for (const std::shared_ptr<const LightSource>& ls : lightSources) {
 		Ray shadowRay{ offSurfacePos, ls->getDirection(offSurfacePos) };
 		std::optional<Intersection> shadowInter = intersect(shadowRay, true);
@@ -103,7 +108,7 @@ Vec3 Scene::traceRay(const Ray& ray, float IOR, int recDepth) const {
 			ambient = ambient * textureColor;
 		}
 
-		if (!shadowInter.has_value() || shadowInter->getT() > ls->getDistance(offSurfacePos)) {
+		if (!shadowInter || shadowInter->getT() > ls->getDistance(offSurfacePos)) {
 			float d = Vec3::dot(ls->getDirection(offSurfacePos), inter.getNormal());
 			Vec3 diffuse = inter.getMaterial().getDiffuse() * ls->getDiffuse() * d;
 			diffuse = Vec3::clamp(diffuse, 0.0f, 1.0f);
