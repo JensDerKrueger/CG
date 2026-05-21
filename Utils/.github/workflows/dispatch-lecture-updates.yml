@@ -13,6 +13,7 @@ jobs:
       matrix:
         repo:
           - JensDerKrueger/CG
+          - JensDerKrueger/CGM
           - JensDerKrueger/AIS
           - JensDerKrueger/VIS
 
