@@ -1,12 +1,11 @@
+#include "Grid2D.h"
+
 #include <limits>
 #include <cmath>
 #include <stdexcept>
 
 #include "Rand.h"
-#include "Vec2.h"
 #include "bmp.h"
-
-#include "Grid2D.h"
 
 Grid2D::Grid2D(size_t width, size_t height) :
   width(width),

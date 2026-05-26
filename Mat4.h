@@ -62,7 +62,7 @@ public:
   {
   }
 
-  static Mat4t fromString(const std::string& str) {
+  static Mat4t fromEncoding(const std::string& str) {
     Mat4t m;
 
     std::string cleaned;
@@ -101,7 +101,7 @@ public:
     return m;
   }
 
-  std::string toString() const {
+  std::string toEncoding() const {
     std::ostringstream s;
     s.imbue(std::locale::classic());
     s << std::setprecision(std::numeric_limits<T>::max_digits10);
@@ -113,7 +113,14 @@ public:
   }
 
   friend std::ostream& operator<<(std::ostream &os, const Mat4t& m)  {
-    os << m.toString() ; return os;
+    os.imbue(std::locale::classic());
+    os << std::setprecision(std::numeric_limits<T>::max_digits10) << "[";
+    for (size_t i = 0; i < m.e.size(); ++i) {
+      if (i != 0) { os << " "; }
+      os << m[i];
+    }
+    os << "]";
+    return os;
   }
 
   operator T*(void){

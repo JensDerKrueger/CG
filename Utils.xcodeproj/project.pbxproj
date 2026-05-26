@@ -7,13 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5615600B2F4512460089B78D /* AbstractParticleSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5615600F2F4512460089B78D /* AbstractParticleSystem.cpp */; };
+		5615600C2F4512460089B78D /* AbstractParticleSystem.h in Headers */ = {isa = PBXBuildFile; fileRef = 561560102F4512460089B78D /* AbstractParticleSystem.h */; };
+		5615600D2F4512460089B78D /* ColorConversion.h in Headers */ = {isa = PBXBuildFile; fileRef = 561560112F4512460089B78D /* ColorConversion.h */; };
+		5615600E2F4512460089B78D /* half.h in Headers */ = {isa = PBXBuildFile; fileRef = 561560122F4512460089B78D /* half.h */; };
 		56155FCA2F4512460089B78D /* png.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155FC02F4512460089B78D /* png.cpp */; };
 		56155FCB2F4512460089B78D /* GLDepthBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155FA32F4512460089B78D /* GLDepthBuffer.cpp */; };
 		56155FCC2F4512460089B78D /* GLTexture3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155FB12F4512460089B78D /* GLTexture3D.cpp */; };
 		56155FCD2F4512460089B78D /* GLTexture2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155FAF2F4512460089B78D /* GLTexture2D.cpp */; };
 		56155FCE2F4512460089B78D /* ImageLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155FB92F4512460089B78D /* ImageLoader.cpp */; };
 		56155FCF2F4512460089B78D /* Rand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155FC32F4512460089B78D /* Rand.cpp */; };
-		56155FD02F4512460089B78D /* AbstractParticleSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155F8A2F4512460089B78D /* AbstractParticleSystem.cpp */; };
 		56155FD12F4512460089B78D /* Compression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155F962F4512460089B78D /* Compression.cpp */; };
 		56155FD22F4512460089B78D /* Grid2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155FB52F4512460089B78D /* Grid2D.cpp */; };
 		56155FD32F4512460089B78D /* GLEnv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155FA62F4512460089B78D /* GLEnv.cpp */; };
@@ -34,7 +37,6 @@
 		56155FE22F4512460089B78D /* GLTexture1D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155FAD2F4512460089B78D /* GLTexture1D.cpp */; };
 		56155FE32F4512460089B78D /* bmp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155F902F4512460089B78D /* bmp.cpp */; };
 		56155FE42F4512460089B78D /* Quaternion.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FC12F4512460089B78D /* Quaternion.h */; };
-		56155FE52F4512460089B78D /* AbstractParticleSystem.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155F892F4512460089B78D /* AbstractParticleSystem.h */; };
 		56155FE62F4512460089B78D /* Mat3.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FBA2F4512460089B78D /* Mat3.h */; };
 		56155FE72F4512460089B78D /* GLDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FA02F4512460089B78D /* GLDebug.h */; };
 		56155FE82F4512460089B78D /* GLAppKeyTranslation.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155F9B2F4512460089B78D /* GLAppKeyTranslation.h */; };
@@ -47,7 +49,6 @@
 		56155FEF2F4512460089B78D /* Vec4.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FC92F4512460089B78D /* Vec4.h */; };
 		56155FF02F4512460089B78D /* PerformanceTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FBE2F4512460089B78D /* PerformanceTimer.h */; };
 		56155FF12F4512460089B78D /* Rand.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FC22F4512460089B78D /* Rand.h */; };
-		56155FF22F4512460089B78D /* ColorConversion.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155F922F4512460089B78D /* ColorConversion.h */; };
 		56155FF32F4512460089B78D /* GLTexture3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FB02F4512460089B78D /* GLTexture3D.h */; };
 		56155FF42F4512460089B78D /* GLDepthBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FA22F4512460089B78D /* GLDepthBuffer.h */; };
 		56155FF52F4512460089B78D /* GLDepthTexture.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FA42F4512460089B78D /* GLDepthTexture.h */; };
@@ -76,8 +77,10 @@
 
 /* Begin PBXFileReference section */
 		56155F822F45121A0089B78D /* libUtils.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libUtils.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		56155F892F4512460089B78D /* AbstractParticleSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AbstractParticleSystem.h; sourceTree = "<group>"; };
-		56155F8A2F4512460089B78D /* AbstractParticleSystem.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AbstractParticleSystem.cpp; sourceTree = "<group>"; };
+		5615600F2F4512460089B78D /* AbstractParticleSystem.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AbstractParticleSystem.cpp; sourceTree = "<group>"; };
+		561560102F4512460089B78D /* AbstractParticleSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AbstractParticleSystem.h; sourceTree = "<group>"; };
+		561560112F4512460089B78D /* ColorConversion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorConversion.h; sourceTree = "<group>"; };
+		561560122F4512460089B78D /* half.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = half.h; sourceTree = "<group>"; };
 		56155F8B2F4512460089B78D /* ArcBall.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArcBall.h; sourceTree = "<group>"; };
 		56155F8C2F4512460089B78D /* ArcBall.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcBall.cpp; sourceTree = "<group>"; };
 		56155F8D2F4512460089B78D /* Base64Url.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Base64Url.h; sourceTree = "<group>"; };
@@ -85,7 +88,6 @@
 		56155F8F2F4512460089B78D /* bmp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bmp.h; sourceTree = "<group>"; };
 		56155F902F4512460089B78D /* bmp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = bmp.cpp; sourceTree = "<group>"; };
 		56155F912F4512460089B78D /* Camera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
-		56155F922F4512460089B78D /* ColorConversion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorConversion.h; sourceTree = "<group>"; };
 		56155F932F4512460089B78D /* CommandInterpreter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommandInterpreter.h; sourceTree = "<group>"; };
 		56155F942F4512460089B78D /* CommandInterpreter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CommandInterpreter.cpp; sourceTree = "<group>"; };
 		56155F952F4512460089B78D /* Compression.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Compression.h; sourceTree = "<group>"; };
@@ -157,8 +159,8 @@
 		56155F792F45121A0089B78D = {
 			isa = PBXGroup;
 			children = (
-				56155F892F4512460089B78D /* AbstractParticleSystem.h */,
-				56155F8A2F4512460089B78D /* AbstractParticleSystem.cpp */,
+				561560102F4512460089B78D /* AbstractParticleSystem.h */,
+				5615600F2F4512460089B78D /* AbstractParticleSystem.cpp */,
 				56155F8B2F4512460089B78D /* ArcBall.h */,
 				56155F8C2F4512460089B78D /* ArcBall.cpp */,
 				56155F8D2F4512460089B78D /* Base64Url.h */,
@@ -166,11 +168,11 @@
 				56155F8F2F4512460089B78D /* bmp.h */,
 				56155F902F4512460089B78D /* bmp.cpp */,
 				56155F912F4512460089B78D /* Camera.h */,
-				56155F922F4512460089B78D /* ColorConversion.h */,
 				56155F932F4512460089B78D /* CommandInterpreter.h */,
 				56155F942F4512460089B78D /* CommandInterpreter.cpp */,
 				56155F952F4512460089B78D /* Compression.h */,
 				56155F962F4512460089B78D /* Compression.cpp */,
+				561560112F4512460089B78D /* ColorConversion.h */,
 				56155F972F4512460089B78D /* FontRenderer.h */,
 				56155F982F4512460089B78D /* FontRenderer.cpp */,
 				56155F992F4512460089B78D /* GLApp.h */,
@@ -202,6 +204,7 @@
 				56155FB32F4512460089B78D /* GLTextureCube.cpp */,
 				56155FB42F4512460089B78D /* Grid2D.h */,
 				56155FB52F4512460089B78D /* Grid2D.cpp */,
+				561560122F4512460089B78D /* half.h */,
 				56155FB62F4512460089B78D /* Image.h */,
 				56155FB72F4512460089B78D /* Image.cpp */,
 				56155FB82F4512460089B78D /* ImageLoader.h */,
@@ -241,8 +244,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5615600C2F4512460089B78D /* AbstractParticleSystem.h in Headers */,
 				56155FE42F4512460089B78D /* Quaternion.h in Headers */,
-				56155FE52F4512460089B78D /* AbstractParticleSystem.h in Headers */,
 				56155FE62F4512460089B78D /* Mat3.h in Headers */,
 				56155FE72F4512460089B78D /* GLDebug.h in Headers */,
 				56155FE82F4512460089B78D /* GLAppKeyTranslation.h in Headers */,
@@ -255,12 +258,12 @@
 				56155FEF2F4512460089B78D /* Vec4.h in Headers */,
 				56155FF02F4512460089B78D /* PerformanceTimer.h in Headers */,
 				56155FF12F4512460089B78D /* Rand.h in Headers */,
-				56155FF22F4512460089B78D /* ColorConversion.h in Headers */,
 				56155FF32F4512460089B78D /* GLTexture3D.h in Headers */,
 				56155FF42F4512460089B78D /* GLDepthBuffer.h in Headers */,
 				56155FF52F4512460089B78D /* GLDepthTexture.h in Headers */,
 				56155FF62F4512460089B78D /* ImageLoader.h in Headers */,
 				56155FF72F4512460089B78D /* CommandInterpreter.h in Headers */,
+				5615600D2F4512460089B78D /* ColorConversion.h in Headers */,
 				56155FF82F4512460089B78D /* FontRenderer.h in Headers */,
 				56155FF92F4512460089B78D /* Tesselation.h in Headers */,
 				56155FFA2F4512460089B78D /* GLTexture2D.h in Headers */,
@@ -273,6 +276,7 @@
 				561560012F4512460089B78D /* png.h in Headers */,
 				561560022F4512460089B78D /* OBJFile.h in Headers */,
 				561560032F4512460089B78D /* stb_image.h in Headers */,
+				5615600E2F4512460089B78D /* half.h in Headers */,
 				561560042F4512460089B78D /* Vec2.h in Headers */,
 				561560052F4512460089B78D /* Compression.h in Headers */,
 				561560062F4512460089B78D /* GLProgram.h in Headers */,
@@ -343,13 +347,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5615600B2F4512460089B78D /* AbstractParticleSystem.cpp in Sources */,
 				56155FCA2F4512460089B78D /* png.cpp in Sources */,
 				56155FCB2F4512460089B78D /* GLDepthBuffer.cpp in Sources */,
 				56155FCC2F4512460089B78D /* GLTexture3D.cpp in Sources */,
 				56155FCD2F4512460089B78D /* GLTexture2D.cpp in Sources */,
 				56155FCE2F4512460089B78D /* ImageLoader.cpp in Sources */,
 				56155FCF2F4512460089B78D /* Rand.cpp in Sources */,
-				56155FD02F4512460089B78D /* AbstractParticleSystem.cpp in Sources */,
 				56155FD12F4512460089B78D /* Compression.cpp in Sources */,
 				56155FD22F4512460089B78D /* Grid2D.cpp in Sources */,
 				56155FD32F4512460089B78D /* GLEnv.cpp in Sources */,
@@ -505,8 +509,8 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					../Utils,
-					/usr/local/Cellar/glfw/3.3.2/lib/,
-					/usr/local/Cellar/glew/2.1.0_1/lib/,
+					/opt/homebrew/lib,
+					/usr/local/lib/,
 				);
 				OTHER_LDFLAGS = (
 					"-lglfw",
@@ -536,8 +540,8 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					../Utils,
-					/usr/local/Cellar/glfw/3.3.2/lib/,
-					/usr/local/Cellar/glew/2.1.0_1/lib/,
+					/opt/homebrew/lib,
+					/usr/local/lib/,
 				);
 				OTHER_LDFLAGS = (
 					"-lglfw",

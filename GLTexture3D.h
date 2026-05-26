@@ -2,12 +2,14 @@
 
 #include <vector>
 
-#include "GLEnv.h"  
+#include "GLEnv.h"
+#include "half.h"
 
 class GLTexture3D {
 public:
 	GLTexture3D(GLint magFilter=GL_NEAREST, GLint minFilter=GL_NEAREST,
-              GLint wrapX=GL_REPEAT, GLint wrapY=GL_REPEAT, GLint wrapZ=GL_REPEAT);
+              GLint wrapX=GL_REPEAT, GLint wrapY=GL_REPEAT,
+              GLint wrapZ=GL_REPEAT, GLDataType dataType=GLDataType::BYTE);
 	~GLTexture3D();
 	
   GLTexture3D(const GLTexture3D& other);
@@ -15,10 +17,22 @@ public:
     
 	const GLuint getId() const;
   void clear();
-  void setEmpty(uint32_t width, uint32_t height, uint32_t depth, uint8_t componentCount, bool isFloat=false);
-	void setData(const std::vector<GLubyte>& data, uint32_t width, uint32_t height, uint32_t depth, uint8_t componentCount=4);
+  void setFilter(GLint magFilter, GLint minFilter);
+  void setEmpty(uint32_t width, uint32_t height, uint32_t depth,
+                uint8_t componentCount, GLDataType dataType=GLDataType::BYTE);
+	void setData(const std::vector<GLubyte>& data, uint32_t width,
+               uint32_t height, uint32_t depth, uint8_t componentCount=4);
   void setData(const std::vector<GLubyte>& data);
-  void setData(const std::vector<GLfloat>& data, uint32_t width, uint32_t height, uint32_t depth, uint8_t componentCount=4);
+#ifndef __EMSCRIPTEN__
+  void setData(const std::vector<GLushort>& data, uint32_t width,
+               uint32_t height, uint32_t depth, uint8_t componentCount=4);
+  void setData(const std::vector<GLushort>& data);
+#endif
+  void setData(const std::vector<half::Half>& data, uint32_t width,
+               uint32_t height, uint32_t depth, uint8_t componentCount=4);
+  void setData(const std::vector<half::Half>& data);
+  void setData(const std::vector<GLfloat>& data, uint32_t width,
+               uint32_t height, uint32_t depth, uint8_t componentCount=4);
   void setData(const std::vector<GLfloat>& data);
 
   uint32_t getHeight() const {return height;}
@@ -26,12 +40,7 @@ public:
   uint32_t getDepth() const {return depth;}
   uint32_t getComponentCount() const {return componentCount;}
   uint32_t getSize() const {return height*width*depth*componentCount;}
-  bool getIsFloat() const {return isFloat;}
-  
-#ifndef __EMSCRIPTEN__
-  const std::vector<GLubyte>& getDataByte();
-  const std::vector<GLfloat>& getDataFloat();
-#endif
+  GLDataType getDataType() const {return dataType;}
 
   static uint32_t getMaxSize() {
     GLint max3DSize = 0;
@@ -39,14 +48,11 @@ public:
     return uint32_t(max3DSize);
   }
 
-  void setData(GLvoid* data, uint32_t width, uint32_t height, uint32_t depth,
-               uint8_t componentCount, bool isFloat);
+  void setData(const GLvoid* data, uint32_t width, uint32_t height,
+               uint32_t depth, uint8_t componentCount, GLDataType dataType);
 
 private:
 	GLuint id;
-	GLint internalformat;
-	GLenum format;
-	GLenum type;
 
   GLint magFilter;
   GLint minFilter;
@@ -54,12 +60,16 @@ private:
   GLint wrapY;
   GLint wrapZ;
   std::vector<GLubyte> data;
+#ifndef __EMSCRIPTEN__
+  std::vector<GLushort> sdata;
+#endif
+  std::vector<half::Half> hdata;
   std::vector<GLfloat> fdata;
   uint32_t width;
   uint32_t height;
   uint32_t depth;
   uint8_t componentCount;
-  bool isFloat;
+  GLDataType dataType;
   
 };
 

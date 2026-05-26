@@ -1,8 +1,7 @@
+#include "GLDebug.h"
+
 #include <sstream>
 #include <vector>
-
-#include "GLEnv.h"
-#include "GLDebug.h"
 
 std::string errorString(GLenum glerr) {
   switch (glerr) {

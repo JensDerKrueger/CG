@@ -145,27 +145,69 @@ CommandResultCode CommandInterpreter::executeCommand(const std::string& command,
 std::optional<std::string> CommandInterpreter::substituteToken(const std::string& token) const {
   if (token.empty()) return token;
 
-  if (token[0] != '$') {
-    return token;
+  std::string result;
+  result.reserve(token.size());
+
+  auto appendVariable = [&](std::string_view name) -> bool {
+    if (name.empty()) return false;
+    auto it = variables.find(std::string(name));
+    if (it == variables.end()) return false;
+    result += it->second;
+    return true;
+  };
+
+  for (std::size_t i = 0; i < token.size(); ++i) {
+    if (token[i] != '$') {
+      result.push_back(token[i]);
+      continue;
+    }
+
+    if (i + 1 >= token.size()) {
+      return std::nullopt;
+    }
+
+    if (token[i + 1] == '$') {
+      result.push_back('$');
+      ++i;
+      continue;
+    }
+
+    if (token[i + 1] == '{') {
+      std::size_t end = token.find('}', i + 2);
+      if (end == std::string::npos) {
+        return std::nullopt;
+      }
+
+      std::string_view name{token.data() + i + 2, end - (i + 2)};
+      if (!appendVariable(name)) {
+        return std::nullopt;
+      }
+      i = end;
+      continue;
+    }
+
+    std::size_t start = i + 1;
+    std::size_t end = start;
+    while (end < token.size()) {
+      const unsigned char ch = static_cast<unsigned char>(token[end]);
+      if (!std::isalnum(ch) && ch != '_') {
+        break;
+      }
+      ++end;
+    }
+
+    if (end == start) {
+      return std::nullopt;
+    }
+
+    std::string_view name{token.data() + start, end - start};
+    if (!appendVariable(name)) {
+      return std::nullopt;
+    }
+    i = end - 1;
   }
 
-  // $name
-  if (token.size() >= 2 && token[1] != '{') {
-    std::string name = token.substr(1);
-    auto it = variables.find(name);
-    if (it == variables.end()) return std::nullopt;
-    return it->second;
-  }
-
-  // ${name}
-  if (token.size() >= 4 && token[1] == '{' && token.back() == '}') {
-    std::string name = token.substr(2, token.size() - 3);
-    auto it = variables.find(name);
-    if (it == variables.end()) return std::nullopt;
-    return it->second;
-  }
-
-  return std::nullopt;
+  return result;
 }
 
 CommandResultCode CommandInterpreter::substituteVariablesInPlace(std::vector<std::string>& args) const {

@@ -4,6 +4,7 @@
 
 #include "GLEnv.h"
 #include "Image.h"
+#include "half.h"
 
 class GLTexture2D {
 public:
@@ -23,10 +24,14 @@ public:
   void setData(const Image& image);
   void setData(const std::vector<GLubyte>& data, uint32_t width, uint32_t height, uint8_t componentCount=4);
   void setData(const std::vector<GLubyte>& data);
+#ifndef __EMSCRIPTEN__
+  void setData(const std::vector<GLushort>& data, uint32_t width, uint32_t height, uint8_t componentCount=4);
+  void setData(const std::vector<GLushort>& data);
+#endif
+  void setData(const std::vector<half::Half>& data, uint32_t width, uint32_t height, uint8_t componentCount=4);
+  void setData(const std::vector<half::Half>& data);
   void setData(const std::vector<GLfloat>& data, uint32_t width, uint32_t height, uint8_t componentCount=4);
   void setData(const std::vector<GLfloat>& data);
-  void setData(const std::vector<GLhalf>& data, uint32_t width, uint32_t height, uint8_t componentCount=4);
-  void setData(const std::vector<GLhalf>& data);
   void setFilter(GLint magFilter, GLint minFilter);
   
   void setPixel(const std::vector<GLubyte>& data, uint32_t x, uint32_t y);
@@ -42,22 +47,23 @@ public:
 #ifndef __EMSCRIPTEN__
   Image getImage();
   const std::vector<GLubyte>& getDataByte();
-  const std::vector<GLhalf>& getDataHalf();
+  const std::vector<GLushort>& getDataShort();
+  const std::vector<half::Half>& getDataHalf();
   const std::vector<GLfloat>& getDataFloat();
 #endif
 
 private:
 	GLuint id;
-  GLint internalformat;
-	GLenum format;
-	GLenum type;
 
   GLint magFilter;
   GLint minFilter;
   GLint wrapX;
   GLint wrapY;
   std::vector<GLubyte> data;
-  std::vector<GLhalf> hdata;
+#ifndef __EMSCRIPTEN__
+  std::vector<GLushort> sdata;
+#endif
+  std::vector<half::Half> hdata;
   std::vector<GLfloat> fdata;
   uint32_t width;
   uint32_t height;

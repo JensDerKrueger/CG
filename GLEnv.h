@@ -16,9 +16,31 @@
 #include "GLDebug.h"
 #include "PerformanceTimer.h"
 
-enum class GLDataType {BYTE, HALF, FLOAT};
+struct Dimensions {
+  uint32_t width;
+  uint32_t height;
+
+  float aspect() const {return float(width)/float(height);}
+};
+
+enum class GLDataType {
+  BYTE,
+#ifndef __EMSCRIPTEN__
+  SHORT,
+#endif
+  HALF,
+  FLOAT
+};
 enum class GLDepthDataType {DEPTH16, DEPTH24, DEPTH32};
 enum class CursorMode {NORMAL, HIDDEN, FIXED};
+
+struct GLTexInfo {
+  GLint internalformat{0};
+  GLenum type{0};
+  GLenum format{0};
+};
+
+GLTexInfo dataTypeToGL(GLDataType dataType, uint8_t componentCount);
 
 class GLEnv {
 public:
@@ -69,7 +91,8 @@ public:
   std::string getGPUString();
   std::string getOpenGlInfoString(bool includeExtensions = false);
 
-  void setFPSAccumulationInterval(uint64_t newAccumulationInterval);
+  double getFPSAccumulationInterval() const;
+  void setFPSAccumulationInterval(double newAccumulationInterval);
   bool getFPSCounterStatus() const {return fpsCounter;}
   void setFPSCounterStatus(bool fpsCounter);
   double getFps() const {return currentFps;}
@@ -93,7 +116,7 @@ private:
   uint64_t accumulatedNanoseconds{0};
   uint32_t accumulatedFrames{0};
   double integratedFPS{0.0};
-  uint64_t accumulationInterval{1};
+  double accumulationInterval{1.0};
 
   static void errorCallback(int error, const char* description);
   double updateIntegratedFPS(std::uint64_t nanoseconds);

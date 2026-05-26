@@ -5,9 +5,6 @@
 
 GLTextureCube::GLTextureCube(GLint magFilter, GLint minFilter, GLint wrapX, GLint wrapY, GLint wrapZ) :
   id(0),
-  internalformat(0),
-  format(0),
-  type(0),
   magFilter(magFilter),
   minFilter(minFilter),
   wrapX(wrapX),
@@ -68,6 +65,11 @@ GLTextureCube::GLTextureCube(const GLTextureCube& other) :
         case GLDataType::BYTE  :
           setData(other.data, other.width, other.height, Face(face), other.componentCount);
           break;
+#ifndef __EMSCRIPTEN__
+        case GLDataType::SHORT  :
+          setData(other.sdata, other.width, other.height, Face(face), other.componentCount);
+          break;
+#endif
         case GLDataType::HALF  :
           setData(other.hdata, other.width, other.height, Face(face), other.componentCount);
           break;
@@ -99,6 +101,11 @@ GLTextureCube& GLTextureCube::operator=(const GLTextureCube& other) {
         case GLDataType::BYTE  :
           setData(other.data, other.width, other.height, Face(face), other.componentCount);
           break;
+#ifndef __EMSCRIPTEN__
+        case GLDataType::SHORT  :
+          setData(other.sdata, other.width, other.height, Face(face), other.componentCount);
+          break;
+#endif
         case GLDataType::HALF  :
           setData(other.hdata, other.width, other.height, Face(face), other.componentCount);
           break;
@@ -132,12 +139,31 @@ void GLTextureCube::setData(const std::vector<GLfloat>& data, Face face) {
   setData(data,width,height,face,componentCount);
 }
 
+void GLTextureCube::setData(const std::vector<half::Half>& data, Face face) {
+  setData(data,width,height,face,componentCount);
+}
+
 void GLTextureCube::setEmpty(uint32_t width, uint32_t height, uint8_t componentCount, GLDataType dataType) {
   for (size_t face = 0;face<6;++face) {
     switch (dataType) {
-      case GLDataType::BYTE  : setData(std::vector<GLubyte>(width*height*componentCount), width, height, Face(face), componentCount); break;
-      case GLDataType::HALF  : setData(std::vector<GLhalf>(width*height*componentCount), width, height, Face(face), componentCount); break;
-      case GLDataType::FLOAT : setData(std::vector<GLfloat>(width*height*componentCount), width, height, Face(face), componentCount); break;
+      case GLDataType::BYTE  :
+        setData(std::vector<GLubyte>(width*height*componentCount),
+                width, height, Face(face), componentCount);
+        break;
+#ifndef __EMSCRIPTEN__
+      case GLDataType::SHORT  :
+        setData(std::vector<GLushort>(width*height*componentCount),
+                width, height, Face(face), componentCount);
+        break;
+#endif
+      case GLDataType::HALF  :
+        setData(std::vector<half::Half>(width*height*componentCount),
+                width, height, Face(face), componentCount);
+        break;
+      case GLDataType::FLOAT :
+        setData(std::vector<GLfloat>(width*height*componentCount),
+                width, height, Face(face), componentCount);
+        break;
     }
   }
 }
@@ -151,7 +177,22 @@ void GLTextureCube::setData(const std::vector<GLubyte>& data, uint32_t width, ui
   setData((GLvoid*)data.data(), width, height, face, componentCount, GLDataType::BYTE);
 }
 
-void GLTextureCube::setData(const std::vector<GLhalf>& data, uint32_t width, uint32_t height, Face face, uint8_t componentCount) {
+#ifndef __EMSCRIPTEN__
+void GLTextureCube::setData(const std::vector<GLushort>& data, Face face) {
+  setData(data,width,height,face,componentCount);
+}
+
+void GLTextureCube::setData(const std::vector<GLushort>& data, uint32_t width, uint32_t height, Face face, uint8_t componentCount) {
+  if (data.size() != componentCount*width*height) {
+    throw GLException{"Data size and texure dimensions do not match."};
+  }
+
+  this->sdata = data;
+  setData((GLvoid*)data.data(), width, height, face, componentCount, GLDataType::SHORT);
+}
+#endif
+
+void GLTextureCube::setData(const std::vector<half::Half>& data, uint32_t width, uint32_t height, Face face, uint8_t componentCount) {
   if (data.size() != componentCount*width*height) {
     throw GLException{"Data size and texure dimensions do not match."};
   }
@@ -171,87 +212,6 @@ void GLTextureCube::setData(const std::vector<GLfloat>& data, uint32_t width, ui
   this->fdata = data;
   setData((GLvoid*)this->fdata.data(), width, height, face, componentCount, GLDataType::FLOAT);
 }
-
-struct GLTexInfo {
-  GLint internalformat{0};
-  GLenum type{0};
-  GLenum format{0};
-};
-
-static GLTexInfo dataTypeToGL(GLDataType dataType, uint8_t componentCount) {
-  GLTexInfo result;
-
-  switch (dataType) {
-    case GLDataType::BYTE :
-      result.type = GL_UNSIGNED_BYTE;
-      switch (componentCount) {
-        case 1 :
-          result.internalformat = GL_R8;
-          result.format = GL_RED;
-          break;
-        case 2 :
-          result.internalformat = GL_RG8;
-          result.format = GL_RG;
-          break;
-        case 3 :
-          result.internalformat = GL_RGB8;
-          result.format = GL_RGB;
-          break;
-        case 4 :
-          result.internalformat = GL_RGBA8;
-          result.format = GL_RGBA;
-          break;
-      }
-      break;
-
-    case GLDataType::HALF :
-      result.type = GL_HALF_FLOAT;
-      switch (componentCount) {
-        case 1 :
-          result.internalformat = GL_R16F;
-          result.format = GL_RED;
-          break;
-        case 2 :
-          result.internalformat = GL_RG16F;
-          result.format = GL_RG;
-          break;
-        case 3 :
-          result.internalformat = GL_RGB16F;
-          result.format = GL_RGB;
-          break;
-        case 4 :
-          result.internalformat = GL_RGBA16F;
-          result.format = GL_RGBA;
-          break;
-      }
-      break;
-
-    case GLDataType::FLOAT :
-      result.type = GL_FLOAT;
-      switch (componentCount) {
-        case 1 :
-          result.internalformat = GL_R32F;
-          result.format = GL_RED;
-          break;
-        case 2 :
-          result.internalformat = GL_RG32F;
-          result.format = GL_RG;
-          break;
-        case 3 :
-          result.internalformat = GL_RGB32F;
-          result.format = GL_RGB;
-          break;
-        case 4 :
-          result.internalformat = GL_RGBA32F;
-          result.format = GL_RGBA;
-          break;
-      }
-      break;
-  }
-
-  return result;
-}
-
 
 void GLTextureCube::setData(GLvoid* data, uint32_t width, uint32_t height,
                             Face face, uint8_t componentCount,

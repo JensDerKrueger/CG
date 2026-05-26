@@ -25,6 +25,100 @@ extern "C" {
 #endif
 #endif
 
+GLTexInfo dataTypeToGL(GLDataType dataType, uint8_t componentCount) {
+  GLTexInfo result;
+
+  switch (dataType) {
+    case GLDataType::BYTE :
+      result.type = GL_UNSIGNED_BYTE;
+      switch (componentCount) {
+        case 1 :
+          result.internalformat = GL_R8;
+          result.format = GL_RED;
+          break;
+        case 2 :
+          result.internalformat = GL_RG8;
+          result.format = GL_RG;
+          break;
+        case 3 :
+          result.internalformat = GL_RGB8;
+          result.format = GL_RGB;
+          break;
+        case 4 :
+          result.internalformat = GL_RGBA8;
+          result.format = GL_RGBA;
+          break;
+      }
+      break;
+#ifndef __EMSCRIPTEN__
+    case GLDataType::SHORT :
+      result.type = GL_UNSIGNED_SHORT;
+      switch (componentCount) {
+        case 1 :
+          result.internalformat = GL_R16;
+          result.format = GL_RED;
+          break;
+        case 2 :
+          result.internalformat = GL_RG16;
+          result.format = GL_RG;
+          break;
+        case 3 :
+          result.internalformat = GL_RGB16;
+          result.format = GL_RGB;
+          break;
+        case 4 :
+          result.internalformat = GL_RGBA16;
+          result.format = GL_RGBA;
+          break;
+      }
+      break;
+#endif
+    case GLDataType::HALF :
+      result.type = GL_HALF_FLOAT;
+      switch (componentCount) {
+        case 1 :
+          result.internalformat = GL_R16F;
+          result.format = GL_RED;
+          break;
+        case 2 :
+          result.internalformat = GL_RG16F;
+          result.format = GL_RG;
+          break;
+        case 3 :
+          result.internalformat = GL_RGB16F;
+          result.format = GL_RGB;
+          break;
+        case 4 :
+          result.internalformat = GL_RGBA16F;
+          result.format = GL_RGBA;
+          break;
+      }
+      break;
+    case GLDataType::FLOAT :
+      result.type = GL_FLOAT;
+      switch (componentCount) {
+        case 1 :
+          result.internalformat = GL_R32F;
+          result.format = GL_RED;
+          break;
+        case 2 :
+          result.internalformat = GL_RG32F;
+          result.format = GL_RG;
+          break;
+        case 3 :
+          result.internalformat = GL_RGB32F;
+          result.format = GL_RGB;
+          break;
+        case 4 :
+          result.internalformat = GL_RGBA32F;
+          result.format = GL_RGBA;
+          break;
+      }
+      break;
+  }
+
+  return result;
+}
 
 void GLEnv::checkGLError(const std::string& id) {
   GLenum e = glGetError();
@@ -60,10 +154,11 @@ GLEnv::GLEnv(uint32_t w, uint32_t h, uint32_t s, const std::string& title,
   attr.premultipliedAlpha = 0;
   attr.depth = 1;
   attr.stencil = 0;
-  attr.antialias = 1;
+  attr.antialias = exactPixels ? 0 : 1;
   attr.majorVersion = major;
   attr.minorVersion = minor;
   attr.enableExtensionsByDefault = true;
+  attr.preserveDrawingBuffer = true;
 
   EMSCRIPTEN_WEBGL_CONTEXT_HANDLE context = emscripten_webgl_create_context(ENS_CANVAS, &attr);
   emscripten_webgl_make_context_current(context);
@@ -140,7 +235,11 @@ GLEnv::~GLEnv() {
   timer = nullptr;
 }
 
-void GLEnv::setFPSAccumulationInterval(uint64_t newAccumulationInterval) {
+double GLEnv::getFPSAccumulationInterval() const {
+  return accumulationInterval;
+}
+
+void GLEnv::setFPSAccumulationInterval(double newAccumulationInterval) {
   accumulationInterval = newAccumulationInterval;
   accumulatedNanoseconds = 0;
   accumulatedFrames = 0;
@@ -214,7 +313,7 @@ void GLEnv::setSize(int width, int height) {
 }
 
 double GLEnv::updateIntegratedFPS(std::uint64_t nanoseconds) {
-  const std::uint64_t frameNs = accumulationInterval*1000000000ull;
+  const uint64_t frameNs = uint64_t(accumulationInterval*1000000000);
   accumulatedNanoseconds += nanoseconds;
   accumulatedFrames += 1;
 
@@ -292,10 +391,11 @@ Dimensions GLEnv::getFramebufferSize() const {
 }
 
 Dimensions GLEnv::getWindowSize() const {
-  int width, height;
 #ifdef __EMSCRIPTEN__
-  emscripten_get_canvas_element_size(ENS_CANVAS, &width, &height);
+  double width, height;
+  emscripten_get_element_css_size(ENS_CANVAS, &width, &height);
 #else
+  int width, height;
   glfwGetWindowSize(window, &width, &height);
 #endif
   return Dimensions{uint32_t(width), uint32_t(height)};

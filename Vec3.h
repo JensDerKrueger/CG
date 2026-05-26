@@ -8,6 +8,8 @@
 #include <array>
 #include <cmath>
 #include <optional>
+#include <iomanip>
+
 
 #include "Rand.h"
 #include "Vec2.h"
@@ -46,11 +48,56 @@ public:
   e{T(other.x), T(other.y), z}
   {}
 
-  std::string toString() const {
-    std::stringstream s;
-    s << "[" << e[0] << ", " << e[1] << ", " << e[2] << "]";
+  static Vec3t fromEncoding(const std::string& str) {
+    Vec3t m;
+
+    std::string cleaned;
+    cleaned.reserve(str.size());
+    for (char c : str) {
+      if (c == '[' || c == ']') { continue; }
+      if (std::isspace(static_cast<unsigned char>(c))) { continue; }
+      cleaned.push_back(c);
+    }
+
+    std::array<T, 3> values{};
+    std::stringstream ss(cleaned);
+    ss.imbue(std::locale::classic());
+    std::string token;
+    size_t i = 0;
+
+    while (std::getline(ss, token, '_')) {
+      if (token.empty()) { return Vec3t(); }
+
+      std::stringstream ts(token);
+      ts.imbue(std::locale::classic());
+      T v{};
+      ts >> v;
+      if (ts.fail()) { return Vec3t(); }
+
+      char extra{};
+      if (ts >> extra) { return Vec3t(); }
+
+      if (i >= values.size()) { return Vec3t(); }
+      values[i++] = v;
+    }
+
+    if (i != values.size()) { return Vec3t(); }
+
+    m.e = values;
+    return m;
+  }
+
+  std::string toEncoding() const {
+    std::ostringstream s;
+    s.imbue(std::locale::classic());
+    s << std::setprecision(std::numeric_limits<T>::max_digits10);
+    for (size_t i = 0; i < e.size(); ++i) {
+      if (i != 0) { s << "_"; }
+      s << e[i];
+    }
     return s.str();
   }
+
 
   Vec3t operator+(const Vec3t& val) const {
     return Vec3t{e[0]+val.e[0],
@@ -209,7 +256,7 @@ public:
 
 template <typename T>
 std::ostream & operator<<(std::ostream & os, const Vec3t<T> & v) {
-  os << v.toString();
+  os << "[" << v[0] << ", " << v[1] << ", " << v[2] << "]";
   return os;
 }
 

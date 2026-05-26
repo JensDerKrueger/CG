@@ -24,7 +24,7 @@ public:
 
     if (ext == ".png") return savePng(fileName);
     if (ext == ".ppm") return savePpm(fileName);
-    if (ext == ".bmp" || ext == ".bpm") return saveBmp(fileName);
+    if (ext == ".bmp") return saveBmp(fileName);
 
     return false;
   }
