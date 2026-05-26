@@ -19,26 +19,26 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\ArcBall.cpp" />
+    <ClCompile Include="..\AbstractParticleSystem.cpp" />
     <ClCompile Include="..\Base64Url.cpp" />
     <ClCompile Include="..\CommandInterpreter.cpp" />
     <ClCompile Include="..\Compression.cpp" />
+    <ClCompile Include="..\GLTextureCube.cpp" />
     <ClCompile Include="..\Image.cpp" />
-    <ClCompile Include="..\AbstractParticleSystem.cpp" />
+    <ClCompile Include="..\ArcBall.cpp" />
     <ClCompile Include="..\bmp.cpp" />
     <ClCompile Include="..\FontRenderer.cpp" />
     <ClCompile Include="..\GLApp.cpp" />
     <ClCompile Include="..\GLArray.cpp" />
     <ClCompile Include="..\GLBuffer.cpp" />
     <ClCompile Include="..\GLDebug.cpp" />
+    <ClCompile Include="..\GLDepthBuffer.cpp" />
     <ClCompile Include="..\GLEnv.cpp" />
+    <ClCompile Include="..\GLFramebuffer.cpp" />
     <ClCompile Include="..\GLProgram.cpp" />
     <ClCompile Include="..\GLTexture1D.cpp" />
     <ClCompile Include="..\GLTexture2D.cpp" />
     <ClCompile Include="..\GLTexture3D.cpp" />
-    <ClCompile Include="..\GLTextureCube.cpp" />
-    <ClCompile Include="..\GLFramebuffer.cpp" />
-    <ClCompile Include="..\GLDepthBuffer.cpp" />
     <ClCompile Include="..\Grid2D.cpp" />
     <ClCompile Include="..\ImageLoader.cpp" />
     <ClCompile Include="..\OBJFile.cpp" />
@@ -47,18 +47,19 @@
     <ClCompile Include="..\Tesselation.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\ArcBall.h" />
+    <ClInclude Include="..\AbstractParticleSystem.h" />
     <ClInclude Include="..\Base64Url.h" />
-    <ClInclude Include="..\ColorConversion.h" />
     <ClInclude Include="..\CommandInterpreter.h" />
     <ClInclude Include="..\Compression.h" />
+    <ClInclude Include="..\ColorConversion.h" />
     <ClInclude Include="..\GLAppKeyTranslation.h" />
     <ClInclude Include="..\GLDepthTexture.h" />
     <ClInclude Include="..\GLScreenshot.h" />
+    <ClInclude Include="..\GLTextureCube.h" />
     <ClInclude Include="..\Image.h" />
     <ClInclude Include="..\ImageLoader.h" />
     <ClInclude Include="..\Mat3.h" />
-    <ClInclude Include="..\AbstractParticleSystem.h" />
+    <ClInclude Include="..\ArcBall.h" />
     <ClInclude Include="..\bmp.h" />
     <ClInclude Include="..\Camera.h" />
     <ClInclude Include="..\FontRenderer.h" />
@@ -66,15 +67,15 @@
     <ClInclude Include="..\GLArray.h" />
     <ClInclude Include="..\GLBuffer.h" />
     <ClInclude Include="..\GLDebug.h" />
+    <ClInclude Include="..\GLDepthBuffer.h" />
     <ClInclude Include="..\GLEnv.h" />
+    <ClInclude Include="..\GLFramebuffer.h" />
     <ClInclude Include="..\GLProgram.h" />
     <ClInclude Include="..\GLTexture1D.h" />
     <ClInclude Include="..\GLTexture2D.h" />
     <ClInclude Include="..\GLTexture3D.h" />
-    <ClInclude Include="..\GLTextureCube.h" />
-    <ClInclude Include="..\GLFramebuffer.h" />
-    <ClInclude Include="..\GLDepthBuffer.h" />
     <ClInclude Include="..\Grid2D.h" />
+    <ClInclude Include="..\half.h" />
     <ClInclude Include="..\Mat4.h" />
     <ClInclude Include="..\OBJFile.h" />
     <ClInclude Include="..\PerformanceTimer.h" />
@@ -111,6 +112,7 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v145</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -123,6 +125,7 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v145</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -145,23 +148,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IntDir>$(SolutionDir)tmp\$(TargetName)\$(PlatformTarget)-$(Configuration)\</IntDir>
-    <OutDir>$(SolutionDir)bin\$(PlatformTarget)-$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)bin\$(PlatformTarget)-$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)tmp\$(TargetName)\$(PlatformTarget)-$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)bin\$(PlatformTarget)-$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)tmp\$(TargetName)\$(PlatformTarget)-$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)bin\$(PlatformTarget)-$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)tmp\$(TargetName)\$(PlatformTarget)-$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -173,7 +168,8 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>../../VS/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <OpenMPSupport>true</OpenMPSupport>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -197,7 +193,8 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>../../VS/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <OpenMPSupport>true</OpenMPSupport>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -221,7 +218,8 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>../../VS/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <OpenMPSupport>true</OpenMPSupport>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -245,7 +243,8 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>../../VS/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <OpenMPSupport>true</OpenMPSupport>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>

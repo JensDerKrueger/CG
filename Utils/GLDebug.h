@@ -1,5 +1,7 @@
 #pragma once
 
+#include "GLEnv.h"
+
 #include <iostream>
 #include <exception>
 
@@ -11,13 +13,6 @@ public:
   }
 private:
   std::string whatStr;
-};
-
-struct Dimensions {
-  uint32_t width;
-  uint32_t height;
-  
-  float aspect() const {return float(width)/float(height);}
 };
 
 

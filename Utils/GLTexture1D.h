@@ -2,34 +2,57 @@
 
 #include <vector>
 
-#include "GLEnv.h"  
+#include "GLEnv.h"
+#include "half.h"
 
 class GLTexture1D {
 public:
 	GLTexture1D(GLint magFilter=GL_NEAREST, GLint minFilter=GL_NEAREST,
-              GLint wrapX=GL_REPEAT);
-    
+              GLint wrapX=GL_REPEAT, GLDataType dataType=GLDataType::BYTE);
+
   GLTexture1D(const GLTexture1D& other);    
   GLTexture1D& operator=(GLTexture1D other);    
   
 	~GLTexture1D();
-	
-	const GLuint getId() const;	
+
+  void clear();
+  void setEmpty(uint32_t size, uint8_t componentCount,
+                GLDataType dataType=GLDataType::BYTE);
+
+	const GLuint getId() const;
 	void setData(const std::vector<GLubyte>& data, uint32_t size, 
                uint8_t componentCount=4);
+  void setData(const std::vector<GLubyte>& data);
+#ifndef __EMSCRIPTEN__
+  void setData(const std::vector<GLushort>& data, uint32_t size,
+               uint8_t componentCount=4);
+  void setData(const std::vector<GLushort>& data);
+#endif
+  void setData(const std::vector<half::Half>& data, uint32_t size,
+               uint8_t componentCount=4);
+  void setData(const std::vector<half::Half>& data);
+  void setData(const std::vector<GLfloat>& data, uint32_t size,
+               uint8_t componentCount=4);
+  void setData(const std::vector<GLfloat>& data);
 
 private:
 	GLuint id;
-  GLint internalformat;
-	GLenum format;
-	GLenum type;
 
+  GLDataType dataType;
   GLint magFilter;
   GLint minFilter;
   GLint wrapX;
   std::vector<GLubyte> data;
+#ifndef __EMSCRIPTEN__
+  std::vector<GLushort> sdata;
+#endif
+  std::vector<half::Half> hdata;
+  std::vector<GLfloat> fdata;
   uint32_t size;
   uint8_t componentCount;
+
+  void setData(GLvoid* data, uint32_t size,
+               uint8_t componentCount, GLDataType dataType);
 };
 
 /*

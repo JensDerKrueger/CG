@@ -118,9 +118,9 @@ std::shared_ptr<FontEngine> FontRenderer::generateFontEngine() const {
   
   for (const CharPosition& c : positions) {
     const Image i = render(std::string(1,c.c));
-    const float w=i.width/float(maxWidth);
-    const float h=i.height/float(maxHeight);
-    
+    const float w=float(i.width)/float(maxWidth);
+    const float h=float(i.height)/float(maxHeight);
+
     const Mat4 s = Mat4::scaling(w,h,1.0f);
     const Mat4 t = Mat4::translation(w,h,0.0f);
     fe->chars[c.c] = CharTex{GLTexture2D(i),s,t,w,h};

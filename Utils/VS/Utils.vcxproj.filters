@@ -18,6 +18,9 @@
     <ClCompile Include="..\AbstractParticleSystem.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\ArcBall.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
     <ClCompile Include="..\bmp.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -36,7 +39,13 @@
     <ClCompile Include="..\GLDebug.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\GLDepthBuffer.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
     <ClCompile Include="..\GLEnv.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GLFramebuffer.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="..\GLProgram.cpp">
@@ -51,16 +60,10 @@
     <ClCompile Include="..\GLTexture3D.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\GLTextureCube.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="..\GLFramebuffer.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="..\GLDepthBuffer.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\Grid2D.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ImageLoader.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="..\OBJFile.cpp">
@@ -69,22 +72,16 @@
     <ClCompile Include="..\Rand.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\Tesselation.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
     <ClCompile Include="..\Image.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ImageLoader.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ArcBall.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="..\CommandInterpreter.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\Tesselation.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Base64Url.cpp">
+    <ClCompile Include="..\GLTextureCube.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="..\png.cpp">
@@ -93,9 +90,15 @@
     <ClCompile Include="..\Compression.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\Base64Url.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\AbstractParticleSystem.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ArcBall.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\bmp.h">
@@ -119,7 +122,13 @@
     <ClInclude Include="..\GLDebug.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="..\GLDepthBuffer.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
     <ClInclude Include="..\GLEnv.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GLFramebuffer.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\GLProgram.h">
@@ -134,15 +143,6 @@
     <ClInclude Include="..\GLTexture3D.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\GLTextureCube.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\GLFramebuffer.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\GLDepthBuffer.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="..\Grid2D.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -152,7 +152,13 @@
     <ClInclude Include="..\OBJFile.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="..\Quaternion.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
     <ClInclude Include="..\Rand.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Tesselation.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\Vec2.h">
@@ -188,22 +194,16 @@
     <ClInclude Include="..\..\VS\include\GL\wglew.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\ColorConversion.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ImageLoader.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\stb_image.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ArcBall.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="..\CommandInterpreter.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="..\ColorConversion.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
     <ClInclude Include="..\GLAppKeyTranslation.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GLTextureCube.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\GLDepthTexture.h">
@@ -212,22 +212,25 @@
     <ClInclude Include="..\GLScreenshot.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="..\ImageLoader.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\half.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
     <ClInclude Include="..\PerformanceTimer.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Quaternion.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Tesselation.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Base64Url.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\png.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\Compression.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Base64Url.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\stb_image.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

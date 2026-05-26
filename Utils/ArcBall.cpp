@@ -34,9 +34,11 @@ Quaternion ArcBall::drag(const Vec2ui& position, bool resetState) {
 
 Vec3 ArcBall::mapToSphere(const Vec2ui& position) const {
   // normalize position to [-1 ... 1]
+  const float dx = float((winDim.x > 1) ? (winDim.x - 1) : 1u);
+  const float dy = float((winDim.y > 1) ? (winDim.y - 1) : 1u);
   const Vec2 normPosition {
-      -((2.0f * position.x / float(winDim.x - 1) ) - 1.0f),
-       ((2.0f * position.y / float(winDim.y - 1) ) - 1.0f)
+      -((2.0f * float(position.x) / dx) - 1.0f),
+       ((2.0f * float(position.y) / dy) - 1.0f)
   };
 
   // compute the length of the vector to the point from the center

@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "GLEnv.h"
+#include "half.h"
 #include "Image.h"
 
 enum class Face {
@@ -36,12 +37,17 @@ public:
   void setData(const std::vector<GLubyte>& data, uint32_t width,
                uint32_t height, Face face, uint8_t componentCount=4);
   void setData(const std::vector<GLubyte>& data, Face face);
+#ifndef __EMSCRIPTEN__
+  void setData(const std::vector<GLushort>& data, uint32_t width,
+               uint32_t height, Face face, uint8_t componentCount=4);
+  void setData(const std::vector<GLushort>& data, Face face);
+#endif
   void setData(const std::vector<GLfloat>& data, uint32_t width,
                uint32_t height, Face face, uint8_t componentCount=4);
   void setData(const std::vector<GLfloat>& data, Face face);
-  void setData(const std::vector<GLhalf>& data, uint32_t width,
+  void setData(const std::vector<half::Half>& data, uint32_t width,
                uint32_t height, Face face, uint8_t componentCount=4);
-  void setData(const std::vector<GLhalf>& data, Face face);
+  void setData(const std::vector<half::Half>& data, Face face);
   void setFilter(GLint magFilter, GLint minFilter);
 
   uint32_t getHeight() const {return height;}
@@ -54,9 +60,6 @@ public:
 
 private:
 	GLuint id;
-	GLint internalformat;
-	GLenum format;
-	GLenum type;
 
   GLint magFilter;
   GLint minFilter;
@@ -64,7 +67,10 @@ private:
   GLint wrapY;
   GLint wrapZ;
   std::vector<GLubyte> data;
-  std::vector<GLhalf> hdata;
+#ifndef __EMSCRIPTEN__
+  std::vector<GLushort> sdata;
+#endif
+  std::vector<half::Half> hdata;
   std::vector<GLfloat> fdata;
   uint32_t width{0};
   uint32_t height{0};
