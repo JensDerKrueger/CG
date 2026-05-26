@@ -11,10 +11,11 @@ ifeq ($(OSTYPE),Linux)
 	LIBS=
 	INCLUDES=-I. -I../Utils
 else
+	HOMEBREW_PREFIX ?= $(shell brew --prefix 2>/dev/null || echo /opt/homebrew)
 	CFLAGS=-c -Wall -std=c++20 -Wunreachable-code -Xclang
 	LFLAGS=-lglfw -lGLEW -framework OpenGL
-	LIBS=-L /opt/homebrew/lib
-	INCLUDES=-I. -I../Utils -I /opt/homebrew/include
+	LIBS=-L $(HOMEBREW_PREFIX)/lib
+	INCLUDES=-I. -I../Utils -I $(HOMEBREW_PREFIX)/include
 endif
 
 # Project sources
@@ -44,10 +45,13 @@ UTILS_EM_LIB := $(UTILS_DIR)/libutils_emscripten.a
 
 # Emscripten tools
 EMCC ?= em++
+EM_CXXFLAGS := -std=c++20
+EMSDK_ENV ?= $(HOME)/emsdk/emsdk_env.sh
+EMSDK_ACTIVATE = if command -v $(EMCC) >/dev/null 2>&1; then :; elif [ -f "$(EMSDK_ENV)" ]; then EMSDK_QUIET=1; export EMSDK_QUIET; . "$(EMSDK_ENV)" >/dev/null 2>&1; else echo "Emscripten is not active and $(EMSDK_ENV) was not found."; exit 1; fi
 
 # Common Emscripten link flags
-EM_EXPORTED_FUNCTIONS := ''
-EM_RUNTIME_METHODS    := ''
+EM_EXPORTED_FUNCTIONS := '["_main"]'
+EM_RUNTIME_METHODS    := '["ccall"]'
 
 EM_LINK_FLAGS := \
 	$(EM_PRELOAD_ARGS) \
@@ -103,24 +107,30 @@ mrproper: clean
 
 # ---- Emscripten utils build triggers ----
 utils_emscripten:
-	$(MAKE) -C $(UTILS_DIR) emscripten
+	@$(EMSDK_ACTIVATE); $(MAKE) -C $(UTILS_DIR) emscripten
 
 utils_emscripten_release:
-	$(MAKE) -C $(UTILS_DIR) emscripten_release
+	@$(EMSDK_ACTIVATE); $(MAKE) -C $(UTILS_DIR) emscripten_release
 
 # ---- Emscripten builds (link against libutils_emscripten.a) ----
 emscripten: utils_emscripten
 	@mkdir -p $(WEBOUTDIR)
+	@echo "EMCC $(WEBHTML)"
+	@$(EMSDK_ACTIVATE); \
 	$(EMCC) $(SRC) $(UTILS_EM_LIB) \
 		$(EM_INCLUDES) \
 		$(EM_LINK_FLAGS) \
+		$(EM_CXXFLAGS) \
 		-O2 \
 		-o $(WEBHTML)
 
 emscripten_release: utils_emscripten_release
 	@mkdir -p $(WEBOUTDIR)
+	@echo "EMCC $(WEBHTML)"
+	@$(EMSDK_ACTIVATE); \
 	$(EMCC) $(SRC) $(UTILS_EM_LIB) \
 		$(EM_INCLUDES) \
 		$(EM_LINK_FLAGS) \
+		$(EM_CXXFLAGS) \
 		-O3 -DNDEBUG \
 		-o $(WEBHTML)
