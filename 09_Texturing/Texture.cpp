@@ -68,7 +68,7 @@ Texture Texture::genCheckerboardTexture(uint32_t width, uint32_t height) {
 
   // TODO Task02:
   // Implement the generation of a checkerboard texture.
-  // data[0] should be of black color
+  // data[0] should be black.
   for (uint32_t y = 0; y < height; y++) {
     for (uint32_t x = 0; x < width; ++x) {
       checkerboard.data->setNormalizedValue(x, y, 0, 1.0f);
@@ -82,9 +82,10 @@ Texture Texture::genCheckerboardTexture(uint32_t width, uint32_t height) {
 
 static uint32_t handleBorderCoordinate(int pixelCoord, uint32_t max,
                                        BorderMode bordermode) {
-  // TODO Task03: Implement the missing bordermodes CLAMP_TO_BORDER, CLAMP_TO_EDGE, MIRRORED_REPEAT.
-  // The texel index range is [0; max - 1]
-  // The following code corresponds to BorderMode::REPEAT
+  // TODO Task03: Implement the missing border modes CLAMP_TO_BORDER,
+  // CLAMP_TO_EDGE, and MIRRORED_REPEAT.
+  // The texel index range is [0, max - 1].
+  // The following code corresponds to BorderMode::REPEAT.
 
   pixelCoord = pixelCoord % int(max);
   if (pixelCoord < 0)
@@ -94,7 +95,7 @@ static uint32_t handleBorderCoordinate(int pixelCoord, uint32_t max,
 }
 
 Vec3 Texture::sample(int pixelCoordX, int pixelCoordY) const {
-  // TODO Task03: Implement the missing bordermodes CLAMP_TO_BORDER, CLAMP_TO_EDGE, MIRRORED_REPEAT
+  // TODO Task03: Implement the missing border modes CLAMP_TO_BORDER, CLAMP_TO_EDGE, MIRRORED_REPEAT
 
   const uint32_t sampleCoordX = handleBorderCoordinate(pixelCoordX, width, borderModeU);
   const uint32_t sampleCoordY = handleBorderCoordinate(pixelCoordY, height, borderModeV);

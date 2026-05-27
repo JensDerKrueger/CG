@@ -35,25 +35,18 @@ public:
      const float t = float(i)/float(maxLineSegments);
 
       // TODO:
-      // complete the function drawPolySegment
-      // this function takes as argument the
-      // geometry matrix of the polygon method
-      // i.e. hermite, bezier, or b-spline
-      // and draws the polygonal curve as a
-      // line strip, the curve is given as
-      // five paramters, i.e. the four control
-      // points (or, in case of the hermite
-      // curve two points and two derivative
-      // vectors), the geometry matrix, and the
-      // color of the curve. The result should
-      // be written into the the vector curve
-      // the format is x,y,z,r,g,b,a for each
-      // point along the line
-      // The result will be three curves, a
-      // Hermite curve on the top, a Bezier
-      // curve in the middle and a B-Spline
-      // at the bottom
-      
+      // Complete the function drawPolySegment.
+      // This function takes as arguments the geometry matrix of the
+      // polygon method, i.e. Hermite, Bezier, or B-spline, and draws
+      // the polygonal curve as a line strip. The curve is given as
+      // five parameters, i.e. the four control points or, in the case
+      // of the Hermite curve, two points and two derivative vectors,
+      // the geometry matrix, and the color of the curve. The result
+      // should be written into the vector curve. The format is
+      // x, y, z, r, g, b, a for each point along the line.
+      // The result will be three curves: a Hermite curve on the top,
+      // a Bezier curve in the middle, and a B-spline at the bottom.
+
       curve[i*7+0] = 0.0f;  // x
       curve[i*7+1] = 0.0f;  // y
       curve[i*7+2] = 0.0f;  // z  (no need to change)
@@ -84,7 +77,7 @@ public:
   void drawBezierSegmentDeCasteljau(const Vec2& p0, const Vec2& p1,
                                     const Vec2& p2, const Vec2& p3,
                                     const Vec4& color) {
-    // TODO SOLUTION 2:
+    // TODO SOLUTION 2
   }
 
   void drawBezierSegment(const Vec2& p0, const Vec2& p1, const Vec2& p2,

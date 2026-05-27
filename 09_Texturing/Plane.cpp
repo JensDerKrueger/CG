@@ -29,7 +29,7 @@ void Plane::buildLocalFrame()
 {
     Vec3 v(normal);
 
-    // construct vector not colinear to normal
+    // construct vector not collinear to normal
     if (v[0] != v[1])
     {
         float temp = v[0];

@@ -30,7 +30,7 @@ public:
 		camera.setLookAt(Vec3{ 0.0, 0.0, 0.0 });
 
 		// instantiates the actual renderer with recursion depth "depth" and
-		// 9x super sampling NOTE: you might want to reduce the super sampling
+		// 9x super sampling. NOTE: you might want to reduce the super sampling
 		// to 1 for testing and debugging
 		Raytracer renderer(depth, 9);
 		renderer.setCamera(camera);

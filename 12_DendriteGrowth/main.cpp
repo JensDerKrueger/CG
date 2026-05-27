@@ -177,7 +177,6 @@ class MyGLApp : public GLApp {
       octreeLineArray.bind();
       glDrawArrays(GL_LINES, 0, GLsizei(lineVertexCount));
 
-
       glEnable(GL_CULL_FACE);
 
       glDisable(GL_BLEND);
@@ -202,7 +201,7 @@ class MyGLApp : public GLApp {
   }
 
   // returns distance from pos to nearest particle
-  float mindDist(const Vec3& pos)
+  float minDist(const Vec3& pos)
   {
     return octree.minDist(pos);
   }
@@ -210,15 +209,15 @@ class MyGLApp : public GLApp {
   // returns true if the minimum distance from pos to the spawned particles is smaller than the colDist
   bool checkCollision(const Vec3& pos)
   {
-    return mindDist(pos) < colDist;
+    return minDist(pos) < colDist;
   }
 
   Vec3 randomWalk(const Vec3& pos)
   {
 #ifdef only2D
-    return pos + Vec3::randomPointInDisc() * mindDist(pos);
+    return pos + Vec3::randomPointInDisc() * minDist(pos);
 #else
-    return pos + Vec3::randomPointInSphere() * mindDist(pos);
+    return pos + Vec3::randomPointInSphere() * minDist(pos);
 #endif
   }
 

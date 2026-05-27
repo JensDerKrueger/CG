@@ -49,11 +49,13 @@ std::optional<Intersection> Sphere::intersect(const Ray& ray) const {
   if (!material.hasTexture()) return Intersection{material, normal, {}, t };
 
   Vec3 r = normal;
-  // TODO Task01: Complete texture coordinate computation for a sphere
-  // The sphere has a rotation in Euler angles. This rotation should be considered when applying textures.
-  // First rotate the radial coordinate vector r by applying a right handed rotation.
-  // Then compute the normalized texture coordinates u,v.
-  // In a last step scale and offset the coordinates by the given values.
+  // TODO Task01: Complete the texture coordinate computation for a sphere.
+  // The sphere has a rotation in Euler angles. This rotation should be
+  // considered when applying textures.
+  // First, rotate the radial coordinate vector r by applying a right-handed
+  // rotation.
+  // Then compute the normalized texture coordinates u, v.
+  // In the last step, scale and offset the coordinates by the given values.
 
   return Intersection{material, normal, {}, t };
 }

@@ -166,7 +166,7 @@ Scene Scene::genTexturedScene() {
 	// attach the light source to the scene
 	s.addLight(l);
 
-	// create the redish material for the right sphere
+	// create the reddish material for the right sphere
 	// vec3 are treated as color values in the range [0, 1]
 	Material m(Vec3(0.9f, 0.0f, 0.0f), Vec3(1.0f, 0.0f, 0.0f), Vec3(1.0f, 1.0f, 1.0f), 20, 0.2f, 1.52f, hpcDark);
 

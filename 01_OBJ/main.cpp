@@ -16,13 +16,13 @@ public:
     const OBJFile m{"bunny.obj", true};
 
     // TODO:
-    // Replace this example block of code  by your code to
+    // Replace this example block of code with your code to
     // convert the shared vertex representation in the object m
-    // by an explicit representation, indices are stored in
-    // the stl-vector m.indices the vertex positions are stored
-    // in m.vertices and the normals are stored in m.normals.
-    // As color you can choose whatever you like
-    
+    // to an explicit representation. Indices are stored in
+    // the std::vector m.indices, the vertex positions are stored
+    // in m.vertices, and the normals are stored in m.normals.
+    // As a color, you can choose whatever you like.
+
     data.push_back(0.0f); data.push_back(0.5f); data.push_back(0.0f);  // position
     data.push_back(1.0f); data.push_back(0.0f); data.push_back(0.0f); data.push_back(1.0f); // color
     data.push_back(0.0f); data.push_back(0.0f); data.push_back(1.0f); // normal

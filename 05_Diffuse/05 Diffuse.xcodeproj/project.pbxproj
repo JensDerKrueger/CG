@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		56302C292F4525D30052D368 /* libUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56302C282F4525D30052D368 /* libUtils.a */; };
-		5677395325FB7BF000AB2341 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5677394C25FB7BF000AB2341 /* main.cpp */; };
 		568696D92C2D4AE600201D4F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568696CF2C2D4AE600201D4F /* main.cpp */; };
 		568696DA2C2D4AE600201D4F /* DiffuseShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568696D12C2D4AE600201D4F /* DiffuseShader.cpp */; };
 		568696DB2C2D4AE600201D4F /* AmbientShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568696D22C2D4AE600201D4F /* AmbientShader.cpp */; };
@@ -30,7 +29,6 @@
 
 /* Begin PBXFileReference section */
 		56302C282F4525D30052D368 /* libUtils.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libUtils.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		5677394C25FB7BF000AB2341 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		568696CE2C2D4AE600201D4F /* Vertex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vertex.h; sourceTree = "<group>"; };
 		568696CF2C2D4AE600201D4F /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		568696D02C2D4AE600201D4F /* AmbientShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmbientShader.h; sourceTree = "<group>"; };
@@ -71,7 +69,6 @@
 				568696D72C2D4AE600201D4F /* Triangle.cpp */,
 				568696D82C2D4AE600201D4F /* Triangle.h */,
 				568696CE2C2D4AE600201D4F /* Vertex.h */,
-				5677394C25FB7BF000AB2341 /* main.cpp */,
 			);
 			name = Application;
 			sourceTree = "<group>";
@@ -161,7 +158,6 @@
 				568696D92C2D4AE600201D4F /* main.cpp in Sources */,
 				568696DD2C2D4AE600201D4F /* Triangle.cpp in Sources */,
 				568696DB2C2D4AE600201D4F /* AmbientShader.cpp in Sources */,
-				5677395325FB7BF000AB2341 /* main.cpp in Sources */,
 				568696DA2C2D4AE600201D4F /* DiffuseShader.cpp in Sources */,
 				568696DC2C2D4AE600201D4F /* makefile in Sources */,
 			);
@@ -177,7 +173,7 @@
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -277,7 +273,7 @@
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;

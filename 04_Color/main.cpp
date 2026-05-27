@@ -12,9 +12,9 @@ public:
   
   Vec3 convertPosFromHSVToRGB(float x, float y) {
     // TODO:
-    // enter code here that interprets the mouse's
-    // x, y position as H ans S (I suggest to set
-    // V to 1.0) and converts that tripple to RGB
+    // Enter code here that interprets the mouse's
+    // x, y position as H and S. I suggest setting
+    // V to 1.0 and converting that triple to RGB.
     return Vec3{x,y,1.0f};
   }
   

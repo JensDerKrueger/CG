@@ -13,16 +13,14 @@ public:
                                          const Vec3& rayOrigin,
                                          const Vec3& pixelPos) {
     // TODO:
-    // Implement a ray/sphere intersection here
-    // the sphere is given as sphereCenter and
-    // radius, the ray starts at rayOrigin and
-    // passes through pixelPos. If no interscation
-    // is found, simply return {} otherwise return
-    // the interscetion position
-    // If the function works correctly, you should
-    // see a glossy red sphere, illuminated from
-    // the top front
-    
+    // Implement a ray/sphere intersection here.
+    // The sphere is given as sphereCenter and radius.
+    // The ray starts at rayOrigin and passes through pixelPos.
+    // If no intersection is found, simply return {}. Otherwise,
+    // return the intersection position.
+    // If the function works correctly, you should see a glossy
+    // red sphere, illuminated from the top front.
+
     return {};
   }
   
