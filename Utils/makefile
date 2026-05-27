@@ -10,7 +10,7 @@ GLEnv.cpp GLProgram.cpp GLArray.cpp GLTexture1D.cpp GLTexture2D.cpp \
 GLTexture3D.cpp GLTextureCube.cpp GLDebug.cpp Grid2D.cpp FontRenderer.cpp \
 Rand.cpp GLFramebuffer.cpp GLDepthBuffer.cpp CommandInterpreter.cpp \
 ImageLoader.cpp OBJFile.cpp \
-Tesselation.cpp ArcBall.cpp Compression.cpp Base64Url.cpp
+Tessellation.cpp ArcBall.cpp Compression.cpp Base64Url.cpp
 
 # -------- Native flags --------
 ifeq ($(OSTYPE),Linux)

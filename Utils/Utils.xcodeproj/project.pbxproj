@@ -28,7 +28,7 @@
 		56155FD92F4512460089B78D /* CommandInterpreter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155F942F4512460089B78D /* CommandInterpreter.cpp */; };
 		56155FDA2F4512460089B78D /* GLDebug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155FA12F4512460089B78D /* GLDebug.cpp */; };
 		56155FDB2F4512460089B78D /* OBJFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155FBD2F4512460089B78D /* OBJFile.cpp */; };
-		56155FDC2F4512460089B78D /* Tesselation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155FC62F4512460089B78D /* Tesselation.cpp */; };
+		56155FDC2F4512460089B78D /* Tessellation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155FC62F4512460089B78D /* Tessellation.cpp */; };
 		56155FDD2F4512460089B78D /* GLTextureCube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155FB32F4512460089B78D /* GLTextureCube.cpp */; };
 		56155FDE2F4512460089B78D /* GLBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155F9F2F4512460089B78D /* GLBuffer.cpp */; };
 		56155FDF2F4512460089B78D /* ArcBall.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56155F8C2F4512460089B78D /* ArcBall.cpp */; };
@@ -55,7 +55,7 @@
 		56155FF62F4512460089B78D /* ImageLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FB82F4512460089B78D /* ImageLoader.h */; };
 		56155FF72F4512460089B78D /* CommandInterpreter.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155F932F4512460089B78D /* CommandInterpreter.h */; };
 		56155FF82F4512460089B78D /* FontRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155F972F4512460089B78D /* FontRenderer.h */; };
-		56155FF92F4512460089B78D /* Tesselation.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FC52F4512460089B78D /* Tesselation.h */; };
+		56155FF92F4512460089B78D /* Tessellation.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FC52F4512460089B78D /* Tessellation.h */; };
 		56155FFA2F4512460089B78D /* GLTexture2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FAE2F4512460089B78D /* GLTexture2D.h */; };
 		56155FFB2F4512460089B78D /* GLFramebuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155FA72F4512460089B78D /* GLFramebuffer.h */; };
 		56155FFC2F4512460089B78D /* GLApp.h in Headers */ = {isa = PBXBuildFile; fileRef = 56155F992F4512460089B78D /* GLApp.h */; };
@@ -138,8 +138,8 @@
 		56155FC22F4512460089B78D /* Rand.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Rand.h; sourceTree = "<group>"; };
 		56155FC32F4512460089B78D /* Rand.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Rand.cpp; sourceTree = "<group>"; };
 		56155FC42F4512460089B78D /* stb_image.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
-		56155FC52F4512460089B78D /* Tesselation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tesselation.h; sourceTree = "<group>"; };
-		56155FC62F4512460089B78D /* Tesselation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Tesselation.cpp; sourceTree = "<group>"; };
+		56155FC52F4512460089B78D /* Tessellation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tessellation.h; sourceTree = "<group>"; };
+		56155FC62F4512460089B78D /* Tessellation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Tessellation.cpp; sourceTree = "<group>"; };
 		56155FC72F4512460089B78D /* Vec2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vec2.h; sourceTree = "<group>"; };
 		56155FC82F4512460089B78D /* Vec3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vec3.h; sourceTree = "<group>"; };
 		56155FC92F4512460089B78D /* Vec4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vec4.h; sourceTree = "<group>"; };
@@ -220,8 +220,8 @@
 				56155FC22F4512460089B78D /* Rand.h */,
 				56155FC32F4512460089B78D /* Rand.cpp */,
 				56155FC42F4512460089B78D /* stb_image.h */,
-				56155FC52F4512460089B78D /* Tesselation.h */,
-				56155FC62F4512460089B78D /* Tesselation.cpp */,
+				56155FC52F4512460089B78D /* Tessellation.h */,
+				56155FC62F4512460089B78D /* Tessellation.cpp */,
 				56155FC72F4512460089B78D /* Vec2.h */,
 				56155FC82F4512460089B78D /* Vec3.h */,
 				56155FC92F4512460089B78D /* Vec4.h */,
@@ -265,7 +265,7 @@
 				56155FF72F4512460089B78D /* CommandInterpreter.h in Headers */,
 				5615600D2F4512460089B78D /* ColorConversion.h in Headers */,
 				56155FF82F4512460089B78D /* FontRenderer.h in Headers */,
-				56155FF92F4512460089B78D /* Tesselation.h in Headers */,
+				56155FF92F4512460089B78D /* Tessellation.h in Headers */,
 				56155FFA2F4512460089B78D /* GLTexture2D.h in Headers */,
 				56155FFB2F4512460089B78D /* GLFramebuffer.h in Headers */,
 				56155FFC2F4512460089B78D /* GLApp.h in Headers */,
@@ -365,7 +365,7 @@
 				56155FD92F4512460089B78D /* CommandInterpreter.cpp in Sources */,
 				56155FDA2F4512460089B78D /* GLDebug.cpp in Sources */,
 				56155FDB2F4512460089B78D /* OBJFile.cpp in Sources */,
-				56155FDC2F4512460089B78D /* Tesselation.cpp in Sources */,
+				56155FDC2F4512460089B78D /* Tessellation.cpp in Sources */,
 				56155FDD2F4512460089B78D /* GLTextureCube.cpp in Sources */,
 				56155FDE2F4512460089B78D /* GLBuffer.cpp in Sources */,
 				56155FDF2F4512460089B78D /* ArcBall.cpp in Sources */,

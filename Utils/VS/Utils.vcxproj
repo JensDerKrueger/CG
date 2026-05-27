@@ -44,7 +44,7 @@
     <ClCompile Include="..\OBJFile.cpp" />
     <ClCompile Include="..\png.cpp" />
     <ClCompile Include="..\Rand.cpp" />
-    <ClCompile Include="..\Tesselation.cpp" />
+    <ClCompile Include="..\Tessellation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\AbstractParticleSystem.h" />
@@ -83,7 +83,7 @@
     <ClInclude Include="..\Quaternion.h" />
     <ClInclude Include="..\Rand.h" />
     <ClInclude Include="..\stb_image.h" />
-    <ClInclude Include="..\Tesselation.h" />
+    <ClInclude Include="..\Tessellation.h" />
     <ClInclude Include="..\Vec2.h" />
     <ClInclude Include="..\Vec3.h" />
     <ClInclude Include="..\Vec4.h" />
