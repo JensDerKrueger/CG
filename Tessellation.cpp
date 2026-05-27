@@ -3,10 +3,10 @@
 
 constexpr float PI = 3.14159265358979323846f;
 
-#include "Tesselation.h"
+#include "Tessellation.h"
 
-Tesselation Tesselation::genSphere(const Vec3& center, const float radius, const uint32_t sectorCount, const uint32_t stackCount) {
-	Tesselation tess{};
+Tessellation Tessellation::genSphere(const Vec3& center, const float radius, const uint32_t sectorCount, const uint32_t stackCount) {
+	Tessellation tess{};
 	
 	const float lengthInv{1.0f / radius};
 	const float sectorStep{2.0f * PI / sectorCount};
@@ -83,7 +83,7 @@ Tesselation Tesselation::genSphere(const Vec3& center, const float radius, const
 }
 
 
-Tesselation Tesselation::genRectangle(const Vec3& center, const float width, const float height) {
+Tessellation Tessellation::genRectangle(const Vec3& center, const float width, const float height) {
 	const Vec3 u{width/2.0f,0.0,0.0};
 	const Vec3 v{0.0,height/2.0f,0.0,};	
 	return genRectangle(center-u-v,center+u-v,center+u+v,center-u+v);
@@ -93,8 +93,8 @@ Tesselation Tesselation::genRectangle(const Vec3& center, const float width, con
 //   |       |
 //   |       |
 //   A ----- B
-Tesselation Tesselation::genRectangle(const Vec3& a, const Vec3& b, const Vec3& c, const Vec3& d) {
-	Tesselation tess{};
+Tessellation Tessellation::genRectangle(const Vec3& a, const Vec3& b, const Vec3& c, const Vec3& d) {
+	Tessellation tess{};
 	
 	const Vec3 u{b-a};
 	const Vec3 v{c-a};
@@ -142,8 +142,8 @@ Tesselation Tesselation::genRectangle(const Vec3& a, const Vec3& b, const Vec3& 
 //   | / E   | /
 //   |/      |/
 //   A ----- B
-Tesselation Tesselation::genBrick(const Vec3& center, const Vec3& size, const Vec3& texScale) {
-	Tesselation tess{};
+Tessellation Tessellation::genBrick(const Vec3& center, const Vec3& size, const Vec3& texScale) {
+	Tessellation tess{};
 
 	const Vec3 E = center-size/2.0f;
 	const Vec3 C = center+size/2.0f;
@@ -323,27 +323,27 @@ Tesselation Tesselation::genBrick(const Vec3& center, const Vec3& size, const Ve
 
 // Torus
 // can be moved around by center, but the normal to the torus plane is always (0, 0, 1)
-Tesselation Tesselation::genTorus(const Vec3 &center, float majorRadius, float minorRadius, uint32_t majorSteps, uint32_t minorSteps) {
-	Tesselation tess{};
+Tessellation Tessellation::genTorus(const Vec3 &center, float majorRadius, float minorRadius, uint32_t majorSteps, uint32_t minorSteps) {
+	Tessellation tess{};
 
 	for (uint32_t x = 0; x <= majorSteps; x++) {
 		const float phi = (2.0f * PI * x) / majorSteps;
 		for (uint32_t y = 0; y <= minorSteps; y++) {
 			const float theta = (2.0f * PI * y) / minorSteps;
 
-			const Vec3 vertice{(majorRadius + minorRadius*std::cos(theta))*std::cos(phi),
+			const Vec3 vertex{(majorRadius + minorRadius*std::cos(theta))*std::cos(phi),
 					   (majorRadius + minorRadius*std::cos(theta))*std::sin(phi),
 					   minorRadius * std::sin(theta)};
-			const Vec3 normal{Vec3::normalize(vertice - Vec3{majorRadius*std::cos(phi), majorRadius*std::sin(phi), 0})};
+			const Vec3 normal{Vec3::normalize(vertex - Vec3{majorRadius*std::cos(phi), majorRadius*std::sin(phi), 0})};
 			// select tangent in toroidal direction
 			const Vec3 tangent{-majorRadius*std::sin(phi), majorRadius*std::cos(phi), 0};
 			const Vec2 texture{static_cast<float>(x)/static_cast<float>(majorSteps),
                          static_cast<float>(y)/static_cast<float>(minorSteps)};
 
 
-			tess.vertices.push_back(vertice.x + center.x);
-			tess.vertices.push_back(vertice.y + center.y);
-			tess.vertices.push_back(vertice.z + center.z);
+			tess.vertices.push_back(vertex.x + center.x);
+			tess.vertices.push_back(vertex.y + center.y);
+			tess.vertices.push_back(vertex.z + center.z);
 
 			tess.normals.push_back(normal.x);
 			tess.normals.push_back(normal.y);
@@ -375,8 +375,8 @@ Tesselation Tesselation::genTorus(const Vec3 &center, float majorRadius, float m
 }
 
 
-Tesselation Tesselation::unpack() const {
-  Tesselation t;
+Tessellation Tessellation::unpack() const {
+  Tessellation t;
 
   uint32_t i = 0;
   for (uint32_t index : indices) {

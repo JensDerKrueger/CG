@@ -72,7 +72,7 @@
     <ClCompile Include="..\Rand.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\Tesselation.cpp">
+    <ClCompile Include="..\Tessellation.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="..\Image.cpp">
@@ -158,7 +158,7 @@
     <ClInclude Include="..\Rand.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\Tesselation.h">
+    <ClInclude Include="..\Tessellation.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\Vec2.h">
