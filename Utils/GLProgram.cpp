@@ -207,7 +207,7 @@ void GLProgram::setUniform(GLint id, const Vec4i& value) const {
 }
 
 void GLProgram::setUniform(GLint id, const Mat4& value, bool transpose) const {
-  // since OpenGL matrices are usuall expected
+  // since OpenGL matrices are usually expected
   // column major but our matrices are row major
   // hence, we invert the transposition flag
   GL(glUniformMatrix4fv(id, 1, !transpose, value));
@@ -246,7 +246,7 @@ void GLProgram::setUniform(GLint id, const std::vector<Vec4i>& value) const {
 }
 
 void GLProgram::setUniform(GLint id, const std::vector<Mat4>& value, bool transpose) const {
-  // since OpenGL matrices are usuall expected
+  // since OpenGL matrices are usually expected
   // column major but our matrices are row major
   // hence, we invert the transposition flag
   GL(glUniformMatrix4fv(id, GLsizei(value.size()), !transpose, (GLfloat*)value.data()));
