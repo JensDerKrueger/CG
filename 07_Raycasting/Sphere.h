@@ -3,13 +3,18 @@
 
 class Sphere : public IntersectableObject
 {
+private:
+	const Vec3 center;
+	const float sqradius;
+	const Material material;
 
 public:
 	Sphere(const Vec3& center, float radius, const Material& material);
-    virtual ~Sphere() {}
-    
+    virtual ~Sphere() {};
+
 	Material getMaterial() const override;
 	std::optional<Intersection> intersect(const Ray& ray) const override;
+	Tessellation getMesh() const override;
 
 };
 

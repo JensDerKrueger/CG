@@ -15,5 +15,5 @@ public:
 
 	Material getMaterial() const override;
 	std::optional<Intersection> intersect(const Ray& ray) const override;
+	Tessellation getMesh() const override;
 };
-

@@ -22,7 +22,7 @@ void Raytracer::render(Image& img)
 
 Vec3 Raytracer::traceRay(const Ray& r)
 {
-    return scene.traceRay(r, 1.0f, recDepth);
+    return scene.traceRay(r, 1.0, recDepth);
 }
 
 Ray Raytracer::computeRay(float x, float y, const RaySetup& rs) const
@@ -38,7 +38,7 @@ RaySetup Raytracer::computeRaySetup(const Image& img)
 
     Vec3 forwardDir = camera.getViewDir();
     Vec3 upDir = camera.getUpDir();
-    float openingAngle = float(camera.getFoV() * M_PI/180.0);
+    float openingAngle = camera.getFoV() * M_PI/180.0f;
     rs.rayOrigin = camera.getEyePoint();
 
     float aspectRatio = ((float)img.width) / ((float)img.height);

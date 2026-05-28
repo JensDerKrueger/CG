@@ -44,3 +44,10 @@ float Camera::getFoV() const
 {
     return foV;
 }
+
+Mat4 Camera::getViewProjection(float aspectRatio, float zNear, float zFar) const
+{
+    const Mat4 projection = Mat4::perspective(foV, aspectRatio, zNear, zFar);
+    const Mat4 view = Mat4::lookAt(eyePoint, eyePoint + viewDir, upDir);
+    return projection * view;
+}

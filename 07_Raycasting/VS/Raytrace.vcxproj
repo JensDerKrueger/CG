@@ -114,6 +114,12 @@
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\VS\lib\Win32;$(PlatformTarget)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>utils.lib;opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>XCOPY "$(ProjectDir)..\Datasets\helvetica_neue.bmp" "$(OutDir)*.*" /Y
+XCOPY "$(ProjectDir)..\Datasets\helvetica_neue.pos" "$(OutDir)*.*" /Y
+XCOPY "$(ProjectDir)..\Datasets\helvetica_neue.bmp" "$(ProjectDir)*.*" /Y
+XCOPY "$(ProjectDir)..\Datasets\helvetica_neue.pos" "$(ProjectDir)*.*" /Y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -134,6 +140,12 @@
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\VS\lib\Win32;$(PlatformTarget)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>utils.lib;opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>XCOPY "$(ProjectDir)..\Datasets\helvetica_neue.bmp" "$(OutDir)*.*" /Y
+XCOPY "$(ProjectDir)..\Datasets\helvetica_neue.pos" "$(OutDir)*.*" /Y
+XCOPY "$(ProjectDir)..\Datasets\helvetica_neue.bmp" "$(ProjectDir)*.*" /Y
+XCOPY "$(ProjectDir)..\Datasets\helvetica_neue.pos" "$(ProjectDir)*.*" /Y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -150,6 +162,12 @@
       <AdditionalDependencies>utils.lib;opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\VS\lib\x64;$(PlatformTarget)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>XCOPY "$(ProjectDir)..\Datasets\helvetica_neue.bmp" "$(OutDir)*.*" /Y
+XCOPY "$(ProjectDir)..\Datasets\helvetica_neue.pos" "$(OutDir)*.*" /Y
+XCOPY "$(ProjectDir)..\Datasets\helvetica_neue.bmp" "$(ProjectDir)*.*" /Y
+XCOPY "$(ProjectDir)..\Datasets\helvetica_neue.pos" "$(ProjectDir)*.*" /Y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -170,6 +188,12 @@
       <AdditionalDependencies>utils.lib;opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\VS\lib\x64;$(PlatformTarget)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>XCOPY "$(ProjectDir)..\Datasets\helvetica_neue.bmp" "$(OutDir)*.*" /Y
+XCOPY "$(ProjectDir)..\Datasets\helvetica_neue.pos" "$(OutDir)*.*" /Y
+XCOPY "$(ProjectDir)..\Datasets\helvetica_neue.bmp" "$(ProjectDir)*.*" /Y
+XCOPY "$(ProjectDir)..\Datasets\helvetica_neue.pos" "$(ProjectDir)*.*" /Y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Camera.cpp" />
@@ -195,6 +219,11 @@
     <ClInclude Include="..\Raytracer.h" />
     <ClInclude Include="..\Scene.h" />
     <ClInclude Include="..\Sphere.h" />
+    <ClInclude Include="..\Triangulate.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Datasets\helvetica_neue.bmp" />
+    <None Include="..\Datasets\helvetica_neue.pos" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

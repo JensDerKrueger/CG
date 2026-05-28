@@ -80,5 +80,16 @@
     <ClInclude Include="..\Plane.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="..\Triangulate.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Datasets\helvetica_neue.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="..\Datasets\helvetica_neue.pos">
+      <Filter>Ressourcendateien</Filter>
+    </None>
   </ItemGroup>
 </Project>

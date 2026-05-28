@@ -1,18 +1,26 @@
 #include "Sphere.h"
 
+#include <cmath>
+
 Sphere::Sphere(const Vec3& center, float radius, const Material& material)
+	: center(center), sqradius(radius* radius), material(material)
 {
-	// TODO: implement this constructor and the rest of this class necessary for the assignment
 }
 
 Material Sphere::getMaterial() const
 {
-	// TODO: implement this method
-	return Material{ Vec3{}, Vec3{}, Vec3{}, 0 }; // just a dummy return value, needs to be replaced with the right one
+	return material;
 }
 
 std::optional<Intersection> Sphere::intersect(const Ray& ray) const
 {
-	// TODO: implement this method
-	return {}; // just a dummy return value, needs to be replaced with the right one
+  // TODO: implement this method
+
+  // just a dummy return value, needs to be replaced with the right one
+  return {};
+}
+
+Tessellation Sphere::getMesh() const
+{
+	return Tessellation::genSphere(center, std::sqrt(sqradius), 32, 16);
 }
