@@ -139,7 +139,8 @@ GLApp::GLApp(uint32_t w, uint32_t h, uint32_t s,
      "void main() {\n"
      "    vec3 nnormal = normalize(normal);"
      "    vec3 nlightDir = normalize(vec3(0.0,0.0,0.0)-pos);"
-     "    FragColor = color*abs(dot(nlightDir,nnormal));\n"
+     "    float diffuse = abs(dot(nlightDir,nnormal));"
+     "    FragColor = vec4(diffuse * color.rgb,color.a);\n"
      "}\n","",false,true)},
   simpleArray{},
   simpleVb{GL_ARRAY_BUFFER},
