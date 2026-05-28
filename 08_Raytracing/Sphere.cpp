@@ -1,4 +1,5 @@
 #include "Sphere.h"
+#include <cmath>
 
 Sphere::Sphere(const Vec3& center, float radius, const Material& material)
 	: center(center), sqradius(radius* radius), material(material)
@@ -33,4 +34,9 @@ std::optional<Intersection> Sphere::intersect(const Ray& ray) const
 	normal = Vec3::normalize(normal);
 
 	return Intersection{ material, normal, t };
+}
+
+Tessellation Sphere::getMesh() const
+{
+	return Tessellation::genSphere(center, std::sqrt(sqradius), 32, 16);
 }

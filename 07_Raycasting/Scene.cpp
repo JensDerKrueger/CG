@@ -113,25 +113,29 @@ std::optional<Intersection> Scene::intersect(const Ray& ray, bool shadowRay) con
 /// <param name="IOR">optical density of the material we are currently travelling in</param>
 /// <param name="recDepth">recursion depth</param>
 /// <returns>final color value computed for this ray</returns>
-Vec3 Scene::traceRay(const Ray& ray, float IOR, int recDepth) const
+Vec3 Scene::traceRay(const Ray& ray, float IOR, int recDepth) const {
+  const Mat4 inverseModel = Mat4::inverse(model);
+  const Vec3 localDirection = Vec3::normalize(transformDirection(inverseModel, ray.getDirection()));
+  if (localDirection.sqlength() == 0.0f)
+    return backgroundColor;
+
+  const Ray localRay{ inverseModel * ray.getOrigin(), localDirection };
+  return traceLocalRay(localRay, IOR, recDepth);
+}
+
+
+Vec3 Scene::traceLocalRay(const Ray& ray, float IOR, int recDepth) const
 {
   // TODO: implement the missing parts of this method according to the exercise
 
-	const Mat4 inverseModel = Mat4::inverse(model);
-	const Vec3 localDirection = Vec3::normalize(transformDirection(inverseModel, ray.getDirection()));
-	if (localDirection.sqlength() == 0.0f)
-		return backgroundColor;
-
-	const Ray localRay{ inverseModel * ray.getOrigin(), localDirection };
-
 	// no intersection found
-	std::optional<Intersection> opt_intersection = intersect(localRay, false);
+	std::optional<Intersection> opt_intersection = intersect(ray, false);
 	if (!opt_intersection.has_value())
 		return backgroundColor;
 
 	// else intersection found
 	Intersection inter = opt_intersection.value();
-	Vec3 interPos = localRay.getPosOnRay(inter.getT());
+	Vec3 interPos = ray.getPosOnRay(inter.getT());
 
 	Vec3 localColor;
 	for (std::shared_ptr<const LightSource> ls : lightSources)
@@ -144,7 +148,7 @@ Vec3 Scene::traceRay(const Ray& ray, float IOR, int recDepth) const
 			Vec3 diffuse = inter.getMaterial().getDiffuse() * ls->getDiffuse() * d;
 			diffuse = Vec3::clamp(diffuse, 0.0f, 1.0f);
 
-			Vec3 Rv = Vec3::reflect(localRay.getDirection(), inter.getNormal());
+			Vec3 Rv = Vec3::reflect(ray.getDirection(), inter.getNormal());
 			float s = pow(std::max(0.0f, Vec3::dot(Rv, localLightDirection)), inter.getMaterial().getExp());
 			Vec3 specular = inter.getMaterial().getSpecular() * ls->getSpecular() * s;
 			specular = Vec3::clamp(specular, 0.0f, 1.0f);

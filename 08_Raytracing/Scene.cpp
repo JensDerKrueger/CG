@@ -6,6 +6,15 @@
 
 #include <iostream>
 
+namespace {
+
+Vec3 transformDirection(const Mat4& matrix, const Vec3& direction)
+{
+  return (matrix * Vec4{direction, 0.0f}).xyz;
+}
+
+} // namespace
+
 void Scene::addObject(std::shared_ptr<const IntersectableObject> object) {
   sceneObjects.push_back(object);
 }
@@ -14,8 +23,59 @@ void Scene::addLight(std::shared_ptr<const LightSource> ls) {
   lightSources.push_back(ls);
 }
 
+std::shared_ptr<const LightSource> Scene::getLight(size_t index) const {
+  if (index >= lightSources.size())
+    return {};
+
+  return lightSources[index];
+}
+
+void Scene::setModel(const Mat4& model) {
+  // This local-space raytracing path assumes translations, rotations, and uniform scales only.
+  this->model = model;
+}
+
+Mat4 Scene::getModel() const {
+  return model;
+}
+
 Vec3 Scene::getBackgroundcolor() const {
   return backgroundColor;
+}
+
+std::vector<float> Scene::getTriangleData() const {
+  std::vector<float> data;
+
+  for (std::shared_ptr<const IntersectableObject> object : sceneObjects) {
+    const Tessellation mesh = object->getMesh().unpack();
+    const std::vector<float>& vertices = mesh.getVertices();
+    const std::vector<float>& normals = mesh.getNormals();
+    const Vec3 color = object->getMaterial().getDiffuse();
+    const size_t vertexCount = vertices.size() / 3;
+
+    data.reserve(data.size() + vertexCount * 10);
+    for (size_t i = 0; i < vertexCount; ++i) {
+      data.push_back(vertices[i * 3 + 0]);
+      data.push_back(vertices[i * 3 + 1]);
+      data.push_back(vertices[i * 3 + 2]);
+      data.push_back(color.r);
+      data.push_back(color.g);
+      data.push_back(color.b);
+      data.push_back(1.0f);
+
+      if (normals.size() >= (i + 1) * 3) {
+        data.push_back(normals[i * 3 + 0]);
+        data.push_back(normals[i * 3 + 1]);
+        data.push_back(normals[i * 3 + 2]);
+      } else {
+        data.push_back(0.0f);
+        data.push_back(0.0f);
+        data.push_back(1.0f);
+      }
+    }
+  }
+
+  return data;
 }
 
 std::optional<Intersection> Scene::intersect(const Ray& ray, bool shadowRay) const {
@@ -42,7 +102,21 @@ std::optional<Intersection> Scene::intersect(const Ray& ray, bool shadowRay) con
 /// <param name="recDepth">recursion depth</param>
 /// <returns>final color value computed for this ray</returns>
 Vec3 Scene::traceRay(const Ray& ray, float IOR, int recDepth) const {
+  const Mat4 inverseModel = Mat4::inverse(model);
+  const Vec3 localDirection = Vec3::normalize(transformDirection(inverseModel, ray.getDirection()));
+  if (localDirection.sqlength() == 0.0f)
+    return backgroundColor;
+
+  const Ray localRay{ inverseModel * ray.getOrigin(), localDirection };
+  return traceLocalRay(localRay, IOR, recDepth);
+}
+
+Vec3 Scene::traceLocalRay(const Ray& ray, float IOR, int recDepth) const {
+  if (recDepth == 0)
+    return backgroundColor;
+
   // TODO: implement the missing parts of this method according to the exercise
+
   // no intersection found
   std::optional<Intersection> opt_intersection = intersect(ray, false);
   if (!opt_intersection)

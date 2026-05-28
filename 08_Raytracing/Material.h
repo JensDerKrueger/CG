@@ -57,5 +57,6 @@ public:
 
 	float getLocalRefectivity() const;
 
+	float getReflectivity(float cosI) const;
 };
 

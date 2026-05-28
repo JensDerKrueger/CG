@@ -17,6 +17,8 @@ private:
 	Vec3 backgroundColor;
 	Mat4 model;
 
+  Vec3 traceLocalRay(const Ray& ray, float IOR, int recDepth) const;
+
 public:
 	Scene()
 		: Scene(Vec3{0.2f, 0.2f, 0.2f})

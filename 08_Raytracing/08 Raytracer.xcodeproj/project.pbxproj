@@ -19,6 +19,8 @@
 		568697212C2D4CC400201D4F /* Sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568697152C2D4CC400201D4F /* Sphere.cpp */; };
 		568697222C2D4CC400201D4F /* Intersection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568697162C2D4CC400201D4F /* Intersection.cpp */; };
 		568697232C2D4CC400201D4F /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568697172C2D4CC400201D4F /* Material.cpp */; };
+		56B0B1012F50010100FAD236 /* helvetica_neue.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 56B0B0FF2F50010100FAD236 /* helvetica_neue.bmp */; };
+		56B0B1022F50010100FAD236 /* helvetica_neue.pos in CopyFiles */ = {isa = PBXBuildFile; fileRef = 56B0B1002F50010100FAD236 /* helvetica_neue.pos */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +30,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
+				56B0B1012F50010100FAD236 /* helvetica_neue.bmp in CopyFiles */,
+				56B0B1022F50010100FAD236 /* helvetica_neue.pos in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,6 +61,9 @@
 		568697172C2D4CC400201D4F /* Material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Material.cpp; sourceTree = "<group>"; };
 		568697182C2D4CC400201D4F /* IntersectableObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntersectableObject.h; sourceTree = "<group>"; };
 		568697192C2D4CC400201D4F /* LightSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightSource.h; sourceTree = "<group>"; };
+		56A708012F00010100000001 /* Triangulate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Triangulate.h; sourceTree = "<group>"; };
+		56B0B0FF2F50010100FAD236 /* helvetica_neue.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = helvetica_neue.bmp; path = Datasets/helvetica_neue.bmp; sourceTree = "<group>"; };
+		56B0B1002F50010100FAD236 /* helvetica_neue.pos */ = {isa = PBXFileReference; lastKnownFileType = text; name = helvetica_neue.pos; path = Datasets/helvetica_neue.pos; sourceTree = "<group>"; };
 		A231F0FF25EAF61A00CBFC23 /* 08 Raytracer-Demo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "08 Raytracer-Demo"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -97,6 +104,9 @@
 				568697082C2D4CC400201D4F /* Scene.h */,
 				568697152C2D4CC400201D4F /* Sphere.cpp */,
 				568697132C2D4CC400201D4F /* Sphere.h */,
+				56A708012F00010100000001 /* Triangulate.h */,
+				56B0B0FF2F50010100FAD236 /* helvetica_neue.bmp */,
+				56B0B1002F50010100FAD236 /* helvetica_neue.pos */,
 			);
 			name = Application;
 			sourceTree = "<group>";

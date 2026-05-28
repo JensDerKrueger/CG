@@ -1,4 +1,5 @@
 #pragma once
+#include <Mat4.h>
 #include <Vec3.h>
 
 class Camera
@@ -43,6 +44,7 @@ public:
 	Vec3 getViewDir() const;
 	Vec3 getUpDir() const;
 	float getFoV() const;
+	Mat4 getViewProjection(float aspectRatio, float zNear = 0.01f, float zFar = 1000.0f) const;
 
 };
 

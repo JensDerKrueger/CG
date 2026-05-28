@@ -44,3 +44,9 @@ float Material::getLocalRefectivity() const
 {
     return local;
 }
+
+float Material::getReflectivity(float cosI) const
+{
+  // TODO: add reflectivity computation
+  return 0;
+}
