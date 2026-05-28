@@ -23,6 +23,8 @@ GLApp::GLApp(uint32_t w, uint32_t h, uint32_t s,
 #endif
   p{},
   mv{},
+  mvi{},
+  lightPos{},
   simpleProg{GLProgram::createFromString(
      "uniform mat4 MVP;\n"
      "in vec3 vPos;\n"
@@ -135,12 +137,17 @@ GLApp::GLApp(uint32_t w, uint32_t h, uint32_t s,
      "in vec4 color;\n"
      "in vec3 pos;\n"
      "in vec3 normal;\n"
+     "uniform vec3 lightPos;\n"
      "out vec4 FragColor;\n"
      "void main() {\n"
      "    vec3 nnormal = normalize(normal);"
-     "    vec3 nlightDir = normalize(vec3(0.0,0.0,0.0)-pos);"
-     "    float diffuse = abs(dot(nlightDir,nnormal));"
-     "    FragColor = vec4(diffuse * color.rgb,color.a);\n"
+     "    vec3 nlightDir = normalize(lightPos-pos);"
+     "    float diffuse = max(dot(nlightDir,nnormal), 0.0);"
+     "    vec3 viewDir = normalize(-pos);"
+     "    vec3 reflectDir = reflect(-nlightDir, nnormal);"
+     "    float specular = pow(max(dot(reflectDir, viewDir), 0.0), 8.0);"
+     "    vec3 ambient = 0.2 * color.rgb;"
+     "    FragColor = vec4(ambient + diffuse * color.rgb + vec3(specular), color.a);\n"
      "}\n","",false,true)},
   simpleArray{},
   simpleVb{GL_ARRAY_BUFFER},
@@ -738,6 +745,14 @@ void GLApp::setDrawTransform(const Mat4& mat) {
   mvi = Mat4::inverse(mv);
 }
 
+void GLApp::setLightPos(const Vec3& lightPos) {
+  this->lightPos = lightPos;
+}
+
+Vec3 GLApp::getLightPos() const {
+  return lightPos;
+}
+
 void GLApp::shaderUpdate() {
   simpleProg.enable();
   simpleProg.setUniform("MVP", p*mv);
@@ -758,6 +773,7 @@ void GLApp::shaderUpdate() {
   simpleLightProg.setUniform("MVP", p*mv);
   simpleLightProg.setUniform("MV", mv);
   simpleLightProg.setUniform("MVit", mvi, true);
+  simpleLightProg.setUniform("lightPos", lightPos);
 }
 
 void GLApp::setImageFilter(GLint magFilter, GLint minFilter) {

@@ -96,9 +96,11 @@ protected:
   void drawPoints(const std::vector<float>& data, float pointSize=1.0f, bool useTex=false);
   void setDrawProjection(const Mat4& mat);
   void setDrawTransform(const Mat4& mat);
+  void setLightPos(const Vec3& lightPos);
 
   Mat4 getDrawProjection() const;
   Mat4 getDrawTransform() const;
+  Vec3 getLightPos() const;
 
   void resetPointTexture(uint32_t resolution=64);
   void setPointTexture(const std::vector<uint8_t>& shape, uint32_t x,
@@ -117,6 +119,7 @@ private:
   Mat4 p;
   Mat4 mv;
   Mat4 mvi;
+  Vec3 lightPos;
 
   GLProgram simpleProg;
   GLProgram simplePointProg;
