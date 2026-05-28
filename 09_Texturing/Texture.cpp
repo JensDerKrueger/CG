@@ -5,66 +5,66 @@
 #include <stb_image.h>
 
 Texture::Texture(uint32_t width, uint32_t height) :
-Texture(width, height, FilterMode::BILINEAR)
+  Texture(width, height, FilterMode::BILINEAR)
 {
 }
 
 Texture::Texture(uint32_t width, uint32_t height, FilterMode filterMode) :
-Texture(width, height, filterMode, BorderMode::REPEAT)
+  Texture(width, height, filterMode, BorderMode::REPEAT)
 {
 }
 
 Texture::Texture(uint32_t width, uint32_t height, FilterMode filterMode,
                  BorderMode borderMode) :
-width(width),
-height(height),
-filterMode(filterMode),
-borderModeU(borderMode),
-borderModeV(borderMode)
+  width(width),
+  height(height),
+  filterMode(filterMode),
+  borderModeU(borderMode),
+  borderModeV(borderMode)
 {
-  borderColor = Vec3{ 0.0f, 0.0f, 0.0f };
-  data = std::make_unique<Image>(width, height, 3);
+	borderColor = Vec3{ 0.0f, 0.0f, 0.0f };
+	data = std::make_unique<Image>(width, height, 3);
 }
 
 Texture::Texture(const std::string& filename) :
-Texture(filename, FilterMode::BILINEAR)
+  Texture(filename, FilterMode::BILINEAR)
 {
 }
 
 Texture::Texture(const std::string& filename, FilterMode filterMode) :
-Texture(filename, filterMode, BorderMode::REPEAT)
+  Texture(filename, filterMode, BorderMode::REPEAT)
 {
 }
 
 Texture::Texture(const std::string& filename, FilterMode filterMode,
                  BorderMode borderMode) :
-filterMode(filterMode),
-borderModeU(borderMode),
-borderModeV(borderMode),
-borderColor(Vec3{0,0,0})
+  filterMode(filterMode),
+  borderModeU(borderMode),
+  borderModeV(borderMode),
+  borderColor(Vec3{0,0,0})
 {
-  stbi_set_flip_vertically_on_load(false);
+	stbi_set_flip_vertically_on_load(false);
+	
+	int width, height, nrComponents;
+	stbi_uc* image_data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
+	if(image_data) {
+		this->width = uint32_t(width);
+		this->height = uint32_t(height);
+		this->borderModeU = borderMode;
+		this->borderModeV = borderMode;
+		this->filterMode = filterMode;
 
-  int width, height, nrComponents;
-  stbi_uc* image_data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
-  if(image_data) {
-    this->width = uint32_t(width);
-    this->height = uint32_t(height);
-    this->borderModeU = borderMode;
-    this->borderModeV = borderMode;
-    this->filterMode = filterMode;
-
-    data = std::make_unique<Image>(width, height, nrComponents, std::vector<uint8_t>{image_data, image_data + (width * height * nrComponents) });
-
-    stbi_image_free(image_data);
-  } else {
-    std::cerr << "Texture failed to load at path: " << filename << std::endl;
-    stbi_image_free(image_data);
-  }
+		data = std::make_unique<Image>(width, height, nrComponents, std::vector<uint8_t>{image_data, image_data + (width * height * nrComponents) });
+		
+		stbi_image_free(image_data);
+	} else {
+		std::cerr << "Texture failed to load at path: " << filename << std::endl;
+		stbi_image_free(image_data);
+	}
 }
 
 Texture Texture::genCheckerboardTexture(uint32_t width, uint32_t height) {
-  Texture checkerboard(width, height, FilterMode::NEAREST, BorderMode::REPEAT);
+	Texture checkerboard(width, height, FilterMode::NEAREST, BorderMode::REPEAT);
 
   // TODO Task02:
   // Implement the generation of a checkerboard texture.
@@ -105,12 +105,11 @@ Vec3 Texture::sample(int pixelCoordX, int pixelCoordY) const {
     data->getValue(sampleCoordX, sampleCoordY, 2) / 255.0f};
 }
 
-
 Vec3 Texture::sample(const TextureCoordinates& texCoords) const {
-  const float dx = texCoords.u * width;
-  const float dy = texCoords.v * height;
+	const float dx = texCoords.u * width;
+	const float dy = texCoords.v * height;
 
-  switch (filterMode) {
+	switch (filterMode) {
     case FilterMode::NEAREST: {
       const int nx = static_cast<int>(std::floor(dx + 0.5f));
       const int ny = static_cast<int>(std::floor(dy + 0.5f));
@@ -123,22 +122,22 @@ Vec3 Texture::sample(const TextureCoordinates& texCoords) const {
     default:
       std::cout << "Specified bordermode cannot be handled..." << std::endl;
       return {};
-  }
+    }
 }
 
 void Texture::setBorderMode(BorderMode borderMode) {
-  borderModeU = borderMode;
-  borderModeV = borderMode;
+	borderModeU = borderMode;
+	borderModeV = borderMode;
 }
 
 void Texture::setBorderModeU(BorderMode borderMode) {
-  borderModeU = borderMode;
+	borderModeU = borderMode;
 }
 
 void Texture::setBorderModeV(BorderMode borderMode) {
-  borderModeV = borderMode;
+	borderModeV = borderMode;
 }
 
 void Texture::setBorderColor(const Vec3& borderColor) {
-  this->borderColor = borderColor;
+	this->borderColor = borderColor;
 }

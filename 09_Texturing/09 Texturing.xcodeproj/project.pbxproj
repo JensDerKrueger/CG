@@ -24,6 +24,8 @@
 		56F619D72F3AB28F00FAD236 /* Earth.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 56F619D42F3AB28200FAD236 /* Earth.png */; };
 		56F619D82F3AB28F00FAD236 /* logo-dark.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 56F619D52F3AB28200FAD236 /* logo-dark.png */; };
 		56F619D92F3AB28F00FAD236 /* logo-light.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 56F619D62F3AB28200FAD236 /* logo-light.png */; };
+		56B0C1012F50020100FAD236 /* helvetica_neue.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 56B0C0FF2F50020100FAD236 /* helvetica_neue.bmp */; };
+		56B0C1022F50020100FAD236 /* helvetica_neue.pos in CopyFiles */ = {isa = PBXBuildFile; fileRef = 56B0C1002F50020100FAD236 /* helvetica_neue.pos */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -36,6 +38,8 @@
 				56F619D72F3AB28F00FAD236 /* Earth.png in CopyFiles */,
 				56F619D82F3AB28F00FAD236 /* logo-dark.png in CopyFiles */,
 				56F619D92F3AB28F00FAD236 /* logo-light.png in CopyFiles */,
+				56B0C1012F50020100FAD236 /* helvetica_neue.bmp in CopyFiles */,
+				56B0C1022F50020100FAD236 /* helvetica_neue.pos in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,6 +77,9 @@
 		56F619D42F3AB28200FAD236 /* Earth.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Earth.png; path = Datasets/Earth.png; sourceTree = "<group>"; };
 		56F619D52F3AB28200FAD236 /* logo-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "logo-dark.png"; path = "Datasets/logo-dark.png"; sourceTree = "<group>"; };
 		56F619D62F3AB28200FAD236 /* logo-light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "logo-light.png"; path = "Datasets/logo-light.png"; sourceTree = "<group>"; };
+		56A709012F00020100000001 /* Triangulate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Triangulate.h; sourceTree = "<group>"; };
+		56B0C0FF2F50020100FAD236 /* helvetica_neue.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = helvetica_neue.bmp; path = Datasets/helvetica_neue.bmp; sourceTree = "<group>"; };
+		56B0C1002F50020100FAD236 /* helvetica_neue.pos */ = {isa = PBXFileReference; lastKnownFileType = text; name = helvetica_neue.pos; path = Datasets/helvetica_neue.pos; sourceTree = "<group>"; };
 		A231F0FF25EAF61A00CBFC23 /* 09 Texturing */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "09 Texturing"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -121,6 +128,9 @@
 				56F619D42F3AB28200FAD236 /* Earth.png */,
 				56F619D52F3AB28200FAD236 /* logo-dark.png */,
 				56F619D62F3AB28200FAD236 /* logo-light.png */,
+				56A709012F00020100000001 /* Triangulate.h */,
+				56B0C0FF2F50020100FAD236 /* helvetica_neue.bmp */,
+				56B0C1002F50020100FAD236 /* helvetica_neue.pos */,
 			);
 			name = Application;
 			sourceTree = "<group>";

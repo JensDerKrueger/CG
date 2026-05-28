@@ -1,4 +1,5 @@
 #include "Plane.h"
+#include <cmath>
 
 Material Plane::getMaterial() const
 {
@@ -58,4 +59,20 @@ void Plane::buildLocalFrame()
     frame2 = Vec3::normalize(Vec3::cross(normal, frame1));
 
     center = Vec3(0.0f, 0.0f, 0.0f) + (normal * -d);
+}
+
+Tessellation Plane::getMesh() const
+{
+    constexpr float planeSize = 1000.0f;
+
+    const Vec3 n = Vec3::normalize(normal);
+    const Vec3 center = normal * (-d / Vec3::dot(normal, normal));
+    const Vec3 helper = (std::fabs(n.y) < 0.9f) ? Vec3{0.0f, 1.0f, 0.0f} : Vec3{1.0f, 0.0f, 0.0f};
+    const Vec3 tangent = Vec3::normalize(Vec3::cross(n, helper));
+    const Vec3 bitangent = Vec3::cross(n, tangent);
+
+    return Tessellation::genRectangle(center - tangent * planeSize - bitangent * planeSize,
+                                      center + tangent * planeSize - bitangent * planeSize,
+                                      center + tangent * planeSize + bitangent * planeSize,
+                                      center - tangent * planeSize + bitangent * planeSize);
 }
