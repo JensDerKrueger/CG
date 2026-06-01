@@ -39,6 +39,12 @@ Solution
 Assignment
 LatexUtils
 
+# Local exercise web exports / solution helpers
+*/html/
+snippet.js
+solution.css
+
+
 # macOS Files
 .DS_Store
 xcuserdata
