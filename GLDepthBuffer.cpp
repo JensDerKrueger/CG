@@ -1,5 +1,12 @@
 #include "GLDepthBuffer.h"
 
+namespace {
+#ifdef __EMSCRIPTEN__
+constexpr GLenum DEPTH_RENDERBUFFER_FORMAT = GL_DEPTH_COMPONENT24;
+#else
+constexpr GLenum DEPTH_RENDERBUFFER_FORMAT = GL_DEPTH_COMPONENT;
+#endif
+}
 
 GLDepthBuffer::GLDepthBuffer(uint32_t width, uint32_t height) :
 	id(0),
@@ -8,7 +15,7 @@ GLDepthBuffer::GLDepthBuffer(uint32_t width, uint32_t height) :
 {
   GL(glGenRenderbuffers(1, &id));
   GL(glBindRenderbuffer(GL_RENDERBUFFER, id));
-  GL(glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT,
+  GL(glRenderbufferStorage(GL_RENDERBUFFER, DEPTH_RENDERBUFFER_FORMAT,
                            GLsizei(width), GLsizei(height)));
 }
 
@@ -24,7 +31,7 @@ void GLDepthBuffer::setSize(uint32_t width, uint32_t height) {
   this->width = width;
   this->height =height;
   GL(glBindRenderbuffer(GL_RENDERBUFFER, id));
-  GL(glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT,
+  GL(glRenderbufferStorage(GL_RENDERBUFFER, DEPTH_RENDERBUFFER_FORMAT,
                            GLsizei(width), GLsizei(height)));
 }
 
