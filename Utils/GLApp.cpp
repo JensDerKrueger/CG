@@ -3,6 +3,7 @@
 #include <chrono>
 #include <ctime>
 #include <iomanip>
+#include <optional>
 #include <sstream>
 #include <string>
 
@@ -370,23 +371,50 @@ void GLApp::triangulate(const Vec3& p0,
                         std::vector<float>& trisData) {
 
   const Dimensions dim{ glEnv.getFramebufferSize() };
-  const Vec3 scale{Vec3{2.0f/float(dim.width), 2.0f/float(dim.height), 1.0} * lineThickness};
+  const float halfLineThickness = lineThickness * 0.5f;
+  const float ndcPerPixelX = 2.0f / float(dim.width);
+  const float ndcPerPixelY = 2.0f / float(dim.height);
 
-  const Vec3 pDir = Vec3::normalize(p1-p0);
-  const Vec3 cDir = Vec3::normalize(p2-p1);
-  const Vec3 nDir = Vec3::normalize(p3-p2);
-  
-  const Vec3 viewDir = Vec3::normalize((mvi * Vec4{0,0,1,0}).xyz);
-  
-  const Vec3 pPerp = Vec3::cross(pDir, viewDir);
-  const Vec3 cPerp = Vec3::cross(cDir, viewDir);
-  const Vec3 nPerp = Vec3::cross(nDir, viewDir);
-  
-  Vec3 pSep = pPerp + cPerp;
-  Vec3 nSep = nPerp + cPerp;
-  
-  pSep = (pSep / std::max(1.0f,Vec3::dot(pSep, cPerp))) * scale;
-  nSep = (nSep / std::max(1.0f,Vec3::dot(nSep, cPerp))) * scale;
+  const auto toPixelDirection = [&](const Vec3& a, const Vec3& b) {
+    return Vec3{(b.x-a.x) / ndcPerPixelX,
+                (b.y-a.y) / ndcPerPixelY,
+                0.0f};
+  };
+
+  const auto perpendicular = [](const Vec3& direction) {
+    const Vec3 normalizedDirection = Vec3::normalize(direction);
+    return Vec3{-normalizedDirection.y, normalizedDirection.x, 0.0f};
+  };
+
+  const Vec3 cPerp = perpendicular(toPixelDirection(p1, p2));
+  Vec3 pPerp = perpendicular(toPixelDirection(p0, p1));
+  Vec3 nPerp = perpendicular(toPixelDirection(p2, p3));
+
+  if (pPerp.sqlength() == 0.0f) pPerp = cPerp;
+  if (nPerp.sqlength() == 0.0f) nPerp = cPerp;
+
+  const auto miterOffset = [&](const Vec3& aPerp, const Vec3& bPerp) {
+    Vec3 miter = Vec3::normalize(aPerp + bPerp);
+    if (miter.sqlength() == 0.0f) miter = bPerp;
+
+    const float denom = Vec3::dot(miter, bPerp);
+    if (denom < 0.2f) {
+      return bPerp * halfLineThickness;
+    }
+
+    const float miterLength = std::min(halfLineThickness / denom,
+                                       halfLineThickness * 4.0f);
+    return miter * miterLength;
+  };
+
+  const auto toNdcOffset = [&](const Vec3& pixelOffset) {
+    return Vec3{pixelOffset.x * ndcPerPixelX,
+                pixelOffset.y * ndcPerPixelY,
+                0.0f};
+  };
+
+  const Vec3 pSep = toNdcOffset(miterOffset(pPerp, cPerp));
+  const Vec3 nSep = toNdcOffset(miterOffset(nPerp, cPerp));
 
   trisData.push_back(p1[0]+pSep[0]); trisData.push_back(p1[1]+pSep[1]);trisData.push_back(p1[2]+pSep[2]);
   trisData.push_back(c1[0]);trisData.push_back(c1[1]); trisData.push_back(c1[2]); trisData.push_back(c1[3]);
@@ -416,6 +444,105 @@ void GLApp::drawLines(const std::vector<float>& data, LineDrawType t, float line
 
   if (lineThickness > 1.0f) {
     std::vector<float> trisData;
+    const Mat4 mvp = p * mv;
+
+    struct ClippedLine {
+      Vec4 a;
+      Vec4 b;
+      float aT;
+      float bT;
+    };
+
+    const auto toClip = [&](const Vec3& point) {
+      return mvp * Vec4{point, 1.0f};
+    };
+
+    const auto clipDistance = [](const Vec4& point, const uint8_t plane) {
+      switch (plane) {
+        case 0: return point.x + point.w;
+        case 1: return -point.x + point.w;
+        case 2: return point.y + point.w;
+        case 3: return -point.y + point.w;
+        case 4: return point.z + point.w;
+        default: return -point.z + point.w;
+      }
+    };
+
+    const auto lerpClip = [](const Vec4& a, const Vec4& b, const float t) {
+      return a + (b-a) * t;
+    };
+
+    const auto lerpColor = [](const Vec4& a, const Vec4& b, const float t) {
+      return a + (b-a) * t;
+    };
+
+    const auto clipLine = [&](const Vec4& a, const Vec4& b) -> std::optional<ClippedLine> {
+      float aT = 0.0f;
+      float bT = 1.0f;
+
+      for (uint8_t plane = 0; plane < 6; ++plane) {
+        const float aDist = clipDistance(a, plane);
+        const float bDist = clipDistance(b, plane);
+
+        if (aDist < 0.0f && bDist < 0.0f) {
+          return {};
+        }
+
+        if (aDist >= 0.0f && bDist >= 0.0f) {
+          continue;
+        }
+
+        const float t = aDist / (aDist-bDist);
+        if (aDist < 0.0f) {
+          aT = std::max(aT, t);
+        } else {
+          bT = std::min(bT, t);
+        }
+
+        if (aT > bT) {
+          return {};
+        }
+      }
+
+      return ClippedLine{lerpClip(a, b, aT), lerpClip(a, b, bT), aT, bT};
+    };
+
+    const auto toNdc = [](const Vec4& clip) {
+      const float invW = 1.0f / clip.w;
+      return Vec3{clip.x * invW, clip.y * invW, clip.z * invW};
+    };
+
+    const auto previousSupportNdc = [&](const Vec4& p0Clip, const Vec4& p1Clip) {
+      const std::optional<ClippedLine> clipped = clipLine(p0Clip, p1Clip);
+      return clipped ? toNdc(clipped->a) : toNdc(p1Clip);
+    };
+
+    const auto nextSupportNdc = [&](const Vec4& p2Clip, const Vec4& p3Clip) {
+      const std::optional<ClippedLine> clipped = clipLine(p2Clip, p3Clip);
+      return clipped ? toNdc(clipped->b) : toNdc(p2Clip);
+    };
+
+    const auto addSegment = [&](const Vec3& p0,
+                                const Vec3& p1, const Vec4& c1,
+                                const Vec3& p2, const Vec4& c2,
+                                const Vec3& p3) {
+      const Vec4 p0Clip = toClip(p0);
+      const Vec4 p1Clip = toClip(p1);
+      const Vec4 p2Clip = toClip(p2);
+      const Vec4 p3Clip = toClip(p3);
+      const std::optional<ClippedLine> clipped = clipLine(p1Clip, p2Clip);
+      if (!clipped) return;
+
+      const Vec3 p1Ndc = toNdc(clipped->a);
+      const Vec3 p2Ndc = toNdc(clipped->b);
+      const Vec3 p0Ndc = clipped->aT > 0.0f ? p1Ndc : previousSupportNdc(p0Clip, p1Clip);
+      const Vec3 p3Ndc = clipped->bT < 1.0f ? p2Ndc : nextSupportNdc(p2Clip, p3Clip);
+      const Vec4 c1Clipped = lerpColor(c1, c2, clipped->aT);
+      const Vec4 c2Clipped = lerpColor(c1, c2, clipped->bT);
+
+      triangulate(p0Ndc, p1Ndc, c1Clipped, p2Ndc, c2Clipped, p3Ndc,
+                  lineThickness, trisData);
+    };
     
     switch (t) {
       case LineDrawType::LIST :
@@ -442,7 +569,7 @@ void GLApp::drawLines(const std::vector<float>& data, LineDrawType t, float line
             p3 = Vec3{data[i3*7+0],data[i3*7+1],data[i3*7+2]};
           }
 
-          triangulate(p0, p1, c1, p2, c2, p3, lineThickness, trisData);
+          addSegment(p0, p1, c1, p2, c2, p3);
         }
         break;
       case LineDrawType::STRIP :
@@ -460,7 +587,7 @@ void GLApp::drawLines(const std::vector<float>& data, LineDrawType t, float line
           const Vec4 c2{data[i2*7+3],data[i2*7+4],data[i2*7+5],data[i2*7+6]};
           const Vec3 p3{data[i3*7+0],data[i3*7+1],data[i3*7+2]};
 
-          triangulate(p0, p1, c1, p2, c2, p3, lineThickness, trisData);
+          addSegment(p0, p1, c1, p2, c2, p3);
         }
         break;
       case LineDrawType::LOOP :
@@ -478,18 +605,20 @@ void GLApp::drawLines(const std::vector<float>& data, LineDrawType t, float line
           const Vec4 c2{data[i2*7+3],data[i2*7+4],data[i2*7+5],data[i2*7+6]};
           const Vec3 p3{data[i3*7+0],data[i3*7+1],data[i3*7+2]};
 
-          triangulate(p0, p1, c1, p2, c2, p3, lineThickness, trisData);
+          addSegment(p0, p1, c1, p2, c2, p3);
         }
         break;
     }
 #ifndef __EMSCRIPTEN__
     GL(glPolygonMode( GL_FRONT_AND_BACK, GL_FILL ));
 #endif
+    simpleProg.setUniform("MVP", Mat4{});
     simpleVb.setData(trisData,7,GL_DYNAMIC_DRAW);
     simpleArray.connectVertexAttrib(simpleVb, simpleProg, "vPos", 3);
     simpleArray.connectVertexAttrib(simpleVb, simpleProg, "vColor", 4, 3);
 
     GL(glDrawArrays(GL_TRIANGLES, 0, GLsizei(trisData.size()/7)));
+    simpleProg.setUniform("MVP", p*mv);
   } else {
     simpleVb.setData(data,7,GL_DYNAMIC_DRAW);
     simpleArray.connectVertexAttrib(simpleVb, simpleProg, "vPos", 3);
