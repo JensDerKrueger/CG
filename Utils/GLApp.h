@@ -82,7 +82,10 @@ protected:
                  const Vec3& tl=Vec3{-1.0f,1.0f,0.0f},
                  const Vec3& tr=Vec3{1.0f,1.0f,0.0f});
   void drawTriangles(const std::vector<float>& data, TrisDrawType t, bool wireframe, bool lighting);
+  void drawTriangles(const std::vector<float>& data, TrisDrawType t, bool wireframe,
+                     const GLProgram& program);
   void redrawTriangles(bool wireframe);
+  void redrawTriangles(bool wireframe, const GLProgram& program);
 
   Mat4 computeImageTransform(const Vec2ui& imageSize) const;
   Mat4 computeImageTransformFixedHeight(const Vec2ui& imageSize,
@@ -189,6 +192,10 @@ private:
   void initScript(const std::vector<std::string>& args);
   bool writeScriptLog(const std::string& text) const;
   void processScript();
+  void drawTrianglesWithProgram(const std::vector<float>& data, TrisDrawType t,
+                                bool wireframe, bool lighting,
+                                const GLProgram& program);
+  void redrawTriangleArrays(bool wireframe);
 };
 
 /*
