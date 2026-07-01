@@ -35,7 +35,10 @@
       location = "group:11_Triforce/11 Triforce.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:12_DendriteGrowth/12 Octree.xcodeproj">
+      location = "group:12_LocalIllumination/12 LocalIllumination.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:13_DendriteGrowth/13 Octree.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Utils/Utils.xcodeproj">
