@@ -700,7 +700,24 @@ void GLApp::redrawTriangles(bool wireframe) {
     simpleArray.connectVertexAttrib(simpleVb, simpleProg, "vColor", 4, 3);
   }
 
+  redrawTriangleArrays(wireframe);
+}
 
+void GLApp::redrawTriangles(bool wireframe, const GLProgram& program) {
+  shaderUpdate();
+
+  program.enable();
+  simpleArray.bind();
+  simpleArray.connectVertexAttrib(simpleVb, program, "vPos", 3);
+  simpleArray.connectVertexAttrib(simpleVb, program, "vColor", 4, 3);
+  if (lastLighting) {
+    simpleArray.connectVertexAttrib(simpleVb, program, "vNormal", 3, 7);
+  }
+
+  redrawTriangleArrays(wireframe);
+}
+
+void GLApp::redrawTriangleArrays(bool wireframe) {
   switch (lastTrisType) {
     case TrisDrawType::LIST :
       if (wireframe) {
@@ -827,8 +844,18 @@ static std::vector<float> convertTrianglesToLines(
 }
 
 void GLApp::drawTriangles(const std::vector<float>& data, TrisDrawType t, bool wireframe, bool lighting) {
-  shaderUpdate();
+  drawTrianglesWithProgram(data, t, wireframe, lighting,
+                           lighting ? simpleLightProg : simpleProg);
+}
 
+void GLApp::drawTriangles(const std::vector<float>& data, TrisDrawType t, bool wireframe,
+                          const GLProgram& program) {
+  drawTrianglesWithProgram(data, t, wireframe, true, program);
+}
+
+void GLApp::drawTrianglesWithProgram(const std::vector<float>& data, TrisDrawType t,
+                                     bool wireframe, bool lighting,
+                                     const GLProgram& program) {
   size_t compCount = lighting ? 10 : 7;
 
   if (wireframe) {
@@ -854,7 +881,7 @@ void GLApp::drawTriangles(const std::vector<float>& data, TrisDrawType t, bool w
   lastLighting = lighting;
   lastTrisType = t;
 
-  redrawTriangles(wireframe);
+  redrawTriangles(wireframe, program);
 }
 
 void GLApp::setDrawProjection(const Mat4& mat) {
