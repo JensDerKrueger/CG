@@ -128,6 +128,7 @@ public:
         objectRotation = Mat4{};
         lightRotation = Mat4{};
         cameraDistance = defaultCameraDistance;
+        normalLineLength = defaultNormalLineLength;
         updateTitle();
         break;
       case GLENV_KEY_UP:
@@ -136,6 +137,14 @@ public:
         break;
       case GLENV_KEY_DOWN:
         cameraDistance = std::min(12.0f, cameraDistance * 1.1f);
+        updateTitle();
+        break;
+      case GLENV_KEY_LEFT:
+        normalLineLength = std::max(0.02f, normalLineLength * 0.85f);
+        updateTitle();
+        break;
+      case GLENV_KEY_RIGHT:
+        normalLineLength = std::min(0.6f, normalLineLength * 1.15f);
         updateTitle();
         break;
       default:
@@ -187,6 +196,8 @@ private:
   Mat4 lightRotation{};
   const float defaultCameraDistance{5.0f};
   float cameraDistance{defaultCameraDistance};
+  const float defaultNormalLineLength{0.15f};
+  float normalLineLength{defaultNormalLineLength};
   const Vec3 baseLightPosition{0.0f, 2.2f, 2.4f};
 
   Vec3 cameraPosition() const {
@@ -220,6 +231,8 @@ private:
     // TODO Aufgabe 1:
     // Build one short line segment per vertex. The start point should be the
     // vertex position, the direction should be the corresponding vertex normal.
+    // Store the normal as a unit direction; its display length is applied in
+    // drawNormalLines.
     // Store each line vertex as position (x, y, z) followed by color (r, g, b, a).
 
     return lines;
@@ -257,8 +270,8 @@ private:
 
     // TODO Aufgabe 1:
     // Transform the line start point with the model-view matrix and the normal
-    // direction with transpose(inverse(modelView)). Then draw the resulting view
-    // space lines with drawLines.
+    // direction with transpose(inverse(modelView)). Scale the transformed direction
+    // by normalLineLength and draw the resulting view space lines with drawLines.
   }
 
   void drawLightMarker(const Mat4& view, const Mat4& projection, const Vec3& lightPosition) {
@@ -277,7 +290,7 @@ private:
     title << "Assignment 12 - Local Illumination | Mode: "
           << (interactionMode == InteractionMode::Objects ? "objects" : "light")
           << " | normals: " << (showNormals ? "on" : "off")
-          << " | L: mode, N: normals, Up/Down: zoom, R: reset";
+          << " | L: mode, N: normals, Up/Down: zoom, Left/Right: normal length, R: reset";
     glEnv.setTitle(title.str());
   }
 } myApp;
