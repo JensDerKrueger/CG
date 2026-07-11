@@ -116,18 +116,20 @@ public:
         break;
       case GLENV_KEY_L:
         interactionMode = (interactionMode == InteractionMode::Objects)
-                            ? InteractionMode::Light
-                            : InteractionMode::Objects;
+        ? InteractionMode::Light
+        : InteractionMode::Objects;
         updateTitle();
         break;
       case GLENV_KEY_N:
         showNormals = !showNormals;
         updateTitle();
         break;
+
       case GLENV_KEY_R:
         objectRotation = Mat4{};
         lightRotation = Mat4{};
         cameraDistance = defaultCameraDistance;
+        sceneOffsetX = defaultSceneOffsetX;
         normalLineLength = defaultNormalLineLength;
         updateTitle();
         break;
@@ -140,10 +142,18 @@ public:
         updateTitle();
         break;
       case GLENV_KEY_LEFT:
-        normalLineLength = std::max(0.02f, normalLineLength * 0.85f);
+        sceneOffsetX = std::max(-2.0f, sceneOffsetX - 0.15f);
         updateTitle();
         break;
       case GLENV_KEY_RIGHT:
+        sceneOffsetX = std::min(2.0f, sceneOffsetX + 0.15f);
+        updateTitle();
+        break;
+      case GLENV_KEY_Q:
+        normalLineLength = std::max(0.02f, normalLineLength * 0.85f);
+        updateTitle();
+        break;
+      case GLENV_KEY_W:
         normalLineLength = std::min(0.6f, normalLineLength * 1.15f);
         updateTitle();
         break;
@@ -196,12 +206,18 @@ private:
   Mat4 lightRotation{};
   const float defaultCameraDistance{5.0f};
   float cameraDistance{defaultCameraDistance};
+  const float defaultSceneOffsetX{0.0f};
+  float sceneOffsetX{defaultSceneOffsetX};
   const float defaultNormalLineLength{0.15f};
   float normalLineLength{defaultNormalLineLength};
   const Vec3 baseLightPosition{0.0f, 2.2f, 2.4f};
 
   Vec3 cameraPosition() const {
     return Vec3{0.0f, 0.2f, cameraDistance};
+  }
+
+  Mat4 sceneMatrix() const {
+    return Mat4::translation(sceneOffsetX, 0.0f, 0.0f);
   }
 
   void setupMesh(Mesh& mesh, const Tessellation& tessellation,
@@ -239,7 +255,7 @@ private:
   }
 
   Mat4 modelMatrix(const Mesh& mesh) const {
-    return mesh.translation * objectRotation * mesh.localTransform;
+    return sceneMatrix() * mesh.translation * objectRotation * mesh.localTransform;
   }
 
   void drawMesh(const Mesh& mesh, const Mat4& view,
@@ -288,9 +304,9 @@ private:
   void updateTitle() {
     std::stringstream title;
     title << "Assignment 12 - Local Illumination | Mode: "
-          << (interactionMode == InteractionMode::Objects ? "objects" : "light")
-          << " | normals: " << (showNormals ? "on" : "off")
-          << " | L: mode, N: normals, Up/Down: zoom, Left/Right: normal length, R: reset";
+    << (interactionMode == InteractionMode::Objects ? "objects" : "light")
+    << " | normals: " << (showNormals ? "on" : "off")
+    << " | L: mode, N: normals, Up/Down: zoom, Left/Right: pan, Q/W: normal length, R: reset";
     glEnv.setTitle(title.str());
   }
 } myApp;
