@@ -32,19 +32,13 @@ exercise code.
 
 ## Exercises
 
-- `01_OBJ`: introduction and OBJ mesh loading
-- `02_Intersect`: rays and geometric intersections
-- `03_Splines`: spline curves
-- `04_Color`: color conversion and image processing basics
-- `05_Diffuse`: rasterization, interpolation, and diffuse shading
-- `06_Phong`: Phong shading and bump mapping
-- `07_Raycasting`: ray casting and shadows
-- `08_Raytracing`: recursive ray tracing
-- `09_Texturing`: texture coordinates and texture sampling
-- `10_HelloGL`: first OpenGL program
-- `11_Triforce`: interpolation and transformations in OpenGL
-- `12_LocalIllumination`: local Phong illumination in shaders
-- `13_DendriteGrowth`: growth simulation and spatial subdivision
+The numbered exercise directories form the practical part of the course. They
+are ordered roughly along the lecture progression, starting with basic geometry
+and image handling and moving toward rasterization, shading, ray-based
+rendering, OpenGL, and spatial data structures.
+
+Each exercise folder contains the files, assets, build projects, and assignment
+material needed for that exercise.
 
 ## Building
 
