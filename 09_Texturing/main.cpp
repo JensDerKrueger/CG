@@ -1,17 +1,19 @@
 #include <GLApp.h>
 #include <ArcBall.h>
 #include <FontRenderer.h>
+#include <BackgroundTask.h>
 #include <cmath>
 #include <cstdint>
-#ifndef __EMSCRIPTEN__
-#include <mutex>
-#include <thread>
-#endif
 #include <vector>
 #include "Scene.h"
 #include "Camera.h"
 #include "Raytracer.h"
 #include "Texture.h"
+
+struct RenderImages {
+	Image image{600, 600};
+	Image debugImage{600, 600};
+};
 
 class MyGLApp : public GLApp {
 public:
@@ -28,15 +30,7 @@ public:
 	bool drawDebug = false;
 	bool mouseDragActive{false};
 	bool showPreview{true};
-	bool renderRequested{false};
-#ifndef __EMSCRIPTEN__
-	std::mutex renderMutex;
-	bool renderRunning{false};
-	bool renderReady{false};
-	uint64_t renderGeneration{0};
-	Image renderedImage{600,600};
-	Image renderedDebugImage{600,600};
-#endif
+	BackgroundTask<RenderImages> renderTask;
 
 	MyGLApp() : GLApp{ 600,600,1,"Texturing" } {}
 
@@ -62,7 +56,7 @@ public:
 		arcBall.setWindowSize(Vec2ui{winDim.width, winDim.height});
 	}
 
-	Image render(Scene scene, Camera camera, int depth, uint32_t width, uint32_t height, bool debug = false) {
+	static Image render(Scene scene, Camera camera, int depth, uint32_t width, uint32_t height, bool debug = false) {
 		scene.setDebug(debug);
 
 		Image result{width, height};
@@ -71,6 +65,14 @@ public:
 		renderer.setScene(scene);
 		renderer.render(result);
 		return result;
+	}
+
+	static RenderImages renderImages(Scene scene, Camera camera, int depth, uint32_t width, uint32_t height)
+	{
+		return RenderImages{
+			render(scene, camera, depth, width, height),
+			render(scene, camera, depth, width, height, true)
+		};
 	}
 
 	Vec3 computePreviewCenter(const std::vector<float>& data) const
@@ -89,77 +91,34 @@ public:
 
 	void requestRender()
 	{
-#ifndef __EMSCRIPTEN__
-		std::lock_guard<std::mutex> lock(renderMutex);
-		++renderGeneration;
-		renderRequested = true;
-		renderReady = false;
+		renderTask.request();
 		showPreview = true;
-#else
-		renderRequested = true;
-		showPreview = true;
-#endif
 	}
 
 	void startRenderIfNeeded()
 	{
-#ifndef __EMSCRIPTEN__
-		Scene sceneToRender;
-		Camera cameraToRender;
-		uint32_t width = image.width;
-		uint32_t height = image.height;
-		uint64_t generation = 0;
-
-		{
-			std::lock_guard<std::mutex> lock(renderMutex);
-			if (renderRunning || !renderRequested)
-				return;
-
-			renderRunning = true;
-			renderRequested = false;
-			generation = renderGeneration;
-			sceneToRender = scene;
-			cameraToRender = camera;
-			width = image.width;
-			height = image.height;
-		}
-
-		std::thread([this, sceneToRender, cameraToRender, generation, width, height]() {
-			Image result = render(sceneToRender, cameraToRender, 5, width, height);
-			Image debugResult = render(sceneToRender, cameraToRender, 5, width, height, true);
-
-			std::lock_guard<std::mutex> lock(renderMutex);
-			if (generation == renderGeneration)
-			{
-				renderedImage = std::move(result);
-				renderedDebugImage = std::move(debugResult);
-				renderReady = true;
-			}
-			renderRunning = false;
-		}).detach();
-#else
-		if (!renderRequested || mouseDragActive)
+		if (mouseDragActive || !renderTask.canStart())
 			return;
 
-		renderRequested = false;
-		image = render(scene, camera, 5, image.width, image.height);
-		debugImage = render(scene, camera, 5, debugImage.width, debugImage.height, true);
-		showPreview = false;
-#endif
+		const Scene sceneToRender = scene;
+		const Camera cameraToRender = camera;
+		const uint32_t width = image.width;
+		const uint32_t height = image.height;
+
+		renderTask.start([sceneToRender, cameraToRender, width, height]() {
+			return renderImages(sceneToRender, cameraToRender, 5, width, height);
+		});
 	}
 
 	void collectRenderResult()
 	{
-#ifndef __EMSCRIPTEN__
-		std::lock_guard<std::mutex> lock(renderMutex);
-		if (!renderReady)
+		RenderImages result;
+		if (!renderTask.takeResult(result))
 			return;
 
-		image = std::move(renderedImage);
-		debugImage = std::move(renderedDebugImage);
-		renderReady = false;
+		image = std::move(result.image);
+		debugImage = std::move(result.debugImage);
 		showPreview = false;
-#endif
 	}
 
 	void updatePreviewLight()
@@ -184,6 +143,7 @@ public:
 	virtual void draw() override {
 		collectRenderResult();
 		startRenderIfNeeded();
+		collectRenderResult();
 
 		if (showPreview)
 		{

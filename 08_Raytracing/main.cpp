@@ -1,12 +1,9 @@
 #include <GLApp.h>
 #include <ArcBall.h>
 #include <FontRenderer.h>
+#include <BackgroundTask.h>
 #include <cmath>
 #include <cstdint>
-#ifndef __EMSCRIPTEN__
-#include <mutex>
-#include <thread>
-#endif
 #include <vector>
 #include "Scene.h"
 #include "Camera.h"
@@ -24,14 +21,7 @@ public:
   ArcBall arcBall{Vec2ui{600, 600}};
   bool mouseDragActive{false};
   bool showPreview{true};
-  bool renderRequested{false};
-#ifndef __EMSCRIPTEN__
-  std::mutex renderMutex;
-  bool renderRunning{false};
-  bool renderReady{false};
-  uint64_t renderGeneration{0};
-  Image renderedImage{600,600};
-#endif
+  BackgroundTask<Image> renderTask;
 
   MyGLApp() : GLApp{600,600,1,"Raytrace Demo"} {}
 
@@ -57,7 +47,7 @@ public:
     arcBall.setWindowSize(Vec2ui{winDim.width, winDim.height});
   }
 
-  Image render(Scene scene, Camera camera, int depth, uint32_t width, uint32_t height)
+  static Image render(Scene scene, Camera camera, int depth, uint32_t width, uint32_t height)
   {
     Image result{width, height};
     Raytracer renderer(depth, 9);
@@ -83,73 +73,29 @@ public:
 
   void requestRender()
   {
-#ifndef __EMSCRIPTEN__
-    std::lock_guard<std::mutex> lock(renderMutex);
-    ++renderGeneration;
-    renderRequested = true;
-    renderReady = false;
+    renderTask.request();
     showPreview = true;
-#else
-    renderRequested = true;
-    showPreview = true;
-#endif
   }
 
   void startRenderIfNeeded()
   {
-#ifndef __EMSCRIPTEN__
-    Scene sceneToRender;
-    Camera cameraToRender;
-    uint32_t width = image.width;
-    uint32_t height = image.height;
-    uint64_t generation = 0;
-
-    {
-      std::lock_guard<std::mutex> lock(renderMutex);
-      if (renderRunning || !renderRequested)
-        return;
-
-      renderRunning = true;
-      renderRequested = false;
-      generation = renderGeneration;
-      sceneToRender = scene;
-      cameraToRender = camera;
-      width = image.width;
-      height = image.height;
-    }
-
-    std::thread([this, sceneToRender, cameraToRender, generation, width, height]() {
-      Image result = render(sceneToRender, cameraToRender, 9, width, height);
-
-      std::lock_guard<std::mutex> lock(renderMutex);
-      if (generation == renderGeneration)
-      {
-        renderedImage = std::move(result);
-        renderReady = true;
-      }
-      renderRunning = false;
-    }).detach();
-#else
-    if (!renderRequested || mouseDragActive)
+    if (mouseDragActive || !renderTask.canStart())
       return;
 
-    renderRequested = false;
-    image = render(scene, camera, 9, image.width, image.height);
-    showPreview = false;
-#endif
+    const Scene sceneToRender = scene;
+    const Camera cameraToRender = camera;
+    const uint32_t width = image.width;
+    const uint32_t height = image.height;
+
+    renderTask.start([sceneToRender, cameraToRender, width, height]() {
+      return render(sceneToRender, cameraToRender, 9, width, height);
+    });
   }
 
   void collectRenderResult()
   {
-#ifndef __EMSCRIPTEN__
-    std::lock_guard<std::mutex> lock(renderMutex);
-    if (!renderReady)
-      return;
-
-    image = std::move(renderedImage);
-    renderReady = false;
-    showPreview = false;
-#endif
+    if (renderTask.takeResult(image))
+      showPreview = false;
   }
 
   void updatePreviewLight()
@@ -174,6 +120,7 @@ public:
   virtual void draw() override {
     collectRenderResult();
     startRenderIfNeeded();
+    collectRenderResult();
 
     if (showPreview)
     {
