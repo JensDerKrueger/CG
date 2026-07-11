@@ -108,6 +108,9 @@ private:
   GLFWwindow* window;
 #endif
   bool sync;
+#ifdef __EMSCRIPTEN__
+  bool exactPixels;
+#endif
   std::string title;
   double currentFps{0.0};
   bool fpsCounter;
