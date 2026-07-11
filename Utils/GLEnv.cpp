@@ -3,6 +3,7 @@
 #include <chrono>
 #include <cmath>
 #include <iostream>
+#include <algorithm>
 
 #ifndef SET_ENS_CANVAS
 #define ENS_CANVAS "#canvas"
@@ -142,11 +143,18 @@ GLEnv::GLEnv(uint32_t w, uint32_t h, uint32_t s, const std::string& title,
   window(nullptr),
 #endif
   sync(sync),
+#ifdef __EMSCRIPTEN__
+  exactPixels(exactPixels),
+#endif
   title(title),
   fpsCounter(fpsCounter)
 {
 #ifdef __EMSCRIPTEN__
-  emscripten_set_canvas_element_size(ENS_CANVAS, w, h);
+  const double pixelRatio = exactPixels ? 1.0 : emscripten_get_device_pixel_ratio();
+  const int framebufferWidth = std::max(1, int(std::lround(double(w) * pixelRatio)));
+  const int framebufferHeight = std::max(1, int(std::lround(double(h) * pixelRatio)));
+  emscripten_set_element_css_size(ENS_CANVAS, double(w), double(h));
+  emscripten_set_canvas_element_size(ENS_CANVAS, framebufferWidth, framebufferHeight);
 
   EmscriptenWebGLContextAttributes attr;
   emscripten_webgl_init_context_attributes(&attr);
@@ -307,7 +315,13 @@ void GLEnv::endOfFrame() {
 }
 
 void GLEnv::setSize(int width, int height) {
-#ifndef __EMSCRIPTEN__
+#ifdef __EMSCRIPTEN__
+  const double pixelRatio = exactPixels ? 1.0 : emscripten_get_device_pixel_ratio();
+  const int framebufferWidth = std::max(1, int(std::lround(double(width) * pixelRatio)));
+  const int framebufferHeight = std::max(1, int(std::lround(double(height) * pixelRatio)));
+  emscripten_set_element_css_size(ENS_CANVAS, double(width), double(height));
+  emscripten_set_canvas_element_size(ENS_CANVAS, framebufferWidth, framebufferHeight);
+#else
   glfwSetWindowSize(window, width, height);
 #endif
 }
