@@ -20,25 +20,34 @@
       location = "group:06_Phong/06 Phong.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:07_Raycasting/07 Raycaster.xcodeproj">
+      location = "group:07_Raycasting/07 Raycasting.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:08_Raytracing/08 Raytracer.xcodeproj">
+      location = "group:08_Raytracing/08 Raytracing.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:09_Texturing/09 Texturing.xcodeproj">
+      location = "group:09_BVH/09 BVH.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:10_HelloGL/10 HelloGL.xcodeproj">
+      location = "group:10_Octree/10 Octree.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:11_Triforce/11 Triforce.xcodeproj">
+      location = "group:11_Texturing/11 Texturing.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:12_LocalIllumination/12 LocalIllumination.xcodeproj">
+      location = "group:12_Triforce/12 Triforce.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:13_DendriteGrowth/13 Octree.xcodeproj">
+      location = "group:13_LineRasterization/13 LineRasterization.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:14_TriangleRasterization/14 TriangleRasterization.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:15_HelloGL/15 HelloGL.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:16_LocalIllumination/16 LocalIllumination.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Utils/Utils.xcodeproj">
