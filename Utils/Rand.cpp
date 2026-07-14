@@ -27,6 +27,10 @@ dis051{0.5f, 1.0f}
 {
 }
 
+void Random::seed(uint32_t value) {
+    gen.seed(value);
+}
+
 
 
 float Random::rand01() {
