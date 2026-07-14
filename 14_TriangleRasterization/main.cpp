@@ -1,6 +1,7 @@
 #include <GLApp.h>
 
 #include <algorithm>
+#include <array>
 #include <cmath>
 #include <cstdint>
 #include <cstdlib>
@@ -12,6 +13,12 @@ struct Vertex2D {
   float x;
   float y;
   float z;
+  float inverseZ;
+  Vec4 color;
+};
+
+struct Vertex3D {
+  Vec3 position;
   Vec4 color;
 };
 
@@ -83,7 +90,14 @@ public:
                         const float lambdaA,
                         const float lambdaB,
                         const float lambdaC) const {
-    return a.color * lambdaA + b.color * lambdaB + c.color * lambdaC;
+    const float inverseZ = lambdaA * a.inverseZ + lambdaB * b.inverseZ + lambdaC * c.inverseZ;
+    if (inverseZ == 0.0f) {
+      return {};
+    }
+
+    return (a.color * (lambdaA * a.inverseZ) +
+            b.color * (lambdaB * b.inverseZ) +
+            c.color * (lambdaC * c.inverseZ)) / inverseZ;
   }
 
   void drawTriangle(const Vertex2D& a, const Vertex2D& b, const Vertex2D& c) {
@@ -108,36 +122,101 @@ public:
     //    non-negative, the pixel center lies inside the triangle.
     // 7. Normalize the edge values by the triangle area to obtain barycentric
     //    coordinates.
-    // 8. Use the barycentric coordinates to interpolate depth and color.
+    // 8. Use the barycentric coordinates to interpolate depth and color
+    //    perspective-correctly. The projected vertices already store inverseZ.
     // 9. Use depthBuffer to keep only the closest triangle at every pixel.
   }
 
-  Vertex2D animatedVertex(Vertex2D vertex, const size_t index) const {
-    vertex.x += 22.0f * std::sin(animationPhase * 0.75f + float(index) * 1.4f);
-    vertex.y += 16.0f * std::cos(animationPhase * 0.95f + float(index) * 1.1f);
-    return vertex;
+  Vec3 rotateCubeVertex(const Vec3& vertex) const {
+    const float angleX = animationPhase * 0.75f + 0.55f;
+    const float angleY = animationPhase * 1.10f + 0.70f;
+    const float cosX = std::cos(angleX);
+    const float sinX = std::sin(angleX);
+    const float cosY = std::cos(angleY);
+    const float sinY = std::sin(angleY);
+
+    const Vec3 rotatedX{
+      vertex.x,
+      vertex.y * cosX - vertex.z * sinX,
+      vertex.y * sinX + vertex.z * cosX
+    };
+
+    return Vec3{
+      rotatedX.x * cosY + rotatedX.z * sinY,
+      rotatedX.y,
+      -rotatedX.x * sinY + rotatedX.z * cosY
+    };
+  }
+
+  Vertex2D projectVertex(const Vertex3D& vertex) const {
+    const Vec3 rotated = rotateCubeVertex(vertex.position);
+    const Vec3 cameraSpace{rotated.x, rotated.y, rotated.z + 4.2f};
+    const float focalLength = 360.0f;
+    const float inverseZ = 1.0f / cameraSpace.z;
+
+    return Vertex2D{
+      float(image.width) * 0.5f + cameraSpace.x * focalLength * inverseZ,
+      float(image.height) * 0.5f - cameraSpace.y * focalLength * inverseZ,
+      cameraSpace.z,
+      inverseZ,
+      vertex.color
+    };
+  }
+
+  void drawCubeTriangle(const Vertex3D& a, const Vertex3D& b, const Vertex3D& c) {
+    drawTriangle(projectVertex(a), projectVertex(b), projectVertex(c));
+  }
+
+  void drawCube() {
+    const std::array<Vec3, 8> positions{
+      Vec3{-1.0f, -1.0f, -1.0f},
+      Vec3{ 1.0f, -1.0f, -1.0f},
+      Vec3{ 1.0f,  1.0f, -1.0f},
+      Vec3{-1.0f,  1.0f, -1.0f},
+      Vec3{-1.0f, -1.0f,  1.0f},
+      Vec3{ 1.0f, -1.0f,  1.0f},
+      Vec3{ 1.0f,  1.0f,  1.0f},
+      Vec3{-1.0f,  1.0f,  1.0f}
+    };
+
+    const std::array<Vec4, 8> colors{
+      Vec4{0.20f, 0.28f, 0.95f, 1.0f},
+      Vec4{0.16f, 0.75f, 0.95f, 1.0f},
+      Vec4{0.25f, 0.90f, 0.42f, 1.0f},
+      Vec4{0.98f, 0.86f, 0.24f, 1.0f},
+      Vec4{0.92f, 0.22f, 0.30f, 1.0f},
+      Vec4{0.95f, 0.48f, 0.18f, 1.0f},
+      Vec4{0.82f, 0.30f, 0.92f, 1.0f},
+      Vec4{0.38f, 0.22f, 0.78f, 1.0f}
+    };
+
+    const auto vertex = [&](const size_t index) {
+      return Vertex3D{positions[index], colors[index]};
+    };
+
+    drawCubeTriangle(vertex(4), vertex(5), vertex(6));
+    drawCubeTriangle(vertex(4), vertex(6), vertex(7));
+    drawCubeTriangle(vertex(1), vertex(0), vertex(3));
+    drawCubeTriangle(vertex(1), vertex(3), vertex(2));
+    drawCubeTriangle(vertex(0), vertex(4), vertex(7));
+    drawCubeTriangle(vertex(0), vertex(7), vertex(3));
+    drawCubeTriangle(vertex(5), vertex(1), vertex(2));
+    drawCubeTriangle(vertex(5), vertex(2), vertex(6));
+    drawCubeTriangle(vertex(3), vertex(7), vertex(6));
+    drawCubeTriangle(vertex(3), vertex(6), vertex(2));
+    drawCubeTriangle(vertex(0), vertex(1), vertex(5));
+    drawCubeTriangle(vertex(0), vertex(5), vertex(4));
   }
 
   void renderScene() {
-    clearImage({0.98f, 0.98f, 0.96f, 1.0f});
+    clearImage({0.96f, 0.97f, 0.99f, 1.0f});
     drawGrid();
-
-    drawTriangle(animatedVertex({95.0f, 88.0f, 0.72f, {0.95f, 0.50f, 0.35f, 1.0f}}, 0),
-                 animatedVertex({600.0f, 140.0f, 0.72f, {0.98f, 0.82f, 0.30f, 1.0f}}, 1),
-                 animatedVertex({225.0f, 485.0f, 0.72f, {0.70f, 0.40f, 0.90f, 1.0f}}, 2));
-
-    drawTriangle(animatedVertex({285.0f, 80.0f, 0.35f, {0.24f, 0.54f, 0.96f, 1.0f}}, 3),
-                 animatedVertex({720.0f, 410.0f, 0.35f, {0.26f, 0.84f, 0.72f, 1.0f}}, 4),
-                 animatedVertex({215.0f, 430.0f, 0.35f, {0.25f, 0.70f, 0.38f, 1.0f}}, 5));
-
-    drawTriangle(animatedVertex({470.0f, 45.0f, 0.18f, {0.96f, 0.30f, 0.25f, 1.0f}}, 6),
-                 animatedVertex({760.0f, 500.0f, 0.18f, {0.96f, 0.62f, 0.28f, 1.0f}}, 7),
-                 animatedVertex({385.0f, 475.0f, 0.18f, {0.88f, 0.25f, 0.58f, 1.0f}}, 8));
+    drawCube();
   }
 
   virtual void init() override {
     setImageFilter(GL_NEAREST, GL_NEAREST);
-    setAnimation(false);
+    setAnimation(true);
     renderScene();
   }
 
