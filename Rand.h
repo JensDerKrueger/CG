@@ -7,6 +7,7 @@ class Random {
 public:
   Random();
   Random(uint32_t seed);
+  void seed(uint32_t value);
   
   float rand005();
   float rand051();
