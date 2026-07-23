@@ -6,6 +6,7 @@
 *.lo
 *.o
 *.obj
+!*/Datasets/*.obj
 
 # Precompiled Headers
 *.gch
@@ -16,9 +17,6 @@
 *.dylib
 *.dll
 
-# VS files
-*.user
-
 # Fortran module files
 *.mod
 *.smod
@@ -27,7 +25,7 @@
 *.lai
 *.la
 *.a
-*.lib
+# *.lib
 
 # Executables
 *.exe
@@ -41,15 +39,63 @@ LatexUtils
 
 # Local exercise web exports / solution helpers
 */html/
+*/web/
 snippet.js
 solution.css
 
+.vs/
+*.ipch
 
-# macOS Files
+# macOS
 .DS_Store
-xcuserdata
-.vs
+.AppleDouble
+.LSOverride
 
-# VS studio build directories
-bin
-tmp
+# Xcode user-specific files
+*.xcuserstate
+*.xcuserdata/
+xcuserdata/
+
+# Xcode build output
+build/
+DerivedData/
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Package.resolved
+
+# CocoaPods
+Pods/
+
+# Carthage
+Carthage/Build/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output/
+
+# Xcode archives / debug symbols
+*.xcarchive
+*.dSYM
+*.dSYM.zip
+
+# Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# Local config / secrets
+*.local
+*.env
+*.env.*
+
+# Visual Studio generated files
+*.vcxproj.user
+**/VS/bin/
+**/VS/tmp/
+**/VS/x64/
+**/VS/*/x64/
+**/x64/Debug/
+**/x64/Release/

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1500"
+   LastUpgradeVersion = "2620"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
-      buildImplicitDependencies = "YES">
+      buildImplicitDependencies = "YES"
+      buildArchitectures = "Automatic">
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"
@@ -15,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A231F0FE25EAF61A00CBFC23"
-               BuildableName = "16 LocalIllumination-Demo"
-               BlueprintName = "16 LocalIllumination-Demo"
-               ReferencedContainer = "container:16 LocalIllumination.xcodeproj">
+               BuildableName = "16 HelloGL-Demo"
+               BlueprintName = "16 HelloGL-Demo"
+               ReferencedContainer = "container:16 HelloGL.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +46,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A231F0FE25EAF61A00CBFC23"
-            BuildableName = "16 LocalIllumination-Demo"
-            BlueprintName = "16 LocalIllumination-Demo"
-            ReferencedContainer = "container:16 LocalIllumination.xcodeproj">
+            BuildableName = "16 HelloGL-Demo"
+            BlueprintName = "16 HelloGL-Demo"
+            ReferencedContainer = "container:16 HelloGL.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +63,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A231F0FE25EAF61A00CBFC23"
-            BuildableName = "16 LocalIllumination-Demo"
-            BlueprintName = "16 LocalIllumination-Demo"
-            ReferencedContainer = "container:16 LocalIllumination.xcodeproj">
+            BuildableName = "16 HelloGL-Demo"
+            BlueprintName = "16 HelloGL-Demo"
+            ReferencedContainer = "container:16 HelloGL.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

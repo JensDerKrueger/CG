@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		56302C382F4525F70052D368 /* libUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56302C372F4525F70052D368 /* libUtils.a */; };
+		56302C3B2F4525FD0052D368 /* libUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56302C3A2F4525FD0052D368 /* libUtils.a */; };
 		5677395325FB7BF000AB2341 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5677394C25FB7BF000AB2341 /* main.cpp */; };
+		56F619B52F3AA66600FAD236 /* fragmentShader.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 56F619B32F3AA65500FAD236 /* fragmentShader.frag */; };
+		56F619B62F3AA66600FAD236 /* vertexShader.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = 56F619B42F3AA65500FAD236 /* vertexShader.vert */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -16,17 +18,21 @@
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 12;
 			dstPath = "";
-			dstSubfolderSpec = 7;
+			dstSubfolderSpec = 16;
 			files = (
+				56F619B52F3AA66600FAD236 /* fragmentShader.frag in CopyFiles */,
+				56F619B62F3AA66600FAD236 /* vertexShader.vert in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		56302C372F4525F70052D368 /* libUtils.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libUtils.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56302C3A2F4525FD0052D368 /* libUtils.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libUtils.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5677394C25FB7BF000AB2341 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
-		A231F0FF25EAF61A00CBFC23 /* 15 HelloGL-Demo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "15 HelloGL-Demo"; sourceTree = BUILT_PRODUCTS_DIR; };
+		56F619B32F3AA65500FAD236 /* fragmentShader.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = fragmentShader.frag; path = Shader/fragmentShader.frag; sourceTree = "<group>"; };
+		56F619B42F3AA65500FAD236 /* vertexShader.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = vertexShader.vert; path = Shader/vertexShader.vert; sourceTree = "<group>"; };
+		A231F0FF25EAF61A00CBFC23 /* 17 LocalIllumination-Demo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "17 LocalIllumination-Demo"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,17 +40,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				56302C382F4525F70052D368 /* libUtils.a in Frameworks */,
+				56302C3B2F4525FD0052D368 /* libUtils.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		56302C362F4525F70052D368 /* Frameworks */ = {
+		56302C392F4525FD0052D368 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				56302C372F4525F70052D368 /* libUtils.a */,
+				56302C3A2F4525FD0052D368 /* libUtils.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -53,7 +59,9 @@
 			isa = PBXGroup;
 			children = (
 				5677394C25FB7BF000AB2341 /* main.cpp */,
-				56302C362F4525F70052D368 /* Frameworks */,
+				56F619B32F3AA65500FAD236 /* fragmentShader.frag */,
+				56F619B42F3AA65500FAD236 /* vertexShader.vert */,
+				56302C392F4525FD0052D368 /* Frameworks */,
 				A231F10025EAF61A00CBFC23 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -61,7 +69,7 @@
 		A231F10025EAF61A00CBFC23 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A231F0FF25EAF61A00CBFC23 /* 15 HelloGL-Demo */,
+				A231F0FF25EAF61A00CBFC23 /* 17 LocalIllumination-Demo */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -69,9 +77,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A231F0FE25EAF61A00CBFC23 /* 15 HelloGL-Demo */ = {
+		A231F0FE25EAF61A00CBFC23 /* 17 LocalIllumination-Demo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A231F10625EAF61A00CBFC23 /* Build configuration list for PBXNativeTarget "15 HelloGL-Demo" */;
+			buildConfigurationList = A231F10625EAF61A00CBFC23 /* Build configuration list for PBXNativeTarget "17 LocalIllumination-Demo" */;
 			buildPhases = (
 				A231F0FB25EAF61A00CBFC23 /* Sources */,
 				A231F0FC25EAF61A00CBFC23 /* Frameworks */,
@@ -81,9 +89,9 @@
 			);
 			dependencies = (
 			);
-			name = "15 HelloGL-Demo";
-			productName = "HelloGL-Demo";
-			productReference = A231F0FF25EAF61A00CBFC23 /* 15 HelloGL-Demo */;
+			name = "17 LocalIllumination-Demo";
+			productName = "LocalIllumination-Demo";
+			productReference = A231F0FF25EAF61A00CBFC23 /* 17 LocalIllumination-Demo */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -100,7 +108,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A231F0FA25EAF61A00CBFC23 /* Build configuration list for PBXProject "15 HelloGL" */;
+			buildConfigurationList = A231F0FA25EAF61A00CBFC23 /* Build configuration list for PBXProject "17 LocalIllumination" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -113,7 +121,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A231F0FE25EAF61A00CBFC23 /* 15 HelloGL-Demo */,
+				A231F0FE25EAF61A00CBFC23 /* 17 LocalIllumination-Demo */,
 			);
 		};
 /* End PBXProject section */
@@ -381,7 +389,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A231F0FA25EAF61A00CBFC23 /* Build configuration list for PBXProject "15 HelloGL" */ = {
+		A231F0FA25EAF61A00CBFC23 /* Build configuration list for PBXProject "17 LocalIllumination" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A231F10425EAF61A00CBFC23 /* Debug */,
@@ -390,7 +398,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A231F10625EAF61A00CBFC23 /* Build configuration list for PBXNativeTarget "15 HelloGL-Demo" */ = {
+		A231F10625EAF61A00CBFC23 /* Build configuration list for PBXNativeTarget "17 LocalIllumination-Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A231F10725EAF61A00CBFC23 /* Debug */,

@@ -44,10 +44,13 @@
       location = "group:14_TriangleRasterization/14 TriangleRasterization.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:15_HelloGL/15 HelloGL.xcodeproj">
+      location = "group:15_Clipping/15 Clipping.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:16_LocalIllumination/16 LocalIllumination.xcodeproj">
+      location = "group:16_HelloGL/16 HelloGL.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:17_LocalIllumination/17 LocalIllumination.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Utils/Utils.xcodeproj">

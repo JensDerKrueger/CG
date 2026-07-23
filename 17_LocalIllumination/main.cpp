@@ -55,7 +55,7 @@ struct Mesh {
 class LocalIlluminationApp : public GLApp {
 public:
   LocalIlluminationApp()
-    : GLApp(800, 600, 4, "Assignment 16 - Local Illumination"),
+    : GLApp(800, 600, 4, "Assignment 17 - Local Illumination"),
       arcBall(Vec2ui{800, 600}),
       phongProgram(GLProgram::createFromFile(shaderPath("vertexShader.vert"),
                                              shaderPath("fragmentShader.frag"),
@@ -303,7 +303,7 @@ private:
 
   void updateTitle() {
     std::stringstream title;
-    title << "Assignment 16 - Local Illumination | Mode: "
+    title << "Assignment 17 - Local Illumination | Mode: "
     << (interactionMode == InteractionMode::Objects ? "objects" : "light")
     << " | normals: " << (showNormals ? "on" : "off")
     << " | L: mode, N: normals, Up/Down: zoom, Left/Right: pan, Q/W: normal length, R: reset";

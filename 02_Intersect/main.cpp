@@ -1,13 +1,18 @@
+#include <ArcBall.h>
 #include <GLApp.h>
 #include <cmath>
 #include <optional>
 
 class MyGLApp : public GLApp {
 public:
-  Image image{1024,1024};
+  Image image{800,800};
+  ArcBall arcBall{Vec2ui{800,800}};
+  bool mouseDragActive{false};
+  Mat4 lightRotation{};
+  const Vec3 baseLightPos{0.0f,4.0f,0.0f};
   
-  MyGLApp() : GLApp{1024,1024,1,"Intersection Demo"} {}
-    
+  MyGLApp() : GLApp{800,800,1,"Intersection Demo"} {}
+
   std::optional<Vec3> raySphereIntersect(const Vec3& sphereCenter,
                                          const float& radius,
                                          const Vec3& rayOrigin,
@@ -35,12 +40,9 @@ public:
     const Vec3 ambient  = ambientColor;
     return specular + diffuse + ambient;
   }
-    
-  virtual void init() override {
-    GL(glDisable(GL_CULL_FACE));
-    GL(glClearColor(0,0,0,0));
-    
-    const Vec3 lightPos{0.0f,4.0f,0.0f};
+
+  void renderImage() {
+    const Vec3 lightPos = lightRotation * baseLightPos;
     const Vec3 sphereCenter{0.0f, 0.0f, -4.0f};
     const float radius = 2.0f;
     const Vec3 rayOrigin{0.0f, 0.0f, 4.0f};
@@ -69,9 +71,52 @@ public:
     }
   }
     
+  virtual void init() override {
+    GL(glDisable(GL_CULL_FACE));
+    GL(glClearColor(0,0,0,0));
+    renderImage();
+  }
+    
   virtual void draw() override {
     GL(glClear(GL_COLOR_BUFFER_BIT));
     drawImage(image);
+  }
+
+  virtual void resize(const Dimensions winDim, const Dimensions fbDim) override {
+    GLApp::resize(winDim, fbDim);
+    arcBall.setWindowSize(Vec2ui{winDim.width, winDim.height});
+  }
+
+  virtual void keyboard(int key, int scancode, int action, int mods) override {
+    if (action != GLENV_PRESS) return;
+
+    switch (key) {
+      case GLENV_KEY_R:
+        lightRotation = Mat4{};
+        renderImage();
+        break;
+      case GLENV_KEY_ESCAPE:
+        closeWindow();
+        break;
+      default:
+        break;
+    }
+  }
+
+  virtual void mouseButton(int button, int state, int mods, double xPosition, double yPosition) override {
+    if (button != GLENV_MOUSE_BUTTON_LEFT) return;
+
+    mouseDragActive = state == GLENV_MOUSE_PRESS;
+    if (mouseDragActive) {
+      arcBall.click(Vec2ui{uint32_t(xPosition), uint32_t(yPosition)});
+    }
+  }
+
+  virtual void mouseMove(double xPosition, double yPosition) override {
+    if (!mouseDragActive) return;
+
+    lightRotation = arcBall.drag(Vec2ui{uint32_t(xPosition), uint32_t(yPosition)}).computeRotation() * lightRotation;
+    renderImage();
   }
 
 } myApp;
