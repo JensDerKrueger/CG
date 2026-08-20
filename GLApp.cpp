@@ -1199,7 +1199,7 @@ void GLApp::initScript(const std::vector<std::string>& args) {
                                 );
 
     interpreter.registerCommand(
-                                "logGLInfo",
+                                "logGPUInfo",
                                 [this](bool includeExtensions) -> CommandResultCode {
                                   const std::string result = glEnv.getOpenGlInfoString(includeExtensions);
                                   if (writeScriptLog(result)) {
