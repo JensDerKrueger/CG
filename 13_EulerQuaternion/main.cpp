@@ -56,9 +56,12 @@ public:
   }
 
   Quaternion axisAngleQuaternion(const Vec3& axis, const float degrees) const {
-    // The sign matches the rotation convention used by Mat4::rotationX/Y/Z.
-    const float halfAngle = -degrees * Tessellation::PI / 360.0f;
-    return {axis * std::sin(halfAngle), std::cos(halfAngle)};
+    // TODO Task 2:
+    // Build a unit quaternion from axis-angle representation. The vector part
+    // is axis * sin(halfAngle), the scalar part is cos(halfAngle). Convert
+    // degrees to radians with Tessellation::PI. The sign should match the
+    // rotation convention used by Mat4::rotationX/Y/Z.
+    return {{0.0f, 0.0f, 0.0f}, 1.0f};
   }
 
   Mat4 computeEulerRotation() const {
@@ -75,7 +78,7 @@ public:
   }
 
   void rotateQuaternion(const Vec3& axis, const float degrees) {
-    // TODO Task 2:
+    // TODO Task 3:
     // Create a small delta rotation with axisAngleQuaternion(...) and compose
     // it with quaternionRotation. Use delta * quaternionRotation if the key
     // should rotate around the fixed coordinate axes.
