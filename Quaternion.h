@@ -33,6 +33,15 @@ public:
     w(other.w)
   {}
 
+  Quaternion operator*(const Quaternion& other) const {
+    return {
+      w * other.x + x * other.w + y * other.z - z * other.y,
+      w * other.y - x * other.z + y * other.w + z * other.x,
+      w * other.z + x * other.y - y * other.x + z * other.w,
+      w * other.w - x * other.x - y * other.y - z * other.z
+    };
+  }
+
   Mat4 computeRotation() const {
     float n, s;
     float xs, ys, zs;
