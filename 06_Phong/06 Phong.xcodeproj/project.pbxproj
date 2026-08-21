@@ -383,6 +383,7 @@
 					/opt/homebrew/lib,
 					/usr/local/lib/,
 				);
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				OTHER_LDFLAGS = (
 					"-lglfw",
 					"-lGLEW",
@@ -411,6 +412,7 @@
 					/opt/homebrew/lib,
 					/usr/local/lib/,
 				);
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				OTHER_LDFLAGS = (
 					"-lglfw",
 					"-lGLEW",

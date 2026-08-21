@@ -38,19 +38,22 @@
       location = "group:12_Triforce/12 Triforce.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:13_LineRasterization/13 LineRasterization.xcodeproj">
+      location = "group:13_EulerQuaternion/13 EulerQuaternion.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:14_TriangleRasterization/14 TriangleRasterization.xcodeproj">
+      location = "group:14_LineRasterization/14 LineRasterization.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:15_Clipping/15 Clipping.xcodeproj">
+      location = "group:15_TriangleRasterization/15 TriangleRasterization.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:16_HelloGL/16 HelloGL.xcodeproj">
+      location = "group:16_Clipping/16 Clipping.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:17_LocalIllumination/17 LocalIllumination.xcodeproj">
+      location = "group:17_HelloGL/17 HelloGL.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:18_LocalIllumination/18 LocalIllumination.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Utils/Utils.xcodeproj">
