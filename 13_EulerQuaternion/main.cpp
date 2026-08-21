@@ -21,7 +21,7 @@ public:
   std::shared_ptr<FontEngine> fontEngine{nullptr};
   std::vector<float> cube{makeCubeData()};
   Vec3 rotationAngles{0.0f, 0.0f, 0.0f};
-  Quaternion quaternionRotation{0.0f, 0.0f, 0.0f, 1.0f};
+  Quaternion quaternionRotation{{0.0f, 0.0f, 0.0f}, 1.0f};
   RotationMode rotationMode{RotationMode::Euler};
 
   MyGLApp()
@@ -83,7 +83,7 @@ public:
 
   void resetRotation() {
     rotationAngles = {0.0f, 0.0f, 0.0f};
-    quaternionRotation = {0.0f, 0.0f, 0.0f, 1.0f};
+    quaternionRotation = {{0.0f, 0.0f, 0.0f}, 1.0f};
   }
 
   void drawStatusText() {
