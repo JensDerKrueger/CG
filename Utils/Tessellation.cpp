@@ -1,8 +1,6 @@
 #include <cmath>
 #include "Vec2.h"
 
-constexpr float PI = 3.14159265358979323846f;
-
 #include "Tessellation.h"
 
 Tessellation Tessellation::genSphere(const Vec3& center, const float radius, const uint32_t sectorCount, const uint32_t stackCount) {

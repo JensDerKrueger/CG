@@ -5,6 +5,8 @@
 
 class Tessellation {
 public:
+  static constexpr float PI = 3.14159265358979323846f;
+
   static Tessellation genSphere(const Vec3& center, const float radius, const uint32_t sectorCount, const uint32_t stackCount);
   static Tessellation genRectangle(const Vec3& center, const float width, const float height);
   static Tessellation genRectangle(const Vec3& a, const Vec3& b, const Vec3& c, const Vec3& d);
