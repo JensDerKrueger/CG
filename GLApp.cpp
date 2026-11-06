@@ -349,6 +349,15 @@ void GLApp::run() {
 #endif
 }
  
+bool GLApp::isFocused() const {
+#ifdef __EMSCRIPTEN__
+  return EM_ASM_INT({ return document.hasFocus(); }) != 0;
+#else
+  GLFWwindow* window = glfwGetCurrentContext();
+  return window && glfwGetWindowAttrib(window, GLFW_FOCUSED) == GLFW_TRUE;
+#endif
+}
+
 void GLApp::resize(const Dimensions winDim, const Dimensions fbDim) {
   GL(glViewport(0, 0, GLsizei(fbDim.width), GLsizei(fbDim.height)));
 }
