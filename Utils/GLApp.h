@@ -37,6 +37,7 @@ public:
         const std::vector<std::string>& args = {});
   virtual ~GLApp();
   void run();
+  bool isFocused() const;
 
   void setBackground(float r, float g, float b, float a) { setBackground(Vec4(r,g,b,a));}
   void setBackground(const Vec4& color) { background = color;}
